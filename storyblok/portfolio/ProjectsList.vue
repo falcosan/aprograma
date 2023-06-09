@@ -1,7 +1,13 @@
 <template>
   <div v-if="sortedProject.length > 0" class="projects w-full">
     <ProjectSlider
-      v-if="$store.state.data.windowWidth >= 1024 && blok.show_slider && !blok.row_container && sortedProject.length > 2 && !sliderMode"
+      v-if="
+        $store.state.data.windowWidth >= 1024 &&
+        blok.show_slider &&
+        !blok.row_container &&
+        sortedProject.length > 2 &&
+        !sliderMode
+      "
       :blok="sortedProject"
     />
     <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
@@ -20,8 +26,8 @@
   </div>
 </template>
 <script>
-import ProjectSlider from './ProjectSliderComponent'
-import ProjectTeaser from './ProjectTeaserComponent'
+import ProjectSlider from './ProjectSliderComponent';
+import ProjectTeaser from './ProjectTeaserComponent';
 export default {
   components: { ProjectSlider, ProjectTeaser },
   props: {
@@ -46,35 +52,44 @@ export default {
       default: false
     }
   },
-  fetch () {
-    if (this.$route.name !== 'portfolio') { this.$store.dispatch('list/projects/addProjects') }
+  fetch() {
+    if (this.$route.name !== 'portfolio') {
+      this.$store.dispatch('list/projects/addProjects');
+    }
   },
   computed: {
-    maxProjects () {
+    maxProjects() {
       if (this.sliderMode || this.carouselMode || this.containerMode) {
         if (this.containerWidth >= 536) {
-          return 'md:grid-cols-fill-medium lg:grid-cols-fill-big'
-        } return this.containerWidth >= 354 ? 'md:grid-cols-fill-medium' : this.sliderMode ? 'sm:grid-cols-fill-small' : 'sm:grid-cols-fill-small md:grid-cols-fill-medium'
+          return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
+        }
+        return this.containerWidth >= 354
+          ? 'md:grid-cols-fill-medium'
+          : this.sliderMode
+          ? 'sm:grid-cols-fill-small'
+          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
       } else {
-        return 'md:grid-cols-fill-medium lg:grid-cols-fill-big'
+        return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
       }
     },
-    sortedProject () {
-      const featuredProjects = this.$store.state.list.projects.items.filter((project) => {
-        return this.blok.projects.includes(project.uuid)
-      })
+    sortedProject() {
+      const featuredProjects = this.$store.state.list.projects.items.filter(project => {
+        return this.blok.projects.includes(project.uuid);
+      });
       featuredProjects.sort((a, b) => {
-        return this.blok.projects.indexOf(a.uuid) - this.blok.projects.indexOf(b.uuid)
-      })
-      return featuredProjects
+        return this.blok.projects.indexOf(a.uuid) - this.blok.projects.indexOf(b.uuid);
+      });
+      return featuredProjects;
     }
   },
   watch: {
     '$store.state.language.language': {
-      handler () {
-        if (this.$route.name !== 'portfolio') { this.$fetch() }
+      handler() {
+        if (this.$route.name !== 'portfolio') {
+          this.$fetch();
+        }
       }
     }
   }
-}
+};
 </script>

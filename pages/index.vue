@@ -20,5 +20,5 @@ const {
 );
 </script>
 <template>
-  <PageComponent :key="story.content._uid" :blok="story.content" />
+  <StoryblokComponent :key="story.content._uid" :blok="story.content" />
 </template>

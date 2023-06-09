@@ -7,7 +7,7 @@
       { 'w-full': sliderMode },
       sliderMode || carouselMode || containerMode
         ? 'flex items-center justify-center self-center'
-        : 'block',
+        : 'block'
     ]"
     :active-class="
       blok.external_link
@@ -75,9 +75,7 @@
     :target="externalLink ? '_blank' : false"
     :title="title && iconItem ? title : false"
   >
-    <span v-if="title && !iconItem" class="item-text break-words">{{
-      title
-    }}</span>
+    <span v-if="title && !iconItem" class="item-text break-words">{{ title }}</span>
     <slot v-else name="icon" />
   </component>
 </template>
@@ -86,56 +84,56 @@ export default {
   props: {
     blok: {
       type: Object,
-      default: undefined,
+      default: undefined
     },
     externalLink: {
       type: Boolean,
-      default: false,
+      default: false
     },
     to: {
       type: String,
-      default: "",
+      default: ''
     },
     active: {
       type: String,
-      default: "",
+      default: ''
     },
     setActive: {
       type: String,
-      default: "",
+      default: ''
     },
     iconTag: {
       type: String,
-      default: "",
+      default: ''
     },
     title: {
       type: String,
-      default: "",
+      default: ''
     },
     iconItem: {
       type: Boolean,
-      default: false,
+      default: false
     },
     iconStyle: {
       type: String,
-      default: "",
+      default: ''
     },
     containerWidth: {
       type: Number,
-      default: 0,
+      default: 0
     },
     sliderMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     carouselMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     containerMode: {
       type: Boolean,
-      default: false,
-    },
-  },
+      default: false
+    }
+  }
 };
 </script>

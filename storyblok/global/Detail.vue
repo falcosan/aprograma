@@ -10,8 +10,8 @@
             : 'mt-5 ml-10 mr-5'
           : 'sm:text-xl'
       }`"
-      v-text="blok.title"
-    />
+      >{{ blok.title }}</component
+    >
     <div class="detail-content grid gap-5 md:grid-flow-col auto-cols-fr rounded">
       <ul
         :class="`image-container grid gap-5 w-full justify-items-center auto-rows-max ${
@@ -170,7 +170,7 @@
   </div>
 </template>
 <script>
-import Modal from './ModalComponent';
+import Modal from './Modal';
 import markdown from '~/mixins/markdown';
 export default {
   components: { Modal },

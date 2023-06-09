@@ -14,17 +14,13 @@
         icon-item
         external-link
         :to="blok.url_project"
-        :title="`${$languageCase('link to', 'enlace por', 'link per')} ${
-          blok.title
-        }`"
+        :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
       >
         <template #icon>
           <Icon
             link
             :class="`project-external mr-2.5 rounded ${
-              !$device.isDesktop
-                ? ''
-                : 'hover:shadow transition-shadow duration-100'
+              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
             }`"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
@@ -40,11 +36,7 @@
         class="project-private mr-5 text-xs"
         v-text="
           !blok.url_project
-            ? $languageCase(
-                'private project',
-                'proyecto privado',
-                'progetto privato'
-              )
+            ? $languageCase('private project', 'proyecto privado', 'progetto privato')
             : ''
         "
       />
@@ -59,9 +51,7 @@
           <Icon
             git
             :class="`project-repository mr-2.5 rounded ${
-              !$device.isDesktop
-                ? ''
-                : 'hover:shadow transition-shadow duration-100'
+              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
             }`"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
@@ -81,9 +71,7 @@
           '#e0e0e0'
         )}; color: ${$binaryControl(blok.text_color, 'color')};`"
         :class="`project-back rounded ${
-          !$device.isDesktop
-            ? ''
-            : 'hover:shadow transition-shadow duration-100'
+          !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
         }`"
         size="w-10 h-10 p-3"
         @click="$goBack"
@@ -96,10 +84,7 @@
         close-mode
       >
         <template #activator="action">
-          <div
-            class="image-container w-full my-0 mx-auto cursor-pointer"
-            @click="action.open()"
-          >
+          <div class="image-container w-full my-0 mx-auto cursor-pointer" @click="action.open()">
             <ImageSet
               class="intro-image h-full w-full aspect-[11/10] md:aspect-[11/9] border-t-2 border-b-2 object-cover rounded select-none"
               :src="blok.image.filename"
@@ -107,11 +92,7 @@
               :alt="blok.image.alt"
               width="984"
               height="805"
-              :style="`border-color: ${$binaryControl(
-                blok.background_color,
-                'color',
-                'e0e0e0'
-              )}`"
+              :style="`border-color: ${$binaryControl(blok.background_color, 'color', 'e0e0e0')}`"
               sizes="xs:299px sm:380px md:514px lg:711px xl:804px 2xl:984px"
             />
           </div>
@@ -153,13 +134,13 @@
           {{ changeDate(blok.start_date) }}
         </span>
         <p class="date-to text-center">
-          {{ $languageCase("to", "hasta", "al") }}
+          {{ $languageCase('to', 'hasta', 'al') }}
         </p>
         <span class="date-end text-left">
           {{
             blok.end_date
               ? changeDate(blok.end_date)
-              : $languageCase("present", "presente", "presente")
+              : $languageCase('present', 'presente', 'presente')
           }}
         </span>
       </div>
@@ -172,17 +153,13 @@
           icon-item
           external-link
           :to="blok.url_project"
-          :title="`${$languageCase('link to', 'enlace por', 'link per')} ${
-            blok.title
-          }`"
+          :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
         >
           <template #icon>
             <Icon
               link
               :class="`project-external mr-2.5 rounded ${
-                !$device.isDesktop
-                  ? ''
-                  : 'hover:shadow transition-shadow duration-100'
+                !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
               }`"
               :style="`background-color: ${$binaryControl(
                 blok.background_color,
@@ -198,11 +175,7 @@
           class="project-private mr-5 text-xs"
           v-text="
             !blok.url_project
-              ? $languageCase(
-                  'private project',
-                  'proyecto privado',
-                  'progetto privato'
-                )
+              ? $languageCase('private project', 'proyecto privado', 'progetto privato')
               : ''
           "
         />
@@ -217,9 +190,7 @@
             <Icon
               git
               :class="`project-repository mr-2.5 rounded ${
-                !$device.isDesktop
-                  ? ''
-                  : 'hover:shadow transition-shadow duration-100'
+                !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
               }`"
               :style="`background-color: ${$binaryControl(
                 blok.background_color,
@@ -239,27 +210,16 @@
             'e0e0e0'
           )}; color: ${$binaryControl(blok.text_color, 'color')};`"
           :class="`project-back rounded ${
-            !$device.isDesktop
-              ? ''
-              : 'hover:shadow transition-shadow duration-100'
+            !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
           }`"
           size="w-10 h-10 p-3"
           @click="$goBack"
         />
       </div>
     </div>
-    <div
-      v-if="checkDetail"
-      class="project-details grid gap-5 col-start-1 col-end-4 mt-10"
-    >
+    <div v-if="checkDetail" class="project-details grid gap-5 col-start-1 col-end-4 mt-10">
       <h1 class="detail-project text-xl sm:text-2xl">
-        {{
-          $languageCase(
-            "Project details",
-            "Detalles del proyecto",
-            "Dettagli del progetto"
-          )
-        }}
+        {{ $languageCase('Project details', 'Detalles del proyecto', 'Dettagli del progetto') }}
       </h1>
       <component
         :is="description.component"
@@ -271,42 +231,42 @@
   </div>
 </template>
 <script>
-import Modal from "../global/ModalComponent";
-import markdown from "~/mixins/markdown";
+import Modal from '../global/ModalComponent';
+import markdown from '~/mixins/markdown';
 export default {
-  mixins: [markdown],
   components: { Modal },
+  mixins: [markdown],
   props: {
     blok: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     setAlignText() {
       switch (this.blok.align_text) {
-        case "right":
-          return "text-right";
-        case "center":
-          return "text-center";
-        case "justify":
-          return "text-justify";
+        case 'right':
+          return 'text-right';
+        case 'center':
+          return 'text-center';
+        case 'justify':
+          return 'text-justify';
       }
-      return "";
+      return '';
     },
     checkDetail() {
       return this.blok.body?.length > 0;
-    },
+    }
   },
   methods: {
     changeDate(date) {
-      const currentDateTime = new Date(date.replace(" ", "T"));
+      const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${
         currentDateTime.getMonth() + 1
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
@@ -315,11 +275,11 @@ export default {
     @apply h-full;
   }
   .intro-image::before {
-    content: "";
+    content: '';
     @apply float-left pt-[calc((10_/_11)_*_100%)] md:pt-[calc((9_/_11)_*_100%)];
   }
   .intro-image::after {
-    content: "";
+    content: '';
     @apply block clear-both;
   }
 }

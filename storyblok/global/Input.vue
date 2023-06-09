@@ -27,16 +27,16 @@ export default {
   props: {
     blok: {
       type: Object,
-      default: undefined,
+      default: undefined
     },
     type: {
       type: String,
-      default: "",
+      default: ''
     },
     text: {
       type: String,
-      default: "",
-    },
-  },
+      default: ''
+    }
+  }
 };
 </script>

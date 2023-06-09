@@ -8,7 +8,7 @@
         }`"
       >
         <component
-          :is="blok.file.filename ? lookFile : 'ImageSet'"
+          :is="blok.file.filename ? lookFile ?? 'ImageSet' : 'ImageSet'"
           :format="checkImage ? 'webp' : false"
           class="post-file w-full h-full aspect-[13/8] object-center select-none object-cover"
           :alt="
@@ -16,19 +16,13 @@
               ? lookFile === 'ImageSet'
                 ? blok.file.alt
                 : false
-              : $languageCase(
-                  'quantum vacuum',
-                  'vacío cuántico',
-                  'vuoto quantistico'
-                )
+              : $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
           "
           :src="setFile"
           :file="blok.file"
           :width="checkImage ? '1366' : false"
           :height="checkImage ? '707' : false"
-          :sizes="
-            checkImage ? 'xs:380px sm:514px md:711px lg:804px xl:1366px' : false
-          "
+          :sizes="checkImage ? 'xs:380px sm:514px md:711px lg:804px xl:1366px' : false"
         />
       </div>
     </div>
@@ -42,9 +36,7 @@
         <Icon
           arrow
           :style="`background-color: ${
-            blok.background_color.color
-              ? blok.background_color.color
-              : '#e0e0e0'
+            blok.background_color.color ? blok.background_color.color : '#e0e0e0'
           }; color: ${blok.text_color.color};`"
           class="post-close rounded shadow"
           tag="button"
@@ -59,33 +51,22 @@
           v-text="blok.intro"
         />
         <div class="post-info">
-          <p
-            :style="`color: ${blok.text_color.color};`"
-            class="post-author text-sm font-semibold"
-          >
-            {{ $languageCase("by", "de", "di") }}
-            {{
-              blok.author
-                ? blok.author
-                : $languageCase("Anonymous", "Anónimo", "Anonimo")
-            }}
+          <p :style="`color: ${blok.text_color.color};`" class="post-author text-sm font-semibold">
+            {{ $languageCase('by', 'de', 'di') }}
+            {{ blok.author ? blok.author : $languageCase('Anonymous', 'Anónimo', 'Anonimo') }}
           </p>
           <p
             :style="`color: ${blok.text_color.color};`"
             class="post-date mt-2.5 text-xs"
             v-text="changeDate(blok.date)"
           />
-          <ul
-            class="post-categories flex flex-wrap justify-end mt-5 -mb-1.5 -mx-1.5"
-          >
+          <ul class="post-categories flex flex-wrap justify-end mt-5 -mb-1.5 -mx-1.5">
             <li
               v-for="(category, index) in sortedCategories"
               :key="index"
               class="post-category self-start m-1.5 p-2 text-center text-xs rounded shadow italic brightness-90"
               :style="`background-color: ${
-                blok.background_color.color
-                  ? blok.background_color.color
-                  : '#e0e0e0'
+                blok.background_color.color ? blok.background_color.color : '#e0e0e0'
               }; color: ${blok.text_color.color};`"
             >
               {{ category }}
@@ -102,78 +83,77 @@
   </div>
 </template>
 <script>
-import markdown from "~/mixins/markdown";
+import markdown from '~/mixins/markdown';
 export default {
   mixins: [markdown],
   props: {
     blok: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     lookFile() {
-      switch (this.blok.file.filename.toLowerCase().split(".").pop()) {
-        case "pdf":
-          return "embed";
-        case "jpg":
-        case "jpeg":
-        case "png":
-        case "gif":
-        case "svg":
-        case "webp":
-        case "bmp":
-        case "tiff":
-          return "ImageSet";
+      switch (this.blok.file.filename.toLowerCase().split('.').pop()) {
+        case 'pdf':
+          return 'embed';
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'gif':
+        case 'svg':
+        case 'webp':
+        case 'bmp':
+        case 'tiff':
+          return 'ImageSet';
+        default:
+          return null;
       }
     },
     setFile() {
       return this.blok.file.filename
         ? this.blok.file.filename
-        : "https://a.storyblok.com/f/106240/4067x2440/49d9d1a222/noimagedetail.png";
+        : 'https://a.storyblok.com/f/106240/4067x2440/49d9d1a222/noimagedetail.png';
     },
     sortedCategories() {
       return this.blok.categories
-        .map(
-          (category) =>
-            category.toLowerCase().split("; ")[this.$languageCase(0, 1, 2)]
-        )
+        .map(category => category.toLowerCase().split('; ')[this.$languageCase(0, 1, 2)])
         .sort();
     },
     checkImage() {
-      return this.lookFile === "ImageSet" || !this.blok.file.filename;
+      return this.lookFile === 'ImageSet' || !this.blok.file.filename;
     },
     setAlignText() {
       switch (this.blok.align_text) {
-        case "right":
-          return "text-right";
-        case "center":
-          return "text-center";
-        case "justify":
-          return "text-justify";
+        case 'right':
+          return 'text-right';
+        case 'center':
+          return 'text-center';
+        case 'justify':
+          return 'text-justify';
       }
-      return "";
-    },
+      return '';
+    }
   },
   methods: {
     changeDate(date) {
-      const currentDateTime = new Date(date.replace(" ", "T"));
+      const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${
         currentDateTime.getMonth() + 1
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {
   .post-file::before {
-    content: "";
+    content: '';
     @apply float-left pt-[calc((8_/_13)_*_100%)];
   }
   .post-file::after {
-    content: "";
+    content: '';
     @apply block clear-both;
   }
 }

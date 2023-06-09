@@ -3,9 +3,7 @@
     <div v-if="blok.search_action" class="post-search grid self-start mb-5">
       <input
         v-model="searchTerm"
-        :placeholder="
-          $languageCase('Search the post', 'Busca el post', 'Cerca il post')
-        "
+        :placeholder="$languageCase('Search the post', 'Busca el post', 'Cerca il post')"
         class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
         type="text"
       />
@@ -58,9 +56,7 @@
           >
             <Input
               :class="`category-input w-full text-left rounded pointer-events-none italic truncate transition-all ${
-                comparedCategories.includes(filter.value)
-                  ? 'bg-neutral-500'
-                  : 'bg-transparent'
+                comparedCategories.includes(filter.value) ? 'bg-neutral-500' : 'bg-transparent'
               }`"
               type="button"
               :text="filter.render"
@@ -70,9 +66,7 @@
               tag="span"
               size="w-2.5 h-2.5"
               :class="`px-4 pointer-events-none transition ${
-                comparedCategories.includes(filter.value)
-                  ? ''
-                  : 'transform rotate-45'
+                comparedCategories.includes(filter.value) ? '' : 'transform rotate-45'
               }`"
             />
           </li>
@@ -83,13 +77,7 @@
             <Input
               class="reset-input w-full bg-gray-200"
               type="button"
-              :text="
-                $languageCase(
-                  'Clear filters',
-                  'Borrar filtros',
-                  'Rimuovi filtri'
-                )
-              "
+              :text="$languageCase('Clear filters', 'Borrar filtros', 'Rimuovi filtri')"
             />
           </li>
         </ul>
@@ -124,78 +112,74 @@
 </template>
 
 <script>
-import PostTeaser from "./PostTeaserComponent";
+import PostTeaser from './PostTeaserComponent';
 export default {
   components: { PostTeaser },
   props: {
     blok: {
       type: Object,
-      required: true,
+      required: true
     },
     containerWidth: {
       type: Number,
-      default: 0,
+      default: 0
     },
     containerMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     sliderMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     carouselMode: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
-      searchTerm: "",
+      searchTerm: '',
       searchCategory: [],
-      showFilters: false,
+      showFilters: false
     };
   },
   fetch() {
-    if (this.$route.name !== "blog") {
-      this.$store.dispatch("list/posts/addPosts");
+    if (this.$route.name !== 'blog') {
+      this.$store.dispatch('list/posts/addPosts');
     }
   },
   computed: {
     maxPosts() {
       if (this.sliderMode || this.carouselMode || this.containerMode) {
         if (this.containerWidth >= 536) {
-          return "md:grid-cols-fill-medium lg:grid-cols-fill-big";
+          return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
         }
         return this.containerWidth >= 354
-          ? "md:grid-cols-fill-medium"
+          ? 'md:grid-cols-fill-medium'
           : this.sliderMode
-          ? "sm:grid-cols-fill-small"
-          : "sm:grid-cols-fill-small md:grid-cols-fill-medium";
+          ? 'sm:grid-cols-fill-small'
+          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
       } else {
-        return "md:grid-cols-fill-medium lg:grid-cols-fill-big";
+        return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
       }
     },
     sortedPosts() {
-      const featuredPosts = this.$store.state.list.posts.items.filter(
-        (post) => {
-          return this.blok.posts.includes(post.uuid);
-        }
-      );
+      const featuredPosts = this.$store.state.list.posts.items.filter(post => {
+        return this.blok.posts.includes(post.uuid);
+      });
       featuredPosts.sort((a, b) => {
-        return (
-          this.blok.posts.indexOf(a.uuid) - this.blok.posts.indexOf(b.uuid)
-        );
+        return this.blok.posts.indexOf(a.uuid) - this.blok.posts.indexOf(b.uuid);
       });
       return featuredPosts;
     },
     sortedCategories() {
       return this.blok.categories
-        .map((category) => {
-          const mapCategory = category.toLowerCase().split("; ");
-          return mapCategory.map((render) => ({
+        .map(category => {
+          const mapCategory = category.toLowerCase().split('; ');
+          return mapCategory.map(render => ({
             render,
-            value: mapCategory[0],
+            value: mapCategory[0]
           }))[this.$languageCase(0, 1, 2)];
         })
         .sort((a, b) => a.render.localeCompare(b.render));
@@ -233,55 +217,48 @@ export default {
       );
     },
     filterByTerms() {
-      return this.sortedPosts.filter((post) =>
+      return this.sortedPosts.filter(post =>
         `${post.content.title} ${post.content.intro}`
           .toLowerCase()
           .includes(this.searchTerm.toLowerCase())
       );
     },
     filterByCategory() {
-      return this.sortedPosts.filter((post) =>
-        post.content.categories.some((postCategory) =>
-          this.comparedCategories.includes(
-            postCategory.toLowerCase().split("; ")[0]
-          )
+      return this.sortedPosts.filter(post =>
+        post.content.categories.some(postCategory =>
+          this.comparedCategories.includes(postCategory.toLowerCase().split('; ')[0])
         )
       );
     },
     filterBoth() {
-      return this.filterByTerms.filter((post) =>
-        post.content.categories.some((postCategory) =>
-          this.comparedCategories.includes(
-            postCategory.toLowerCase().split("; ")[0]
-          )
+      return this.filterByTerms.filter(post =>
+        post.content.categories.some(postCategory =>
+          this.comparedCategories.includes(postCategory.toLowerCase().split('; ')[0])
         )
       );
-    },
+    }
   },
   watch: {
-    "$store.state.language.language": {
+    '$store.state.language.language': {
       handler() {
-        if (this.$route.name !== "blog") {
+        if (this.$route.name !== 'blog') {
           this.$fetch();
         }
-      },
-    },
+      }
+    }
   },
   methods: {
     filterSearch(filter) {
       if (!this.comparedCategories.includes(filter.value)) {
         this.searchCategory.push(filter);
       } else {
-        this.searchCategory.splice(
-          this.comparedCategories.indexOf(filter.value),
-          1
-        );
+        this.searchCategory.splice(this.comparedCategories.indexOf(filter.value), 1);
       }
     },
     showCategories() {
       this.searchCategory = [];
       this.showFilters = !this.showFilters;
-    },
-  },
+    }
+  }
 };
 </script>

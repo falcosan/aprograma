@@ -14,9 +14,7 @@
           ref="slide"
           :key="project.uuid"
           :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${
-            index % 2 === 0
-              ? 'row-start-1 row-end-1 self-end'
-              : 'row-start-2 row-end-2 self-start'
+            index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
           }`"
           tabindex="0"
           @keydown.right.prevent="next"
@@ -40,19 +38,14 @@
             >
               <h2
                 class="project-text text-xl sm:text-2xl px-10 overflow-hidden"
-                :style="`color: ${$binaryControl(
-                  project.content.text_color,
-                  'color'
-                )};`"
+                :style="`color: ${$binaryControl(project.content.text_color, 'color')};`"
               >
                 {{ project.content.title }}
               </h2>
             </div>
             <div
               :class="`image-container flex row-start-1 row-end-1 ${
-                index % 2 == 0
-                  ? 'col-start-2 col-end-2'
-                  : 'col-start-1 col-end-1'
+                index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
               }`"
             >
               <ImageSet
@@ -77,13 +70,7 @@
             : 'row-start-2 row-end-2 self-start'
         }`"
       >
-        <Icon
-          class="w-full h-full"
-          restart
-          size="w-14 h-14"
-          tag="button"
-          @click="next"
-        />
+        <Icon class="w-full h-full" restart size="w-14 h-14" tag="button" @click="next" />
       </li>
     </transition-group>
     <transition-group
@@ -99,25 +86,13 @@
         :key="`${indexControls}-1`"
         class="next-control absolute right-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
       >
-        <Icon
-          next
-          class="next"
-          size="p-3 w-9 h-9"
-          tag="button"
-          @click="next"
-        />
+        <Icon next class="next" size="p-3 w-9 h-9" tag="button" @click="next" />
       </span>
       <span
         :key="`${indexControls}-2`"
         class="previous-control absolute left-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
       >
-        <Icon
-          previous
-          class="previous"
-          size="p-3 w-9 h-9"
-          tag="button"
-          @click="prev"
-        />
+        <Icon previous class="previous" size="p-3 w-9 h-9" tag="button" @click="prev" />
       </span>
     </transition-group>
   </div>
@@ -127,52 +102,49 @@ export default {
   props: {
     blok: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
-      transitionActive: "translation-all duration-500",
+      transitionActive: 'translation-all duration-500',
       indexControls: 0,
       focusDisable: false,
       frame: {
         up: 0,
-        down: 1,
+        down: 1
       },
       translation: {
-        enter: "",
-        leave: "",
-      },
+        enter: '',
+        leave: ''
+      }
     };
+  },
+  computed: {
+    portfolioRoute() {
+      return /portfolio/.test(window.location.pathname) ? '' : 'portfolio/';
+    }
   },
   updated() {
     this.focusSlide();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.resetData();
-  },
-  computed: {
-    portfolioRoute() {
-      return /portfolio/.test(window.location.pathname) ? "" : "portfolio/";
-    },
   },
   methods: {
     next() {
-      if (
-        this.blok.length - 1 > this.frame.up &&
-        this.blok.length > this.frame.down
-      ) {
+      if (this.blok.length - 1 > this.frame.up && this.blok.length > this.frame.down) {
         this.indexControls++;
         this.frame.up++;
         this.frame.down++;
-        this.translation.enter = "translate-x-full";
-        this.translation.leave = "-translate-x-full";
+        this.translation.enter = 'translate-x-full';
+        this.translation.leave = '-translate-x-full';
       } else {
         this.indexControls = 0;
         this.frame.up = 0;
         this.frame.down = 1;
-        this.translation.enter = "";
-        this.translation.leave = "";
+        this.translation.enter = '';
+        this.translation.leave = '';
       }
     },
     prev() {
@@ -180,23 +152,23 @@ export default {
         this.indexControls--;
         this.frame.up--;
         this.frame.down--;
-        this.translation.enter = "-translate-x-full";
-        this.translation.leave = "translate-x-full";
+        this.translation.enter = '-translate-x-full';
+        this.translation.leave = 'translate-x-full';
       } else {
         this.indexControls = this.blok.length - 1;
         this.frame.up = this.blok.length - 1;
         this.frame.down = this.blok.length;
-        this.translation.enter = "";
-        this.translation.leave = "";
+        this.translation.enter = '';
+        this.translation.leave = '';
       }
     },
     resetData() {
       this.indexControls = 0;
       this.frame.up = 0;
       this.frame.data = 1;
-      this.transitionActive = "";
-      this.translation.enter = "";
-      this.translation.leave = "";
+      this.transitionActive = '';
+      this.translation.enter = '';
+      this.translation.leave = '';
       this.focusDisable = true;
     },
     focusSlide() {
@@ -205,8 +177,8 @@ export default {
           this.$refs.slide[0].focus({ preventScroll: true });
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

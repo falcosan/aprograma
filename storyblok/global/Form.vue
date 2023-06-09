@@ -1,4 +1,4 @@
-<template></template>
+<template><div /></template>
 <!-- <div
     :class="`form relative w-full my-0 mx-auto overflow-hidden ${
       blok.reduce_width ? 'max-w-3xl' : ''

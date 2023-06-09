@@ -1,8 +1,5 @@
 <template>
-  <li
-    v-if="projectContent"
-    class="project-teaser w-full h-full overflow-hidden rounded"
-  >
+  <li v-if="projectContent" class="project-teaser w-full h-full overflow-hidden rounded">
     <NuxtLink
       :key="projectContent._uid"
       :to="`${portfolioRoute}${projectLink}`"
@@ -33,9 +30,7 @@
           )};`"
           class="title-container w-full flex flex-row items-center p-5"
         >
-          <span
-            class="teaser-title block overflow-hidden whitespace-nowrap text-ellipsis"
-          >
+          <span class="teaser-title block overflow-hidden whitespace-nowrap text-ellipsis">
             {{ projectContent.title }}</span
           >
         </div>
@@ -49,38 +44,38 @@ export default {
   props: {
     projectContent: {
       type: Object,
-      required: true,
+      required: true
     },
     projectLink: {
       type: String,
-      required: true,
+      required: true
     },
     rowContainer: {
       type: Boolean,
-      required: true,
+      required: true
     },
     carouselContainer: {
       type: Boolean,
-      required: true,
+      required: true
     },
     sliderContainer: {
       type: Boolean,
-      required: true,
+      required: true
     },
     containerContainer: {
       type: Boolean,
-      required: true,
+      required: true
     },
     containerWidth: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   computed: {
     portfolioRoute() {
-      return /portfolio/.test(window.location.pathname) ? "" : "portfolio/";
-    },
-  },
+      return /portfolio/.test(window.location.pathname) ? '' : 'portfolio/';
+    }
+  }
 };
 </script>
 <style scoped>

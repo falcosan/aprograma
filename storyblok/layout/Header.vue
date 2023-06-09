@@ -129,8 +129,8 @@
   </header>
 </template>
 <script>
-import Logo from '../global/LogoComponent';
-import Translate from './TranslateComponent';
+import Logo from '@/storyblok/global/Logo';
+import Translate from '@/storyblok/layout/Translate';
 import enums from '@/enum';
 import screen from '@/mixins/screen';
 export default defineNuxtComponent({

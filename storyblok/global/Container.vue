@@ -27,8 +27,7 @@
     >
       <div
         v-if="
-          blok.body.length > 1 &&
-          (blok.slider_mode === 'slider' || blok.slider_mode === 'carousel')
+          blok.body.length > 1 && (blok.slider_mode === 'slider' || blok.slider_mode === 'carousel')
         "
         :class="`slider-wrapper relative ${
           sliderMode || containerMode ? 'flex justify-center' : ''
@@ -61,12 +60,8 @@
               : !blok.hide_dots
               ? 'bottom-7'
               : '-bottom-7'
-          } ${
-            sliderMode ? (fullWidth > 295 ? 'left-10' : 'left-5') : 'left-2'
-          }`"
-          :size="`${
-            sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'
-          }`"
+          } ${sliderMode ? (fullWidth > 295 ? 'left-10' : 'left-5') : 'left-2'}`"
+          :size="`${sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'}`"
           tag="button"
           @click="previous(true)"
         />
@@ -101,12 +96,8 @@
               : !blok.hide_dots
               ? 'bottom-7'
               : '-bottom-7'
-          } ${
-            sliderMode ? (fullWidth > 295 ? 'right-10' : 'right-5') : 'right-2'
-          }`"
-          :size="`${
-            sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'
-          }`"
+          } ${sliderMode ? (fullWidth > 295 ? 'right-10' : 'right-5') : 'right-2'}`"
+          :size="`${sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'}`"
           tag="button"
           @click="next(true)"
         />
@@ -122,9 +113,7 @@
         />
         <div
           ref="sliderBox"
-          :class="`slider-box w-full rounded ${
-            blok.slider_mode ? 'overflow-hidden' : ''
-          }`"
+          :class="`slider-box w-full rounded ${blok.slider_mode ? 'overflow-hidden' : ''}`"
         >
           <div v-if="blok.slider_mode === 'slider'" class="slider-container">
             <ul
@@ -142,17 +131,9 @@
                   :style="`width: ${containerWidth}px; background-color: ${blok.background_color_component.color};`"
                   :class="`slider-slide slide flex justify-self-center rounded ${setAlignContent} ${
                     !blok.hide_controllers ? 'outline-none' : ''
-                  } ${
-                    sliderMode || carouselMode || containerMode
-                      ? ''
-                      : 'parent-slide'
-                  }`"
-                  @keydown.right.prevent="
-                    !blok.hide_controllers ? next() : null
-                  "
-                  @keydown.left.prevent="
-                    !blok.hide_controllers ? previous() : null
-                  "
+                  } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
+                  @keydown.right.prevent="!blok.hide_controllers ? next() : null"
+                  @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
                   @mouseenter="focusContainer($refs.sliderSlide[0])"
                 >
                   <component
@@ -181,23 +162,13 @@
                   :class="`carousel-slide slide w-full flex row-start-1 row-end-1 col-start-1 col-end-1 rounded ${setAlignContent} ${
                     !blok.hide_controllers ? 'outline-none' : ''
                   } ${
-                    index === currentSlide
-                      ? `show ${transitionEnter}`
-                      : `hidden ${transitionLeave}`
-                  } ${
-                    sliderMode || carouselMode || containerMode
-                      ? ''
-                      : 'parent-slide'
-                  }`"
+                    index === currentSlide ? `show ${transitionEnter}` : `hidden ${transitionLeave}`
+                  } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
                   :style="`background-color: ${blok.background_color_component.color};`"
                   :tabindex="!blok.hide_controllers ? '0' : false"
                   @mouseenter="focusContainer($refs.carouselSlide[0])"
-                  @keydown.right.prevent="
-                    !blok.hide_controllers ? next() : null
-                  "
-                  @keydown.left.prevent="
-                    !blok.hide_controllers ? previous() : null
-                  "
+                  @keydown.right.prevent="!blok.hide_controllers ? next() : null"
+                  @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
                 >
                   <component
                     :is="component.component"
@@ -219,11 +190,7 @@
                 :class="`dot-number_${dot} w-2.5 h-2.5 inline-block m-1.5 rounded-full shadow-inner select-none cursor-pointer transform scale-90 transition-all duration-200 ${
                   !$device.isDesktop ? '' : 'dot-desktop'
                 } ${dot === currentSlide + 1 ? 'bg-gray-400' : 'bg-gray-900'}`"
-                :style="
-                  dot === currentSlide + 1
-                    ? 'box-shadow: 0 0 0 2px #9ca3af;'
-                    : undefined
-                "
+                :style="dot === currentSlide + 1 ? 'box-shadow: 0 0 0 2px #9ca3af;' : undefined"
                 @click="changeDot(dot)"
               >
                 <span
@@ -251,9 +218,7 @@
             <div
               :style="`flex: ${
                 component.row_container
-                  ? `1 ${
-                      (100 - (maxElements > 1 ? spaceFix : 0)) / maxElements
-                    }%`
+                  ? `1 ${(100 - (maxElements > 1 ? spaceFix : 0)) / maxElements}%`
                   : '100%'
               }; background-color: ${
                 component.component.toLowerCase() === 'blank'
@@ -261,9 +226,7 @@
                   : blok.background_color_component.color
               };`"
               :class="`${component.name.toLowerCase()}-container ${
-                sliderMode || carouselMode || containerMode
-                  ? ''
-                  : 'parent-container'
+                sliderMode || carouselMode || containerMode ? '' : 'parent-container'
               } ${
                 component.component.toLowerCase() === 'blank'
                   ? ''
@@ -289,20 +252,20 @@ export default {
   props: {
     blok: {
       type: Object,
-      required: true,
+      required: true
     },
     sliderMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     carouselMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     containerMode: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
@@ -314,23 +277,20 @@ export default {
       setAutoPlay: 0,
       fullWidth: 0,
       containerWidth: 0,
-      transitionEnter: "",
-      transitionLeave: "",
+      transitionEnter: '',
+      transitionLeave: '',
       spaceFix: 20,
-      focusDisable: false,
+      focusDisable: false
     };
   },
   computed: {
     elements() {
-      if (
-        this.blok.slider_mode === "slider" ||
-        this.blok.slider_mode === "carousel"
-      ) {
+      if (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') {
         return this.blok.body;
       } else {
-        return this.blok.body.filter((component) =>
+        return this.blok.body.filter(component =>
           component.resolution_show
-            ? this.fullWidth >= Number(component.resolution_show.split("; ")[0])
+            ? this.fullWidth >= Number(component.resolution_show.split('; ')[0])
             : component
         );
       }
@@ -348,14 +308,11 @@ export default {
       } else if (this.fullWidth >= 727) {
         return this.$rangeItems(this.elements.length - 1, 3);
       }
-      return this.fullWidth >= 535
-        ? this.$rangeItems(this.elements.length - 1, 2)
-        : 1;
+      return this.fullWidth >= 535 ? this.$rangeItems(this.elements.length - 1, 2) : 1;
     },
     maxElements() {
       if (
-        (this.blok.slider_mode === "slider" ||
-          this.blok.slider_mode === "carousel") &&
+        (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') &&
         this.elements.length > 1
       ) {
         if (this.max && this.max <= this.defaultMax) {
@@ -375,48 +332,38 @@ export default {
           } else if (this.fullWidth >= 727) {
             return this.$rangeItems(this.defaultMax, 3);
           }
-          return this.fullWidth >= 535
-            ? this.$rangeItems(this.defaultMax, 2)
-            : 1;
+          return this.fullWidth >= 535 ? this.$rangeItems(this.defaultMax, 2) : 1;
         }
       } else if (this.columnSet && this.elements.length > 1) {
-        if (
-          this.fullWidth +
-            this.spaceFix * this.$rangeItems(this.defaultMax, 3) >=
-          1239
-        ) {
+        if (this.fullWidth + this.spaceFix * this.$rangeItems(this.defaultMax, 3) >= 1239) {
           return this.$rangeItems(this.columnSet, 3);
         }
-        return this.fullWidth +
-          this.spaceFix * this.$rangeItems(this.defaultMax, 3) >=
-          535
+        return this.fullWidth + this.spaceFix * this.$rangeItems(this.defaultMax, 3) >= 535
           ? this.$rangeItems(this.columnSet, 2)
           : 1;
       } else {
         if (this.fullWidth >= 983) {
           return this.$rangeItems(this.rowComponent.length, 3);
         }
-        return this.fullWidth >= 535
-          ? this.$rangeItems(this.rowComponent.length, 2)
-          : 1;
+        return this.fullWidth >= 535 ? this.$rangeItems(this.rowComponent.length, 2) : 1;
       }
     },
     setAlignContent() {
       switch (this.blok.align_content) {
-        case "start":
-          return "self-start";
-        case "center":
-          return "self-center";
-        case "end":
-          return "self-end";
+        case 'start':
+          return 'self-start';
+        case 'center':
+          return 'self-center';
+        case 'end':
+          return 'self-end';
       }
-      return "";
-    },
+      return '';
+    }
   },
   watch: {
-    "$store.state.data.windowWidth"() {
+    '$store.state.data.windowWidth'() {
       this.getContainerWidth();
-      if (this.blok.slider_mode === "slider") {
+      if (this.blok.slider_mode === 'slider') {
         this.sliderKey++;
       }
     },
@@ -424,13 +371,12 @@ export default {
       if (this.sliderIndex > 0) {
         this.sliderIndex = 0;
       }
-    },
+    }
   },
   mounted() {
     this.getContainerWidth();
     if (
-      (this.blok.slider_mode === "slider" ||
-        this.blok.slider_mode === "carousel") &&
+      (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') &&
       this.blok.auto_play
     ) {
       this.autoPlay();
@@ -439,15 +385,14 @@ export default {
   beforeUpdate() {
     this.getContainerWidth();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.clearAll();
   },
   methods: {
     setPrevious() {
-      if (this.blok.slider_mode === "slider") {
+      if (this.blok.slider_mode === 'slider') {
         if (
-          -((this.containerWidth + this.spaceFix) * this.sliderIndex) +
-            this.containerWidth <=
+          -((this.containerWidth + this.spaceFix) * this.sliderIndex) + this.containerWidth <=
           1
         ) {
           this.sliderIndex--;
@@ -457,7 +402,7 @@ export default {
             this.clearAutoPlay();
           }
         }
-      } else if (this.blok.slider_mode === "carousel") {
+      } else if (this.blok.slider_mode === 'carousel') {
         if (this.currentSlide > 0) {
           this.currentSlide--;
         } else {
@@ -466,12 +411,12 @@ export default {
             this.clearAutoPlay();
           }
         }
-        this.transitionEnter = "enter-right";
-        this.transitionLeave = "leave-right";
+        this.transitionEnter = 'enter-right';
+        this.transitionLeave = 'leave-right';
       }
     },
     setNext() {
-      if (this.blok.slider_mode === "slider") {
+      if (this.blok.slider_mode === 'slider') {
         if (
           -((this.containerWidth + this.spaceFix) * this.sliderIndex) -
             this.$refs.sliderBox.clientWidth >=
@@ -484,7 +429,7 @@ export default {
             this.clearAutoPlay();
           }
         }
-      } else if (this.blok.slider_mode === "carousel") {
+      } else if (this.blok.slider_mode === 'carousel') {
         if (this.elements.length - 1 > this.currentSlide) {
           this.currentSlide++;
         } else {
@@ -493,8 +438,8 @@ export default {
             this.clearAutoPlay();
           }
         }
-        this.transitionEnter = "enter-left";
-        this.transitionLeave = "leave-left";
+        this.transitionEnter = 'enter-left';
+        this.transitionLeave = 'leave-left';
       }
     },
     next(autoFocus = false) {
@@ -537,13 +482,13 @@ export default {
         this.autoPlay();
       }
       this.currentSlide = input - 1;
-      this.transitionEnter = "";
-      this.transitionLeave = "";
+      this.transitionEnter = '';
+      this.transitionLeave = '';
     },
     autoPlay() {
       this.setAutoPlay = setTimeout(
         this.next,
-        this.blok.slider_time ? this.blok.slider_time : "5000"
+        this.blok.slider_time ? this.blok.slider_time : '5000'
       );
     },
     clearAutoPlay() {
@@ -553,8 +498,7 @@ export default {
     getContainerWidth() {
       const containerSelect =
         this.blok.body.length > 1 &&
-        (this.blok.slider_mode === "slider" ||
-          this.blok.slider_mode === "carousel")
+        (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel')
           ? this.$refs.sliderBox.clientWidth
           : this.$el.clientWidth;
       if (this.sliderMode || this.carouselMode || this.containerMode) {
@@ -580,17 +524,16 @@ export default {
     },
     clearAll() {
       this.focusDisable = true;
-      this.transitionEnter = "";
-      this.transitionLeave = "";
+      this.transitionEnter = '';
+      this.transitionLeave = '';
       if (
-        (this.blok.slider_mode === "slider" ||
-          this.blok.slider_mode === "carousel") &&
+        (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') &&
         this.blok.auto_play
       ) {
         this.clearAutoPlay();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>

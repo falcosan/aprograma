@@ -14,27 +14,28 @@
   </div>
 </template>
 <script>
-import markdown from "~/mixins/markdown";
+import markdown from '~/mixins/markdown';
 export default {
   mixins: [markdown],
   props: {
     blok: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     setAlignText() {
       switch (this.blok.align_text) {
-        case "right":
-          return "text-right";
-        case "center":
-          return "text-center";
-        case "justify":
-          return "text-justify";
+        case 'right':
+          return 'text-right';
+        case 'center':
+          return 'text-center';
+        case 'justify':
+          return 'text-justify';
+        default:
+          return '';
       }
-      return "";
-    },
-  },
+    }
+  }
 };
 </script>

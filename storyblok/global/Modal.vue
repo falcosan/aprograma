@@ -7,7 +7,7 @@
       :class="[
         'modal-backdrop w-full fixed flex justify-center inset-0 z-50 overflow-auto focus:outline-none bg-opacity-90 bg-gray-200',
         modalStyle,
-        { 'cursor-close': closeMode },
+        { 'cursor-close': closeMode }
       ]"
       tabindex="0"
       @keydown.esc="closeMode && closeModal()"
@@ -36,20 +36,20 @@ export default {
   props: {
     open: {
       type: Boolean,
-      default: false,
+      default: false
     },
     closeMode: {
       type: Boolean,
-      default: false,
+      default: false
     },
     modalStyle: {
       type: String,
-      default: "",
-    },
+      default: ''
+    }
   },
   data() {
     return {
-      openEvent: false,
+      openEvent: false
     };
   },
   watch: {
@@ -58,9 +58,9 @@ export default {
     },
     open() {
       this.checkModal();
-    },
+    }
   },
-  beforeDestroy() {
+  beforeUnmount() {
     if (this.openEvent || this.open) {
       this.$refs.modal.parentNode.removeChild(this.$refs.modal);
       this.$noscroll(false);
@@ -82,14 +82,14 @@ export default {
         this.$noscroll(true);
       } else {
         this.$refs.modal.parentNode.removeChild(this.$refs.modal);
-        document.querySelector(".modal.opened").appendChild(this.$refs.modal);
+        document.querySelector('.modal.opened').appendChild(this.$refs.modal);
         this.$noscroll(false);
       }
     },
-    hasSlot(name = "default") {
-      return !!this.$slots[name] || !!this.$scopedSlots[name];
-    },
-  },
+    hasSlot(name = 'default') {
+      return !!this.$slots[name] || !!this.$slots[name];
+    }
+  }
 };
 </script>
 <style>

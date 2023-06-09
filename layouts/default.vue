@@ -25,10 +25,10 @@
 <script>
 import { storeToRefs } from 'pinia';
 import store from '@/store';
-import Logo from '@/storyblok/global/LogoComponent';
-import Main from '@/storyblok/layout/MainComponent';
-import Header from '@/storyblok/layout/HeaderComponent';
-import Footer from '@/storyblok/layout/FooterComponent';
+import Logo from '@/storyblok/global/Logo';
+import Main from '@/storyblok/layout/Main';
+import Header from '@/storyblok/layout/Header';
+import Footer from '@/storyblok/layout/Footer';
 export default {
   // eslint-disable-next-line vue/no-reserved-component-names
   components: { Logo, Header, Main, Footer },
