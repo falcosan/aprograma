@@ -21,6 +21,10 @@ export default {
     blok: {
       type: Object,
       required: true
+    },
+    containerWidth: {
+      type: Number,
+      default: 0
     }
   },
   computed: {

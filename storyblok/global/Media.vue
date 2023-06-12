@@ -14,7 +14,7 @@
       close-mode
     >
       <template #activator="action">
-        <ImageSet
+        <Image
           v-if="(blok && $imageValidation(blok.media.filename)) || image"
           :class="[
             `${getClass}-image`,
@@ -70,7 +70,7 @@
         </video>
       </template>
       <template #body>
-        <ImageSet
+        <Image
           v-if="(blok && $imageValidation(blok.media.filename)) || image"
           :class="`${getClass}-image my-0 mx-auto object-contain object-center select-none`"
           original
@@ -103,7 +103,7 @@
       </template>
     </Modal>
     <template v-else>
-      <ImageSet
+      <Image
         v-if="(blok && $imageValidation(blok.media.filename)) || image"
         :class="[
           `${getClass}-image`,

@@ -85,7 +85,7 @@
       >
         <template #activator="action">
           <div class="image-container w-full my-0 mx-auto cursor-pointer" @click="action.open()">
-            <ImageSet
+            <Image
               class="intro-image h-full w-full aspect-[11/10] md:aspect-[11/9] border-t-2 border-b-2 object-cover rounded select-none"
               :src="blok.image.filename"
               :file="blok.image"
@@ -98,7 +98,7 @@
           </div>
         </template>
         <template #body>
-          <ImageSet
+          <Image
             class="image-project select-none"
             width="1920"
             height="auto"

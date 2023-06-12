@@ -473,7 +473,7 @@ export default defineNuxtComponent({
         props.blok.body.length > 1 &&
         (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel')
           ? sliderBox.value.clientWidth
-          : container.value;
+          : container.value.clientWidth;
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         nextTick(() => {
           fullWidth.value = containerSelect;
@@ -529,20 +529,22 @@ export default defineNuxtComponent({
     return {
       next,
       elements,
+      container,
       previous,
       changeDot,
+      spaceFix,
       isDesktop,
       fullWidth,
-      currentSlide,
-      transitionLeave,
-      transitionEnter,
-      maxElements,
-      container,
       sliderBox,
+      maxElements,
       windowWidth,
       sliderSlide,
+      currentSlide,
       carouselSlide,
       focusContainer,
+      containerWidth,
+      transitionLeave,
+      transitionEnter,
       setAlignContent
     };
   }

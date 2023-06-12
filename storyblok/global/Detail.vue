@@ -28,7 +28,7 @@
         <li v-for="media in blok.media" :key="media.id" class="image-item w-full">
           <Modal v-if="blok.modal_mode" class="detail-modal" close-mode>
             <template #activator="action">
-              <ImageSet
+              <Image
                 v-if="$imageValidation(media.filename)"
                 :file="media"
                 :class="`${media.filename
@@ -70,7 +70,7 @@
               </video>
             </template>
             <template #body>
-              <ImageSet
+              <Image
                 v-if="$imageValidation(media.filename)"
                 :class="`${media.filename
                   .split(/[\\/]/)
@@ -113,7 +113,7 @@
             </template>
           </Modal>
           <template v-else>
-            <ImageSet
+            <Image
               v-if="$imageValidation(media.filename)"
               :file="media"
               :class="`${media.filename

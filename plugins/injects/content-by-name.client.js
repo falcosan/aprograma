@@ -10,6 +10,6 @@ export default defineNuxtPlugin(() => ({
           return item.component !== `${nameComponent}`;
         });
       }
-    },
-  },
+    }
+  }
 }));

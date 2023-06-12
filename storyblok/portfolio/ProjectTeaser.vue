@@ -13,7 +13,7 @@
           '#e0e0e0'
         )}; color: ${$binaryControl(projectContent.text_color, 'color')};`"
       >
-        <ImageSet
+        <Image
           class="project-image h-full w-full object-cover object-center select-none rounded-t"
           :src="projectContent.image.filename"
           :file="projectContent.image"

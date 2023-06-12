@@ -9,7 +9,7 @@
     }`"
     @click="animateMenu ? (open = !open) : ''"
   >
-    <ImageSet
+    <Image
       v-if="blok && blok.icon_image.filename"
       :class="`icon ${blok.icon_image.filename
         .split(/[\\/]/)
