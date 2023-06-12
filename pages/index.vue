@@ -3,13 +3,8 @@ import { storeToRefs } from 'pinia';
 import store from '@/store';
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
-const {
-  data: {
-    value: {
-      data: { story }
-    }
-  }
-} = await useAsyncData(
+const { data } = await useAsyncData(
+  'home',
   async () =>
     await storyblokApi.get('cdn/stories/home', {
       language: languageGet.value
@@ -20,5 +15,5 @@ const {
 );
 </script>
 <template>
-  <StoryblokComponent :key="story.content._uid" :blok="story.content" />
+  <StoryblokComponent :key="data.data.story.content._uid" :blok="data.data.story.content" />
 </template>

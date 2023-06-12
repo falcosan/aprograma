@@ -1,7 +1,7 @@
 <template>
   <component
-    :is="blok.external_link ? 'a' : 'NuxtLink'"
-    v-if="blok && (blok.title || (blok.icon_item && blok.body.length > 0))"
+    :is="blok.external_link ? 'a' : NuxtLink"
+    v-if="blok && (blok.title || (blok.icon_item && blok.body.length))"
     :class="[
       'item-link h-full cursor-pointer',
       { 'w-full': sliderMode },
@@ -17,10 +17,10 @@
         : 'pt-0.5 border-b-2 border-gray-300'
     "
     :to="blok.external_link ? false : `${blok.path}/`"
-    :href="blok.external_link ? blok.path : false"
-    :rel="blok.external_link ? 'noopener noreferrer' : false"
-    :target="blok.external_link ? '_blank' : false"
-    :title="blok.title && blok.icon_item ? blok.title : false"
+    :href="blok.external_link ? blok.path : undefined"
+    :rel="blok.external_link ? 'noopener noreferrer' : undefined"
+    :target="blok.external_link ? '_blank' : undefined"
+    :title="blok.title && blok.icon_item ? blok.title : undefined"
   >
     <span
       v-if="blok.title && !iconItem && !blok.icon_item"
@@ -40,7 +40,7 @@
     />
   </component>
   <component
-    :is="externalLink ? 'a' : 'NuxtLink'"
+    :is="externalLink ? 'a' : NuxtLink"
     v-else
     :class="`item-link h-full cursor-pointer ${
       sliderMode || carouselMode || containerMode
@@ -69,18 +69,18 @@
           : 'pt-0.5 border-b-2 border-gray-300'
         : ''
     "
-    :to="externalLink ? false : `${to}/`"
-    :href="externalLink ? to : false"
-    :rel="externalLink ? 'noopener noreferrer' : false"
-    :target="externalLink ? '_blank' : false"
-    :title="title && iconItem ? title : false"
+    :to="externalLink ? undefined : `${to}/`"
+    :href="externalLink ? to : undefined"
+    :rel="externalLink ? 'noopener noreferrer' : undefined"
+    :target="externalLink ? '_blank' : undefined"
+    :title="title && iconItem ? title : undefined"
   >
     <span v-if="title && !iconItem" class="item-text break-words">{{ title }}</span>
     <slot v-else name="icon" />
   </component>
 </template>
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     blok: {
       type: Object,
@@ -134,6 +134,10 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  setup() {
+    const NuxtLink = resolveComponent('NuxtLink');
+    return { NuxtLink };
   }
-};
+});
 </script>

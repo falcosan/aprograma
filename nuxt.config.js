@@ -109,8 +109,8 @@ export default defineNuxtConfig({
   },
   modules: [
     '@pinia/nuxt',
+    '@nuxt/image',
     '@nuxtjs/device',
-    '@nuxt/image-edge',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     [

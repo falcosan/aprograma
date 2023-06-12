@@ -136,8 +136,7 @@
                   @keydown.right.prevent="!blok.hide_controllers ? next() : null"
                   @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
                 >
-                  <component
-                    :is="component.component"
+                  <StoryblokComponent
                     :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
                     :blok="component"
                     slider-mode
@@ -169,8 +168,7 @@
                   @keydown.right.prevent="!blok.hide_controllers ? next() : null"
                   @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
                 >
-                  <component
-                    :is="component.component"
+                  <StoryblokComponent
                     :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
                     :blok="component"
                     carousel-mode
@@ -232,8 +230,7 @@
                   : `${setAlignContent} m-2.5 rounded`
               }`"
             >
-              <component
-                :is="component.component"
+              <StoryblokComponent
                 :class="`${component.name.toLowerCase()}-component`"
                 :blok="component"
                 container-mode
@@ -535,10 +532,12 @@ export default defineNuxtComponent({
       spaceFix,
       isDesktop,
       fullWidth,
+      sliderKey,
       sliderBox,
       maxElements,
       windowWidth,
       sliderSlide,
+      sliderIndex,
       currentSlide,
       carouselSlide,
       focusContainer,

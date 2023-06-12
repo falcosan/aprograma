@@ -211,33 +211,38 @@ export default {
       default: false
     }
   },
-  computed: {
-    checkSizes() {
-      if (/100%|full|auto/.test(this.blok.width)) {
-        if (/100%|full|auto/.test(this.blok.height)) {
+  setup(props) {
+    const checkSizes = computed(() => {
+      if (/100%|full|auto/.test(props.blok.width)) {
+        if (/100%|full|auto/.test(props.blok.height)) {
           return 'xs:125vw';
         } else {
-          return `xs:${Math.round(this.blok.height.replace(/\D/g, '') / 1.19)}vw`;
+          return `xs:${Math.round(props.blok.height.replace(/\D/g, '') / 1.19)}vw`;
         }
       } else {
-        return `xs:${Math.round(this.blok.width.replace(/\D/g, '') / 1.15)}px sm:${Math.round(
-          this.blok.width.replace(/\D/g, '') / 1.12
-        )}px md:${Math.round(this.blok.width.replace(/\D/g, '') / 1.09)}px lg:${Math.round(
-          this.blok.width.replace(/\D/g, '') / 1.06
-        )}px xl:${Math.round(this.blok.width.replace(/\D/g, '') / 1.03)}px`;
+        return `xs:${Math.round(props.blok.width.replace(/\D/g, '') / 1.15)}px sm:${Math.round(
+          props.blok.width.replace(/\D/g, '') / 1.12
+        )}px md:${Math.round(props.blok.width.replace(/\D/g, '') / 1.09)}px lg:${Math.round(
+          props.blok.width.replace(/\D/g, '') / 1.06
+        )}px xl:${Math.round(props.blok.width.replace(/\D/g, '') / 1.03)}px`;
       }
-    },
-    getClass() {
-      return this.blok
-        ? this.blok.media.filename
+    });
+    const getClass = computed(() => {
+      return props.blok
+        ? props.blok.media.filename
             ?.split(/[\\/]/)
             .pop()
             .replace(/\.[^/.]+$/, '')
-        : this.src
+        : props.src
             ?.split(/[\\/]/)
             .pop()
             .replace(/\.[^/.]+$/, '');
-    }
+    });
+
+    return {
+      getClass,
+      checkSizes
+    };
   }
 };
 </script>

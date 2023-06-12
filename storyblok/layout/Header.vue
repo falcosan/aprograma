@@ -3,7 +3,7 @@
     <nav class="navbar">
       <div class="menu-wrapper h-0 grid grid-flow-col-dense justify-between">
         <div class="logo-home relative h-16 w-16 lg:w-20 lg:h-20 z-20">
-          <Link
+          <LinkComponent
             icon-item
             class="home-link flex items-center justify-center p-1 lg:p-1.5 transition-shadow duration-300 rounded-br"
             to=""
@@ -11,9 +11,14 @@
             :style="`background-color: ${backgroundColorMenu};`"
           >
             <template #icon>
-              <Logo transition :color-a="logoColors[0]" :color-p="logoColors[1]" size="100%" />
+              <LogoComponent
+                transition
+                :color-a="logoColors[0]"
+                :color-p="logoColors[1]"
+                size="100%"
+              />
             </template>
-          </Link>
+          </LinkComponent>
         </div>
         <div
           :class="`menu-expanded h-10 grid grid-flow-col gap-5 transform transition ${
@@ -37,13 +42,13 @@
               :key="item._uid"
               :class="`link-menu w-20 hover:shadow-sm ${topPosition ? 'rounded' : 'rounded-b'}`"
             >
-              <Link
+              <LinkComponent
                 class="flex items-center justify-center py-2 px-3 text-sm truncate"
                 :blok="item"
               />
             </li>
           </ul>
-          <Translate
+          <TranslateComponent
             :show-background="topPosition"
             class="translate-header grid h-full p-1"
             style-translate-list="grid grid-flow-col auto-cols-fr"
@@ -71,7 +76,7 @@
       <div
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg flex justify-between"
       >
-        <Link
+        <LinkComponent
           active="exact"
           set-active="border-t-2 pb-0.5 border-gray-300"
           icon-item
@@ -82,15 +87,15 @@
           <template #icon>
             <Icon home tag="button" size="w-5 h-5" class="home-link h-full w-full" />
           </template>
-        </Link>
-        <Logo
+        </LinkComponent>
+        <LogoComponent
           transition
           :color-a="logoColors[0]"
           :color-p="logoColors[1]"
           class="absolute -top-0.5 right-1/2 p-1 transform translate-x-1/2 rounded-b-full drop-shadow-md bg-white"
           size="2.75rem"
         />
-        <Translate
+        <TranslateComponent
           translate-transition
           :class="`translate-header w-2/12 text-white bg-neutral-800 ${
             expanded ? '' : 'rounded-br'
@@ -122,18 +127,19 @@
           :key="item._uid"
           class="link-menu no-underline"
         >
-          <Link icon-item icon-style="w-full h-full" :blok="item" />
+          <LinkComponent icon-item icon-style="w-full h-full" :blok="item" />
         </li>
       </ul>
     </nav>
   </header>
 </template>
 <script>
-import Logo from '@/storyblok/global/Logo';
-import Translate from '@/storyblok/layout/Translate';
+import LogoComponent from '@/storyblok/global/Logo';
+import LinkComponent from '@/storyblok/global/Link';
+import TranslateComponent from '@/storyblok/layout/Translate';
 import enums from '@/enum';
 export default defineNuxtComponent({
-  components: { Translate, Logo },
+  components: { TranslateComponent, LogoComponent, LinkComponent },
   props: {
     blok: {
       type: Object,

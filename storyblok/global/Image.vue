@@ -1,27 +1,33 @@
 <template>
-  <component
-    :is="imageType === 'svg+xml' ? 'img' : 'NuxtImg'"
-    v-if="imageType"
-    :style="!loaded ? `opacity: 0;` : null"
-    :loading="lazy ? 'lazy' : null"
-    :class="['image transition', { 'pointer-events-none': !loaded }]"
+  <img
+    v-if="imageType === 'svg+xml' || original"
+    :loading="lazy ? 'lazy' : undefined"
+    class="image"
     :alt="alt"
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"
     :width="width"
     :height="height"
-    :modifiers="
-      imageType === 'svg+xml' || original ? null : { filters: { focal: file.focus ?? 0 } }
-    "
-    :fit="imageType === 'svg+xml' || file.focus ? null : 'in'"
-    :format="imageType === 'svg+xml' ? null : 'webp'"
-    :sizes="imageType === 'svg+xml' ? null : sizes ? sizes : null"
-    @load="setImageLoaded"
+  />
+  <NuxtImg
+    v-else
+    :loading="lazy ? 'lazy' : undefined"
+    class="image"
+    :alt="alt"
+    :type="`image/${imageType}`"
+    draggable="false"
+    :src="src"
+    :width="width"
+    :height="height"
+    :modifiers="{ filters: { focal: file.focus ?? 0 } }"
+    :fit="file.focus ? undefined : 'in'"
+    format="webp"
+    :sizes="sizes ?? undefined"
   />
 </template>
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     file: {
       type: Object,
@@ -56,17 +62,14 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      loaded: false
-    };
-  },
-  computed: {
-    imageType() {
-      switch (this.src.toLowerCase().split('.').pop()) {
+  setup(props) {
+    const imageType = computed(() => {
+      switch (props.src.toLowerCase().split('.').pop()) {
         case 'jpg':
         case 'jpeg':
           return 'jpeg';
+        case 'webp':
+          return 'webp';
         case 'png':
           return 'png';
         case 'svg':
@@ -76,12 +79,10 @@ export default {
         default:
           return null;
       }
-    }
-  },
-  methods: {
-    setImageLoaded() {
-      this.loaded = true;
-    }
+    });
+    return {
+      imageType
+    };
   }
-};
+});
 </script>

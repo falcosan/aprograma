@@ -53,43 +53,34 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      spaceFix: 20
-    };
-  },
-  computed: {
-    rowComponent() {
-      return this.blok.body.filter(function (item) {
-        return item.row_container;
-      });
-    },
-    components() {
-      return this.blok.body.filter(component =>
+  setup(props) {
+    const { windowWidth } = useScreen();
+    const { $rangeItems, $noscroll } = useNuxtApp();
+    const state = reactive({ spaceFix: 20 });
+    const { spaceFix } = toRefs(state);
+    const rowComponent = computed(() => props.blok.body.filter(item => item.row_container));
+    const components = computed(() =>
+      props.blok.body.filter(component =>
         component.resolution_show
-          ? this.$store.state.data.windowWidth >= component.resolution_show.split('; ')[1]
+          ? windowWidth.value >= component.resolution_show.split('; ')[1]
           : component
-      );
-    },
-    maxComponents() {
-      if (Number(this.blok.column_container)) {
-        if (this.$store.state.data.windowWidth >= 1440) {
-          return this.$rangeItems(Number(this.blok.column_container), 3);
+      )
+    );
+    const maxComponents = computed(() => {
+      if (Number(props.blok.column_container)) {
+        if (windowWidth.value >= 1440) {
+          return $rangeItems(Number(props.blok.column_container), 3);
         }
-        return this.$store.state.data.windowWidth >= 768
-          ? this.$rangeItems(Number(this.blok.column_container), 2)
-          : 1;
+        return windowWidth.value >= 768 ? $rangeItems(Number(props.blok.column_container), 2) : 1;
       } else {
-        if (this.$store.state.data.windowWidth >= 1440) {
-          return this.$rangeItems(this.rowComponent.length, 3);
+        if (windowWidth.value >= 1440) {
+          return $rangeItems(rowComponent.value.length, 3);
         }
-        return this.$store.state.data.windowWidth >= 768
-          ? this.$rangeItems(this.rowComponent.length, 2)
-          : 1;
+        return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
       }
-    },
-    setAlignContent() {
-      switch (this.blok.align_content) {
+    });
+    const setAlignContent = computed(() => {
+      switch (props.blok.align_content) {
         case 'start':
           return 'self-start';
         case 'center':
@@ -99,19 +90,17 @@ export default {
         default:
           return 'self-baseline';
       }
-    }
-  },
-  beforeMount() {
-    this.setMaintenance();
-  },
-  methods: {
-    setMaintenance() {
-      if (this.blok.hide) {
-        this.$noscroll(true);
-      } else {
-        this.$noscroll(false);
-      }
-    }
+    });
+    (() => {
+      if (props.blok.hide) $noscroll(true);
+      else $noscroll(false);
+    })();
+    return {
+      spaceFix,
+      components,
+      maxComponents,
+      setAlignContent
+    };
   }
 };
 </script>
