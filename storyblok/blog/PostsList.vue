@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import PostTeaser from './PostTeaserComponent';
+import PostTeaser from '@/storyblok/blog/PostTeaser';
 export default {
   components: { PostTeaser },
   props: {

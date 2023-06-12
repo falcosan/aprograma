@@ -26,8 +26,8 @@
   </div>
 </template>
 <script>
-import ProjectSlider from './ProjectSliderComponent';
-import ProjectTeaser from './ProjectTeaserComponent';
+import ProjectSlider from '@/storyblok/portfolio/ProjectSlider';
+import ProjectTeaser from '@/storyblok/portfolio/ProjectTeaser';
 export default {
   components: { ProjectSlider, ProjectTeaser },
   props: {
