@@ -1,6 +1,7 @@
 <template>
   <div
-    v-if="blok.body.length > 0"
+    v-if="blok.body.length"
+    ref="container"
     :class="`container-cover w-full ${
       carouselMode || sliderMode || containerMode ? 'grid' : 'parent-cover'
     }`"
@@ -42,8 +43,8 @@
         <Icon
           v-if="
             (blok.slider_mode === 'slider' ||
-              $store.state.data.windowWidth < 640 ||
-              !$device.isDesktop ||
+              windowWidth < 640 ||
+              !isDesktop ||
               sliderMode ||
               carouselMode ||
               blok.row_container) &&
@@ -78,8 +79,8 @@
         <Icon
           v-if="
             (blok.slider_mode === 'slider' ||
-              $store.state.data.windowWidth < 640 ||
-              !$device.isDesktop ||
+              windowWidth < 640 ||
+              !isDesktop ||
               sliderMode ||
               carouselMode ||
               blok.row_container) &&
@@ -134,7 +135,6 @@
                   } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
                   @keydown.right.prevent="!blok.hide_controllers ? next() : null"
                   @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
-                  @mouseenter="focusContainer($refs.sliderSlide[0])"
                 >
                   <component
                     :is="component.component"
@@ -166,7 +166,6 @@
                   } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
                   :style="`background-color: ${blok.background_color_component.color};`"
                   :tabindex="!blok.hide_controllers ? '0' : false"
-                  @mouseenter="focusContainer($refs.carouselSlide[0])"
                   @keydown.right.prevent="!blok.hide_controllers ? next() : null"
                   @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
                 >
@@ -188,13 +187,13 @@
                 v-for="dot in elements.length"
                 :key="dot"
                 :class="`dot-number_${dot} w-2.5 h-2.5 inline-block m-1.5 rounded-full shadow-inner select-none cursor-pointer transform scale-90 transition-all duration-200 ${
-                  !$device.isDesktop ? '' : 'dot-desktop'
+                  !isDesktop ? '' : 'dot-desktop'
                 } ${dot === currentSlide + 1 ? 'bg-gray-400' : 'bg-gray-900'}`"
                 :style="dot === currentSlide + 1 ? 'box-shadow: 0 0 0 2px #9ca3af;' : undefined"
                 @click="changeDot(dot)"
               >
                 <span
-                  v-if="$device.isDesktop"
+                  v-if="isDesktop"
                   class="dot-text absolute w-5 h-5 flex justify-center items-center left-1/2 top-0 rounded-full text-xs text-white bg-opacity-70 bg-gray-900"
                   >{{ dot }}</span
                 >
@@ -248,7 +247,7 @@
   </div>
 </template>
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     blok: {
       type: Object,
@@ -267,274 +266,287 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
-      max: Number(this.blok.max_slides),
-      columnSet: Number(this.blok.column_container),
+  setup(props) {
+    const { isDesktop } = useDevice();
+    const { windowWidth } = useScreen();
+    const { $rangeItems } = useNuxtApp();
+    const container = ref(null);
+    const sliderBox = ref(null);
+    const sliderSlide = ref(null);
+    const carouselSlide = ref(null);
+    const state = reactive({
+      spaceFix: 20,
       sliderKey: 0,
-      sliderIndex: 0,
-      currentSlide: 0,
-      setAutoPlay: 0,
       fullWidth: 0,
+      sliderIndex: 0,
+      setAutoPlay: 0,
+      currentSlide: 0,
       containerWidth: 0,
+      focusDisable: false,
       transitionEnter: '',
       transitionLeave: '',
-      spaceFix: 20,
-      focusDisable: false
-    };
-  },
-  computed: {
-    elements() {
-      if (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') {
-        return this.blok.body;
+      max: Number(props.blok.max_slides),
+      columnSet: Number(props.blok.column_container)
+    });
+    const {
+      max,
+      spaceFix,
+      sliderKey,
+      fullWidth,
+      columnSet,
+      sliderIndex,
+      setAutoPlay,
+      focusDisable,
+      currentSlide,
+      containerWidth,
+      transitionEnter,
+      transitionLeave
+    } = toRefs(state);
+    const elements = computed(() => {
+      if (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') {
+        return props.blok.body;
       } else {
-        return this.blok.body.filter(component =>
+        return props.blok.body.filter(component =>
           component.resolution_show
-            ? this.fullWidth >= Number(component.resolution_show.split('; ')[0])
+            ? fullWidth.value >= Number(component.resolution_show.split('; ')[0])
             : component
         );
       }
-    },
-    rowComponent() {
-      return this.elements.filter(function (item) {
-        return item.row_container;
-      });
-    },
-    defaultMax() {
-      if (this.fullWidth >= 1239) {
-        return this.$rangeItems(this.elements.length - 1, 5);
-      } else if (this.fullWidth >= 983) {
-        return this.$rangeItems(this.elements.length - 1, 4);
-      } else if (this.fullWidth >= 727) {
-        return this.$rangeItems(this.elements.length - 1, 3);
+    });
+    const rowComponent = computed(() => {
+      return elements.value.filter(item => item.row_container);
+    });
+    const defaultMax = computed(() => {
+      if (fullWidth.value >= 1239) {
+        return $rangeItems(elements.value.length - 1, 5);
+      } else if (fullWidth.value >= 983) {
+        return $rangeItems(elements.value.length - 1, 4);
+      } else if (fullWidth.value >= 727) {
+        return $rangeItems(elements.value.length - 1, 3);
       }
-      return this.fullWidth >= 535 ? this.$rangeItems(this.elements.length - 1, 2) : 1;
-    },
-    maxElements() {
+      return fullWidth.value >= 535 ? $rangeItems(elements.value.length - 1, 2) : 1;
+    });
+    const maxElements = computed(() => {
       if (
-        (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') &&
-        this.elements.length > 1
+        (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') &&
+        elements.value.length > 1
       ) {
-        if (this.max && this.max <= this.defaultMax) {
-          if (this.fullWidth >= 1239) {
-            return this.$rangeItems(this.max, 5);
-          } else if (this.fullWidth >= 983) {
-            return this.$rangeItems(this.max, 4);
-          } else if (this.fullWidth >= 727) {
-            return this.$rangeItems(this.max, 3);
+        if (max.value && max.value <= defaultMax.value) {
+          if (fullWidth.value >= 1239) {
+            return $rangeItems(max.value, 5);
+          } else if (fullWidth.value >= 983) {
+            return $rangeItems(max.value, 4);
+          } else if (fullWidth.value >= 727) {
+            return $rangeItems(max.value, 3);
           }
-          return this.fullWidth >= 535 ? this.$rangeItems(this.max, 2) : 1;
+          return fullWidth.value >= 535 ? $rangeItems(max.value, 2) : 1;
         } else {
-          if (this.fullWidth >= 1239) {
-            return this.$rangeItems(this.defaultMax, 5);
-          } else if (this.fullWidth >= 983) {
-            return this.$rangeItems(this.defaultMax, 4);
-          } else if (this.fullWidth >= 727) {
-            return this.$rangeItems(this.defaultMax, 3);
+          if (fullWidth.value >= 1239) {
+            return $rangeItems(defaultMax.value, 5);
+          } else if (fullWidth.value >= 983) {
+            return $rangeItems(defaultMax.value, 4);
+          } else if (fullWidth.value >= 727) {
+            return $rangeItems(defaultMax.value, 3);
           }
-          return this.fullWidth >= 535 ? this.$rangeItems(this.defaultMax, 2) : 1;
+          return fullWidth.value >= 535 ? $rangeItems(defaultMax.value, 2) : 1;
         }
-      } else if (this.columnSet && this.elements.length > 1) {
-        if (this.fullWidth + this.spaceFix * this.$rangeItems(this.defaultMax, 3) >= 1239) {
-          return this.$rangeItems(this.columnSet, 3);
+      } else if (columnSet.value && elements.value.length > 1) {
+        if (fullWidth.value + spaceFix.value * $rangeItems(defaultMax.value, 3) >= 1239) {
+          return $rangeItems(columnSet.value, 3);
         }
-        return this.fullWidth + this.spaceFix * this.$rangeItems(this.defaultMax, 3) >= 535
-          ? this.$rangeItems(this.columnSet, 2)
+        return fullWidth.value + spaceFix.value * $rangeItems(defaultMax.value, 3) >= 535
+          ? $rangeItems(columnSet.value, 2)
           : 1;
       } else {
-        if (this.fullWidth >= 983) {
-          return this.$rangeItems(this.rowComponent.length, 3);
+        if (fullWidth.value >= 983) {
+          return $rangeItems(rowComponent.value.length, 3);
         }
-        return this.fullWidth >= 535 ? this.$rangeItems(this.rowComponent.length, 2) : 1;
+        return fullWidth.value >= 535 ? $rangeItems(rowComponent.value.length, 2) : 1;
       }
-    },
-    setAlignContent() {
-      switch (this.blok.align_content) {
-        case 'start':
-          return 'self-start';
+    });
+    const setAlignContent = computed(() => {
+      switch (props.blok.align_content) {
         case 'center':
           return 'self-center';
         case 'end':
           return 'self-end';
+        default:
+          return 'self-start';
       }
-      return '';
-    }
-  },
-  watch: {
-    '$store.state.data.windowWidth'() {
-      this.getContainerWidth();
-      if (this.blok.slider_mode === 'slider') {
-        this.sliderKey++;
+    });
+    const previous = (autoFocus = false) => {
+      if (props.blok.auto_play) {
+        setPrevious();
+        clearAutoPlay();
+        autoPlay();
+      } else {
+        setPrevious();
       }
-    },
-    fullWidth() {
-      if (this.sliderIndex > 0) {
-        this.sliderIndex = 0;
+      if (
+        autoFocus &&
+        !props.blok.hide_controllers &&
+        sliderSlide.value != null &&
+        Array.isArray(sliderSlide.value)
+      ) {
+        sliderSlide.value[0].focus();
       }
-    }
-  },
-  mounted() {
-    this.getContainerWidth();
-    if (
-      (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') &&
-      this.blok.auto_play
-    ) {
-      this.autoPlay();
-    }
-  },
-  beforeUpdate() {
-    this.getContainerWidth();
-  },
-  beforeUnmount() {
-    this.clearAll();
-  },
-  methods: {
-    setPrevious() {
-      if (this.blok.slider_mode === 'slider') {
+    };
+    const setPrevious = () => {
+      if (props.blok.slider_mode === 'slider') {
         if (
-          -((this.containerWidth + this.spaceFix) * this.sliderIndex) + this.containerWidth <=
+          -((containerWidth.value + spaceFix.value) * sliderIndex.value) + containerWidth.value <=
           1
         ) {
-          this.sliderIndex--;
+          sliderIndex.value--;
         } else {
-          this.sliderIndex = this.elements.length - this.maxElements;
-          if (this.blok.auto_play) {
-            this.clearAutoPlay();
-          }
+          sliderIndex.value = elements.value.length - maxElements.value;
+          if (props.blok.auto_play) clearAutoPlay();
         }
-      } else if (this.blok.slider_mode === 'carousel') {
-        if (this.currentSlide > 0) {
-          this.currentSlide--;
+      } else if (props.blok.slider_mode === 'carousel') {
+        if (currentSlide.value) {
+          currentSlide.value--;
         } else {
-          this.currentSlide = this.elements.length - 1;
-          if (this.blok.auto_play) {
-            this.clearAutoPlay();
-          }
+          currentSlide.value = elements.value.length - 1;
+          if (props.blok.auto_play) clearAutoPlay();
         }
-        this.transitionEnter = 'enter-right';
-        this.transitionLeave = 'leave-right';
+        transitionEnter.value = 'enter-right';
+        transitionLeave.value = 'leave-right';
       }
-    },
-    setNext() {
-      if (this.blok.slider_mode === 'slider') {
+    };
+    const next = (autoFocus = false) => {
+      if (props.blok.auto_play) {
+        setNext();
+        clearAutoPlay();
+        autoPlay();
+      } else {
+        setNext();
+      }
+      if (
+        autoFocus &&
+        !props.blok.hide_controllers &&
+        sliderSlide.value != null &&
+        Array.isArray(sliderSlide.value)
+      ) {
+        sliderSlide.value[0].focus();
+      }
+    };
+    const setNext = () => {
+      if (props.blok.slider_mode === 'slider') {
         if (
-          -((this.containerWidth + this.spaceFix) * this.sliderIndex) -
-            this.$refs.sliderBox.clientWidth >=
-          -((this.containerWidth + this.spaceFix) * (this.elements.length - 1))
+          -((containerWidth.value + spaceFix.value) * sliderIndex.value) -
+            sliderBox.value.clientWidth >=
+          -((containerWidth.value + spaceFix.value) * (elements.value.length - 1))
         ) {
-          this.sliderIndex++;
+          sliderIndex.value++;
         } else {
-          this.sliderIndex = 0;
-          if (this.blok.auto_play) {
-            this.clearAutoPlay();
-          }
+          sliderIndex.value = 0;
+          if (props.blok.auto_play) clearAutoPlay();
         }
-      } else if (this.blok.slider_mode === 'carousel') {
-        if (this.elements.length - 1 > this.currentSlide) {
-          this.currentSlide++;
-        } else {
-          this.currentSlide = 0;
-          if (this.blok.auto_play) {
-            this.clearAutoPlay();
-          }
+      } else if (props.blok.slider_mode === 'carousel') {
+        if (elements.value.length - 1 > currentSlide.value) currentSlide.value++;
+        else {
+          currentSlide.value = 0;
+          if (props.blok.auto_play) clearAutoPlay();
         }
-        this.transitionEnter = 'enter-left';
-        this.transitionLeave = 'leave-left';
+        transitionEnter.value = 'enter-left';
+        transitionLeave.value = 'leave-left';
       }
-    },
-    next(autoFocus = false) {
-      if (this.blok.auto_play) {
-        this.setNext();
-        this.clearAutoPlay();
-        this.autoPlay();
-      } else {
-        this.setNext();
+    };
+    const changeDot = input => {
+      if (props.blok.auto_play) {
+        clearAutoPlay();
+        autoPlay();
       }
-      if (
-        autoFocus &&
-        !this.blok.hide_controllers &&
-        this.$refs.sliderSlide != null &&
-        Array.isArray(this.$refs.sliderSlide)
-      ) {
-        this.$refs.sliderSlide[0].focus();
-      }
-    },
-    previous(autoFocus = false) {
-      if (this.blok.auto_play) {
-        this.setPrevious();
-        this.clearAutoPlay();
-        this.autoPlay();
-      } else {
-        this.setPrevious();
-      }
-      if (
-        autoFocus &&
-        !this.blok.hide_controllers &&
-        this.$refs.sliderSlide != null &&
-        Array.isArray(this.$refs.sliderSlide)
-      ) {
-        this.$refs.sliderSlide[0].focus();
-      }
-    },
-    changeDot(input) {
-      if (this.blok.auto_play) {
-        this.clearAutoPlay();
-        this.autoPlay();
-      }
-      this.currentSlide = input - 1;
-      this.transitionEnter = '';
-      this.transitionLeave = '';
-    },
-    autoPlay() {
-      this.setAutoPlay = setTimeout(
-        this.next,
-        this.blok.slider_time ? this.blok.slider_time : '5000'
-      );
-    },
-    clearAutoPlay() {
-      clearTimeout(this.setAutoPlay);
-      this.setAutoPlay = 0;
-    },
-    getContainerWidth() {
+      currentSlide.value = input - 1;
+      transitionEnter.value = '';
+      transitionLeave.value = '';
+    };
+    const autoPlay = () => {
+      setAutoPlay.value = setTimeout(next, props.blok.slider_time || '5000');
+    };
+    const clearAutoPlay = () => {
+      clearTimeout(setAutoPlay.value);
+      setAutoPlay.value = 0;
+    };
+    const getContainerWidth = () => {
       const containerSelect =
-        this.blok.body.length > 1 &&
-        (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel')
-          ? this.$refs.sliderBox.clientWidth
-          : this.$el.clientWidth;
-      if (this.sliderMode || this.carouselMode || this.containerMode) {
-        this.$nextTick(function () {
-          this.fullWidth = containerSelect;
-          this.containerWidth =
-            containerSelect / this.maxElements -
-            (this.spaceFix / this.maxElements) * (this.maxElements - 1);
+        props.blok.body.length > 1 &&
+        (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel')
+          ? sliderBox.value.clientWidth
+          : container.value;
+      if (props.sliderMode || props.carouselMode || props.containerMode) {
+        nextTick(() => {
+          fullWidth.value = containerSelect;
+          containerWidth.value =
+            containerSelect / maxElements.value -
+            (spaceFix.value / maxElements.value) * (maxElements.value - 1);
         });
       } else {
-        this.fullWidth = containerSelect;
-        this.containerWidth =
-          containerSelect / this.maxElements -
-          (this.spaceFix / this.maxElements) * (this.maxElements - 1);
+        fullWidth.value = containerSelect;
+        containerWidth.value =
+          containerSelect / maxElements.value -
+          (spaceFix.value / maxElements.value) * (maxElements.value - 1);
       }
-    },
-    focusContainer(element) {
-      if (!this.focusDisable) {
-        this.$nextTick(function () {
-          element.focus({ preventScroll: true });
-        });
+    };
+    const focusContainer = element => {
+      if (!focusDisable.value) {
+        nextTick(() => element.focus({ preventScroll: true }));
       }
-    },
-    clearAll() {
-      this.focusDisable = true;
-      this.transitionEnter = '';
-      this.transitionLeave = '';
+    };
+    const clearAll = () => {
+      focusDisable.value = true;
+      transitionEnter.value = '';
+      transitionLeave.value = '';
       if (
-        (this.blok.slider_mode === 'slider' || this.blok.slider_mode === 'carousel') &&
-        this.blok.auto_play
+        (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') &&
+        props.blok.auto_play
       ) {
-        this.clearAutoPlay();
+        clearAutoPlay();
       }
-    }
+    };
+    onMounted(() => {
+      getContainerWidth();
+      if (
+        (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') &&
+        props.blok.auto_play
+      ) {
+        autoPlay();
+      }
+    });
+    onBeforeUpdate(getContainerWidth);
+    onBeforeUnmount(clearAll);
+    watch(
+      () => windowWidth.value,
+      () => {
+        getContainerWidth();
+        if (props.blok.slider_mode === 'slider') sliderKey.value++;
+      }
+    );
+    watch(
+      () => fullWidth.value,
+      () => (sliderIndex.value = 0)
+    );
+    return {
+      next,
+      elements,
+      previous,
+      changeDot,
+      isDesktop,
+      fullWidth,
+      currentSlide,
+      transitionLeave,
+      transitionEnter,
+      maxElements,
+      container,
+      sliderBox,
+      windowWidth,
+      sliderSlide,
+      carouselSlide,
+      focusContainer,
+      setAlignContent
+    };
   }
-};
+});
 </script>
 <style scoped>
 .parent-cover > .container-content > .container-components {

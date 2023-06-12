@@ -132,7 +132,6 @@
 import Logo from '@/storyblok/global/Logo';
 import Translate from '@/storyblok/layout/Translate';
 import enums from '@/enum';
-import screen from '@/mixins/screen';
 export default defineNuxtComponent({
   components: { Translate, Logo },
   props: {
@@ -143,7 +142,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { isDesktop } = useDevice();
-    const { sizes, windowWidth } = screen();
+    const { sizes, windowWidth } = useScreen();
     const state = reactive({
       timer: 0,
       expanded: false,
@@ -201,11 +200,11 @@ export default defineNuxtComponent({
       }
     };
     watch(
-      () => [isDesktop, windowWidth],
+      () => [isDesktop, windowWidth.value],
       () => (expanded.value = false)
     );
     watch(
-      () => expanded,
+      () => expanded.value,
       () => headerPosition()
     );
     return {

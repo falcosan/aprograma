@@ -1,6 +1,6 @@
-import hljs from "highlight.js";
-import showdown from "showdown";
-import "highlight.js/styles/atom-one-dark.css";
+import hljs from 'highlight.js';
+import showdown from 'showdown';
+import 'highlight.js/styles/atom-one-dark.css';
 
 const converter = new showdown.Converter();
 export default {
@@ -12,25 +12,21 @@ export default {
   },
   methods: {
     rules() {
-      if (document.querySelector("pre code")) {
-        [...document.querySelectorAll("pre code")].forEach((code) => {
-          if (!code.classList.contains("syntax-code-block")) {
-            if (code.className.split(" ")[0].includes("language-")) {
-              const content = document.createElement("span");
-              content.classList.add("code-language");
-              code.classList.add("syntax-code-block");
+      if (document.querySelector('pre code')) {
+        [...document.querySelectorAll('pre code')].forEach(code => {
+          if (!code.classList.contains('syntax-code-block')) {
+            if (code.className.split(' ')[0].includes('language-')) {
+              const content = document.createElement('span');
+              content.classList.add('code-language');
+              code.classList.add('syntax-code-block');
               content.appendChild(
-                document.createTextNode(
-                  code.className.split(" ")[0].replace("language-", "")
-                )
+                document.createTextNode(code.className.split(' ')[0].replace('language-', ''))
               );
               const language = hljs.getLanguage(
-                code.className.split(" ")[0].replace("language-", "")
+                code.className.split(' ')[0].replace('language-', '')
               )
                 ? hljs
-                    .getLanguage(
-                      code.className.split(" ")[0].replace("language-", "")
-                    )
+                    .getLanguage(code.className.split(' ')[0].replace('language-', ''))
                     .name.toLocaleLowerCase()
                 : null;
               if (hljs.listLanguages().includes(language)) {
@@ -43,46 +39,46 @@ export default {
           }
         });
       }
-      if (document.querySelector(".markdown br")) {
-        [...document.querySelectorAll("* + br:last-child")].forEach((br) => {
-          br.previousElementSibling.style.marginBottom = "0";
+      if (document.querySelector('.markdown br')) {
+        [...document.querySelectorAll('* + br:last-child')].forEach(br => {
+          br.previousElementSibling.style.marginBottom = '0';
         });
       }
-      if (document.querySelector(".markdown img")) {
-        document.querySelectorAll(".markdown img").forEach((image) => {
-          const noScroll = (condition) => {
+      if (document.querySelector('.markdown img')) {
+        document.querySelectorAll('.markdown img').forEach(image => {
+          const noScroll = condition => {
             if (condition) {
-              document.body.classList.add("noscroll");
+              document.body.classList.add('noscroll');
               document.ontouchmove = function (e) {
                 e.preventDefault();
               };
             } else {
-              document.body.classList.remove("noscroll");
+              document.body.classList.remove('noscroll');
               document.ontouchmove = function () {
                 return true;
               };
             }
           };
-          image.addEventListener("click", function () {
+          image.addEventListener('click', function () {
             noScroll(true);
-            const wrapper = document.createElement("div");
+            const wrapper = document.createElement('div');
             const newImage = image.cloneNode();
-            wrapper.classList.add("markdown-modal");
+            wrapper.classList.add('markdown-modal');
             wrapper.appendChild(newImage);
             document.body.appendChild(wrapper).focus({ preventScroll: true });
             if (document.body.contains(wrapper)) {
-              wrapper.addEventListener("click", function () {
+              wrapper.addEventListener('click', function () {
                 document.body.removeChild(wrapper);
                 noScroll(false);
               });
               document.onkeydown = function (event) {
-                if (event.key.toLowerCase() === "escape") {
+                if (event.key.toLowerCase() === 'escape') {
                   noScroll(false);
                   document.body.removeChild(wrapper);
                 }
               };
             }
-            window.addEventListener("popstate", function () {
+            window.addEventListener('popstate', function () {
               if (document.body.contains(wrapper)) {
                 noScroll(false);
                 document.body.removeChild(wrapper);
@@ -92,21 +88,21 @@ export default {
         });
       }
       if (
-        document.querySelector(".markdown a") &&
+        document.querySelector('.markdown a') &&
         /blog|portfolio/.test(window.location.pathname)
       ) {
-        document.querySelectorAll(".markdown a").forEach((anchor) => {
-          anchor.setAttribute("target", "_blank");
-          anchor.setAttribute("rel", "noopener noreferrer");
+        document.querySelectorAll('.markdown a').forEach(anchor => {
+          anchor.setAttribute('target', '_blank');
+          anchor.setAttribute('rel', 'noopener noreferrer');
         });
       }
-      if (document.querySelector(".markdown code")) {
-        document.querySelectorAll(".markdown code").forEach((code) => {
+      if (document.querySelector('.markdown code')) {
+        document.querySelectorAll('.markdown code').forEach(code => {
           if (!code.childNodes.length) {
             const parentCode = code.parentNode;
             code.remove();
             parentCode.parentNode.insertBefore(
-              document.createElement("br"),
+              document.createElement('br'),
               parentCode.nextSibling
             );
             if (!parentCode.childNodes.length) parentCode.remove();
@@ -116,6 +112,6 @@ export default {
     },
     markdownToHtml(text) {
       return converter.makeHtml(text);
-    },
-  },
+    }
+  }
 };

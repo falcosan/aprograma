@@ -235,7 +235,6 @@
 import { storeToRefs } from 'pinia';
 import enums from '@/enum';
 import store from '@/store';
-import screen from '@/mixins/screen';
 export default defineNuxtComponent({
   props: {
     blok: {
@@ -246,7 +245,7 @@ export default defineNuxtComponent({
   setup(props) {
     const { $languageCase } = useNuxtApp();
     const { isDesktop } = useDevice();
-    const { sizes, scrollPosition } = screen();
+    const { sizes, scrollPosition } = useScreen();
     const { languageGet } = storeToRefs(store.language());
     const state = reactive({
       charIndex: 0,

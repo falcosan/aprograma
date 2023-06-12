@@ -109,6 +109,7 @@ export default {
     return {
       logo,
       play,
+      moved,
       isSafari,
       setLoading
     };
