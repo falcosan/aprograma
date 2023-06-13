@@ -21,7 +21,7 @@
           @keydown.left.prevent="prev"
         >
           <NuxtLink
-            :to="`${portfolioRoute}${project.slug}`"
+            :to="`${portfolioRoute}${project.slug}/`"
             class="project-link w-full grid grid-rows-1 grid-cols-2"
           >
             <div

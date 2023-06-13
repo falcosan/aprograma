@@ -1,6 +1,6 @@
 <template>
   <li v-if="postContent" class="post-teaser w-full overflow-hidden rounded">
-    <NuxtLink :to="`${blogRoute}${postLink}`" class="teaser-link">
+    <NuxtLink :to="`/blog/${postLink}`" class="teaser-link">
       <div
         :class="`teaser-content h-full flex flex-col ${
           rowContainer || sliderContainer || containerContainer || carouselContainer
@@ -108,10 +108,8 @@ export default {
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
-    const route = useRoute();
     const state = reactive({ expanded: false });
     const { expanded } = toRefs(state);
-    const blogRoute = computed(() => (/blog/.test(route.path) ? '' : 'blog/'));
     const setFile = computed(() => {
       return props.postContent.file.filename
         ? props.postContent.file.filename
@@ -144,7 +142,6 @@ export default {
       setFile,
       expanded,
       lookFile,
-      blogRoute,
       checkFile,
       changeDate,
       sortedCategories

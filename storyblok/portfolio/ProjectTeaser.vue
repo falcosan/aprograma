@@ -1,10 +1,6 @@
 <template>
   <li v-if="projectContent" class="project-teaser w-full h-full overflow-hidden rounded">
-    <NuxtLink
-      :key="projectContent._uid"
-      :to="`${portfolioRoute}${projectLink}`"
-      class="teaser-link"
-    >
+    <NuxtLink :key="projectContent._uid" :to="`/portfolio/${projectLink}`" class="teaser-link">
       <div
         class="teaser-content h-full flex flex-col justify-end pt-0.5"
         :style="`background-color: ${$binaryControl(
@@ -69,11 +65,6 @@ export default {
     containerWidth: {
       type: Number,
       default: 0
-    }
-  },
-  computed: {
-    portfolioRoute() {
-      return /portfolio/.test(window.location.pathname) ? '' : 'portfolio/';
     }
   }
 };
