@@ -3,7 +3,7 @@
     <div
       v-if="translateTransition"
       :class="`current-language cursor-pointer ${styleCurrentLanguage}`"
-      @click="$emit('currentLangAction')"
+      @click="$emit('current-lang-action')"
     >
       <template v-for="selector in blok">
         <span
@@ -37,7 +37,7 @@
           }`"
           @click="
             changeLanguage(language.language);
-            $emit('translateListAction');
+            $emit('translate-list-action');
           "
         >
           <span class="translate-language">{{ language.language.toUpperCase() }}</span>

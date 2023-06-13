@@ -230,7 +230,8 @@
                   : `${setAlignContent} m-2.5 rounded`
               }`"
             >
-              <StoryblokComponent
+              <component
+                :is="component.component"
                 :class="`${component.name.toLowerCase()}-component`"
                 :blok="component"
                 container-mode

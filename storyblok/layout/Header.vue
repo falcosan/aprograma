@@ -108,10 +108,10 @@
           }`"
           style-translate-item="p-3 text-center"
           :blok="$contentByName(blok.body, 'Translate')"
-          @translateListAction.passive="expanded = false"
-          @currentLangAction.passive="expanded = !expanded"
+          @translate-list-action="expanded = false"
+          @current-lang-action="expanded = !expanded"
           @mouseenter="isDesktop ? expandStill() : ''"
-          @mouseleave.passive="isDesktop ? expandOut() : (expanded = false)"
+          @mouseleave="isDesktop ? expandOut() : (expanded = false)"
         />
       </div>
     </nav>
@@ -149,7 +149,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { isDesktop } = useDevice();
-    const { sizes, windowWidth } = useScreen();
+    const { sizes, windowWidth, scrollPosition } = useScreen();
     const state = reactive({
       timer: 0,
       expanded: false,
@@ -189,10 +189,6 @@ export default defineNuxtComponent({
         return [props.blok.logo_colors.color, props.blok.logo_colors.color];
       }
     });
-    const headerPosition = () => {
-      if (window.pageYOffset <= 1) topPosition.value = true;
-      else topPosition.value = false;
-    };
     const expandOut = () => {
       if (expanded.value) {
         timer.value = setTimeout(() => {
@@ -206,12 +202,16 @@ export default defineNuxtComponent({
         timer.value = 0;
       }
     };
+    const headerPosition = () => {
+      if (scrollPosition.value <= 1) topPosition.value = true;
+      else topPosition.value = false;
+    };
     watch(
       () => [isDesktop, windowWidth.value],
       () => (expanded.value = false)
     );
     watch(
-      () => expanded.value,
+      () => scrollPosition.value,
       () => headerPosition()
     );
     return {
