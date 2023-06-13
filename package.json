@@ -18,10 +18,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/feed": "^2.0.0",
-    "@nuxtjs/pwa": "^3.3.5",
     "@nuxtjs/robots": "^3.0.0",
-    "@nuxtjs/sitemap": "^2.4.0",
     "@pinia/nuxt": "^0.4.11",
     "@storyblok/nuxt": "^5.4.9",
     "axios": "^1.4.0",

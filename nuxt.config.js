@@ -1,6 +1,5 @@
-import axios from 'axios';
-import showdown from 'showdown';
 import enums from './enum';
+import { fetchStories } from './services/fetch.js';
 
 export default defineNuxtConfig({
   target: 'static',
@@ -97,6 +96,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/device',
+    '@nuxtjs/robots',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/google-fonts',
     [
@@ -127,19 +127,6 @@ export default defineNuxtConfig({
   device: {
     refreshOnResize: true
   },
-  pwa: {
-    meta: {
-      author: enums.meta.author,
-      theme_color: '#212121',
-      lang: ''
-    },
-    manifest: {
-      name: enums.name,
-      short_name: enums.name,
-      description: enums.meta.description,
-      start_url: ''
-    }
-  },
   googleFonts: {
     families: {
       Rubik: [300, 400, 500, 600, 700, 800, 900]
@@ -147,69 +134,22 @@ export default defineNuxtConfig({
     preconnect: true,
     display: 'swap'
   },
-  sitemap: {
-    hostname: process.env.NUXT_ENV_DOMAIN,
-    trailingSlash: true,
-    routes: async () => {
-      const { data } = await axios(enums.routes);
-      return Object.values(data.links)
-        .map(link => {
-          if (link.is_startpage) return link.slug;
-          else return link;
-        })
-        .filter(Boolean);
-    },
-    defaults: {
-      changefreq: 'daily',
-      priority: 1,
-      lastmod: new Date()
-    }
-  },
   robots: {
     UserAgent: '*'
   },
-  feed: (() => {
-    const $md = new showdown.Converter();
-    const createFeed = lang => {
-      return {
-        path: enums.rss[lang].path,
-        async create(feed) {
-          feed.options = {
-            title: enums.rss[lang].title,
-            link: `${process.env.NUXT_ENV_DOMAIN}${enums.rss[lang].path}`,
-            description: enums.rss.description
-          };
-          feed.addCategory(enums.rss[lang].category);
-          feed.addContributor({
-            name: enums.rss.name,
-            email: enums.rss.email,
-            link: process.env.NUXT_ENV_DOMAIN
-          });
-          const data = await axios(enums.rss[lang].data);
-          const dataFiltered = dataLang =>
-            dataLang.data.stories.filter(
-              filteredPost => filteredPost.name.toLowerCase() !== enums.rss.route
-            );
-          dataFiltered(data).forEach(post => {
-            feed.addItem({
-              title: post.content.title,
-              image: post.content.file.filename ? post.content.file.filename : enums.rss.image,
-              id: post.id,
-              link: `${process.env.NUXT_ENV_DOMAIN}/${enums.rss.route}/${post.slug}`,
-              description: post.content.intro,
-              content: $md.makeHtml(post.content.long_text),
-              published: new Date(post.content.date)
-            });
-          });
-        },
-        cacheTime: 1000 * 60 * 15,
-        type: 'rss2'
-      };
-    };
-    return ['eng', 'esp', 'ita'].map(lang => createFeed(lang));
-  })(),
   build: {
-    transpile: ['axios'],
     extractCSS: process.env.NODE_ENV !== 'development'
+  },
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (!nitroConfig || nitroConfig.dev) return;
+      const routes = ['/'];
+      try {
+        await fetchStories(routes);
+        nitroConfig.prerender.routes.push(...routes);
+      } catch (err) {
+        console.error(err);
+      }
+    }
   }
 });
