@@ -27,7 +27,7 @@ export default defineNuxtConfig({
       {
         hid: 'og:url',
         property: 'og:url',
-        content: `${process.env.NUXT_ENV_DOMAIN}/`
+        content: process.env.NUXT_ENV_DOMAIN
       },
       {
         hid: 'og:title',
@@ -49,7 +49,7 @@ export default defineNuxtConfig({
       {
         hid: 'twitter:url',
         name: 'twitter:url',
-        content: `${process.env.NUXT_ENV_DOMAIN}/`
+        content: process.env.NUXT_ENV_DOMAIN
       },
       {
         hid: 'twitter:title',
@@ -71,7 +71,7 @@ export default defineNuxtConfig({
       {
         hid: 'canonical',
         rel: 'canonical',
-        href: `${process.env.NUXT_ENV_DOMAIN}/`
+        href: process.env.NUXT_ENV_DOMAIN
       },
       { rel: 'preconnect', href: '//img2.storyblok.com' }
     ]
@@ -148,7 +148,7 @@ export default defineNuxtConfig({
     display: 'swap'
   },
   sitemap: {
-    hostname: `${process.env.NUXT_ENV_DOMAIN}/`,
+    hostname: process.env.NUXT_ENV_DOMAIN,
     trailingSlash: true,
     routes: async () => {
       const { data } = await axios(enums.routes);
@@ -183,7 +183,7 @@ export default defineNuxtConfig({
           feed.addContributor({
             name: enums.rss.name,
             email: enums.rss.email,
-            link: `${process.env.NUXT_ENV_DOMAIN}/`
+            link: process.env.NUXT_ENV_DOMAIN
           });
           const data = await axios(enums.rss[lang].data);
           const dataFiltered = dataLang =>
@@ -195,7 +195,7 @@ export default defineNuxtConfig({
               title: post.content.title,
               image: post.content.file.filename ? post.content.file.filename : enums.rss.image,
               id: post.id,
-              link: `${process.env.NUXT_ENV_DOMAIN}/${enums.rss.route}/${post.slug}/`,
+              link: `${process.env.NUXT_ENV_DOMAIN}/${enums.rss.route}/${post.slug}`,
               description: post.content.intro,
               content: $md.makeHtml(post.content.long_text),
               published: new Date(post.content.date)
