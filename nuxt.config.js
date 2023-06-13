@@ -87,7 +87,8 @@ export default defineNuxtConfig({
     '~/plugins/injects/language-case.client.js',
     '~/plugins/injects/binary-control.client.js',
     '~/plugins/injects/content-by-name.client.js',
-    '~/plugins/injects/image-validation.client.js'
+    '~/plugins/injects/image-validation.client.js',
+    '~/plugins/injects/scroll-to-smoothly.client.js'
   ],
   generate: {
     fallback: true,

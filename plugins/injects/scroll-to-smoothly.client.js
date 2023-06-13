@@ -1,7 +1,7 @@
 export default defineNuxtPlugin(() => ({
   provide: {
     scrollToSmoothly: (pos, time = 300) => {
-      const currentPos = window.pageYOffset;
+      const currentPos = window.scrollY;
       let start = null;
       pos = Number(pos);
       time = Number(time);
@@ -9,15 +9,9 @@ export default defineNuxtPlugin(() => ({
         start = !start ? currentTime : start;
         const progress = currentTime - start;
         if (currentPos < pos) {
-          window.scrollTo(
-            0,
-            ((pos - currentPos) * progress) / time + currentPos
-          );
+          window.scrollTo(0, ((pos - currentPos) * progress) / time + currentPos);
         } else {
-          window.scrollTo(
-            0,
-            currentPos - ((currentPos - pos) * progress) / time
-          );
+          window.scrollTo(0, currentPos - ((currentPos - pos) * progress) / time);
         }
         if (progress < time) {
           window.requestAnimationFrame(step);
@@ -25,6 +19,6 @@ export default defineNuxtPlugin(() => ({
           window.scrollTo(0, pos);
         }
       });
-    },
-  },
+    }
+  }
 }));

@@ -66,72 +66,50 @@
   </main>
 </template>
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     blok: {
       type: Object,
       required: true
     }
   },
-  data() {
-    return {
-      index: {
-        background: 0,
-        mask: 0
-      }
-    };
-  },
-  computed: {
-    randomBackgroundColor() {
-      return this.blok.background_color.color.split('; ')[this.index.background];
-    },
-    randomBackgroundColorMask() {
-      return this.blok.background_color_mask.color.split('; ')[this.index.mask];
-    },
-    backgroundLevel() {
-      if (this.blok.background_index) {
-        return 'z-0';
-      } else {
-        return '-z-20';
-      }
-    },
-    backgroundPosition() {
-      if (!this.$device.isDesktop || this.$store.state.data.windowWidth < 768) {
+  setup(props) {
+    const { isDesktop } = useDevice();
+    const { windowWidth } = useScreen();
+    const { $imageValidation } = useNuxtApp;
+    const route = useRoute();
+    const state = reactive({ index: { background: 0, mask: 0 } });
+    const { index } = toRefs(state);
+    const randomBackgroundColor = computed(
+      () => props.blok.background_color.color.split('; ')[index.value.background]
+    );
+    const randomBackgroundColorMask = computed(
+      () => props.blok.background_color_mask.color.split('; ')[index.value.mask]
+    );
+    const backgroundLevel = computed(() => {
+      if (props.blok.background_index) return 'z-0';
+      else return '-z-20';
+    });
+    const backgroundPosition = computed(() => {
+      if (!isDesktop || windowWidth.value < 768) {
         return 'object-center';
-      } else if (this.blok.background_position === 'up') {
+      } else if (props.blok.background_position === 'up') {
         return 'object-bottom';
-      } else if (this.blok.background_position === 'down') {
+      } else if (props.blok.background_position === 'down') {
         return 'object-center';
       } else {
         return 'object-top';
       }
-    }
-  },
-  watch: {
-    $route() {
-      if (this.blok.background_color.color || this.blok.background_color_mask.color) {
-        this.setBackgroundColor();
-      }
-    }
-  },
-  created() {
-    if (this.blok.body_color.color) {
-      document.body.style.backgroundColor = this.blok.body_color.color;
-    }
-    if (this.blok.background_color.color || this.blok.background_color_mask.color) {
-      this.setBackgroundColor();
-    }
-  },
-  methods: {
-    setBackgroundColor() {
-      this.index.background =
-        ~~(Math.random() * (this.blok.background_color.color.split('; ').length - 0)) + 0;
-      this.index.mask =
-        ~~(Math.random() * (this.blok.background_color_mask.color.split('; ').length - 0)) + 0;
-    },
-    imageType() {
-      if (this.$imageValidation(this.blok.background_media.filename)) {
-        switch (this.blok.background_media.filename.toLowerCase().split('.').pop()) {
+    });
+    const setBackgroundColor = () => {
+      index.value.background =
+        ~~(Math.random() * (props.blok.background_color.color.split('; ').length - 0)) + 0;
+      index.value.mask =
+        ~~(Math.random() * (props.blok.background_color_mask.color.split('; ').length - 0)) + 0;
+    };
+    const imageType = () => {
+      if ($imageValidation(props.blok.background_media.filename)) {
+        switch (props.blok.background_media.filename.toLowerCase().split('.').pop()) {
           case 'jpg':
             return 'jpeg';
           case 'png':
@@ -142,7 +120,28 @@ export default {
             return 'gif';
         }
       }
-    }
+    };
+    (() => {
+      if (props.blok.body_color.color) {
+        document.body.style.backgroundColor = props.blok.body_color.color;
+      }
+    })();
+    watch(
+      () => route.path,
+      () => {
+        if (props.blok.background_color.color || props.blok.background_color_mask.color) {
+          setBackgroundColor();
+        }
+      },
+      { immediate: true }
+    );
+    return {
+      imageType,
+      backgroundLevel,
+      backgroundPosition,
+      randomBackgroundColor,
+      randomBackgroundColorMask
+    };
   }
-};
+});
 </script>
