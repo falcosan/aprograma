@@ -7,7 +7,6 @@
       expanded ? 'h-28' : 'h-0'
     }`"
   >
-    {{ $themeColor }}
     <div
       :style="`background-color: ${
         expanded ? backgroundColors : blok.background_color_menu.color

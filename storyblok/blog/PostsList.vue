@@ -1,5 +1,5 @@
 <template>
-  <div v-if="sortedPosts.length > 0" class="posts w-full">
+  <div v-if="sortedPosts.length" class="posts w-full">
     <div v-if="blok.search_action" class="post-search grid self-start mb-5">
       <input
         v-model="searchTerm"
@@ -9,7 +9,7 @@
       />
     </div>
     <div
-      v-if="blok.categories_action && sortedCategories.length > 0"
+      v-if="blok.categories_action && sortedCategories.length"
       class="post-categories grid relative overflow-hidden"
     >
       <div
@@ -112,8 +112,10 @@
 </template>
 
 <script>
+import { storeToRefs } from 'pinia';
+import store from '@/store';
 import PostTeaser from '@/storyblok/blog/PostTeaser';
-export default {
+export default defineNuxtComponent({
   components: { PostTeaser },
   props: {
     blok: {
@@ -137,128 +139,128 @@ export default {
       default: false
     }
   },
-  data() {
-    return {
+  setup(props) {
+    const route = useRoute();
+    const { addPosts } = store.posts();
+    const { $languageCase } = useNuxtApp();
+    const { postsGet } = storeToRefs(store.posts());
+    const { languageGet } = storeToRefs(store.language());
+    const state = reactive({
       searchTerm: '',
       searchCategory: [],
       showFilters: false
-    };
-  },
-  fetch() {
-    if (this.$route.name !== 'blog') {
-      this.$store.dispatch('list/posts/addPosts');
+    });
+    const { searchTerm, searchCategory, showFilters } = toRefs(state);
+    if (route.name !== 'blog') {
+      (async () =>
+        await useAsyncData('posts', async () => await addPosts(), {
+          watch: [languageGet]
+        }))();
     }
-  },
-  computed: {
-    maxPosts() {
-      if (this.sliderMode || this.carouselMode || this.containerMode) {
-        if (this.containerWidth >= 536) {
+    const maxPosts = computed(() => {
+      if (props.sliderMode || props.carouselMode || props.containerMode) {
+        if (props.containerWidth >= 536) {
           return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
         }
-        return this.containerWidth >= 354
+        return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
-          : this.sliderMode
+          : props.sliderMode
           ? 'sm:grid-cols-fill-small'
           : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
       } else {
         return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
       }
-    },
-    sortedPosts() {
-      const featuredPosts = this.$store.state.list.posts.items.filter(post => {
-        return this.blok.posts.includes(post.uuid);
-      });
-      featuredPosts.sort((a, b) => {
-        return this.blok.posts.indexOf(a.uuid) - this.blok.posts.indexOf(b.uuid);
-      });
+    });
+    const sortedPosts = computed(() => {
+      const posts = props.blok.posts;
+      const featuredPosts = postsGet.value.filter(post => posts.includes(post.uuid));
+      featuredPosts.sort((a, b) => posts.indexOf(a.uuid) - posts.indexOf(b.uuid));
       return featuredPosts;
-    },
-    sortedCategories() {
-      return this.blok.categories
+    });
+    const sortedCategories = computed(() => {
+      return props.blok.categories
         .map(category => {
           const mapCategory = category.toLowerCase().split('; ');
           return mapCategory.map(render => ({
             render,
             value: mapCategory[0]
-          }))[this.$languageCase(0, 1, 2)];
+          }))[$languageCase(0, 1, 2)];
         })
         .sort((a, b) => a.render.localeCompare(b.render));
-    },
-    comparedCategories() {
-      return this.searchCategory.map(({ value }) => value);
-    },
-    searchQuery() {
+    });
+    const comparedCategories = computed(() => searchCategory.value.map(({ value }) => value));
+    const searchQuery = computed(() => {
       return (() => {
         if (
-          this.searchTerm &&
-          this.blok.search_action &&
-          (!this.blok.categories_action || this.comparedCategories.length === 0)
+          searchTerm.value &&
+          props.blok.search_action &&
+          (!props.blok.categories_action || !comparedCategories.value.length)
         ) {
-          return this.filterByTerms;
+          return filterByTerms.value;
         } else if (
-          (!this.searchTerm || !this.blok.search_action) &&
-          this.blok.categories_action &&
-          this.comparedCategories.length > 0
+          (!searchTerm.value || !props.blok.search_action) &&
+          props.blok.categories_action &&
+          comparedCategories.value.length
         ) {
-          return this.filterByCategory;
+          return filterByCategory.value;
         } else if (
-          this.searchTerm &&
-          this.blok.search_action &&
-          this.blok.categories_action &&
-          this.comparedCategories.length > 0
+          searchTerm.value &&
+          props.blok.search_action &&
+          props.blok.categories_action &&
+          comparedCategories.value.length
         ) {
-          return this.filterBoth;
+          return filterBoth.value;
         } else {
-          return this.sortedPosts;
+          return sortedPosts.value;
         }
       })().sort(
         ({ content: contentA }, { content: contentB }) =>
           new Date(contentB.date) - new Date(contentA.date)
       );
-    },
-    filterByTerms() {
-      return this.sortedPosts.filter(post =>
+    });
+    const filterByTerms = computed(() => {
+      return sortedPosts.value.filter(post =>
         `${post.content.title} ${post.content.intro}`
           .toLowerCase()
-          .includes(this.searchTerm.toLowerCase())
+          .includes(searchTerm.value.toLowerCase())
       );
-    },
-    filterByCategory() {
-      return this.sortedPosts.filter(post =>
+    });
+    const filterByCategory = computed(() => {
+      return sortedPosts.value.filter(post =>
         post.content.categories.some(postCategory =>
-          this.comparedCategories.includes(postCategory.toLowerCase().split('; ')[0])
+          comparedCategories.value.includes(postCategory.toLowerCase().split('; ')[0])
         )
       );
-    },
-    filterBoth() {
-      return this.filterByTerms.filter(post =>
+    });
+    const filterBoth = computed(() => {
+      return filterByTerms.value.filter(post =>
         post.content.categories.some(postCategory =>
-          this.comparedCategories.includes(postCategory.toLowerCase().split('; ')[0])
+          comparedCategories.value.includes(postCategory.toLowerCase().split('; ')[0])
         )
       );
-    }
-  },
-  watch: {
-    '$store.state.language.language': {
-      handler() {
-        if (this.$route.name !== 'blog') {
-          this.$fetch();
-        }
-      }
-    }
-  },
-  methods: {
-    filterSearch(filter) {
-      if (!this.comparedCategories.includes(filter.value)) {
-        this.searchCategory.push(filter);
+    });
+    const filterSearch = filter => {
+      if (!comparedCategories.value.includes(filter.value)) {
+        searchCategory.value.push(filter);
       } else {
-        this.searchCategory.splice(this.comparedCategories.indexOf(filter.value), 1);
+        searchCategory.value.splice(comparedCategories.value.indexOf(filter.value), 1);
       }
-    },
-    showCategories() {
-      this.searchCategory = [];
-      this.showFilters = !this.showFilters;
-    }
+    };
+    const showCategories = () => {
+      searchCategory.value = [];
+      showFilters.value = !showFilters.value;
+    };
+    return {
+      maxPosts,
+      searchTerm,
+      searchQuery,
+      sortedPosts,
+      showFilters,
+      filterSearch,
+      showCategories,
+      sortedCategories,
+      comparedCategories
+    };
   }
-};
+});
 </script>

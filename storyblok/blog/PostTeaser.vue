@@ -18,18 +18,15 @@
           } ${postContent.file.filename ? '' : 'bg-black'}`"
         >
           <component
-            :is="postContent.file.filename ? lookFile ?? 'ImageSet' : 'ImageSet'"
-            :loading="checkFile"
+            :is="lookFile"
+            :lazy="checkFile"
             :file="postContent.file"
             :class="`teaser-file w-full h-full object-center select-none ${
               postContent.file.filename ? 'object-cover' : 'object-contain'
             }`"
             :alt="
-              postContent.file.filename
-                ? lookFile === 'ImageSet'
-                  ? postContent.file.alt
-                  : false
-                : $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
+              postContent.file.alt ||
+              $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
             "
             :src="setFile"
             :width="checkFile ? '1200' : false"
@@ -109,54 +106,48 @@ export default {
       default: 0
     }
   },
-  data() {
-    return {
-      expanded: false
-    };
-  },
-  computed: {
-    blogRoute() {
-      return /blog/.test(window.location.pathname) ? '' : 'blog/';
-    },
-    setFile() {
-      return this.postContent.file.filename
-        ? this.postContent.file.filename
+  setup(props) {
+    const { $languageCase } = useNuxtApp();
+    const state = reactive({ expanded: false });
+    const { expanded } = toRefs(state);
+    const blogRoute = computed(() => (/blog/.test(window.location.pathname) ? '' : 'blog/'));
+    const setFile = computed(() => {
+      return props.postContent.file.filename
+        ? props.postContent.file.filename
         : 'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png';
-    },
-    sortedCategories() {
-      return this.postContent.categories
-        .map(category => category.toLowerCase().split('; ')[this.$languageCase(0, 1, 2)])
+    });
+    const sortedCategories = computed(() => {
+      return props.postContent.categories
+        .map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
         .sort();
-    },
-    lookFile() {
-      switch (this.postContent.file.filename.toLowerCase().split('.').pop()) {
+    });
+    const lookFile = computed(() => {
+      switch (props.postContent.file.filename.toLowerCase().split('.').pop()) {
         case 'pdf':
           return 'embed';
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'gif':
-        case 'svg':
-        case 'webp':
-        case 'bmp':
-        case 'tiff':
-          return 'ImageSet';
         default:
-          return null;
+          return resolveComponent('Image');
       }
-    },
-    checkFile() {
-      return this.lookFile === 'ImageSet' || !this.postContent.file.filename;
-    }
-  },
-  methods: {
-    changeDate(date) {
+    });
+    const checkFile = computed(
+      () => typeof lookFile.value === 'object' || !props.postContent.file.filename
+    );
+    const changeDate = date => {
       const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${
         currentDateTime.getMonth() + 1
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
-    }
+    };
+    return {
+      setFile,
+      expanded,
+      lookFile,
+      blogRoute,
+      checkFile,
+      changeDate,
+      sortedCategories
+    };
   }
 };
 </script>
@@ -166,7 +157,7 @@ export default {
     @apply lg:h-[212px] xl:h-[184px] 2xl:h-[182px];
   }
   .teaser-file-container {
-    @apply relative md:h-[calc(50%_-_20px)] lg:h-full flex-none lg:flex-auto;
+    @apply relative md:h-[calc(50%-20px)] lg:h-full flex-none lg:flex-auto;
   }
   .teaser-file-container::before {
     content: '';
