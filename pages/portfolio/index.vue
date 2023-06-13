@@ -1,22 +1,16 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import store from '@/store';
-const { addProjects } = store.projects();
-const { languageGet } = storeToRefs(store.language());
 const route = useRoute();
 const storyblokApi = useStoryblokApi();
-const { data: portfolio, refresh: refreshPortfolio } = await useAsyncData(
+const { languageGet } = storeToRefs(store.language());
+const { data: portfolio } = await useAsyncData(
   route.path,
-  async () => await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value })
+  async () => await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value }),
+  {
+    watch: [languageGet]
+  }
 );
-const { refresh: refreshProjects } = await useAsyncData(
-  'projects',
-  async () => await addProjects()
-);
-watch(languageGet, () => {
-  refreshPortfolio();
-  refreshProjects();
-});
 </script>
 
 <template>

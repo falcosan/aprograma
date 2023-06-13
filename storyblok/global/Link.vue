@@ -16,7 +16,7 @@
         ? 'opacity-40 font-semibold'
         : 'pt-0.5 border-b-2 border-gray-300'
     "
-    :to="blok.external_link ? false : `${blok.path}/`"
+    :to="blok.external_link ? false : blok.path || '/'"
     :href="blok.external_link ? blok.path : undefined"
     :rel="blok.external_link ? 'noopener noreferrer' : undefined"
     :target="blok.external_link ? '_blank' : undefined"
@@ -69,7 +69,7 @@
           : 'pt-0.5 border-b-2 border-gray-300'
         : ''
     "
-    :to="externalLink ? undefined : `${to}/`"
+    :to="externalLink ? undefined : to || '/'"
     :href="externalLink ? to : undefined"
     :rel="externalLink ? 'noopener noreferrer' : undefined"
     :target="externalLink ? '_blank' : undefined"

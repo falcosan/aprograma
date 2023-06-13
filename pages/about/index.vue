@@ -4,7 +4,7 @@ import store from '@/store';
 const route = useRoute();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
-const { data } = await useAsyncData(
+const { data: about } = await useAsyncData(
   route.path,
   async () => await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value }),
   {
@@ -14,5 +14,5 @@ const { data } = await useAsyncData(
 </script>
 
 <template>
-  <StoryblokComponent :key="data.data.story.content._uid" :blok="data.data.story.content" />
+  <StoryblokComponent :key="about.data.story.content._uid" :blok="about.data.story.content" />
 </template>

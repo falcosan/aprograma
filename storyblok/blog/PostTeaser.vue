@@ -108,9 +108,10 @@ export default {
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
+    const route = useRoute();
     const state = reactive({ expanded: false });
     const { expanded } = toRefs(state);
-    const blogRoute = computed(() => (/blog/.test(window.location.pathname) ? '' : 'blog/'));
+    const blogRoute = computed(() => (/blog/.test(route.path) ? '' : 'blog/'));
     const setFile = computed(() => {
       return props.postContent.file.filename
         ? props.postContent.file.filename

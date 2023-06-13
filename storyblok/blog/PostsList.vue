@@ -99,7 +99,7 @@
       <PostTeaser
         v-for="post in searchQuery"
         :key="post.uuid"
-        :post-link="`${post.slug}/`"
+        :post-link="post.slug"
         :post-content="post.content"
         :row-container="blok.row_container"
         :slider-container="sliderMode"
@@ -140,7 +140,6 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const route = useRoute();
     const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
     const { postsGet } = storeToRefs(store.posts());
@@ -151,12 +150,8 @@ export default defineNuxtComponent({
       showFilters: false
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    if (route.name !== 'blog') {
-      (async () =>
-        await useAsyncData('posts', async () => await addPosts(), {
-          watch: [languageGet]
-        }))();
-    }
+    (async () =>
+      await useAsyncData('posts', async () => await addPosts(), { watch: [languageGet] }))();
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {

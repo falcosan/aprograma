@@ -231,7 +231,7 @@
   </div>
 </template>
 <script>
-import Modal from '../global/ModalComponent';
+import Modal from '@/storyblok/global/Modal';
 import markdown from '~/mixins/markdown';
 export default {
   components: { Modal },

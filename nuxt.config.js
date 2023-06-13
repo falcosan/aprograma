@@ -90,21 +90,6 @@ export default defineNuxtConfig({
     '~/plugins/injects/image-validation.client.js',
     '~/plugins/injects/scroll-to-smoothly.client.js'
   ],
-  generate: {
-    fallback: true,
-    routes(callback) {
-      const exclude = ['home', 'layout'];
-      const routes = [];
-      axios(enums.routes).then(res => {
-        Object.keys(res.data.links).forEach(key => {
-          if (!exclude.includes(res.data.links[key].slug)) {
-            routes.push('/' + res.data.links[key].slug);
-          }
-        });
-        callback(null, routes);
-      });
-    }
-  },
   runtimeConfig: {
     webDomain: process.env.NUXT_ENV_DOMAIN
   },
