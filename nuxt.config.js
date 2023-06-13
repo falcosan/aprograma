@@ -109,6 +109,11 @@ export default defineNuxtConfig({
       }
     ]
   ],
+  nitro: {
+    prerender: {
+      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml']
+    }
+  },
   image: {
     provider: 'storyblok',
     storyblok: {

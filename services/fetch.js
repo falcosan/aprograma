@@ -1,46 +1,42 @@
+import RSS from 'rss';
 import axios from 'axios';
 import showdown from 'showdown';
 import enums from '../enum';
 
-export function fetchFeed() {
+export async function fetchFeed(lang) {
   const $md = new showdown.Converter();
-  const createFeed = lang => {
-    return {
-      path: enums.rss[lang].path,
-      async create(feed) {
-        feed.options = {
-          title: enums.rss[lang].title,
-          link: `${process.env.NUXT_ENV_DOMAIN}${enums.rss[lang].path}`,
-          description: enums.rss.description
-        };
-        feed.addCategory(enums.rss[lang].category);
-        feed.addContributor({
-          name: enums.rss.name,
-          email: enums.rss.email,
-          link: process.env.NUXT_ENV_DOMAIN
-        });
-        const data = await axios(enums.rss[lang].data);
-        const dataFiltered = dataLang =>
-          dataLang.data.stories.filter(
-            filteredPost => filteredPost.name.toLowerCase() !== enums.rss.route
-          );
-        dataFiltered(data).forEach(post => {
-          feed.addItem({
-            title: post.content.title,
-            image: post.content.file.filename ? post.content.file.filename : enums.rss.image,
-            id: post.id,
-            link: `${process.env.NUXT_ENV_DOMAIN}/${enums.rss.route}/${post.slug}`,
-            description: post.content.intro,
-            content: $md.makeHtml(post.content.long_text),
-            published: new Date(post.content.date)
-          });
-        });
-      },
-      cacheTime: 1000 * 60 * 15,
-      type: 'rss2'
-    };
-  };
-  return ['eng', 'esp', 'ita'].map(lang => createFeed(lang));
+  const feed = new RSS({
+    title: enums.rss[lang].title,
+    site_url: process.env.NUXT_ENV_DOMAIN,
+    feed_url: `${process.env.NUXT_ENV_DOMAIN}${enums.rss[lang].path}`,
+    language: lang,
+    description: enums.rss.description,
+    generator: `${enums.name} RSS`,
+    category: enums.rss[lang].category
+  });
+  const data = await axios(enums.rss[lang].data);
+  const dataFiltered = dataLang =>
+    dataLang.data.stories.filter(
+      filteredPost => filteredPost.name.toLowerCase() !== enums.rss.route
+    );
+  dataFiltered(data).forEach(post => {
+    feed.item({
+      title: post.content.title,
+      image: post.content.file.filename ? post.content.file.filename : enums.rss.image,
+      guid: post.id,
+      author: post.content.author,
+      url: `${process.env.NUXT_ENV_DOMAIN}/${enums.rss.route}/${post.slug}`,
+      description: post.content.intro,
+      custom_elements: [{ 'content:encoded': $md.makeHtml(post.content.long_text) }],
+      date: new Date(post.content.date),
+      enclosure: {
+        url: post.content.file.filename ? post.content.file.filename : enums.rss.image,
+        length: 0,
+        type: 'image/jpeg'
+      }
+    });
+  });
+  return feed.xml({ indent: true });
 }
 
 export async function fetchSitemap() {
