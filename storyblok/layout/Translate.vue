@@ -77,19 +77,23 @@ export default defineNuxtComponent({
     const languageStore = store.language();
     const { languageAction } = languageStore;
     const { languageGet } = storeToRefs(languageStore);
-    (() => {
-      if (!languageGet.value) {
-        const format = Intl.DateTimeFormat().resolvedOptions();
-        const locale = cutLanguage({ language: format.locale });
-        changeLanguage(locale);
-      }
-    })();
     const changeLanguage = lang => languageAction(lang);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
+    const locale = localStorage.getItem('locale');
+    if (locale) changeLanguage(locale);
     watch(
-      () => languageGet.value,
-      val => document.documentElement.setAttribute('lang', val),
-      { immediate: true }
+      languageGet,
+      val => {
+        if (val) {
+          document.documentElement.setAttribute('lang', val);
+          localStorage.setItem('locale', val);
+        } else {
+          changeLanguage(Intl.DateTimeFormat().resolvedOptions().locale);
+        }
+      },
+      {
+        immediate: true
+      }
     );
     return {
       languageGet,

@@ -9,7 +9,7 @@
       v-if="$store.state.data.windowWidth >= 1280"
       class="project-action min-w-0 flex items-center justify-end"
     >
-      <Link
+      <LinkComponent
         v-if="blok.url_project"
         icon-item
         external-link
@@ -30,7 +30,7 @@
             size="w-10 h-10 p-3"
           />
         </template>
-      </Link>
+      </LinkComponent>
       <span
         v-else
         class="project-private mr-5 text-xs"
@@ -40,7 +40,7 @@
             : ''
         "
       />
-      <Link
+      <LinkComponent
         v-if="blok.url_repository"
         icon-item
         external-link
@@ -61,7 +61,7 @@
             size="w-10 h-10 p-3"
           />
         </template>
-      </Link>
+      </LinkComponent>
       <Icon
         arrow
         tag="button"
@@ -78,7 +78,7 @@
       />
     </div>
     <div class="project-intro grid gap-5 auto-cols-fr col-start-1 col-end-4">
-      <Modal
+      <ModalComponent
         v-if="blok.image.filename"
         class="modal-project w-full row-start-1 row-end-1 xl:col-start-1 xl:col-end-3"
         close-mode
@@ -109,7 +109,7 @@
             original
           />
         </template>
-      </Modal>
+      </ModalComponent>
       <div
         :style="`background-color: ${$binaryControl(
           blok.background_color,
@@ -148,7 +148,7 @@
         v-if="$store.state.data.windowWidth < 1280"
         class="project-action min-w-0 flex items-center justify-end row-start-2 row-end-3 xl:col-start-2 xl:col-end-3"
       >
-        <Link
+        <LinkComponent
           v-if="blok.url_project"
           icon-item
           external-link
@@ -169,7 +169,7 @@
               size="w-10 h-10 p-3"
             />
           </template>
-        </Link>
+        </LinkComponent>
         <span
           v-else
           class="project-private mr-5 text-xs"
@@ -179,7 +179,7 @@
               : ''
           "
         />
-        <Link
+        <LinkComponent
           v-if="blok.url_repository"
           icon-item
           external-link
@@ -200,7 +200,7 @@
               size="w-10 h-10 p-3"
             />
           </template>
-        </Link>
+        </LinkComponent>
         <Icon
           arrow
           tag="button"
@@ -221,7 +221,7 @@
       <h1 class="detail-project text-xl sm:text-2xl">
         {{ $languageCase('Project details', 'Detalles del proyecto', 'Dettagli del progetto') }}
       </h1>
-      <component
+      <StoryblokComponent
         :is="description.component"
         v-for="description in blok.body"
         :key="description._uid"
@@ -231,10 +231,11 @@
   </div>
 </template>
 <script>
-import Modal from '@/storyblok/global/Modal';
 import markdown from '~/mixins/markdown';
+import LinkComponent from '@/storyblok/global/Link';
+import ModalComponent from '@/storyblok/global/Modal';
 export default {
-  components: { Modal },
+  components: { ModalComponent, LinkComponent },
   mixins: [markdown],
   props: {
     blok: {

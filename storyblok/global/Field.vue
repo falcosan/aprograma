@@ -1,4 +1,4 @@
-<template></template>
+<template>disabled</template>
 <!-- <div class="field-item relative grid mb-8 rounded" :style="`background-color: ${blok.background_color.color};`">
     <label class="field-label p-2.5 text-sm" :for="blok.label.toLowerCase().replace(/ /g,'')" :style="`color: ${blok.text_color.color};`">{{ blok.label }} {{ blok.mandatory ? '*' : null }}</label>
     <component

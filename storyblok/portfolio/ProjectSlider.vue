@@ -21,7 +21,7 @@
           @keydown.left.prevent="prev"
         >
           <NuxtLink
-            :to="`${portfolioRoute}${project.slug}/`"
+            :to="`/portfolio/${project.slug}/`"
             class="project-link w-full grid grid-rows-1 grid-cols-2"
           >
             <div
@@ -119,11 +119,6 @@ export default {
         leave: ''
       }
     };
-  },
-  computed: {
-    portfolioRoute() {
-      return /portfolio/.test(window.location.pathname) ? '' : 'portfolio/';
-    }
   },
   updated() {
     this.focusSlide();

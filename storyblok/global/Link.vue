@@ -29,7 +29,7 @@
     >
       {{ blok.title }}
     </span>
-    <Icon
+    <IconComponent
       v-else-if="iconItem || blok.icon_item"
       :class="`item-icon ${iconStyle}`"
       :tag="blok.body[0].tag"
@@ -80,7 +80,9 @@
   </component>
 </template>
 <script>
+import IconComponent from '@/storyblok/global/Icon';
 export default defineNuxtComponent({
+  components: { IconComponent },
   props: {
     blok: {
       type: Object,

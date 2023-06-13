@@ -40,7 +40,7 @@
             : ''
         }`"
       >
-        <Icon
+        <IconComponent
           v-if="
             (blok.slider_mode === 'slider' ||
               windowWidth < 640 ||
@@ -76,7 +76,7 @@
           class="previous-control control h-full w-full absolute top-0 z-10 -left-1/2 cursor-previous"
           @click="previous"
         />
-        <Icon
+        <IconComponent
           v-if="
             (blok.slider_mode === 'slider' ||
               windowWidth < 640 ||
@@ -244,6 +244,8 @@
   </div>
 </template>
 <script>
+import Link from '@/storyblok/global/Link';
+import IconComponent from '@/storyblok/global/Icon';
 export default defineNuxtComponent({
   props: {
     blok: {
@@ -263,6 +265,7 @@ export default defineNuxtComponent({
       default: false
     }
   },
+  components: { IconComponent, Link },
   setup(props) {
     const { isDesktop } = useDevice();
     const { windowWidth } = useScreen();

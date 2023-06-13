@@ -56,7 +56,7 @@
             :blok="$contentByName(blok.body, 'Translate')"
           />
         </div>
-        <Icon
+        <IconComponent
           animate-menu
           tag="button"
           class="open-menu relative h-16 w-16 lg:w-20 lg:h-20 z-10 cursor-pointer rounded-bl"
@@ -85,7 +85,7 @@
           to=""
         >
           <template #icon>
-            <Icon home tag="button" size="w-5 h-5" class="home-link h-full w-full" />
+            <IconComponent home tag="button" size="w-5 h-5" class="home-link h-full w-full" />
           </template>
         </LinkComponent>
         <LogoComponent
@@ -135,11 +135,12 @@
 </template>
 <script>
 import LogoComponent from '@/storyblok/global/Logo';
+import IconComponent from '@/storyblok/global/Icon';
 import LinkComponent from '@/storyblok/global/Link';
 import TranslateComponent from '@/storyblok/layout/Translate';
 import enums from '@/enum';
 export default defineNuxtComponent({
-  components: { TranslateComponent, LogoComponent, LinkComponent },
+  components: { TranslateComponent, LogoComponent, LinkComponent, IconComponent },
   props: {
     blok: {
       type: Object,

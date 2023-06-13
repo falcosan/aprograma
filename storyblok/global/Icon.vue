@@ -9,7 +9,7 @@
     }`"
     @click="animateMenu ? (open = !open) : ''"
   >
-    <Image
+    <ImageComponent
       v-if="blok && blok.icon_image.filename"
       :class="`icon ${blok.icon_image.filename
         .split(/[\\/]/)
@@ -276,7 +276,9 @@
 </template>
 
 <script>
+import ImageComponent from '@/storyblok/global/Image';
 export default {
+  components: { ImageComponent },
   props: {
     blok: {
       type: Object,

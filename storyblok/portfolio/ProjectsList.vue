@@ -1,18 +1,18 @@
 <template>
-  <div v-if="sortedProject.length > 0" class="projects w-full">
+  <div v-if="sortedProjects.length" class="projects w-full">
     <ProjectSlider
       v-if="
-        $store.state.data.windowWidth >= 1024 &&
+        sizes.lg &&
         blok.show_slider &&
         !blok.row_container &&
-        sortedProject.length > 2 &&
+        sortedProjects.length > 2 &&
         !sliderMode
       "
-      :blok="sortedProject"
+      :blok="sortedProjects"
     />
     <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
       <ProjectTeaser
-        v-for="project in sortedProject"
+        v-for="project in sortedProjects"
         :key="project.uuid"
         :project-link="`${project.slug}/`"
         :project-content="project.content"
@@ -26,6 +26,8 @@
   </div>
 </template>
 <script>
+import { storeToRefs } from 'pinia';
+import store from '@/store';
 import ProjectSlider from '@/storyblok/portfolio/ProjectSlider';
 import ProjectTeaser from '@/storyblok/portfolio/ProjectTeaser';
 export default {
@@ -52,44 +54,34 @@ export default {
       default: false
     }
   },
-  fetch() {
-    if (this.$route.name !== 'portfolio') {
-      this.$store.dispatch('list/projects/addProjects');
-    }
-  },
-  computed: {
-    maxProjects() {
-      if (this.sliderMode || this.carouselMode || this.containerMode) {
-        if (this.containerWidth >= 536) {
+  setup(props) {
+    const { addProjects } = store.projects();
+    const { sizes } = useScreen();
+    const { projectsGet } = storeToRefs(store.projects());
+    const { languageGet } = storeToRefs(store.language());
+    (async () =>
+      await useAsyncData('projects', async () => await addProjects(), { watch: [languageGet] }))();
+    const maxProjects = computed(() => {
+      if (props.sliderMode || props.carouselMode || props.containerMode) {
+        if (props.containerWidth >= 536) {
           return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
         }
-        return this.containerWidth >= 354
+        return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
-          : this.sliderMode
+          : props.sliderMode
           ? 'sm:grid-cols-fill-small'
           : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
       } else {
         return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
       }
-    },
-    sortedProject() {
-      const featuredProjects = this.$store.state.list.projects.items.filter(project => {
-        return this.blok.projects.includes(project.uuid);
-      });
-      featuredProjects.sort((a, b) => {
-        return this.blok.projects.indexOf(a.uuid) - this.blok.projects.indexOf(b.uuid);
-      });
+    });
+    const sortedProjects = computed(() => {
+      const projects = props.blok.projects;
+      const featuredProjects = projectsGet.value.filter(post => projects.includes(post.uuid));
+      featuredProjects.sort((a, b) => projects.indexOf(a.uuid) - projects.indexOf(b.uuid));
       return featuredProjects;
-    }
-  },
-  watch: {
-    '$store.state.language.language': {
-      handler() {
-        if (this.$route.name !== 'portfolio') {
-          this.$fetch();
-        }
-      }
-    }
+    });
+    return { sizes, maxProjects, sortedProjects };
   }
 };
 </script>

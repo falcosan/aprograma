@@ -14,7 +14,7 @@
       class="top-kick absolute h-16 w-16 lg:w-20 lg:h-20 flex right-0 -top-16 lg:-top-20 items-center justify-center z-10 rounded-tl cursor-pointer transition-all duration-200"
       @click="$scrollToSmoothly(0)"
     >
-      <Icon
+      <IconComponent
         arrow
         tag="button"
         size="w-auto h-auto"
@@ -37,7 +37,7 @@
             expanded ? backgroundColors : blok.background_color_menu.color
           };`"
         >
-          <Icon
+          <IconComponent
             v-if="!currentEye"
             key="eye"
             eye
@@ -48,7 +48,7 @@
               expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
             } easter-egg`"
           />
-          <Icon
+          <IconComponent
             v-else
             key="eye-bold"
             eye-bold
@@ -72,7 +72,7 @@
               backgroundColors && $themeColor(backgroundColors) ? '' : ''
             }`"
           >
-            {{ blok.text_static ? blok.text_static : 'ㅤ' }}{{ typewriter }}
+            {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
           </span>
         </div>
         <div
@@ -147,7 +147,7 @@
           backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''
         }`"
       >
-        <Icon
+        <IconComponent
           v-if="!currentEye"
           key="eye"
           eye
@@ -155,7 +155,7 @@
           class="col-start-1 col-end-1 row-start-1 row-end-1"
           size="w-6"
         />
-        <Icon
+        <IconComponent
           v-if="currentEye"
           key="eyeb-bold"
           eye-bold
@@ -170,7 +170,7 @@
         }`"
       >
         <span class="footer-messages text-xs">
-          {{ blok.text_static ? blok.text_static : 'ㅤ' }}{{ typewriter }}
+          {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
         </span>
       </div>
       <div
@@ -207,7 +207,6 @@
           ></span
         >
       </div>
-
       <ul
         :class="`social-links flex flex-wrap -m-1.5 justify-center items-center ${
           backgroundColors && $themeColor(backgroundColors) ? 'invert' : ''
@@ -219,11 +218,7 @@
             :key="iconLink._uid"
             class="link-item m-1.5"
           >
-            <component
-              :is="iconLink.component"
-              :blok="iconLink"
-              class="social-icon transition-all duration-700"
-            />
+            <StoryblokComponent :blok="iconLink" class="social-icon transition-all duration-700" />
           </li>
         </template>
       </ul>
@@ -233,6 +228,8 @@
 
 <script>
 import { storeToRefs } from 'pinia';
+import Link from '@/storyblok/global/Link';
+import IconComponent from '@/storyblok/global/Icon';
 import enums from '@/enum';
 import store from '@/store';
 export default defineNuxtComponent({
@@ -242,6 +239,7 @@ export default defineNuxtComponent({
       required: true
     }
   },
+  components: { IconComponent, Link },
   setup(props) {
     const { $languageCase } = useNuxtApp();
     const { isDesktop } = useDevice();

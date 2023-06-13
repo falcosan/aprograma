@@ -35,7 +35,7 @@
       </div>
     </div>
     <transition appear appear-active-class="duration-100" appear-class="opacity-0">
-      <Image
+      <ImageComponent
         v-if="$imageValidation(blok.background_media.filename)"
         :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
           blok.color_animation ? 'color-animation' : ''
@@ -66,7 +66,9 @@
   </main>
 </template>
 <script>
+import ImageComponent from '@/storyblok/global/Image';
 export default defineNuxtComponent({
+  components: { ImageComponent },
   props: {
     blok: {
       type: Object,
