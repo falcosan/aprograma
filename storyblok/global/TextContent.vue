@@ -14,9 +14,7 @@
   </div>
 </template>
 <script>
-import markdown from '~/mixins/markdown';
 export default {
-  mixins: [markdown],
   props: {
     blok: {
       type: Object,
@@ -27,9 +25,10 @@ export default {
       default: 0
     }
   },
-  computed: {
-    setAlignText() {
-      switch (this.blok.align_text) {
+  setup(props) {
+    const { markdownToHtml } = useMarkdown();
+    const setAlignText = computed(() => {
+      switch (props.blok.align_text) {
         case 'right':
           return 'text-right';
         case 'center':
@@ -37,9 +36,13 @@ export default {
         case 'justify':
           return 'text-justify';
         default:
-          return '';
+          return 'text-left';
       }
-    }
+    });
+    return {
+      setAlignText,
+      markdownToHtml
+    };
   }
 };
 </script>

@@ -75,7 +75,6 @@ export default defineNuxtConfig({
       { rel: 'preconnect', href: '//img2.storyblok.com' }
     ]
   },
-  loading: '@/storyblok/layout/Loading',
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
   plugins: [
     '~/plugins/directives.js',

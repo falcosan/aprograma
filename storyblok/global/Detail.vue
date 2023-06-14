@@ -195,7 +195,7 @@ export default {
   },
   setup(props) {
     const { markdownToHtml } = useMarkdown();
-    const setAlignText = () => {
+    const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
           return 'text-right';
@@ -203,9 +203,10 @@ export default {
           return 'text-center';
         case 'justify':
           return 'text-justify';
+        default:
+          return 'text-left';
       }
-      return '';
-    };
+    });
     const imageType = media => {
       switch (media.filename.toLowerCase().split('.').pop()) {
         case 'jpg':

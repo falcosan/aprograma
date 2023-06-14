@@ -91,10 +91,7 @@ export default {
           return 'self-baseline';
       }
     });
-    (() => {
-      if (props.blok.hide) $noscroll(true);
-      else $noscroll(false);
-    })();
+    (() => $noscroll(props.blok.hide))();
     return {
       spaceFix,
       components,

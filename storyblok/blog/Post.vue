@@ -118,8 +118,9 @@ export default {
           return 'text-center';
         case 'justify':
           return 'text-justify';
+        default:
+          return 'text-left';
       }
-      return '';
     });
     const changeDate = date => {
       const currentDateTime = new Date(date.replace(' ', 'T'));
