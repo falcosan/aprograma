@@ -17,7 +17,7 @@
       height="710.8732px"
       viewBox="0 0 710.8732 710.8732"
       xml:space="preserve"
-      @click="((blok && blok.transition) || transition) && !isSafari ? play() : null"
+      @click="blok?.transition || transition ? play() : null"
     >
       <g :class="`transition-logo logo-a ${moved.a}`">
         <path
@@ -77,9 +77,7 @@ export default {
       default: ''
     }
   },
-  setup(props) {
-    const route = useRoute();
-    const { isSafari } = useDevice();
+  setup() {
     const logo = ref(null);
     const state = reactive({
       moved: {
@@ -89,37 +87,20 @@ export default {
       loading: false,
       loadingTimer: 0
     });
-    const { moved, loading, loadingTimer } = toRefs(state);
+    const { moved } = toRefs(state);
     const play = () => {
       moved.value.a = 'transform origin-center-left rotate-360 transition duration-700 ease-out';
       moved.value.p = 'transform origin-center rotate-360 transition duration-700 ease-out';
-      logo.ontransitionend = () => {
+      logo.value.ontransitionend = () => {
         moved.value.p = '';
         moved.value.a = '';
       };
     };
-    const setLoading = () => {
-      if (props.transition && route) {
-        clearTimeout(this.loadingTimer);
-        play();
-      } else {
-        loadingTimer.value = setTimeout(() => (loading.value = false), 200);
-      }
-    };
     return {
       logo,
       play,
-      moved,
-      isSafari,
-      setLoading
+      moved
     };
   }
-  // watch: {
-  //   '$nuxt.isFetching'() {
-  //     if (!this.isSafari) {
-  //       this.setLoading();
-  //     }
-  //   }
-  // },
 };
 </script>

@@ -5,10 +5,7 @@
     >
       {{ blok.title }}
     </h1>
-    <div
-      v-if="$store.state.data.windowWidth >= 1280"
-      class="project-action min-w-0 flex items-center justify-end"
-    >
+    <div v-if="sizes.xl" class="project-action min-w-0 flex items-center justify-end">
       <LinkComponent
         v-if="blok.url_project"
         icon-item
@@ -17,10 +14,10 @@
         :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
       >
         <template #icon>
-          <Icon
+          <IconComponent
             link
             :class="`project-external mr-2.5 rounded ${
-              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
             }`"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
@@ -48,10 +45,10 @@
         title="repository"
       >
         <template #icon>
-          <Icon
+          <IconComponent
             git
             :class="`project-repository mr-2.5 rounded ${
-              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
             }`"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
@@ -62,7 +59,7 @@
           />
         </template>
       </LinkComponent>
-      <Icon
+      <IconComponent
         arrow
         tag="button"
         :style="`background-color: ${$binaryControl(
@@ -71,7 +68,7 @@
           '#e0e0e0'
         )}; color: ${$binaryControl(blok.text_color, 'color')};`"
         :class="`project-back rounded ${
-          !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+          !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
         }`"
         size="w-10 h-10 p-3"
         @click="$goBack"
@@ -85,7 +82,7 @@
       >
         <template #activator="action">
           <div class="image-container w-full my-0 mx-auto cursor-pointer" @click="action.open()">
-            <Image
+            <ImageComponent
               class="intro-image h-full w-full aspect-[11/10] md:aspect-[11/9] border-t-2 border-b-2 object-cover rounded select-none"
               :src="blok.image.filename"
               :file="blok.image"
@@ -98,7 +95,7 @@
           </div>
         </template>
         <template #body>
-          <Image
+          <ImageComponent
             class="image-project select-none"
             width="1920"
             height="auto"
@@ -121,7 +118,6 @@
         }`"
         v-html="markdownToHtml(blok.intro)"
       />
-
       <div
         class="project-date flex flex-col ss:flex-row flex-wrap justify-evenly items-center xl:col-start-1 xl:col-end-3 p-2.5 rounded text-xs"
         :style="`background-color: ${$binaryControl(
@@ -145,7 +141,7 @@
         </span>
       </div>
       <div
-        v-if="$store.state.data.windowWidth < 1280"
+        v-if="windowWidth < 1280"
         class="project-action min-w-0 flex items-center justify-end row-start-2 row-end-3 xl:col-start-2 xl:col-end-3"
       >
         <LinkComponent
@@ -156,10 +152,10 @@
           :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
         >
           <template #icon>
-            <Icon
+            <IconComponent
               link
               :class="`project-external mr-2.5 rounded ${
-                !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+                !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
               }`"
               :style="`background-color: ${$binaryControl(
                 blok.background_color,
@@ -187,10 +183,10 @@
           title="repository"
         >
           <template #icon>
-            <Icon
+            <IconComponent
               git
               :class="`project-repository mr-2.5 rounded ${
-                !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+                !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
               }`"
               :style="`background-color: ${$binaryControl(
                 blok.background_color,
@@ -201,7 +197,7 @@
             />
           </template>
         </LinkComponent>
-        <Icon
+        <IconComponent
           arrow
           tag="button"
           :style="`background-color: ${$binaryControl(
@@ -210,14 +206,14 @@
             'e0e0e0'
           )}; color: ${$binaryControl(blok.text_color, 'color')};`"
           :class="`project-back rounded ${
-            !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+            !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
           }`"
           size="w-10 h-10 p-3"
           @click="$goBack"
         />
       </div>
     </div>
-    <div v-if="checkDetail" class="project-details grid gap-5 col-start-1 col-end-4 mt-10">
+    <div v-if="blok.body?.length" class="project-details grid gap-5 col-start-1 col-end-4 mt-10">
       <h1 class="detail-project text-xl sm:text-2xl">
         {{ $languageCase('Project details', 'Detalles del proyecto', 'Dettagli del progetto') }}
       </h1>
@@ -231,42 +227,42 @@
   </div>
 </template>
 <script>
-import markdown from '~/mixins/markdown';
 import LinkComponent from '@/storyblok/global/Link';
+import IconComponent from '@/storyblok/global/Icon';
+import ImageComponent from '@/storyblok/global/Image';
 import ModalComponent from '@/storyblok/global/Modal';
 export default {
-  components: { ModalComponent, LinkComponent },
-  mixins: [markdown],
+  components: { ModalComponent, ImageComponent, LinkComponent, IconComponent },
   props: {
     blok: {
       type: Object,
       required: true
     }
   },
-  computed: {
-    setAlignText() {
-      switch (this.blok.align_text) {
+  setup(props) {
+    const { isDesktop } = useDevice();
+    const { sizes, windowWidth } = useScreen();
+    const { markdownToHtml } = useMarkdown();
+    const setAlignText = computed(() => {
+      switch (props.blok.align_text) {
         case 'right':
           return 'text-right';
         case 'center':
           return 'text-center';
         case 'justify':
           return 'text-justify';
+        default:
+          return 'text-left';
       }
-      return '';
-    },
-    checkDetail() {
-      return this.blok.body?.length > 0;
-    }
-  },
-  methods: {
-    changeDate(date) {
+    });
+    const changeDate = date => {
       const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${
         currentDateTime.getMonth() + 1
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
-    }
+    };
+    return { sizes, windowWidth, isDesktop, setAlignText, markdownToHtml, changeDate };
   }
 };
 </script>

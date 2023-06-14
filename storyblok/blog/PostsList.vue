@@ -14,7 +14,7 @@
     >
       <div
         :class="`show-categories flex justify-self-end row-start-2 row-end-1 mb-5 cursor-pointer rounded transition bg-gray-200 ${
-          !$device.isDesktop ? '' : 'hover:opacity-80'
+          !isDesktop ? '' : 'hover:opacity-80'
         }`"
         @click="showCategories"
       >
@@ -48,7 +48,7 @@
             :class="`category-container h-full flex justify-between overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white ${
               comparedCategories.includes(filter.value)
                 ? 'bg-opacity-70'
-                : !$device.isDesktop
+                : !isDesktop
                 ? ''
                 : 'hover:bg-gray-700'
             }`"
@@ -61,7 +61,7 @@
               type="button"
               :text="filter.render"
             />
-            <InputComponent
+            <IconComponent
               close
               tag="span"
               size="w-2.5 h-2.5"
@@ -143,6 +143,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { addPosts } = store.posts();
+    const { isDesktop } = useDevice();
     const { $languageCase } = useNuxtApp();
     const { postsGet } = storeToRefs(store.posts());
     const { languageGet } = storeToRefs(store.language());
@@ -249,11 +250,13 @@ export default defineNuxtComponent({
     };
     return {
       maxPosts,
+      isDesktop,
       searchTerm,
       searchQuery,
       sortedPosts,
       showFilters,
       filterSearch,
+      searchCategory,
       showCategories,
       sortedCategories,
       comparedCategories

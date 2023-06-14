@@ -15,11 +15,7 @@
     <div class="detail-content grid gap-5 md:grid-flow-col auto-cols-fr rounded">
       <ul
         :class="`image-container grid gap-5 w-full justify-items-center auto-rows-max ${
-          $store.state.data.windowWidth >= 768
-            ? blok.invert_direction
-              ? 'col-start-2 col-end-2'
-              : ''
-            : ''
+          sizes.md ? (blok.invert_direction ? 'col-start-2 col-end-2' : '') : ''
         }`"
         :style="`grid-template-columns: repeat(${
           blok.column_container ? $rangeItems(Number(blok.column_container), 3) : blok.media.length
@@ -170,11 +166,10 @@
   </div>
 </template>
 <script>
-import ModalComponent from '@storyblok/global/Modal';
-import ImageComponent from '@storyblok/global/Image';
+import ModalComponent from '@/storyblok/global/Modal';
+import ImageComponent from '@/storyblok/global/Image';
 export default {
   components: { ModalComponent, ImageComponent },
-  mixins: [markdown],
   props: {
     blok: {
       type: Object,
@@ -194,6 +189,7 @@ export default {
     }
   },
   setup(props) {
+    const { sizes } = useScreen();
     const { markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
@@ -223,6 +219,7 @@ export default {
       }
     };
     return {
+      sizes,
       imageType,
       setAlignText,
       markdownToHtml
