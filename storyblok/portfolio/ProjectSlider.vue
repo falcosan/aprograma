@@ -108,8 +108,9 @@ export default defineNuxtComponent({
       required: true
     }
   },
-  data() {
-    return {
+  setup(props) {
+    const slide = ref(null);
+    const state = reactive({
       transitionActive: 'translation-all duration-500',
       indexControls: 0,
       focusDisable: false,
@@ -121,61 +122,63 @@ export default defineNuxtComponent({
         enter: '',
         leave: ''
       }
+    });
+    const { transitionActive, indexControls, focusDisable, frame, translation } = toRefs(state);
+    const next = () => {
+      if (props.blok.length - 1 > frame.value.up && props.blok.length > frame.value.down) {
+        indexControls.value++;
+        frame.value.up++;
+        frame.value.down++;
+        translation.value.enter = 'translate-x-full';
+        translation.value.leave = '-translate-x-full';
+      } else {
+        indexControls.value = 0;
+        frame.value.up = 0;
+        frame.value.down = 1;
+        translation.value.enter = '';
+        translation.value.leave = '';
+      }
     };
-  },
-  updated() {
-    this.focusSlide();
-  },
-  beforeUnmount() {
-    this.resetData();
-  },
-  methods: {
-    next() {
-      if (this.blok.length - 1 > this.frame.up && this.blok.length > this.frame.down) {
-        this.indexControls++;
-        this.frame.up++;
-        this.frame.down++;
-        this.translation.enter = 'translate-x-full';
-        this.translation.leave = '-translate-x-full';
+    const prev = () => {
+      if (frame.value.up !== 0 && frame.value.down !== 1) {
+        indexControls.value--;
+        frame.value.up--;
+        frame.value.down--;
+        translation.value.enter = '-translate-x-full';
+        translation.value.leave = 'translate-x-full';
       } else {
-        this.indexControls = 0;
-        this.frame.up = 0;
-        this.frame.down = 1;
-        this.translation.enter = '';
-        this.translation.leave = '';
+        indexControls.value = props.blok.length - 1;
+        frame.value.up = props.blok.length - 1;
+        frame.value.down = props.blok.length;
+        translation.value.enter = '';
+        translation.value.leave = '';
       }
-    },
-    prev() {
-      if (this.frame.up !== 0 && this.frame.down !== 1) {
-        this.indexControls--;
-        this.frame.up--;
-        this.frame.down--;
-        this.translation.enter = '-translate-x-full';
-        this.translation.leave = 'translate-x-full';
-      } else {
-        this.indexControls = this.blok.length - 1;
-        this.frame.up = this.blok.length - 1;
-        this.frame.down = this.blok.length;
-        this.translation.enter = '';
-        this.translation.leave = '';
+    };
+    const resetData = () => {
+      indexControls.value = 0;
+      frame.value.up = 0;
+      frame.value.data = 1;
+      transitionActive.value = '';
+      translation.value.enter = '';
+      translation.value.leave = '';
+      focusDisable.value = true;
+    };
+    const focusSlide = () => {
+      if (!focusDisable.value) {
+        nextTick(() => slide.value[0].focus({ preventScroll: true }));
       }
-    },
-    resetData() {
-      this.indexControls = 0;
-      this.frame.up = 0;
-      this.frame.data = 1;
-      this.transitionActive = '';
-      this.translation.enter = '';
-      this.translation.leave = '';
-      this.focusDisable = true;
-    },
-    focusSlide() {
-      if (!this.focusDisable) {
-        this.$nextTick(function () {
-          this.$refs.slide[0].focus({ preventScroll: true });
-        });
-      }
-    }
+    };
+    onUpdated(focusSlide);
+    onBeforeMount(resetData);
+    return {
+      next,
+      prev,
+      frame,
+      slide,
+      translation,
+      indexControls,
+      transitionActive
+    };
   }
 });
 </script>
