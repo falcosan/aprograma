@@ -3,7 +3,7 @@
     <nav class="navbar">
       <div class="menu-wrapper h-0 grid grid-flow-col-dense justify-between">
         <div class="logo-home relative h-16 w-16 lg:w-20 lg:h-20 z-20">
-          <LinkComponent
+          <RouteComponent
             icon-item
             class="home-link flex items-center justify-center p-1 lg:p-1.5 transition-shadow duration-300 rounded-br"
             to=""
@@ -18,7 +18,7 @@
                 size="100%"
               />
             </template>
-          </LinkComponent>
+          </RouteComponent>
         </div>
         <div
           :class="`menu-expanded h-10 grid grid-flow-col gap-5 transform transition ${
@@ -38,11 +38,11 @@
         >
           <ul class="link-list grid grid-flow-col auto-cols-fr">
             <li
-              v-for="item in $contentByName(blok.body, 'Link')"
+              v-for="item in $contentByName(blok.body, 'Route')"
               :key="item._uid"
               :class="`link-menu w-20 hover:shadow-sm ${topPosition ? 'rounded' : 'rounded-b'}`"
             >
-              <LinkComponent
+              <RouteComponent
                 class="flex items-center justify-center py-2 px-3 text-sm truncate"
                 :blok="item"
               />
@@ -76,7 +76,7 @@
       <div
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg flex justify-between"
       >
-        <LinkComponent
+        <RouteComponent
           active="exact"
           set-active="border-t-2 pb-0.5 border-gray-300"
           icon-item
@@ -87,7 +87,7 @@
           <template #icon>
             <IconComponent home tag="button" size="w-5 h-5" class="home-link h-full w-full" />
           </template>
-        </LinkComponent>
+        </RouteComponent>
         <LogoComponent
           transition
           :color-a="logoColors[0]"
@@ -123,11 +123,11 @@
         class="menu-wrapper wrapper-down w-full h-full max-w-sm xs:max-w-md sm:max-w-lg grid grid-cols-3"
       >
         <li
-          v-for="item in $contentByName(blok.body, 'Link')"
+          v-for="item in $contentByName(blok.body, 'Route')"
           :key="item._uid"
           class="link-menu no-underline"
         >
-          <LinkComponent icon-item icon-style="w-full h-full" :blok="item" />
+          <RouteComponent icon-item icon-style="w-full h-full" :blok="item" />
         </li>
       </ul>
     </nav>
@@ -136,11 +136,11 @@
 <script>
 import LogoComponent from '@/storyblok/global/Logo';
 import IconComponent from '@/storyblok/global/Icon';
-import LinkComponent from '@/storyblok/global/Link';
+import RouteComponent from '@/storyblok/global/Route';
 import TranslateComponent from '@/storyblok/layout/Translate';
 import enums from '@/enum';
 export default defineNuxtComponent({
-  components: { TranslateComponent, LogoComponent, LinkComponent, IconComponent },
+  components: { TranslateComponent, LogoComponent, RouteComponent, IconComponent },
   props: {
     blok: {
       type: Object,

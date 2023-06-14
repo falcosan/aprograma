@@ -6,7 +6,7 @@
       {{ blok.title }}
     </h1>
     <div v-if="sizes.xl" class="project-action min-w-0 flex items-center justify-end">
-      <LinkComponent
+      <RouteComponent
         v-if="blok.url_project"
         icon-item
         external-link
@@ -27,7 +27,7 @@
             size="w-10 h-10 p-3"
           />
         </template>
-      </LinkComponent>
+      </RouteComponent>
       <span
         v-else
         class="project-private mr-5 text-xs"
@@ -37,7 +37,7 @@
             : ''
         "
       />
-      <LinkComponent
+      <RouteComponent
         v-if="blok.url_repository"
         icon-item
         external-link
@@ -58,7 +58,7 @@
             size="w-10 h-10 p-3"
           />
         </template>
-      </LinkComponent>
+      </RouteComponent>
       <IconComponent
         arrow
         tag="button"
@@ -144,7 +144,7 @@
         v-if="windowWidth < 1280"
         class="project-action min-w-0 flex items-center justify-end row-start-2 row-end-3 xl:col-start-2 xl:col-end-3"
       >
-        <LinkComponent
+        <RouteComponent
           v-if="blok.url_project"
           icon-item
           external-link
@@ -165,7 +165,7 @@
               size="w-10 h-10 p-3"
             />
           </template>
-        </LinkComponent>
+        </RouteComponent>
         <span
           v-else
           class="project-private mr-5 text-xs"
@@ -175,7 +175,7 @@
               : ''
           "
         />
-        <LinkComponent
+        <RouteComponent
           v-if="blok.url_repository"
           icon-item
           external-link
@@ -196,7 +196,7 @@
               size="w-10 h-10 p-3"
             />
           </template>
-        </LinkComponent>
+        </RouteComponent>
         <IconComponent
           arrow
           tag="button"
@@ -227,12 +227,12 @@
   </div>
 </template>
 <script>
-import LinkComponent from '@/storyblok/global/Link';
 import IconComponent from '@/storyblok/global/Icon';
+import RouteComponent from '@/storyblok/global/Route';
 import ImageComponent from '@/storyblok/global/Image';
 import ModalComponent from '@/storyblok/global/Modal';
 export default {
-  components: { ModalComponent, ImageComponent, LinkComponent, IconComponent },
+  components: { ModalComponent, ImageComponent, RouteComponent, IconComponent },
   props: {
     blok: {
       type: Object,

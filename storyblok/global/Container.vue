@@ -230,8 +230,7 @@
                   : `${setAlignContent} m-2.5 rounded`
               }`"
             >
-              <component
-                :is="component.component"
+              <StoryblokComponent
                 :class="`${component.name.toLowerCase()}-component`"
                 :blok="component"
                 container-mode
@@ -245,7 +244,6 @@
   </div>
 </template>
 <script>
-import Link from '@/storyblok/global/Link';
 import IconComponent from '@/storyblok/global/Icon';
 export default defineNuxtComponent({
   props: {
@@ -266,7 +264,7 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  components: { IconComponent, Link },
+  components: { IconComponent },
   setup(props) {
     const { isDesktop } = useDevice();
     const { windowWidth } = useScreen();

@@ -116,13 +116,13 @@
             backgroundColors && $themeColor(backgroundColors) ? 'invert' : ''
           }`"
         >
-          <template v-for="iconLink in $contentByName(blok.body, 'Link')">
+          <template v-for="iconLink in $contentByName(blok.body, 'Route')">
             <li
               v-if="iconLink.title || (iconLink.icon_item && iconLink.body.length)"
               :key="iconLink._uid"
               class="link-item m-1.5"
             >
-              <LinkComponent :blok="iconLink" class="social-icon opacity-80 hover:opacity-100" />
+              <RouteComponent :blok="iconLink" class="social-icon opacity-80 hover:opacity-100" />
             </li>
           </template>
         </ul>
@@ -210,13 +210,13 @@
           backgroundColors && $themeColor(backgroundColors) ? 'invert' : ''
         }`"
       >
-        <template v-for="iconLink in $contentByName(blok.body, 'Link')">
+        <template v-for="iconLink in $contentByName(blok.body, 'Route')">
           <li
             v-if="iconLink.title || (iconLink.icon_item && iconLink.body.length)"
             :key="iconLink._uid"
             class="link-item m-1.5"
           >
-            <LinkComponent :blok="iconLink" class="social-icon transition-all duration-700" />
+            <RouteComponent :blok="iconLink" class="social-icon transition-all duration-700" />
           </li>
         </template>
       </ul>
@@ -226,7 +226,7 @@
 
 <script>
 import { storeToRefs } from 'pinia';
-import LinkComponent from '@/storyblok/global/Link';
+import RouteComponent from '@/storyblok/global/Route';
 import IconComponent from '@/storyblok/global/Icon';
 import enums from '@/enum';
 import store from '@/store';
@@ -237,7 +237,7 @@ export default defineNuxtComponent({
       required: true
     }
   },
-  components: { IconComponent, LinkComponent },
+  components: { IconComponent, RouteComponent },
   setup(props) {
     const { $languageCase } = useNuxtApp();
     const { isDesktop } = useDevice();
