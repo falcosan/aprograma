@@ -2,16 +2,15 @@ import enums from '@/enum';
 
 export const useSeo = () => {
   const seo = story => {
-    const webDomain = document.location.origin;
-    const { path } = useRoute();
-    const title = story.name ? `${story.name} - ${enums.name}` : null;
+    const route = { ...document.location, ...useRoute() };
+    const title = `${story.content?.title ?? story.name} - ${enums.name}`;
     const meta =
       story.content != null
         ? [
             {
               hid: 'description',
               name: 'description',
-              content: `${story.content.title} - ${enums.name}`
+              content: story.content.intro
             },
             {
               hid: 'og:title',
@@ -31,12 +30,12 @@ export const useSeo = () => {
             {
               hid: 'og:url',
               property: 'og:url',
-              content: `${webDomain}${path}`
+              content: `${route.origin}${route.path}`
             },
             {
               hid: 'twitter:url',
               name: 'twitter:url',
-              content: webDomain
+              content: `${route.origin}${route.path}`
             },
             {
               hid: 'twitter:title',
@@ -58,7 +57,7 @@ export const useSeo = () => {
             {
               hid: 'description',
               name: 'description',
-              content: story
+              content: story.description
             }
           ];
     return {
@@ -68,7 +67,7 @@ export const useSeo = () => {
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: `${webDomain}${path}`
+          href: `${route.origin}${route.path}`
         }
       ]
     };

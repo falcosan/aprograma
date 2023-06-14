@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import store from '@/store';
 const route = useRoute();
+const { seo } = useSeo();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: post } = await useAsyncData(
@@ -11,6 +12,7 @@ const { data: post } = await useAsyncData(
     watch: [languageGet]
   }
 );
+useHeadSafe(seo(post.value.data.story));
 </script>
 
 <template>

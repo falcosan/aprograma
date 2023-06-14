@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia';
 import store from '@/store';
 const route = useRoute();
 const { seo } = useSeo();
+const { $languageCase } = useNuxtApp();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: about } = await useAsyncData(
@@ -12,7 +13,12 @@ const { data: about } = await useAsyncData(
     watch: [languageGet]
   }
 );
-useHead(seo({ name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}` }));
+useHeadSafe(
+  seo({
+    name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
+    description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
+  })
+);
 </script>
 
 <template>

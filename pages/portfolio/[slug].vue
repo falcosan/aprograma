@@ -11,6 +11,7 @@ const { data: project } = await useAsyncData(
     watch: [languageGet]
   }
 );
+useHeadSafe(seo(project.value.data.story));
 </script>
 
 <template>
