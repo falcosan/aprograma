@@ -29,7 +29,7 @@
       };`"
     >
       <div class="post-action flex flex-wrap justify-end pt-5 px-5">
-        <Icon
+        <IconComponent
           arrow
           :style="`background-color: ${
             blok.background_color.color ? blok.background_color.color : '#e0e0e0'
@@ -79,7 +79,9 @@
   </div>
 </template>
 <script>
+import IconComponent from '@/storyblok/global/Icon';
 export default {
+  components: { IconComponent },
   props: {
     blok: {
       type: Object,

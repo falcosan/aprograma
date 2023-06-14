@@ -4,7 +4,7 @@
       !blok.remove_space ? (blok.title ? 'px-5 pt-5' : 'p-5') : ''
     }`"
   >
-    <Modal
+    <ModalComponent
       v-if="blok.modal_mode"
       :class="[
         {
@@ -14,7 +14,7 @@
       close-mode
     >
       <template #activator="action">
-        <Image
+        <ImageComponent
           v-if="(blok && $imageValidation(blok.media.filename)) || image"
           :class="[
             `${getClass}-image`,
@@ -70,7 +70,7 @@
         </video>
       </template>
       <template #body>
-        <Image
+        <ImageComponent
           v-if="(blok && $imageValidation(blok.media.filename)) || image"
           :class="`${getClass}-image my-0 mx-auto object-contain object-center select-none`"
           original
@@ -101,9 +101,9 @@
           />
         </video>
       </template>
-    </Modal>
+    </ModalComponent>
     <template v-else>
-      <Image
+      <ImageComponent
         v-if="(blok && $imageValidation(blok.media.filename)) || image"
         :class="[
           `${getClass}-image`,
@@ -166,9 +166,10 @@
 </template>
 
 <script>
-import Modal from './Modal';
+import ModalComponent from '@/storyblok/global/Modal';
+import ImageComponent from '@/storyblok/global/Image';
 export default {
-  components: { Modal },
+  components: { ModalComponent, ImageComponent },
   props: {
     blok: {
       type: Object,

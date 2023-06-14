@@ -9,7 +9,7 @@
           '#e0e0e0'
         )}; color: ${$binaryControl(projectContent.text_color, 'color')};`"
       >
-        <Image
+        <ImageComponent
           class="project-image h-full w-full object-cover object-center select-none rounded-t"
           :src="projectContent.image.filename"
           :file="projectContent.image"
@@ -36,7 +36,9 @@
 </template>
 
 <script>
+import ImageComponent from '@/storyblok/global/Image';
 export default {
+  components: { ImageComponent },
   props: {
     projectContent: {
       type: Object,

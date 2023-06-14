@@ -1,6 +1,6 @@
 <template>
   <div v-if="sortedProjects.length" class="projects w-full">
-    <ProjectSlider
+    <ProjectSliderComponent
       v-if="
         sizes.lg &&
         blok.show_slider &&
@@ -11,7 +11,7 @@
       :blok="sortedProjects"
     />
     <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
-      <ProjectTeaser
+      <ProjectTeaserComponent
         v-for="project in sortedProjects"
         :key="project.uuid"
         :project-link="`${project.slug}/`"
@@ -28,10 +28,10 @@
 <script>
 import { storeToRefs } from 'pinia';
 import store from '@/store';
-import ProjectSlider from '@/storyblok/portfolio/ProjectSlider';
-import ProjectTeaser from '@/storyblok/portfolio/ProjectTeaser';
+import ProjectSliderComponent from '@/storyblok/portfolio/ProjectSlider';
+import ProjectTeaserComponent from '@/storyblok/portfolio/ProjectTeaser';
 export default {
-  components: { ProjectSlider, ProjectTeaser },
+  components: { ProjectSliderComponent, ProjectTeaserComponent },
   props: {
     blok: {
       type: Object,

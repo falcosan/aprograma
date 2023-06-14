@@ -48,7 +48,7 @@
                 index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
               }`"
             >
-              <Image
+              <ImageComponent
                 :file="project.content.image"
                 class="project-image w-full h-full object-cover object-center pointer-events-none select-none"
                 :src="project.content.image.filename"
@@ -70,7 +70,7 @@
             : 'row-start-2 row-end-2 self-start'
         }`"
       >
-        <Icon class="w-full h-full" restart size="w-14 h-14" tag="button" @click="next" />
+        <IconComponent class="w-full h-full" restart size="w-14 h-14" tag="button" @click="next" />
       </li>
     </transition-group>
     <transition-group
@@ -86,19 +86,22 @@
         :key="`${indexControls}-1`"
         class="next-control absolute right-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
       >
-        <Icon next class="next" size="p-3 w-9 h-9" tag="button" @click="next" />
+        <IconComponent next class="next" size="p-3 w-9 h-9" tag="button" @click="next" />
       </span>
       <span
         :key="`${indexControls}-2`"
         class="previous-control absolute left-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
       >
-        <Icon previous class="previous" size="p-3 w-9 h-9" tag="button" @click="prev" />
+        <IconComponent previous class="previous" size="p-3 w-9 h-9" tag="button" @click="prev" />
       </span>
     </transition-group>
   </div>
 </template>
 <script>
+import IconComponent from '@/storyblok/global/Icon';
+import ImageComponent from '@/storyblok/global/Image';
 export default {
+  components: { IconComponent, ImageComponent },
   props: {
     blok: {
       type: Array,

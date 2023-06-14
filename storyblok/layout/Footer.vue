@@ -26,40 +26,42 @@
     </div>
     <div class="content-container h-full overflow-hidden" @mouseover="expandIn">
       <div class="open-footer absolute w-20 left-0 -top-16 lg:-top-20">
-        <transition-group
-          tag="div"
-          enter-active-class="duration-300 in-out"
-          leave-active-class="duration-300 out-in"
-          enter-class="opacity-0 absolute"
-          leave-to-class="opacity-0 absolute"
+        <div
           class="icon-open h-16 w-16 lg:w-20 lg:h-20 flex justify-center items-center rounded-tr transition-all duration-200"
           :style="`background-color: ${
             expanded ? backgroundColors : blok.background_color_menu.color
           };`"
         >
-          <IconComponent
-            v-if="!currentEye"
-            key="eye"
-            eye
-            tooltip="Kiosco Antonio"
-            tag="span"
-            :style="`color: ${blok.icon_color.color};`"
-            :class="`${
-              expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
-            } easter-egg`"
-          />
-          <IconComponent
-            v-else
-            key="eye-bold"
-            eye-bold
-            tooltip="Kiosco Antonio"
-            tag="span"
-            :style="`color: ${blok.icon_color.color};`"
-            :class="`${
-              expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
-            } easter-egg`"
-          />
-        </transition-group>
+          <transition
+            enter-active-class="duration-300 in-out"
+            leave-active-class="duration-300 out-in"
+            enter-class="opacity-0"
+            leave-to-class="opacity-0"
+          >
+            <IconComponent
+              v-if="currentEye"
+              key="eye-bold"
+              eye-bold
+              tooltip="Kiosco Antonio"
+              tag="span"
+              :style="`color: ${blok.icon_color.color};`"
+              :class="`${
+                expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
+              } absolute easter-egg`"
+            />
+            <IconComponent
+              v-else
+              key="eye"
+              eye
+              tooltip="Kiosco Antonio"
+              tag="span"
+              :style="`color: ${blok.icon_color.color};`"
+              :class="`${
+                expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
+              } absolute easter-egg`"
+            />
+          </transition>
+        </div>
       </div>
       <div
         :class="`footer-content h-full w-full grid grid-flow-col auto-cols-fr gap-5 items-center px-5 transition-opacity duration-200 ${
@@ -120,11 +122,7 @@
               :key="iconLink._uid"
               class="link-item m-1.5"
             >
-              <component
-                :is="iconLink.component"
-                :blok="iconLink"
-                class="social-icon opacity-80 hover:opacity-100"
-              />
+              <LinkComponent :blok="iconLink" class="social-icon opacity-80 hover:opacity-100" />
             </li>
           </template>
         </ul>
@@ -218,7 +216,7 @@
             :key="iconLink._uid"
             class="link-item m-1.5"
           >
-            <StoryblokComponent :blok="iconLink" class="social-icon transition-all duration-700" />
+            <LinkComponent :blok="iconLink" class="social-icon transition-all duration-700" />
           </li>
         </template>
       </ul>
@@ -228,7 +226,7 @@
 
 <script>
 import { storeToRefs } from 'pinia';
-import Link from '@/storyblok/global/Link';
+import LinkComponent from '@/storyblok/global/Link';
 import IconComponent from '@/storyblok/global/Icon';
 import enums from '@/enum';
 import store from '@/store';
@@ -239,7 +237,7 @@ export default defineNuxtComponent({
       required: true
     }
   },
-  components: { IconComponent, Link },
+  components: { IconComponent, LinkComponent },
   setup(props) {
     const { $languageCase } = useNuxtApp();
     const { isDesktop } = useDevice();
@@ -299,7 +297,7 @@ export default defineNuxtComponent({
       } else {
         typewriterIndex.value++;
         playEraseText.value = 0;
-        if (typewriterIndex.value >= props.blok.value.text_typewriter.length) {
+        if (typewriterIndex.value >= props.blok.text_typewriter.length) {
           typewriterIndex.value = 0;
         }
         playTypeText.value = setTimeout(typeText, 50);
@@ -309,9 +307,9 @@ export default defineNuxtComponent({
       if (words.value && charIndex.value < words.value.length) {
         typewriter.value += words.value.charAt(charIndex.value);
         charIndex.value++;
-        playTypeText.value = setTimeout(typeText.value, 50);
+        playTypeText.value = setTimeout(typeText, 50);
       } else {
-        if (typewriterIndex.value >= blok.value.text_typewriter.length) {
+        if (typewriterIndex.value >= props.blok.text_typewriter.length) {
           typewriterIndex.value = 0;
         }
         playTypeText.value = 0;
