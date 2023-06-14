@@ -1,6 +1,6 @@
 <template>
   <div :class="['modal', { opened: openEvent || open }]">
-    <slot name="activator" :open="toggleModal" />
+    <slot name="activator" :open="openModal" />
     <div
       v-show="openEvent || open"
       ref="modal"
@@ -10,8 +10,8 @@
         { 'cursor-close': closeMode }
       ]"
       tabindex="0"
-      @keydown.esc="closeMode && toggleModal(false)"
-      @click.stop="closeMode && toggleModal(false)"
+      @keydown.esc="closeMode && closeModal()"
+      @click.stop="closeMode && closeModal()"
     >
       <div class="modal-container">
         <header v-if="hasSlot('header') || closeMode" class="modal-header">
@@ -52,9 +52,10 @@ export default defineNuxtComponent({
     const modal = ref(null);
     const state = reactive({ openEvent: false });
     const { openEvent } = toRefs(state);
-    const toggleModal = operation => (openEvent.value = operation);
+    const openModal = () => (openEvent.value = true);
+    const closeModal = () => (openEvent.value = false);
     const checkModal = () => {
-      if (props.open || open.value) {
+      if (props.open || openEvent.value) {
         document.body.appendChild(modal.value);
         nextTick(() => modal.value.focus({ preventScroll: true }));
         $noscroll(true);
@@ -68,7 +69,6 @@ export default defineNuxtComponent({
       const slots = useSlots();
       return Boolean(slots[name]);
     };
-    watch(openEvent, checkModal);
     watch(() => [props.open, openEvent.value], checkModal);
     onBeforeUnmount(() => {
       if (props.open || openEvent.value) {
@@ -80,7 +80,8 @@ export default defineNuxtComponent({
       modal,
       hasSlot,
       openEvent,
-      toggleModal
+      openModal,
+      closeModal
     };
   }
 });
