@@ -99,7 +99,7 @@
       <PostTeaserComponent
         v-for="post in searchQuery"
         :key="post.uuid"
-        :post-link="`${post.slug}/`"
+        :post-link="post.slug"
         :post-content="post.content"
         :row-container="blok.row_container"
         :slider-container="sliderMode"

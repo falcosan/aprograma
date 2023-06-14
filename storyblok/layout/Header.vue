@@ -6,7 +6,7 @@
           <RouteComponent
             icon-item
             class="home-link flex items-center justify-center p-1 lg:p-1.5 transition-shadow duration-300 rounded-br"
-            to=""
+            to="/"
             :aria-label="webName"
             :style="`background-color: ${backgroundColorMenu};`"
           >
@@ -82,7 +82,7 @@
           icon-item
           class="home-link w-2/12 rounded-bl bg-neutral-800 text-white"
           :aria-label="webName"
-          to=""
+          to="/"
         >
           <template #icon>
             <IconComponent home tag="button" size="w-5 h-5" class="home-link h-full w-full" />

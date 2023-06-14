@@ -2,9 +2,6 @@ import enums from './enum';
 import { fetchStories } from './services/fetch.js';
 
 export default defineNuxtConfig({
-  router: {
-    trailingSlash: true
-  },
   vite: {
     optimizeDeps: { exclude: ['fsevents'] }
   },
@@ -137,14 +134,16 @@ export default defineNuxtConfig({
     display: 'swap'
   },
   robots: {
-    UserAgent: '*'
+    rules: {
+      UserAgent: '*'
+    }
   },
   webpack: {
     extractCSS: process.env.NODE_ENV !== 'development'
   },
   hooks: {
     async 'nitro:config'(nitroConfig) {
-      if (!nitroConfig || nitroConfig.dev) return;
+      if (!nitroConfig.prerender?.routes || nitroConfig.dev) return;
       const routes = ['/'];
       try {
         await fetchStories(routes);
