@@ -1,6 +1,6 @@
 <template>
   <div :class="['modal', { opened: openEvent || open }]">
-    <slot name="activator" :open="openModal" />
+    <slot name="activator" :open="toggleModal" />
     <div
       v-show="openEvent || open"
       ref="modal"
@@ -10,8 +10,8 @@
         { 'cursor-close': closeMode }
       ]"
       tabindex="0"
-      @keydown.esc="closeMode && closeModal()"
-      @click.stop="closeMode && closeModal()"
+      @keydown.esc="closeMode && toggleModal(false)"
+      @click.stop="closeMode && toggleModal(false)"
     >
       <div class="modal-container">
         <header v-if="hasSlot('header') || closeMode" class="modal-header">
@@ -47,57 +47,49 @@ export default defineNuxtComponent({
       default: ''
     }
   },
-  data() {
-    return {
-      openEvent: false
-    };
-  },
-  watch: {
-    openEvent() {
-      this.checkModal();
-    },
-    open() {
-      this.checkModal();
-    }
-  },
-  beforeUnmount() {
-    if (this.openEvent || this.open) {
-      this.$refs.modal.parentNode.removeChild(this.$refs.modal);
-      this.$noscroll(false);
-    }
-  },
-  methods: {
-    openModal() {
-      this.openEvent = true;
-    },
-    closeModal() {
-      this.openEvent = false;
-    },
-    checkModal() {
-      if (this.openEvent || this.open) {
-        document.body.appendChild(this.$refs.modal);
-        this.$nextTick(function () {
-          this.$refs.modal.focus({ preventScroll: true });
-        });
-        this.$noscroll(true);
+  setup(props) {
+    const { $noscroll } = useNuxtApp();
+    const modal = ref(null);
+    const state = reactive({ openEvent: false });
+    const { openEvent } = toRefs(state);
+    const toggleModal = operation => (openEvent.value = operation);
+    const checkModal = () => {
+      if (props.open || open.value) {
+        document.body.appendChild(modal.value);
+        nextTick(() => modal.value.focus({ preventScroll: true }));
+        $noscroll(true);
       } else {
-        this.$refs.modal.parentNode.removeChild(this.$refs.modal);
-        document.querySelector('.modal.opened').appendChild(this.$refs.modal);
-        this.$noscroll(false);
+        modal.value.parentNode.removeChild(modal.value);
+        document.querySelector('.modal.opened').appendChild(modal.value);
+        $noscroll(false);
       }
-    },
-    hasSlot(name = 'default') {
-      return !!this.$slots[name] || !!this.$slots[name];
-    }
+    };
+    const hasSlot = name => {
+      const slots = useSlots();
+      return Boolean(slots[name]);
+    };
+    watch(openEvent, checkModal);
+    watch(() => [props.open, openEvent.value], checkModal);
+    onBeforeUnmount(() => {
+      if (props.open || openEvent.value) {
+        modal.value.parentNode.removeChild(modal.value);
+        $noscroll(false);
+      }
+    });
+    return {
+      modal,
+      hasSlot,
+      openEvent,
+      toggleModal
+    };
   }
 });
 </script>
 <style>
 .body-container > * {
-  height: 100%;
-  object-fit: contain;
+  @apply h-full object-contain;
 }
 .body-container > *:not(:first-child) {
-  margin-top: 20px;
+  @apply mt-5;
 }
 </style>
