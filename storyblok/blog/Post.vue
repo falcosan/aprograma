@@ -8,21 +8,17 @@
         }`"
       >
         <component
-          :is="blok.file.filename ? lookFile ?? 'ImageSet' : 'ImageSet'"
-          :format="checkImage ? 'webp' : false"
+          :is="lookFile"
+          :format="checkFile ? 'webp' : false"
           class="post-file w-full h-full aspect-[13/8] object-center select-none object-cover"
           :alt="
-            blok.file.filename
-              ? lookFile === 'ImageSet'
-                ? blok.file.alt
-                : false
-              : $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
+            blok.file.alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
           "
           :src="setFile"
           :file="blok.file"
-          :width="checkImage ? '1366' : false"
-          :height="checkImage ? '707' : false"
-          :sizes="checkImage ? 'xs:380px sm:514px md:711px lg:804px xl:1366px' : false"
+          :width="checkFile ? '1366' : false"
+          :height="checkFile ? '707' : false"
+          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1366px' : false"
         />
       </div>
     </div>
@@ -83,48 +79,39 @@
   </div>
 </template>
 <script>
-import markdown from '~/mixins/markdown';
 export default {
-  mixins: [markdown],
   props: {
     blok: {
       type: Object,
       required: true
     }
   },
-  computed: {
-    lookFile() {
-      switch (this.blok.file.filename.toLowerCase().split('.').pop()) {
+  setup(props) {
+    const { markdownToHtml } = useMarkdown();
+    const { $languageCase } = useNuxtApp();
+    const lookFile = computed(() => {
+      switch (props.blok.file.filename.toLowerCase().split('.').pop()) {
         case 'pdf':
           return 'embed';
-        case 'jpg':
-        case 'jpeg':
-        case 'png':
-        case 'gif':
-        case 'svg':
-        case 'webp':
-        case 'bmp':
-        case 'tiff':
-          return 'ImageSet';
         default:
-          return null;
+          return resolveComponent('Image');
       }
-    },
-    setFile() {
-      return this.blok.file.filename
-        ? this.blok.file.filename
-        : 'https://a.storyblok.com/f/106240/4067x2440/49d9d1a222/noimagedetail.png';
-    },
-    sortedCategories() {
-      return this.blok.categories
-        .map(category => category.toLowerCase().split('; ')[this.$languageCase(0, 1, 2)])
+    });
+    const setFile = computed(() => {
+      return props.blok.file.filename
+        ? props.blok.file.filename
+        : 'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png';
+    });
+    const sortedCategories = computed(() => {
+      return props.blok.categories
+        .map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
         .sort();
-    },
-    checkImage() {
-      return this.lookFile === 'ImageSet' || !this.blok.file.filename;
-    },
-    setAlignText() {
-      switch (this.blok.align_text) {
+    });
+    const checkFile = computed(
+      () => typeof lookFile.value === 'object' || !props.postContent.file.filename
+    );
+    const setAlignText = computed(() => {
+      switch (props.blok.align_text) {
         case 'right':
           return 'text-right';
         case 'center':
@@ -133,16 +120,23 @@ export default {
           return 'text-justify';
       }
       return '';
-    }
-  },
-  methods: {
-    changeDate(date) {
+    });
+    const changeDate = date => {
       const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${
         currentDateTime.getMonth() + 1
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
-    }
+    };
+    return {
+      setFile,
+      lookFile,
+      checkFile,
+      changeDate,
+      setAlignText,
+      markdownToHtml,
+      sortedCategories
+    };
   }
 };
 </script>

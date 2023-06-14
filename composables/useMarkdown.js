@@ -40,14 +40,10 @@ export const useMarkdown = (init = true) => {
         const noScroll = condition => {
           if (condition) {
             document.body.classList.add('noscroll');
-            document.ontouchmove = function (e) {
-              e.preventDefault();
-            };
+            document.ontouchmove = e => e.preventDefault();
           } else {
             document.body.classList.remove('noscroll');
-            document.ontouchmove = function () {
-              return true;
-            };
+            document.ontouchmove = () => true;
           }
         };
         image.addEventListener('click', function () {
@@ -97,7 +93,7 @@ export const useMarkdown = (init = true) => {
   };
   const markdownToHtml = text => converter.makeHtml(text);
   if (init) {
-    onBeforeMount(rules);
+    onMounted(rules);
     onUpdated(rules);
   }
   return {

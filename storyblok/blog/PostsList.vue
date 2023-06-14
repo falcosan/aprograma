@@ -18,12 +18,12 @@
         }`"
         @click="showCategories"
       >
-        <Input
+        <InputComponent
           class="input-show w-full pr-0 bg-transparent"
           type="button"
           :text="$languageCase('Categories', 'Categorías', 'Categorie')"
         />
-        <Icon
+        <IconComponent
           next
           class="px-4 rounded bg-gray-200"
           tag="span"
@@ -54,14 +54,14 @@
             }`"
             @click="filterSearch(filter)"
           >
-            <Input
+            <InputComponent
               :class="`category-input w-full text-left rounded pointer-events-none italic truncate transition-all ${
                 comparedCategories.includes(filter.value) ? 'bg-neutral-500' : 'bg-transparent'
               }`"
               type="button"
               :text="filter.render"
             />
-            <Icon
+            <InputComponent
               close
               tag="span"
               size="w-2.5 h-2.5"
@@ -74,7 +74,7 @@
             class="reset-container h-full overflow-hidden col-start-1 col-end-1 row-start-1 row-end-1 rounded cursor-pointer select-none"
             @click="searchCategory = []"
           >
-            <Input
+            <InputComponent
               class="reset-input w-full bg-gray-200"
               type="button"
               :text="$languageCase('Clear filters', 'Borrar filtros', 'Rimuovi filtri')"
@@ -96,7 +96,7 @@
       enter-class="opacity-0"
       leave-to-class="opacity-0"
     >
-      <PostTeaser
+      <PostTeaserComponent
         v-for="post in searchQuery"
         :key="post.uuid"
         :post-link="`${post.slug}/`"
@@ -114,9 +114,11 @@
 <script>
 import { storeToRefs } from 'pinia';
 import store from '@/store';
-import PostTeaser from '@/storyblok/blog/PostTeaser';
+import IconComponent from '@/storyblok/global/Icon';
+import InputComponent from '@/storyblok/global/Input';
+import PostTeaserComponent from '@/storyblok/blog/PostTeaser';
 export default defineNuxtComponent({
-  components: { PostTeaser },
+  components: { PostTeaserComponent, IconComponent, InputComponent },
   props: {
     blok: {
       type: Object,

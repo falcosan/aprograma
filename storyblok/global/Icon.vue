@@ -369,9 +369,11 @@ export default {
       default: false
     }
   },
-  data() {
+  setup() {
+    const state = reactive({ open: false });
+    const { open } = toRefs(state);
     return {
-      open: false
+      open
     };
   }
 };

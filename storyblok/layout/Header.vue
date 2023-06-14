@@ -212,7 +212,8 @@ export default defineNuxtComponent({
     );
     watch(
       () => scrollPosition.value,
-      () => headerPosition()
+      () => headerPosition(),
+      { immediate: true }
     );
     return {
       sizes,

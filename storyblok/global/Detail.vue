@@ -26,9 +26,9 @@
         }, 1fr)`"
       >
         <li v-for="media in blok.media" :key="media.id" class="image-item w-full">
-          <Modal v-if="blok.modal_mode" class="detail-modal" close-mode>
+          <ModalComponent v-if="blok.modal_mode" class="detail-modal" close-mode>
             <template #activator="action">
-              <Image
+              <ImageComponent
                 v-if="$imageValidation(media.filename)"
                 :file="media"
                 :class="`${media.filename
@@ -70,7 +70,7 @@
               </video>
             </template>
             <template #body>
-              <Image
+              <ImageComponent
                 v-if="$imageValidation(media.filename)"
                 :class="`${media.filename
                   .split(/[\\/]/)
@@ -111,9 +111,9 @@
                 />
               </video>
             </template>
-          </Modal>
+          </ModalComponent>
           <template v-else>
-            <Image
+            <ImageComponent
               v-if="$imageValidation(media.filename)"
               :file="media"
               :class="`${media.filename
@@ -170,10 +170,10 @@
   </div>
 </template>
 <script>
-import Modal from './Modal';
-import markdown from '~/mixins/markdown';
+import ModalComponent from '@storyblok/global/Modal';
+import ImageComponent from '@storyblok/global/Image';
 export default {
-  components: { Modal },
+  components: { ModalComponent, ImageComponent },
   mixins: [markdown],
   props: {
     blok: {
@@ -193,9 +193,10 @@ export default {
       default: false
     }
   },
-  computed: {
-    setAlignText() {
-      switch (this.blok.align_text) {
+  setup(props) {
+    const { markdownToHtml } = useMarkdown();
+    const setAlignText = () => {
+      switch (props.blok.align_text) {
         case 'right':
           return 'text-right';
         case 'center':
@@ -204,12 +205,11 @@ export default {
           return 'text-justify';
       }
       return '';
-    }
-  },
-  methods: {
-    imageType(media) {
+    };
+    const imageType = media => {
       switch (media.filename.toLowerCase().split('.').pop()) {
         case 'jpg':
+        case 'jpeg':
           return 'jpeg';
         case 'png':
           return 'png';
@@ -217,8 +217,15 @@ export default {
           return 'svg+xml';
         case 'gif':
           return 'gif';
+        default:
+          return 'webp';
       }
-    }
+    };
+    return {
+      imageType,
+      setAlignText,
+      markdownToHtml
+    };
   }
 };
 </script>

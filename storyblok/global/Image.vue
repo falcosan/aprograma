@@ -68,8 +68,6 @@ export default defineNuxtComponent({
         case 'jpg':
         case 'jpeg':
           return 'jpeg';
-        case 'webp':
-          return 'webp';
         case 'png':
           return 'png';
         case 'svg':
@@ -77,7 +75,7 @@ export default defineNuxtComponent({
         case 'gif':
           return 'gif';
         default:
-          return null;
+          return 'webp';
       }
     });
     return {

@@ -1,14 +1,12 @@
 <template>
   <main class="main min-h-screen overflow-x-hidden">
     <div
-      :class="`main-wrapper relative overflow-hidden ${
-        !$device.isDesktop ? 'pt-10' : 'pt-10 md:py-20'
-      }`"
+      :class="`main-wrapper relative overflow-hidden ${!isDesktop ? 'pt-10' : 'pt-10 md:py-20'}`"
     >
       <div
         v-if="blok.show_background_mask"
         :class="`main-background absolute max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${
-          !$device.isDesktop ? '' : 'md:rounded-t'
+          !isDesktop ? '' : 'md:rounded-t'
         } ${blok.color_animation ? 'color-animation' : ''}`"
         :style="`background-color: ${
           randomBackgroundColorMask
@@ -28,7 +26,7 @@
       />
       <div
         :class="`max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl my-0 mx-auto rounded-b ${
-          !$device.isDesktop ? '' : 'md:rounded-t'
+          !isDesktop ? '' : 'md:rounded-t'
         }`"
       >
         <slot />
@@ -78,7 +76,6 @@ export default defineNuxtComponent({
   setup(props) {
     const { isDesktop } = useDevice();
     const { windowWidth } = useScreen();
-    const { $imageValidation } = useNuxtApp;
     const route = useRoute();
     const state = reactive({ index: { background: 0, mask: 0 } });
     const { index } = toRefs(state);
@@ -109,20 +106,6 @@ export default defineNuxtComponent({
       index.value.mask =
         ~~(Math.random() * (props.blok.background_color_mask.color.split('; ').length - 0)) + 0;
     };
-    const imageType = () => {
-      if ($imageValidation(props.blok.background_media.filename)) {
-        switch (props.blok.background_media.filename.toLowerCase().split('.').pop()) {
-          case 'jpg':
-            return 'jpeg';
-          case 'png':
-            return 'png';
-          case 'svg':
-            return 'svg+xml';
-          case 'gif':
-            return 'gif';
-        }
-      }
-    };
     (() => {
       if (props.blok.body_color.color) {
         document.body.style.backgroundColor = props.blok.body_color.color;
@@ -138,7 +121,7 @@ export default defineNuxtComponent({
       { immediate: true }
     );
     return {
-      imageType,
+      isDesktop,
       backgroundLevel,
       backgroundPosition,
       randomBackgroundColor,
