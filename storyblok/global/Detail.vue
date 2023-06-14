@@ -168,7 +168,7 @@
 <script>
 import ModalComponent from '@/storyblok/global/Modal';
 import ImageComponent from '@/storyblok/global/Image';
-export default {
+export default defineNuxtComponent({
   components: { ModalComponent, ImageComponent },
   props: {
     blok: {
@@ -225,5 +225,5 @@ export default {
       markdownToHtml
     };
   }
-};
+});
 </script>

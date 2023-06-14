@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     open: {
       type: Boolean,
@@ -90,7 +90,7 @@ export default {
       return !!this.$slots[name] || !!this.$slots[name];
     }
   }
-};
+});
 </script>
 <style>
 .body-container > * {

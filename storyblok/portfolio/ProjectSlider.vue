@@ -100,7 +100,7 @@
 <script>
 import IconComponent from '@/storyblok/global/Icon';
 import ImageComponent from '@/storyblok/global/Image';
-export default {
+export default defineNuxtComponent({
   components: { IconComponent, ImageComponent },
   props: {
     blok: {
@@ -177,7 +177,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 <style scoped>
 .project-text {

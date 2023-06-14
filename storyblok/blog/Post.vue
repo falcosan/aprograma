@@ -80,7 +80,7 @@
 </template>
 <script>
 import IconComponent from '@/storyblok/global/Icon';
-export default {
+export default defineNuxtComponent({
   components: { IconComponent },
   props: {
     blok: {
@@ -141,7 +141,7 @@ export default {
       sortedCategories
     };
   }
-};
+});
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {

@@ -277,7 +277,7 @@
 
 <script>
 import ImageComponent from '@/storyblok/global/Image';
-export default {
+export default defineNuxtComponent({
   components: { ImageComponent },
   props: {
     blok: {
@@ -376,7 +376,7 @@ export default {
       open
     };
   }
-};
+});
 </script>
 <style scoped>
 .animate-menu {

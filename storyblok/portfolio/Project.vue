@@ -231,7 +231,7 @@ import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
 import ImageComponent from '@/storyblok/global/Image';
 import ModalComponent from '@/storyblok/global/Modal';
-export default {
+export default defineNuxtComponent({
   components: { ModalComponent, ImageComponent, RouteComponent, IconComponent },
   props: {
     blok: {
@@ -264,7 +264,7 @@ export default {
     };
     return { sizes, windowWidth, isDesktop, setAlignText, markdownToHtml, changeDate };
   }
-};
+});
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {

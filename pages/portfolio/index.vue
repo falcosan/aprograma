@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import store from '@/store';
 const route = useRoute();
+const { seo } = useSeo();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: portfolio } = await useAsyncData(
@@ -11,6 +12,7 @@ const { data: portfolio } = await useAsyncData(
     watch: [languageGet]
   }
 );
+useHead(seo({ name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}` }));
 </script>
 
 <template>

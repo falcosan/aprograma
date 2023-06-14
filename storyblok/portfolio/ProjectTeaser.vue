@@ -37,7 +37,7 @@
 
 <script>
 import ImageComponent from '@/storyblok/global/Image';
-export default {
+export default defineNuxtComponent({
   components: { ImageComponent },
   props: {
     projectContent: {
@@ -69,7 +69,7 @@ export default {
       default: 0
     }
   }
-};
+});
 </script>
 <style scoped>
 .project-image {

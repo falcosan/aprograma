@@ -30,7 +30,7 @@ import { storeToRefs } from 'pinia';
 import store from '@/store';
 import ProjectSliderComponent from '@/storyblok/portfolio/ProjectSlider';
 import ProjectTeaserComponent from '@/storyblok/portfolio/ProjectTeaser';
-export default {
+export default defineNuxtComponent({
   components: { ProjectSliderComponent, ProjectTeaserComponent },
   props: {
     blok: {
@@ -83,5 +83,5 @@ export default {
     });
     return { sizes, maxProjects, sortedProjects };
   }
-};
+});
 </script>

@@ -54,7 +54,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     blok: {
       type: Object,
@@ -102,5 +102,5 @@ export default {
       moved
     };
   }
-};
+});
 </script>

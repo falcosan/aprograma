@@ -22,7 +22,7 @@
   />
 </template>
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     blok: {
       type: Object,
@@ -41,5 +41,5 @@ export default {
     const { isDesktop } = useDevice();
     return { isDesktop };
   }
-};
+});
 </script>

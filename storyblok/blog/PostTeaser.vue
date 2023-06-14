@@ -75,7 +75,7 @@
 </template>
 
 <script>
-export default {
+export default defineNuxtComponent({
   props: {
     postContent: {
       type: Object,
@@ -147,7 +147,7 @@ export default {
       sortedCategories
     };
   }
-};
+});
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {
