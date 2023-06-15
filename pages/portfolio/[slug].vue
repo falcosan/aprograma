@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import store from '@/store';
 const route = useRoute();
+const { seo } = useSeo();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: project } = await useAsyncData(
