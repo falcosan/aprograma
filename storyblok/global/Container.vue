@@ -150,8 +150,10 @@
             <transition-group
               tag="ul"
               class="carousel relative grid rounded"
-              enter-active-class="in-out duration-500"
-              leave-active-class="out-in duration-500"
+              enter-from-class="opacity-0"
+              leave-to-class="opacity-0"
+              enter-active-class="transition duration-500"
+              leave-active-class="transition duration-500"
               :style="`min-height: ${blok.height};`"
             >
               <template v-for="(component, index) in elements" :key="component._uid">
@@ -558,62 +560,13 @@ export default defineNuxtComponent({
   margin-top: -20px;
 }
 .hidden {
-  display: flex !important;
-  opacity: 0;
   pointer-events: none;
   cursor: none;
   visibility: hidden;
 }
-.show {
-  opacity: 1;
-}
 .show > * {
   position: relative;
   z-index: 1;
-}
-.hidden.leave-right {
-  animation: moveLeaveRight 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-.hidden.leave-left {
-  animation: moveLeaveLeft 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-.show.enter-right {
-  animation: moveEnterRight 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-.show.enter-left {
-  animation: moveEnterLeft 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-}
-@keyframes moveEnterRight {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-@keyframes moveEnterLeft {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-@keyframes moveLeaveRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-@keyframes moveLeaveLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-100%);
-  }
 }
 
 .slider-box .slider .slider-slide {

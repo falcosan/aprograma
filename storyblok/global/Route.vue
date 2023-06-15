@@ -1,22 +1,20 @@
 <template>
   <component
-    :is="blok.external_link ? 'a' : NuxtLink"
+    :is="blok.external_link ? 'a' : RouteLink"
     v-if="blok && (blok.title || (blok.icon_item && blok.body.length))"
     :class="[
       'item-link h-full cursor-pointer',
       { 'w-full': sliderMode },
       sliderMode || carouselMode || containerMode
         ? 'flex items-center justify-center self-center'
-        : 'block'
-    ]"
-    :active-class="
+        : 'block',
       blok.external_link
         ? ''
         : !iconItem && !blok.icon_item
-        ? 'opacity-40 font-semibold'
+        ? 'rounded opacity-60 bg-opacity-40 bg-gray-300'
         : 'pt-0.5 border-b-2 border-gray-300'
-    "
-    :to="blok.external_link ? false : blok.path"
+    ]"
+    :to="blok.external_link ? undefined : blok.path"
     :href="blok.external_link ? blok.path : undefined"
     :rel="blok.external_link ? 'noopener noreferrer' : undefined"
     :target="blok.external_link ? '_blank' : undefined"
@@ -40,7 +38,7 @@
     />
   </component>
   <component
-    :is="externalLink ? 'a' : NuxtLink"
+    :is="externalLink ? 'a' : RouteLink"
     v-else
     :class="`item-link h-full cursor-pointer ${
       sliderMode || carouselMode || containerMode
@@ -52,7 +50,7 @@
         ? !iconItem
           ? setActive
             ? setActive
-            : 'opacity-40 font-semibold'
+            : 'rounded opacity-60 bg-opacity-40 bg-gray-300'
           : setActive
           ? setActive
           : 'pt-0.5 border-b-2 border-gray-300'
@@ -63,7 +61,7 @@
         ? !iconItem
           ? setActive
             ? setActive
-            : 'opacity-40 font-semibold'
+            : 'rounded opacity-60 bg-opacity-40 bg-gray-300'
           : setActive
           ? setActive
           : 'pt-0.5 border-b-2 border-gray-300'
@@ -138,8 +136,8 @@ export default defineNuxtComponent({
     }
   },
   setup() {
-    const NuxtLink = resolveComponent('NuxtLink');
-    return { NuxtLink };
+    const RouteLink = resolveComponent('NuxtLink');
+    return { RouteLink };
   }
 });
 </script>

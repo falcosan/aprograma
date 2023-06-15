@@ -137,10 +137,10 @@
     <div class="footer-content h-52 grid gap-5 text-center">
       <transition-group
         tag="span"
-        enter-active-class="duration-300 in-out"
-        leave-active-class="duration-300 out-in"
-        enter-class="opacity-0"
+        enter-from-class="opacity-0"
         leave-to-class="opacity-0"
+        enter-active-class="transition duration-300"
+        leave-active-class="transition duration-300"
         :class="`input-footer relative grid gap-5 grid-flow-col-dense items-end justify-center bottom-6 text-md ${
           backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''
         }`"

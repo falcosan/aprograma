@@ -1,6 +1,6 @@
 <template>
   <li v-if="postContent" class="post-teaser w-full overflow-hidden rounded">
-    <NuxtLink :to="`/blog/${postLink}`" class="teaser-link">
+    <NuxtLink :to="{ name: 'blog-slug', params: { slug: postLink } }" class="teaser-link">
       <div
         :class="`teaser-content h-full flex flex-col ${
           rowContainer || sliderContainer || containerContainer || carouselContainer

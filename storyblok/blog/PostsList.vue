@@ -90,11 +90,10 @@
           ? maxPosts
           : 'md:grid-cols-fill-medium lg:grid-cols-none lg:grid-flow-row'
       }`"
-      appear
-      enter-active-class="duration-150"
-      leave-active-class="duration-150"
-      enter-class="opacity-0"
+      enter-from-class="opacity-0"
       leave-to-class="opacity-0"
+      enter-active-class="transition duration-150"
+      leave-active-class="transition duration-150"
     >
       <PostTeaserComponent
         v-for="post in searchQuery"

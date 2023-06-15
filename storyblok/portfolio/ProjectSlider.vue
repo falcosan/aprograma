@@ -1,27 +1,30 @@
 <template>
-  <div class="project-slider relative w-full z-10" @mouseenter="focusSlide">
+  <div
+    ref="slider"
+    class="project-slider relative w-full z-10"
+    tabindex="0"
+    @mouseenter="focusSlide"
+    @keydown.right.prevent="next"
+    @keydown.left.prevent="prev"
+  >
     <transition-group
       tag="ul"
-      :enter-active-class="`${transitionActive} in-out`"
-      :leave-active-class="`${transitionActive} out-in`"
-      :enter-class="`opacity-0 transform ${translation.enter}`"
-      :leave-to-class="`opacity-0 transform ${translation.leave}`"
-      class="slider-wrapper relative w-full grid grid-cols-1 grid-rows-2 rounded overflow-hidden"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+      enter-active-class="transition duration-300"
+      leave-active-class="transition duration-300"
+      class="slider-wrapper relative w-full grid grid-cols-1 grid-rows-2 rounded overflow-hidden transition-opacity"
     >
       <template v-for="(project, index) in blok">
         <li
           v-if="index === frame.up || index === frame.down"
-          ref="slide"
           :key="project.uuid"
           :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${
             index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
           }`"
-          tabindex="0"
-          @keydown.right.prevent="next"
-          @keydown.left.prevent="prev"
         >
           <NuxtLink
-            :to="`/portfolio/${project.slug}`"
+            :to="{ name: 'portfolio-slug', params: { slug: project.slug } }"
             class="project-link w-full grid grid-rows-1 grid-cols-2"
           >
             <div
@@ -109,9 +112,8 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const slide = ref(null);
+    const slider = ref(null);
     const state = reactive({
-      transitionActive: 'translation-all duration-500',
       indexControls: 0,
       focusDisable: false,
       frame: {
@@ -123,20 +125,16 @@ export default defineNuxtComponent({
         leave: ''
       }
     });
-    const { transitionActive, indexControls, focusDisable, frame, translation } = toRefs(state);
+    const { indexControls, focusDisable, frame, translation } = toRefs(state);
     const next = () => {
       if (props.blok.length - 1 > frame.value.up && props.blok.length > frame.value.down) {
         indexControls.value++;
         frame.value.up++;
         frame.value.down++;
-        translation.value.enter = 'translate-x-full';
-        translation.value.leave = '-translate-x-full';
       } else {
         indexControls.value = 0;
         frame.value.up = 0;
         frame.value.down = 1;
-        translation.value.enter = '';
-        translation.value.leave = '';
       }
     };
     const prev = () => {
@@ -144,40 +142,30 @@ export default defineNuxtComponent({
         indexControls.value--;
         frame.value.up--;
         frame.value.down--;
-        translation.value.enter = '-translate-x-full';
-        translation.value.leave = 'translate-x-full';
       } else {
         indexControls.value = props.blok.length - 1;
         frame.value.up = props.blok.length - 1;
         frame.value.down = props.blok.length;
-        translation.value.enter = '';
-        translation.value.leave = '';
       }
     };
     const resetData = () => {
       indexControls.value = 0;
       frame.value.up = 0;
       frame.value.data = 1;
-      transitionActive.value = '';
-      translation.value.enter = '';
-      translation.value.leave = '';
       focusDisable.value = true;
     };
     const focusSlide = () => {
-      if (!focusDisable.value) {
-        nextTick(() => slide.value[0].focus({ preventScroll: true }));
-      }
+      if (!focusDisable.value) slider.value.focus({ preventScroll: true });
     };
-    onUpdated(focusSlide);
-    onBeforeMount(resetData);
+    onBeforeUnmount(resetData);
     return {
       next,
       prev,
       frame,
-      slide,
+      slider,
+      focusSlide,
       translation,
-      indexControls,
-      transitionActive
+      indexControls
     };
   }
 });
