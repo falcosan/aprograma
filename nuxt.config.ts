@@ -74,6 +74,9 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page' }
   },
+  routeRules: {
+    '/': { prerender: true }
+  },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
   plugins: [
     '~/plugins/directives.js',
