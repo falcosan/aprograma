@@ -5,6 +5,11 @@ export default defineNuxtConfig({
   vite: {
     optimizeDeps: { exclude: ['fsevents'] }
   },
+  router: {
+    options: {
+      strict: true
+    }
+  },
   app: {
     head: {
       title: enums.meta.title,
