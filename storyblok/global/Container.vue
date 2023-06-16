@@ -39,6 +39,7 @@
               : 'px-5 pb-5'
             : ''
         }`"
+        @mouseenter="blok.slider_mode === 'carousel' && focusContainer(carouselSlide[0])"
       >
         <IconComponent
           v-if="
@@ -74,7 +75,7 @@
             !blok.hide_controllers
           "
           class="previous-control control h-full w-full absolute top-0 z-10 -left-1/2 cursor-previous"
-          @click="previous"
+          @click="previous(true)"
         />
         <IconComponent
           v-if="
@@ -110,7 +111,7 @@
             !blok.hide_controllers
           "
           class="next-control control h-full w-full absolute top-0 z-10 -right-1/2 cursor-next"
-          @click="next"
+          @click="next(true)"
         />
         <div
           ref="sliderBox"
@@ -128,13 +129,14 @@
               <template v-for="component in elements" :key="component._uid">
                 <li
                   ref="sliderSlide"
-                  :tabindex="!blok.hide_controllers ? '0' : false"
+                  :tabindex="!blok.hide_controllers ? '0' : undefined"
                   :style="`width: ${containerWidth}px; background-color: ${blok.background_color_component.color};`"
                   :class="`slider-slide slide flex justify-self-center rounded ${setAlignContent} ${
                     !blok.hide_controllers ? 'outline-none' : ''
                   } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
-                  @keydown.right.prevent="!blok.hide_controllers ? next() : null"
-                  @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
+                  @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
+                  @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
+                  @mouseenter="focusContainer(sliderSlide[0])"
                 >
                   <StoryblokComponent
                     :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
@@ -160,15 +162,15 @@
                 <li
                   v-show="index === currentSlide"
                   ref="carouselSlide"
+                  :tabindex="!blok.hide_controllers ? '0' : undefined"
                   :class="`carousel-slide slide w-full flex row-start-1 row-end-1 col-start-1 col-end-1 rounded ${setAlignContent} ${
                     !blok.hide_controllers ? 'outline-none' : ''
-                  } ${
-                    index === currentSlide ? `show ${transitionEnter}` : `hidden ${transitionLeave}`
-                  } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
+                  } ${index === currentSlide ? 'show' : 'hidden'} ${
+                    sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
+                  }`"
                   :style="`background-color: ${blok.background_color_component.color};`"
-                  :tabindex="!blok.hide_controllers ? '0' : false"
-                  @keydown.right.prevent="!blok.hide_controllers ? next() : null"
-                  @keydown.left.prevent="!blok.hide_controllers ? previous() : null"
+                  @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
+                  @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
                 >
                   <StoryblokComponent
                     :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
@@ -284,8 +286,6 @@ export default defineNuxtComponent({
       currentSlide: 0,
       containerWidth: 0,
       focusDisable: false,
-      transitionEnter: '',
-      transitionLeave: '',
       max: Number(props.blok.max_slides),
       columnSet: Number(props.blok.column_container)
     });
@@ -299,9 +299,7 @@ export default defineNuxtComponent({
       setAutoPlay,
       focusDisable,
       currentSlide,
-      containerWidth,
-      transitionEnter,
-      transitionLeave
+      containerWidth
     } = toRefs(state);
     const elements = computed(() => {
       if (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') {
@@ -383,13 +381,20 @@ export default defineNuxtComponent({
       } else {
         setPrevious();
       }
-      if (
-        autoFocus &&
-        !props.blok.hide_controllers &&
-        sliderSlide.value != null &&
-        Array.isArray(sliderSlide.value)
-      ) {
-        sliderSlide.value[0].focus();
+      if (autoFocus && !props.blok.hide_controllers) {
+        if (
+          props.blok.slider_mode === 'slider' &&
+          sliderSlide.value != null &&
+          Array.isArray(sliderSlide.value)
+        ) {
+          focusContainer(sliderSlide.value[0]);
+        } else if (
+          props.blok.slider_mode === 'carousel' &&
+          carouselSlide.value != null &&
+          Array.isArray(carouselSlide.value)
+        ) {
+          focusContainer(carouselSlide.value[currentSlide.value]);
+        }
       }
     };
     const setPrevious = () => {
@@ -410,8 +415,6 @@ export default defineNuxtComponent({
           currentSlide.value = elements.value.length - 1;
           if (props.blok.auto_play) clearAutoPlay();
         }
-        transitionEnter.value = 'enter-right';
-        transitionLeave.value = 'leave-right';
       }
     };
     const next = (autoFocus = false) => {
@@ -422,13 +425,20 @@ export default defineNuxtComponent({
       } else {
         setNext();
       }
-      if (
-        autoFocus &&
-        !props.blok.hide_controllers &&
-        sliderSlide.value != null &&
-        Array.isArray(sliderSlide.value)
-      ) {
-        sliderSlide.value[0].focus();
+      if (autoFocus && !props.blok.hide_controllers) {
+        if (
+          props.blok.slider_mode === 'slider' &&
+          sliderSlide.value != null &&
+          Array.isArray(sliderSlide.value)
+        ) {
+          focusContainer(sliderSlide.value[0]);
+        } else if (
+          props.blok.slider_mode === 'carousel' &&
+          carouselSlide.value != null &&
+          Array.isArray(carouselSlide.value)
+        ) {
+          focusContainer(carouselSlide.value[currentSlide.value]);
+        }
       }
     };
     const setNext = () => {
@@ -449,8 +459,6 @@ export default defineNuxtComponent({
           currentSlide.value = 0;
           if (props.blok.auto_play) clearAutoPlay();
         }
-        transitionEnter.value = 'enter-left';
-        transitionLeave.value = 'leave-left';
       }
     };
     const changeDot = input => {
@@ -459,11 +467,9 @@ export default defineNuxtComponent({
         autoPlay();
       }
       currentSlide.value = input - 1;
-      transitionEnter.value = '';
-      transitionLeave.value = '';
     };
     const autoPlay = () => {
-      setAutoPlay.value = setTimeout(next, props.blok.slider_time || '5000');
+      setAutoPlay.value = setTimeout(() => next(true), props.blok.slider_time || '5000');
     };
     const clearAutoPlay = () => {
       clearTimeout(setAutoPlay.value);
@@ -490,14 +496,10 @@ export default defineNuxtComponent({
       }
     };
     const focusContainer = element => {
-      if (!focusDisable.value) {
-        nextTick(() => element.focus({ preventScroll: true }));
-      }
+      if (!focusDisable.value) nextTick(() => element.focus({ preventScroll: true }));
     };
     const clearAll = () => {
       focusDisable.value = true;
-      transitionEnter.value = '';
-      transitionLeave.value = '';
       if (
         (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') &&
         props.blok.auto_play
@@ -546,8 +548,6 @@ export default defineNuxtComponent({
       carouselSlide,
       focusContainer,
       containerWidth,
-      transitionLeave,
-      transitionEnter,
       setAlignContent
     };
   }
