@@ -44,7 +44,7 @@
         <IconComponent
           v-if="
             (blok.slider_mode === 'slider' ||
-              windowWidth < 640 ||
+              windowWidth < 768 ||
               !isDesktop ||
               sliderMode ||
               carouselMode ||
@@ -80,7 +80,7 @@
         <IconComponent
           v-if="
             (blok.slider_mode === 'slider' ||
-              windowWidth < 640 ||
+              windowWidth < 768 ||
               !isDesktop ||
               sliderMode ||
               carouselMode ||
