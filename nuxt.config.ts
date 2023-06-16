@@ -71,7 +71,8 @@ export default defineNuxtConfig({
         },
         { rel: 'preconnect', href: '//img2.storyblok.com' }
       ]
-    }
+    },
+    pageTransition: { name: 'page' }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
   plugins: [
