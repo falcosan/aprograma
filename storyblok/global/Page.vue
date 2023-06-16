@@ -29,10 +29,10 @@
   </section>
   <section
     v-else
-    class="page-maintenance fixed max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl flex items-center justify-center inset-0 px-5"
+    class="page-maintenance fixed w-full h-full flex items-center justify-center inset-0 px-5"
   >
     <h1
-      class="maintenance-text p-20 text-xs xs:text-base sm:text-lg text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
+      class="maintenance-text p-10 lg:p-20 text-xs xs:text-base sm:text-lg text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
     >
       {{
         $languageCase(

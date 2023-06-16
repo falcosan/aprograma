@@ -86,6 +86,14 @@ iframe {
     filter: hue-rotate(360deg) saturate(0.3) contrast(0.5);
   }
 }
+*::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+}
 .markdown {
   word-break: break-word;
   overflow-wrap: anywhere;
