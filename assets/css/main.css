@@ -73,14 +73,17 @@ iframe {
   @apply  opacity-0;
 }
 .color-animation {
-  animation: changeColor 10s infinite;
+  background-color: #ffb900 !important;
+  animation-name: changeColor;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
 }
 @keyframes changeColor {
   0% {
-    filter: hue-rotate(0deg);
+    filter: hue-rotate(0deg) saturate(0.3) contrast(0.5);
   }
   100% {
-    filter: hue-rotate(360deg);
+    filter: hue-rotate(360deg) saturate(0.3) contrast(0.5);
   }
 }
 .markdown {
