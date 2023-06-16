@@ -8,11 +8,13 @@
       sliderMode || carouselMode || containerMode
         ? 'flex items-center justify-center self-center'
         : 'block',
-      blok.external_link
-        ? ''
-        : !iconItem && !blok.icon_item
-        ? 'rounded opacity-60 bg-opacity-40 bg-gray-300'
-        : 'pt-0.5 border-b-2 border-gray-300'
+      [
+        {
+          [!iconItem && !blok.icon_item
+            ? 'rounded opacity-60 bg-opacity-40 bg-gray-300'
+            : 'pt-0.5 border-b-2 border-gray-300']: activated
+        }
+      ]
     ]"
     :to="blok.external_link ? undefined : blok.path"
     :href="blok.external_link ? blok.path : undefined"
@@ -40,33 +42,19 @@
   <component
     :is="externalLink ? 'a' : RouteLink"
     v-else
-    :class="`item-link h-full cursor-pointer ${
-      sliderMode || carouselMode || containerMode
-        ? 'flex items-center justify-center self-center'
-        : 'block'
-    }`"
-    :active-class="
-      active === 'active'
-        ? !iconItem
-          ? setActive
-            ? setActive
-            : 'rounded opacity-60 bg-opacity-40 bg-gray-300'
-          : setActive
-          ? setActive
-          : 'pt-0.5 border-b-2 border-gray-300'
-        : ''
-    "
-    :exact-active-class="
-      active === 'exact'
-        ? !iconItem
-          ? setActive
-            ? setActive
-            : 'rounded opacity-60 bg-opacity-40 bg-gray-300'
-          : setActive
-          ? setActive
-          : 'pt-0.5 border-b-2 border-gray-300'
-        : ''
-    "
+    :class="[
+      `item-link h-full cursor-pointer ${
+        sliderMode || carouselMode || containerMode
+          ? 'flex items-center justify-center self-center'
+          : 'block'
+      }`,
+      [
+        {
+          [!iconItem ? setActive || 'rounded opacity-60 bg-opacity-40 bg-gray-300' : setActive]:
+            activated
+        }
+      ]
+    ]"
     :to="externalLink ? undefined : to"
     :href="externalLink ? to : undefined"
     :rel="externalLink ? 'noopener noreferrer' : undefined"
@@ -135,9 +123,25 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup() {
+  setup(props) {
+    const route = useRoute();
     const RouteLink = resolveComponent('NuxtLink');
-    return { RouteLink };
+    const activated = computed(() => {
+      const targetRoute = props.blok?.path ?? props.to;
+      if (route.path === targetRoute) {
+        for (const [key, value] of Object.entries(route.query)) {
+          if (!targetRoute.includes(`${key}=${value}`)) return false;
+        }
+        return true;
+      } else if (route.path.startsWith(`${targetRoute}/`)) {
+        for (const [key, value] of Object.entries(route.query)) {
+          if (!targetRoute.includes(`${key}=${value}`)) return false;
+        }
+        return true;
+      }
+      return false;
+    });
+    return { RouteLink, activated };
   }
 });
 </script>

@@ -77,7 +77,6 @@
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg flex justify-between"
       >
         <RouteComponent
-          active="exact"
           set-active="border-t-2 pb-0.5 border-gray-300"
           icon-item
           class="home-link w-2/12 rounded-bl bg-neutral-800 text-white"
