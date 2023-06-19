@@ -1,8 +1,9 @@
 export default defineNuxtPlugin(() => ({
   provide: {
-    goBack: () => {
+    goBack: name => {
       const router = useRouter();
-      router.back();
+      if (name) router.push({ name });
+      else router.go(-1);
     }
   }
 }));

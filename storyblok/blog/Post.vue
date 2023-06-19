@@ -37,7 +37,7 @@
           class="post-close rounded shadow"
           tag="button"
           size="p-3 w-10 h-10"
-          @click="$goBack"
+          @click="$goBack('blog')"
         />
       </div>
       <div class="post-article w-full max-w-prose p-5 mx-auto my-0">

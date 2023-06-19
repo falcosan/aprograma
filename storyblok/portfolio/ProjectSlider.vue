@@ -158,6 +158,7 @@ export default defineNuxtComponent({
       if (!focusDisable.value) nextTick(() => slider.value.focus({ preventScroll: true }));
     };
     onBeforeUnmount(resetData);
+    watch(indexControls, focusSlide);
     return {
       next,
       prev,

@@ -71,7 +71,7 @@
           !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
         }`"
         size="w-10 h-10 p-3"
-        @click="$goBack"
+        @click="$goBack('portfolio')"
       />
     </div>
     <div class="project-intro grid gap-5 auto-cols-fr col-start-1 col-end-4">
@@ -209,7 +209,7 @@
             !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
           }`"
           size="w-10 h-10 p-3"
-          @click="$goBack"
+          @click="$goBack('portfolio')"
         />
       </div>
     </div>
