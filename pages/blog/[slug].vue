@@ -12,7 +12,7 @@ const { data: post } = await useAsyncData(
     watch: [languageGet]
   }
 );
-useHeadSafe(seo(post.value.data.story));
+watch(post, val => useHeadSafe(seo(val.data.story)), { immediate: true });
 </script>
 
 <template>

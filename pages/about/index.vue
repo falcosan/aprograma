@@ -13,11 +13,16 @@ const { data: about } = await useAsyncData(
     watch: [languageGet]
   }
 );
-useHeadSafe(
-  seo({
-    name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
-    description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
-  })
+watch(
+  languageGet,
+  () =>
+    useHeadSafe(
+      seo({
+        name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
+        description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
+      })
+    ),
+  { immediate: true }
 );
 </script>
 

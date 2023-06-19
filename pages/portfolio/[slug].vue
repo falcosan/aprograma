@@ -12,7 +12,7 @@ const { data: project } = await useAsyncData(
     watch: [languageGet]
   }
 );
-useHeadSafe(seo(project.value.data.story));
+watch(project, val => useHeadSafe(seo(val.data.story)), { immediate: true });
 </script>
 
 <template>

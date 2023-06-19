@@ -13,15 +13,20 @@ const { data: portfolio } = await useAsyncData(
     watch: [languageGet]
   }
 );
-useHeadSafe(
-  seo({
-    name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
-    description: $languageCase(
-      'Some projects and skills',
-      'Algunos proyectos y habilidades',
-      'Alcuni progetti e abiltá'
-    )
-  })
+watch(
+  languageGet,
+  () =>
+    useHeadSafe(
+      seo({
+        name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
+        description: $languageCase(
+          'Some projects and skills',
+          'Algunos proyectos y habilidades',
+          'Alcuni progetti e abiltá'
+        )
+      })
+    ),
+  { immediate: true }
 );
 </script>
 
