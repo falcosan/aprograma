@@ -1,5 +1,8 @@
 <template>
-  <li v-if="projectContent" class="project-teaser w-full h-full overflow-hidden rounded">
+  <li
+    v-if="projectContent"
+    class="project-teaser w-full h-full aspect-square overflow-hidden rounded"
+  >
     <NuxtLink
       :key="projectContent._uid"
       :to="{ name: 'portfolio-slug', params: { slug: projectLink } }"
@@ -28,7 +31,7 @@
             'color',
             '#e0e0e0'
           )};`"
-          class="title-container w-full flex flex-row items-center p-5"
+          class="title-container w-full flex flex-row items-center p-2.5 xs:p-5"
         >
           <span class="teaser-title block overflow-hidden whitespace-nowrap text-ellipsis">
             {{ projectContent.title }}</span

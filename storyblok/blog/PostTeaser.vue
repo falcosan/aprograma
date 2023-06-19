@@ -11,19 +11,21 @@
         @mouseleave="expanded = false"
       >
         <div
-          :class="`teaser-file-container w-full aspect-video ${
+          :class="`teaser-file-container w-full ${
             rowContainer || sliderContainer || containerContainer || carouselContainer
               ? ''
-              : 'container-mode lg:w-1/2 md:aspect-[16/10] lg:aspect-[14/4] xl:aspect-[14/3] 2xl:aspect-[11/2]'
-          } ${postContent.file.filename ? '' : 'bg-black'}`"
+              : 'container-mode lg:w-1/2'
+          }  ${postContent.file.filename ? '' : 'bg-black'}`"
         >
           <component
             :is="lookFile"
             :lazy="checkFile"
             :file="postContent.file"
-            :class="`teaser-file w-full h-full object-center select-none ${
-              postContent.file.filename ? 'object-cover' : 'object-contain'
-            }`"
+            :class="`teaser-file w-full h-full object-center select-none aspect-video ${
+              rowContainer || sliderContainer || containerContainer || carouselContainer
+                ? ''
+                : 'container-mode md:aspect-[16/10] lg:aspect-[14/4] xl:aspect-[14/3] 2xl:aspect-[11/2]'
+            } ${postContent.file.filename ? 'object-cover' : 'object-contain'}`"
             :alt="
               postContent.file.alt ||
               $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
