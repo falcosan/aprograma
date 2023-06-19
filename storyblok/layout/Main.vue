@@ -1,7 +1,7 @@
 <template>
   <main class="main min-h-screen overflow-x-hidden">
     <div
-      :class="`main-wrapper relative overflow-hidden ${!isDesktop ? 'pt-10' : 'pt-10 md:py-20'}`"
+      :class="['main-wrapper relative pt-10 overflow-hidden', { 'md:pt-20 md:mb-20': isDesktop }]"
     >
       <div
         v-if="blok.show_background_mask"

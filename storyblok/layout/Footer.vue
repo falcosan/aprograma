@@ -130,7 +130,7 @@
     </div>
   </footer>
   <footer
-    v-else-if="!$nuxt.isFetching"
+    v-else
     class="footer px-5 pt-20 pb-40 rounded-t"
     :style="`background-color: ${blok.transparency ? `${backgroundColors}B3` : backgroundColors};`"
   >
