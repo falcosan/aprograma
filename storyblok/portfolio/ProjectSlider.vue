@@ -155,7 +155,7 @@ export default defineNuxtComponent({
       focusDisable.value = true;
     };
     const focusSlide = () => {
-      if (!focusDisable.value) slider.value.focus({ preventScroll: true });
+      if (!focusDisable.value) nextTick(() => slider.value.focus({ preventScroll: true }));
     };
     onBeforeUnmount(resetData);
     return {

@@ -6,6 +6,6 @@ export default defineNuxtPlugin(() => ({
       } else if (alternative) {
         return alternative;
       }
-    },
-  },
+    }
+  }
 }));
