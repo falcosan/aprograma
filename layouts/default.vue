@@ -6,7 +6,8 @@
       :key="layout._uid"
       :blok="layout"
     >
-      <slot />
+      <NuxtLoadingIndicator v-if="checkComponent(layout, 'header')" />
+      <slot v-else-if="checkComponent(layout, 'main')" />
     </component>
   </section>
   <section
@@ -35,17 +36,16 @@ export default {
     const story = ref({ content: {} });
     const storyblokApi = useStoryblokApi();
     const { languageGet } = storeToRefs(store.language());
+    const checkComponent = (layout, component) => layout.component.toLowerCase() === component;
     watch(
-      () => languageGet.value,
-      async () => {
-        const { data } = await storyblokApi.get('cdn/stories/layout', {
-          language: languageGet.value
-        });
+      languageGet,
+      async val => {
+        const { data } = await storyblokApi.get('cdn/stories/layout', { language: val });
         story.value = data.story;
       },
       { immediate: true }
     );
-    return { story };
+    return { story, checkComponent };
   }
 };
 </script>
