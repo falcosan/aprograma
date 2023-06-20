@@ -74,9 +74,6 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page' }
   },
-  routeRules: {
-    '/': { prerender: true }
-  },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
   plugins: [
     '~/plugins/directives.js',
@@ -107,11 +104,6 @@ export default defineNuxtConfig({
       }
     ]
   ],
-  nitro: {
-    prerender: {
-      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml']
-    }
-  },
   image: {
     provider: 'storyblok',
     storyblok: {
@@ -154,6 +146,8 @@ export default defineNuxtConfig({
         nitroConfig.prerender.routes.push(...routes);
       } catch (err) {
         console.error(err);
+      } finally {
+        nitroConfig.prerender.routes.push(...['/feedeng.xml', '/feedesp.xml', '/feedita.xml']);
       }
     }
   }
