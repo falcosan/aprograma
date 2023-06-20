@@ -56,9 +56,9 @@
                 class="project-image w-full h-full object-cover object-center pointer-events-none select-none"
                 :src="project.content.image.filename"
                 :alt="project.content.image.alt"
-                width="620"
-                height="320"
-                sizes="lg:364px xl:491px 2xl:620px"
+                width="930"
+                height="480"
+                sizes="lg:491px xl:620px 2xl:930px"
               />
             </div>
           </NuxtLink>
