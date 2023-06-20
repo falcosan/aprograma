@@ -236,6 +236,6 @@ export default defineNuxtComponent({
   background: #212121 !important;
 }
 .header-loader-responsive > * {
-  @apply !top-10 !z-[1];
+  @apply !top-10 !z-[1] mx-1 rounded-b-3xl;
 }
 </style>
