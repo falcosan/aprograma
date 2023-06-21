@@ -21,16 +21,14 @@ const { data: blog } = await useAsyncData(
 watch(
   languageGet,
   () =>
-    useSeoMeta(
-      seo({
-        name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
-        description: $languageCase(
-          'Articles and publications',
-          'Artículos y publicaciones',
-          'Articoli e pubblicazioni'
-        )
-      })
-    ),
+    seo({
+      name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
+      description: $languageCase(
+        'Articles and publications',
+        'Artículos y publicaciones',
+        'Articoli e pubblicazioni'
+      )
+    }),
   { immediate: true }
 );
 </script>

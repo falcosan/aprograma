@@ -21,12 +21,10 @@ const { data: about } = await useAsyncData(
 watch(
   languageGet,
   () =>
-    useSeoMeta(
-      seo({
-        name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
-        description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
-      })
-    ),
+    seo({
+      name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
+      description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
+    }),
   { immediate: true }
 );
 </script>

@@ -17,7 +17,7 @@ const { data: post } = await useAsyncData(
     watch: [languageGet]
   }
 );
-watch(post, val => useSeoMeta(seo(val.data.story)), { immediate: true });
+watch(post, val => seo(val.data.story), { immediate: true });
 </script>
 
 <template>
