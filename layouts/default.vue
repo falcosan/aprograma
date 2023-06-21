@@ -3,40 +3,38 @@ import { storeToRefs } from 'pinia';
 import store from '@/store';
 import LogoComponent from '@/storyblok/global/Logo';
 const config = useRuntimeConfig();
+const layout = ref({ content: {} });
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const checkComponent = ({ component: data }, name) => data.toLowerCase() === name;
-const { data: layout } = await useAsyncData(
-  'layout',
-  async () =>
-    await storyblokApi.get('cdn/stories/layout', {
+watch(
+  languageGet,
+  async language => {
+    const { data } = await storyblokApi.get('cdn/stories/layout', {
+      language,
       cv: 'CURRENT_TIMESTAMP',
-      language: languageGet.value,
       version: config.public.apiVersion
-    }),
-  {
-    watch: [languageGet]
-  }
+    });
+    layout.value = data.story;
+  },
+  { immediate: true }
 );
 </script>
 
 <template>
-  <section
-    v-if="layout.data?.story.content.body && !layout.data.story.content.maintenance"
-    class="aprograma-theme"
-  >
+  <section v-if="layout.content.body && !layout.content.maintenance" class="aprograma-theme">
     <component
       :is="resolveComponent(component.component)"
-      v-for="component in layout.data.story.content.body"
+      v-for="component in layout.content.body"
       :key="component._uid"
       :blok="component"
     >
       <NuxtLoadingIndicator v-if="checkComponent(component, 'header')" />
-      <client-only v-else-if="checkComponent(component, 'main')"><slot /></client-only>
+      <slot v-else-if="checkComponent(component, 'main')" />
     </component>
   </section>
   <section
-    v-else-if="layout.data.story.content.body"
+    v-else-if="layout.content.body"
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
     <LogoComponent transition class="rounded max-w-full mx-auto my-0" size="50vh" />
