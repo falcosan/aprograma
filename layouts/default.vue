@@ -1,17 +1,42 @@
+<script setup>
+import { storeToRefs } from 'pinia';
+import store from '@/store';
+import LogoComponent from '@/storyblok/global/Logo';
+const config = useRuntimeConfig();
+const storyblokApi = useStoryblokApi();
+const { languageGet } = storeToRefs(store.language());
+const checkComponent = ({ component: data }, name) => data.toLowerCase() === name;
+const { data: layout } = await useAsyncData(
+  'layout',
+  async () =>
+    await storyblokApi.get('cdn/stories/layout', {
+      cv: 'CURRENT_TIMESTAMP',
+      language: languageGet.value,
+      version: config.public.apiVersion
+    }),
+  {
+    watch: [languageGet]
+  }
+);
+</script>
+
 <template>
-  <section v-if="story.content.body && !story.content.maintenance" class="aprograma-theme">
+  <section
+    v-if="layout.data?.story.content.body && !layout.data.story.content.maintenance"
+    class="aprograma-theme"
+  >
     <component
-      :is="`${layout.component}Component`"
-      v-for="layout in story.content.body"
-      :key="layout._uid"
-      :blok="layout"
+      :is="resolveComponent(component.component)"
+      v-for="component in layout.data.story.content.body"
+      :key="component._uid"
+      :blok="component"
     >
-      <NuxtLoadingIndicator v-if="checkComponent(layout, 'header')" />
-      <slot v-else-if="checkComponent(layout, 'main')" />
+      <NuxtLoadingIndicator v-if="checkComponent(component, 'header')" />
+      <client-only v-else-if="checkComponent(component, 'main')"><slot /></client-only>
     </component>
   </section>
   <section
-    v-else-if="story.content.body"
+    v-else-if="layout.data.story.content.body"
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
     <LogoComponent transition class="rounded max-w-full mx-auto my-0" size="50vh" />
@@ -22,30 +47,3 @@
     </h1>
   </section>
 </template>
-
-<script>
-import { storeToRefs } from 'pinia';
-import store from '@/store';
-import LogoComponent from '@/storyblok/global/Logo';
-import MainComponent from '@/storyblok/layout/Main';
-import HeaderComponent from '@/storyblok/layout/Header';
-import FooterComponent from '@/storyblok/layout/Footer';
-export default {
-  components: { LogoComponent, HeaderComponent, MainComponent, FooterComponent },
-  setup() {
-    const story = ref({ content: {} });
-    const storyblokApi = useStoryblokApi();
-    const { languageGet } = storeToRefs(store.language());
-    const checkComponent = (layout, component) => layout.component.toLowerCase() === component;
-    watch(
-      languageGet,
-      async val => {
-        const { data } = await storyblokApi.get('cdn/stories/layout', { language: val });
-        story.value = data.story;
-      },
-      { immediate: true }
-    );
-    return { story, checkComponent };
-  }
-};
-</script>
