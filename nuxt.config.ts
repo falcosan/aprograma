@@ -120,21 +120,12 @@ export default defineNuxtConfig({
       UserAgent: '*'
     }
   },
+  nitro: {
+    prerender: {
+      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml']
+    }
+  },
   webpack: {
     extractCSS: process.env.NODE_ENV !== 'development'
-  },
-  hooks: {
-    async 'nitro:config'(nitroConfig) {
-      if (!nitroConfig.prerender?.routes || nitroConfig.dev) return;
-      const routes = ['/'];
-      try {
-        await fetchStories(routes);
-        nitroConfig.prerender.routes.push(...routes);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        nitroConfig.prerender.routes.push(...['/feedeng.xml', '/feedesp.xml', '/feedita.xml']);
-      }
-    }
   }
 });

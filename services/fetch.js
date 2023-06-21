@@ -38,30 +38,3 @@ export async function fetchFeed(lang) {
   });
   return feed.xml({ indent: true });
 }
-
-export async function fetchSitemap() {
-  const { data } = await axios(enums.routes);
-  return Object.values(data.links)
-    .map(link => {
-      if (link.is_startpage) return link.slug;
-      else return link;
-    })
-    .filter(Boolean);
-}
-
-export async function fetchStories(routes, page = 1) {
-  const perPage = 100;
-  const exclude = ['home', 'layout'];
-  try {
-    const res = await fetch(`${enums.routes}&per_page=${perPage}&page=${page}`);
-    const data = await res.json();
-    Object.values(data.links).forEach(link => {
-      if (!exclude.includes(link.slug)) routes.push('/' + link.slug);
-    });
-    const total = res.headers.get('total');
-    const maxPage = Math.ceil(total / perPage);
-    if (maxPage > page) await fetchStories(routes, ++page);
-  } catch (err) {
-    console.error(err);
-  }
-}
