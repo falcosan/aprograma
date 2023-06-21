@@ -34,8 +34,7 @@
           :style="`background-color: ${
             blok.background_color.color ? blok.background_color.color : '#e0e0e0'
           }; color: ${blok.text_color.color};`"
-          class="post-close rounded shadow"
-          tag="button"
+          class="post-close rounded shadow cursor-pointer"
           size="p-3 w-10 h-10"
           @click="$goBack('blog')"
         />

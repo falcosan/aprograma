@@ -2,7 +2,8 @@ import enums from '@/enum';
 
 export const useSeo = () => {
   const seo = story => {
-    const route = { ...document.location, ...useRoute() };
+    const config = useRuntimeConfig();
+    const route = { origin: config.public.origin, ...useRoute() };
     const title = `${story.content?.title ?? story.name} - ${enums.name}`;
     const meta =
       story.content != null

@@ -1,14 +1,16 @@
 <script setup>
 import { storeToRefs } from 'pinia';
 import store from '@/store';
+const config = useRuntimeConfig();
 const storyblokApi = useStoryblokApi();
-const {
-  public: { apiVersion: version }
-} = useRuntimeConfig();
 const { languageGet } = storeToRefs(store.language());
 const { data: home } = await useAsyncData(
   'home',
-  async () => await storyblokApi.get('cdn/stories/home', { language: languageGet.value, version }),
+  async () =>
+    await storyblokApi.get('cdn/stories/home', {
+      language: languageGet.value,
+      version: config.public.apiVersion
+    }),
   {
     watch: [languageGet]
   }

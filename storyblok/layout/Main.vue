@@ -32,7 +32,7 @@
         <slot />
       </div>
     </div>
-    <transition appear appear-active-class="duration-100" appear-class="opacity-0">
+    <transition enter-active-class="duration-100" enter-class="opacity-0">
       <ImageComponent
         v-if="$imageValidation(blok.background_media.filename)"
         :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
@@ -106,11 +106,11 @@ export default defineNuxtComponent({
       index.value.mask =
         ~~(Math.random() * (props.blok.background_color_mask.color.split('; ').length - 0)) + 0;
     };
-    (() => {
+    onBeforeMount(() => {
       if (props.blok.body_color.color) {
         document.body.style.backgroundColor = props.blok.body_color.color;
       }
-    })();
+    });
     watch(
       () => route.path,
       () => {

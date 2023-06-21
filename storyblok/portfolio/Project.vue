@@ -61,13 +61,12 @@
       </RouteComponent>
       <IconComponent
         arrow
-        tag="button"
         :style="`background-color: ${$binaryControl(
           blok.background_color,
           'color',
           '#e0e0e0'
         )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-        :class="`project-back rounded ${
+        :class="`project-back rounded cursor-pointer ${
           !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
         }`"
         size="w-10 h-10 p-3"
@@ -197,7 +196,6 @@
         </RouteComponent>
         <IconComponent
           arrow
-          tag="button"
           :style="`background-color: ${$binaryControl(
             blok.background_color,
             'color',

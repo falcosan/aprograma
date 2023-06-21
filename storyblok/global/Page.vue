@@ -91,7 +91,7 @@ export default defineNuxtComponent({
           return 'self-baseline';
       }
     });
-    (() => $noscroll(props.blok.hide))();
+    onBeforeMount(() => $noscroll(props.blok.hide));
     return {
       spaceFix,
       components,

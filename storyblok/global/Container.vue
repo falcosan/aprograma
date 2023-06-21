@@ -52,7 +52,7 @@
             !blok.hide_controllers
           "
           previous
-          :class="`previous-control control absolute z-20 transform rounded-full bg-opacity-70 shadow-sm text-white bg-gray-500 ${
+          :class="`previous-control control absolute z-20 transform rounded-full bg-opacity-70 shadow-sm cursor-pointer text-white bg-gray-500 ${
             blok.slider_mode === 'slider'
               ? 'top-1/2 -translate-y-1/2'
               : sliderMode || carouselMode
@@ -64,7 +64,6 @@
               : '-bottom-7'
           } ${sliderMode ? (fullWidth > 295 ? 'left-10' : 'left-5') : 'left-2'}`"
           :size="`${sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'}`"
-          tag="button"
           @click="previous(true)"
         />
         <div
@@ -88,7 +87,7 @@
             !blok.hide_controllers
           "
           next
-          :class="`next-control control absolute z-20 transform rounded-full bg-opacity-70 shadow-sm text-white bg-gray-500 ${
+          :class="`next-control control absolute z-20 transform rounded-full bg-opacity-70 shadow-sm cursor-pointer text-white bg-gray-500 ${
             blok.slider_mode === 'slider'
               ? 'top-1/2 -translate-y-1/2'
               : sliderMode || carouselMode
@@ -100,7 +99,6 @@
               : '-bottom-7'
           } ${sliderMode ? (fullWidth > 295 ? 'right-10' : 'right-5') : 'right-2'}`"
           :size="`${sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'}`"
-          tag="button"
           @click="next(true)"
         />
         <div

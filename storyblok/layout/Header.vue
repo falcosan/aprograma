@@ -59,8 +59,7 @@
         </div>
         <IconComponent
           animate-menu
-          tag="button"
-          class="open-menu relative h-16 w-16 lg:w-20 lg:h-20 z-10 cursor-pointer rounded-bl"
+          class="open-menu relative h-16 w-16 lg:w-20 lg:h-20 z-10 cursor-pointer rounded-bl cursor-pointer"
           size="w-5 h-5"
           :color-icon-animated-menu="blok.icon_color.color"
           :style="`background-color: ${backgroundColorMenu};`"
@@ -85,7 +84,7 @@
           to="/"
         >
           <template #icon>
-            <IconComponent home tag="button" size="w-5 h-5" class="home-link h-full w-full" />
+            <IconComponent home size="w-5 h-5" class="home-link h-full w-full cursor-pointer" />
           </template>
         </RouteComponent>
         <LogoComponent

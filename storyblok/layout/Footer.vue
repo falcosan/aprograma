@@ -16,9 +16,8 @@
     >
       <IconComponent
         arrow
-        tag="button"
         size="w-auto h-auto"
-        :class="`justify-center transform rotate-90 ${
+        :class="`justify-center transform rotate-90 cursor-pointer ${
           expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
         }`"
         :style="`color: ${blok.icon_color.color};`"
@@ -43,7 +42,6 @@
               key="eye-bold"
               eye-bold
               tooltip="Kiosco Antonio"
-              tag="span"
               :style="`color: ${blok.icon_color.color};`"
               :class="`${
                 expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
@@ -54,7 +52,6 @@
               key="eye"
               eye
               tooltip="Kiosco Antonio"
-              tag="span"
               :style="`color: ${blok.icon_color.color};`"
               :class="`${
                 expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
@@ -135,33 +132,33 @@
     :style="`background-color: ${blok.transparency ? `${backgroundColors}B3` : backgroundColors};`"
   >
     <div class="footer-content h-52 grid gap-5 text-center">
-      <transition-group
-        tag="span"
-        enter-from-class="opacity-0"
-        leave-to-class="opacity-0"
-        enter-active-class="transition duration-300"
-        leave-active-class="transition duration-300"
+      <div
         :class="`input-footer relative grid gap-5 grid-flow-col-dense items-end justify-center bottom-6 text-md ${
           backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''
         }`"
       >
-        <IconComponent
-          v-if="!currentEye"
-          key="eye"
-          eye
-          tag="span"
-          class="col-start-1 col-end-1 row-start-1 row-end-1"
-          size="w-6"
-        />
-        <IconComponent
-          v-if="currentEye"
-          key="eyeb-bold"
-          eye-bold
-          tag="span"
-          class="col-start-1 col-end-1 row-start-1 row-end-1"
-          size="w-6"
-        />
-      </transition-group>
+        <transition
+          enter-from-class="opacity-0"
+          leave-to-class="opacity-0"
+          enter-active-class="transition duration-300"
+          leave-active-class="transition duration-300"
+        >
+          <IconComponent
+            v-if="currentEye"
+            key="eye-bold"
+            eye-bold
+            class="col-start-1 col-end-1 row-start-1 row-end-1"
+            size="w-6"
+          />
+          <IconComponent
+            v-else
+            key="eye"
+            eye
+            class="col-start-1 col-end-1 row-start-1 row-end-1"
+            size="w-6"
+          />
+        </transition>
+      </div>
       <div
         :class="`messages-container ${
           backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''

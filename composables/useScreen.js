@@ -1,9 +1,14 @@
 export const useScreen = () => {
   const scrollPosition = ref(0);
-  const windowWidth = ref(window.innerWidth);
+  const windowWidth = ref(
+    (typeof window === 'undefined' && 1024) ||
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+  );
   const onWidthChange = () => (windowWidth.value = window.innerWidth);
   const handleScroll = () => (scrollPosition.value = window.scrollY);
-  onMounted(() => {
+  onBeforeMount(() => {
     window.addEventListener('resize', onWidthChange);
     window.addEventListener('scroll', handleScroll);
   });

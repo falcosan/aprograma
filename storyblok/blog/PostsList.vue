@@ -26,7 +26,6 @@
         <IconComponent
           next
           class="px-4 rounded bg-gray-200"
-          tag="span"
           :size="`w-3 h-3 transition ${
             showFilters ? 'transform -rotate-90' : 'transform rotate-90'
           }`"
@@ -63,7 +62,6 @@
             />
             <IconComponent
               close
-              tag="span"
               size="w-2.5 h-2.5"
               :class="`px-4 pointer-events-none transition ${
                 comparedCategories.includes(filter.value) ? '' : 'transform rotate-45'

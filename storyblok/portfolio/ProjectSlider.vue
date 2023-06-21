@@ -73,7 +73,12 @@
             : 'row-start-2 row-end-2 self-start'
         }`"
       >
-        <IconComponent class="w-full h-full" restart size="w-14 h-14" tag="button" @click="next" />
+        <IconComponent
+          class="w-full h-full"
+          restart
+          size="w-14 h-14 cursor-pointer"
+          @click="next"
+        />
       </li>
     </transition-group>
     <transition-group
@@ -89,13 +94,13 @@
         :key="`${indexControls}-1`"
         class="next-control absolute right-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
       >
-        <IconComponent next class="next" size="p-3 w-9 h-9" tag="button" @click="next" />
+        <IconComponent next class="next" size="p-3 w-9 h-9 cursor-pointer" @click="next" />
       </span>
       <span
         :key="`${indexControls}-2`"
         class="previous-control absolute left-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
       >
-        <IconComponent previous class="previous" size="p-3 w-9 h-9" tag="button" @click="prev" />
+        <IconComponent previous class="previous" size="p-3 w-9 h-9 cursor-pointer" @click="prev" />
       </span>
     </transition-group>
   </div>

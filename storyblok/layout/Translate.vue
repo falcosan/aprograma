@@ -79,8 +79,10 @@ export default defineNuxtComponent({
     const { languageGet } = storeToRefs(languageStore);
     const changeLanguage = lang => languageAction(lang);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
-    const locale = localStorage.getItem('locale');
-    if (locale) changeLanguage(locale);
+    onBeforeMount(() => {
+      const locale = localStorage.getItem('locale');
+      if (locale) changeLanguage(locale);
+    });
     watch(
       languageGet,
       val => {

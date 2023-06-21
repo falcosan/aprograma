@@ -74,19 +74,13 @@ export default defineNuxtConfig({
     },
     pageTransition: { name: 'page' }
   },
+  runtimeConfig: {
+    public: {
+      origin: process.env.NUXT_ENV_DOMAIN,
+      apiVersion: process.env.NUXT_ENV_API_VERSION === 'preview' ? 'draft' : 'published'
+    }
+  },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
-  plugins: [
-    '~/plugins/directives.js',
-    '~/plugins/injects/go-back.client.js',
-    '~/plugins/injects/no-scroll.client.js',
-    '~/plugins/injects/range-items.client.js',
-    '~/plugins/injects/theme-color.client.js',
-    '~/plugins/injects/language-case.client.js',
-    '~/plugins/injects/binary-control.client.js',
-    '~/plugins/injects/content-by-name.client.js',
-    '~/plugins/injects/image-validation.client.js',
-    '~/plugins/injects/scroll-to-smoothly.client.js'
-  ],
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
@@ -97,9 +91,9 @@ export default defineNuxtConfig({
       '@storyblok/nuxt',
       {
         accessToken:
-          process.env.NODE_ENV === 'production'
-            ? process.env.NUXT_ENV_PUBLIC_TOKEN
-            : process.env.NUXT_ENV_PREVIEW_TOKEN
+          process.env.NUXT_ENV_API_VERSION === 'preview'
+            ? process.env.NUXT_ENV_PREVIEW_TOKEN
+            : process.env.NUXT_ENV_PUBLIC_TOKEN
       }
     ]
   ],

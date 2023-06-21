@@ -2,11 +2,7 @@
   <div
     :class="`icon-wrapper grid gap-5 justify-center items-center select-none ${
       blok && !blok.remove_space ? 'p-10' : ''
-    } ${
-      (blok && (blok.tag === 'button' || blok.tag === 'a')) || tag === 'button' || tag === 'a'
-        ? 'cursor-pointer'
-        : ''
-    }`"
+    } ${blok && (blok.tag === 'button' || blok.tag === 'a') ? 'cursor-pointer' : ''}`"
     @click="animateMenu ? (open = !open) : ''"
   >
     <ImageComponent
@@ -283,10 +279,6 @@ export default defineNuxtComponent({
     blok: {
       type: Object,
       default: undefined
-    },
-    tag: {
-      type: String,
-      default: ''
     },
     size: {
       type: String,
