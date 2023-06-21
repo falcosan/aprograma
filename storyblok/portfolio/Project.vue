@@ -129,9 +129,7 @@
         <span class="date-start text-right">
           {{ changeDate(blok.start_date) }}
         </span>
-        <p class="date-to text-center">
-          {{ $languageCase('to', 'hasta', 'al') }}
-        </p>
+        <span class="date-to text-center font-medium" v-text="'-'" />
         <span class="date-end text-left">
           {{
             blok.end_date
