@@ -93,7 +93,6 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxtjs/robots',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/google-fonts',
     [
       '@storyblok/nuxt',
       {
@@ -121,13 +120,6 @@ export default defineNuxtConfig({
   },
   device: {
     refreshOnResize: true
-  },
-  googleFonts: {
-    families: {
-      Rubik: [300, 400, 500, 600, 700, 800, 900]
-    },
-    preconnect: true,
-    display: 'swap'
   },
   robots: {
     rules: {
