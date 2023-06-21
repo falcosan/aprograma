@@ -66,15 +66,13 @@
         }`"
       >
         <div class="messages-container">
-          <client-only>
-            <span
-              :class="`footer-messages text-xs ${
-                backgroundColors && $themeColor(backgroundColors) ? '' : ''
-              }`"
-            >
-              {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
-            </span>
-          </client-only>
+          <span
+            :class="`footer-messages text-xs ${
+              backgroundColors && $themeColor(backgroundColors) ? '' : ''
+            }`"
+          >
+            {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
+          </span>
         </div>
         <div
           :class="`footer-info grid gap-y-1.5 justify-self-center whitespace-nowrap text-center ${
@@ -166,11 +164,9 @@
           backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''
         }`"
       >
-        <client-only>
-          <span class="footer-messages text-xs">
-            {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
-          </span>
-        </client-only>
+        <span class="footer-messages text-xs">
+          {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
+        </span>
       </div>
       <div
         :class="`footer-info grid gap-y-1.5 ${
@@ -335,19 +331,9 @@ export default defineNuxtComponent({
         currentEye.value = !currentEye.value;
       }, '1000');
     };
-    watch(
-      () => currentEye.value,
-      () => showEyes(),
-      { immediate: true }
-    );
-    watch(
-      () => scrollPosition.value,
-      () => expandOut()
-    );
-    watch(
-      () => languageGet.value,
-      () => restartTypewriter()
-    );
+    watch(scrollPosition, () => expandOut());
+    watch(languageGet, () => restartTypewriter());
+    watch(currentEye, showEyes, { immediate: true });
     typeText();
     return {
       sizes,

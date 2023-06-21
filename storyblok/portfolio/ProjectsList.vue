@@ -1,29 +1,36 @@
 <template>
-  <div v-if="sortedProjects.length" class="projects w-full">
-    <ProjectSliderComponent
-      v-if="
-        sizes.lg &&
-        blok.show_slider &&
-        !blok.row_container &&
-        sortedProjects.length > 2 &&
-        !sliderMode
-      "
-      :blok="sortedProjects"
-    />
-    <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
-      <ProjectTeaserComponent
-        v-for="project in sortedProjects"
-        :key="project.uuid"
-        :project-link="project.slug"
-        :project-content="project.content"
-        :row-container="blok.row_container"
-        :slider-container="sliderMode"
-        :carousel-container="carouselMode"
-        :container-container="containerMode"
-        :container-width="containerWidth"
+  <transition
+    enter-from-class="opacity-0"
+    leave-to-class="opacity-0"
+    enter-active-class="transition duration-150"
+    leave-active-class="transition duration-150"
+  >
+    <div v-if="sortedProjects.length" class="projects w-full">
+      <ProjectSliderComponent
+        v-if="
+          sizes.lg &&
+          blok.show_slider &&
+          !blok.row_container &&
+          sortedProjects.length > 2 &&
+          !sliderMode
+        "
+        :blok="sortedProjects"
       />
-    </ul>
-  </div>
+      <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
+        <ProjectTeaserComponent
+          v-for="project in sortedProjects"
+          :key="project.uuid"
+          :project-link="project.slug"
+          :project-content="project.content"
+          :row-container="blok.row_container"
+          :slider-container="sliderMode"
+          :carousel-container="carouselMode"
+          :container-container="containerMode"
+          :container-width="containerWidth"
+        />
+      </ul>
+    </div>
+  </transition>
 </template>
 <script>
 import { storeToRefs } from 'pinia';

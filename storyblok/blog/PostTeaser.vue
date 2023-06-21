@@ -47,14 +47,16 @@
           }; color: ${postContent.text_color.color};`"
         >
           <div class="text-description">
-            <span class="teaser-title mb-2.5 overflow-hidden text-lg sm:text-xl">
+            <span class="teaser-title mb-1 overflow-hidden text-lg sm:text-xl">
               {{ postContent.title }}
             </span>
-            <span class="teaser-intro h-12 overflow-hidden leading-relaxed text-sm">
+            <span class="teaser-intro h-12 mb-1.5 overflow-hidden leading-relaxed text-sm">
               {{ postContent.intro }}
             </span>
           </div>
-          <ul class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 overflow-x-auto">
+          <ul
+            class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 mt-0 overflow-x-auto"
+          >
             <li
               v-for="(category, index) in sortedCategories"
               :key="index"

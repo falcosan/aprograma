@@ -79,15 +79,8 @@ export default defineNuxtComponent({
     const { languageGet } = storeToRefs(languageStore);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
     onMounted(() => {
-      const locale = localStorage.getItem('locale');
-      if (locale) languageAction(locale);
+      if (languageGet.value) document.documentElement.setAttribute('lang', languageGet.value);
       else languageAction(Intl.DateTimeFormat().resolvedOptions().locale);
-    });
-    watch(languageGet, val => {
-      if (val) {
-        document.documentElement.setAttribute('lang', val);
-        localStorage.setItem('locale', val);
-      }
     });
     return {
       languageGet,
