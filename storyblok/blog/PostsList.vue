@@ -175,7 +175,16 @@ export default defineNuxtComponent({
       return featuredPosts;
     });
     const sortedCategories = computed(() => {
-      return props.blok.categories
+      return sortedPosts.value
+        .map(post => post.content.categories)
+        .reduce((acc, cur) => {
+          cur.forEach(str => {
+            if (!acc.includes(str)) {
+              acc.push(str);
+            }
+          });
+          return acc;
+        }, [])
         .map(category => {
           const mapCategory = category.toLowerCase().split('; ');
           return mapCategory.map(render => ({
