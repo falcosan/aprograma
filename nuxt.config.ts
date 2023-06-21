@@ -1,5 +1,4 @@
 import enums from './enum';
-import { fetchStories } from './services/fetch.js';
 
 export default defineNuxtConfig({
   vite: {
