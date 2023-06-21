@@ -14,7 +14,11 @@ export const usePostsStore = defineStore('posts', {
     async addPosts() {
       const { languageGet } = storeToRefs(store.language());
       const storyblokApi = useStoryblokApi();
+      const {
+        public: { apiVersion: version }
+      } = useRuntimeConfig();
       const { data } = await storyblokApi.get('cdn/stories/', {
+        version,
         starts_with: 'blog/',
         language: languageGet.value
       });

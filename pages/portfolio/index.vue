@@ -6,9 +6,13 @@ const { seo } = useSeo();
 const { $languageCase } = useNuxtApp();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
+const {
+  public: { apiVersion: version }
+} = useRuntimeConfig();
 const { data: portfolio } = await useAsyncData(
   route.path,
-  async () => await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value }),
+  async () =>
+    await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value, version }),
   {
     watch: [languageGet]
   }

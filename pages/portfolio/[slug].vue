@@ -5,9 +5,13 @@ const route = useRoute();
 const { seo } = useSeo();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
+const {
+  public: { apiVersion: version }
+} = useRuntimeConfig();
 const { data: project } = await useAsyncData(
   route.params.slug,
-  async () => await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value }),
+  async () =>
+    await storyblokApi.get(`cdn/stories/${route.path}`, { language: languageGet.value, version }),
   {
     watch: [languageGet]
   }

@@ -14,7 +14,11 @@ export const useProjectsStore = defineStore('projects', {
     async addProjects() {
       const { languageGet } = storeToRefs(store.language());
       const storyblokApi = useStoryblokApi();
+      const {
+        public: { apiVersion: version }
+      } = useRuntimeConfig();
       const { data } = await storyblokApi.get('cdn/stories/', {
+        version,
         starts_with: 'portfolio/',
         language: languageGet.value
       });
