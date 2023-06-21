@@ -66,13 +66,15 @@
         }`"
       >
         <div class="messages-container">
-          <span
-            :class="`footer-messages text-xs ${
-              backgroundColors && $themeColor(backgroundColors) ? '' : ''
-            }`"
-          >
-            {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
-          </span>
+          <client-only>
+            <span
+              :class="`footer-messages text-xs ${
+                backgroundColors && $themeColor(backgroundColors) ? '' : ''
+              }`"
+            >
+              {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
+            </span>
+          </client-only>
         </div>
         <div
           :class="`footer-info grid gap-y-1.5 justify-self-center whitespace-nowrap text-center ${
@@ -164,9 +166,11 @@
           backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''
         }`"
       >
-        <span class="footer-messages text-xs">
-          {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
-        </span>
+        <client-only>
+          <span class="footer-messages text-xs">
+            {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
+          </span>
+        </client-only>
       </div>
       <div
         :class="`footer-info grid gap-y-1.5 ${

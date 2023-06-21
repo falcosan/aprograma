@@ -36,7 +36,7 @@
               : ''
           }`"
           @click="
-            changeLanguage(language.language);
+            languageAction(language.language);
             $emit('translate-list-action');
           "
         >
@@ -77,30 +77,22 @@ export default defineNuxtComponent({
     const languageStore = store.language();
     const { languageAction } = languageStore;
     const { languageGet } = storeToRefs(languageStore);
-    const changeLanguage = lang => languageAction(lang);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
-    onBeforeMount(() => {
+    onMounted(() => {
       const locale = localStorage.getItem('locale');
-      if (locale) changeLanguage(locale);
+      if (locale) languageAction(locale);
+      else languageAction(Intl.DateTimeFormat().resolvedOptions().locale);
     });
-    watch(
-      languageGet,
-      val => {
-        if (val) {
-          document.documentElement.setAttribute('lang', val);
-          localStorage.setItem('locale', val);
-        } else {
-          changeLanguage(Intl.DateTimeFormat().resolvedOptions().locale);
-        }
-      },
-      {
-        immediate: true
+    watch(languageGet, val => {
+      if (val) {
+        document.documentElement.setAttribute('lang', val);
+        localStorage.setItem('locale', val);
       }
-    );
+    });
     return {
       languageGet,
       cutLanguage,
-      changeLanguage
+      languageAction
     };
   }
 });
