@@ -40,7 +40,7 @@ export const useSeo = () => {
         content: `${config.public.origin}${route.path}`
       },
       {
-        name: 'og:title',
+        property: 'og:title',
         content: story.content.title
       },
       {
