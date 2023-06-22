@@ -19,7 +19,7 @@ export const useProjectsStore = defineStore('projects', {
         cv: 'CURRENT_TIMESTAMP',
         starts_with: 'portfolio/',
         language: languageGet.value,
-        version: config.public.apiVersion
+        version: config.public.version
       });
       this.items = data.stories;
     }

@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia';
 import store from '@/store';
 const route = useRoute();
-const { seo } = useSeo();
+const { seoDynamic } = useSeo();
 const config = useRuntimeConfig();
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
@@ -11,13 +11,13 @@ const { data: project } = await useAsyncData(
   async () =>
     await storyblokApi.get(`cdn/stories/${route.path}`, {
       language: languageGet.value,
-      version: config.public.apiVersion
+      version: config.public.version
     }),
   {
     watch: [languageGet]
   }
 );
-watch(project, val => seo(val.data.story), { immediate: true });
+watch(project, val => seoDynamic(val.data.story), { immediate: true });
 </script>
 
 <template>

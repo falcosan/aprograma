@@ -19,7 +19,7 @@ export const usePostsStore = defineStore('posts', {
         starts_with: 'blog/',
         cv: 'CURRENT_TIMESTAMP',
         language: languageGet.value,
-        version: config.public.apiVersion
+        version: config.public.version
       });
       this.items = data.stories;
     }
