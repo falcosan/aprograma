@@ -1,6 +1,8 @@
+import { Readable } from 'stream';
 import RSS from 'rss';
 import axios from 'axios';
 import showdown from 'showdown';
+import { SitemapStream, streamToPromise } from 'sitemap';
 import enums from '../enum';
 
 export async function fetchFeed(lang) {
@@ -37,6 +39,26 @@ export async function fetchFeed(lang) {
     });
   });
   return feed.xml({ indent: true });
+}
+
+export async function fetchSitemap(hostname) {
+  const links = [];
+  const stream = new SitemapStream({ hostname });
+  const { data } = await axios(enums.routes);
+  const urls = Object.values(data.links)
+    .map(link => {
+      if (!link.is_folder && !link.is_startpage && link.slug.includes('/')) return link.slug;
+      else if (link.path != null && link.path !== '/') return link.path;
+      else return false;
+    })
+    .filter(Boolean);
+  for (const url of urls) {
+    let priority = 0.3;
+    if (/blog/.test(url)) priority = 0.7;
+    else if (/portfolio/.test(url)) priority = 0.5;
+    links.push({ url, changefreq: 'monthly', priority });
+  }
+  return streamToPromise(Readable.from(links).pipe(stream)).then(data => data.toString());
 }
 
 export async function fetchStories(routes, page = 1) {
