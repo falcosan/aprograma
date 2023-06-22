@@ -10,7 +10,7 @@ export const useSeo = () => {
         content: story.description
       }
     ];
-    return useServerHeadSafe({
+    return useHeadSafe({
       title: `${story.name} - ${enums.name}`,
       meta,
       link: [
@@ -70,7 +70,7 @@ export const useSeo = () => {
         content: image
       }
     ];
-    return useServerHeadSafe({
+    return useHeadSafe({
       title: `${story.content.title} - ${enums.name}`,
       meta,
       link: [
@@ -128,7 +128,7 @@ export const useSeo = () => {
         content: enums.meta.og.image
       }
     ];
-    return useServerHeadSafe({
+    return useHeadSafe({
       htmlAttrs: { lang: story.language },
       charset: 'utf-8',
       title: enums.meta.title,
