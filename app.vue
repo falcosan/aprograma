@@ -10,13 +10,13 @@ const { languageGet } = storeToRefs(store.language());
 watch(
   languageGet,
   async language => {
+    seoLayout({ language });
     const { data } = await storyblokApi.get('cdn/stories/layout', {
       language,
       cv: 'CURRENT_TIMESTAMP',
       version: config.public.version
     });
     layout.value = data.story;
-    seoLayout({ language });
   },
   { immediate: true }
 );
