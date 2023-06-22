@@ -3,29 +3,30 @@ import { storeToRefs } from 'pinia';
 import store from '@/store';
 import LogoComponent from '@/storyblok/global/Logo';
 const config = useRuntimeConfig();
-const layout = ref({ content: {} });
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const checkComponent = ({ component: data }, name) => data.toLowerCase() === name;
-watch(
-  languageGet,
-  async language => {
-    const { data } = await storyblokApi.get('cdn/stories/layout', {
-      language,
-      cv: 'CURRENT_TIMESTAMP',
+const { data: layout } = useAsyncData(
+  'layout',
+  async () =>
+    await storyblokApi.get('cdn/stories/layout', {
+      language: languageGet.value,
       version: config.public.apiVersion
-    });
-    layout.value = data.story;
-  },
-  { immediate: true }
+    }),
+  {
+    watch: [languageGet]
+  }
 );
 </script>
 
 <template>
-  <section v-if="layout.content.body && !layout.content.maintenance" class="aprograma-theme">
+  <section
+    v-if="layout.data.story.content.body && !layout.data.story.content.maintenance"
+    class="aprograma-theme"
+  >
     <component
       :is="resolveComponent(component.component)"
-      v-for="component in layout.content.body"
+      v-for="component in layout.data.story.content.body"
       :key="component._uid"
       :blok="component"
     >
@@ -34,7 +35,7 @@ watch(
     </component>
   </section>
   <section
-    v-else-if="layout.content.body"
+    v-else-if="layout.data.story.content.body"
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
     <LogoComponent transition class="rounded max-w-full mx-auto my-0" size="50vh" />
