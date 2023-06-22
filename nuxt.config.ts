@@ -1,3 +1,5 @@
+import { fetchStories } from './services/fetch.js';
+
 export default defineNuxtConfig({
   vite: {
     optimizeDeps: { exclude: ['fsevents'] }
@@ -50,9 +52,20 @@ export default defineNuxtConfig({
   webpack: {
     extractCSS: process.env.NODE_ENV !== 'development'
   },
-  nitro: {
-    prerender: {
-      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (!nitroConfig.prerender?.routes || nitroConfig.dev) return;
+      const routes = ['/'];
+      try {
+        await fetchStories(routes);
+        nitroConfig.prerender.routes.push(...routes);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        nitroConfig.prerender.routes.push(
+          ...['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
+        );
+      }
     }
   }
 });
