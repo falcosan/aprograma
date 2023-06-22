@@ -52,7 +52,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
-      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml']
+      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
     }
   }
 });
