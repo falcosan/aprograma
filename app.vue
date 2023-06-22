@@ -7,7 +7,6 @@ const config = useRuntimeConfig();
 const layout = ref({ content: {} });
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
-const checkComponent = ({ component: data }, name) => data.toLowerCase() === name;
 watch(
   languageGet,
   async language => {
@@ -31,8 +30,8 @@ watch(
       :key="component._uid"
       :blok="component"
     >
-      <NuxtLoadingIndicator v-if="checkComponent(component, 'header')" />
-      <NuxtPage v-else-if="checkComponent(component, 'main')" />
+      <template #header><NuxtLoadingIndicator /></template>
+      <template #main><NuxtPage /></template>
     </component>
   </section>
   <section

@@ -29,7 +29,7 @@
           !isDesktop ? '' : 'md:rounded-t'
         }`"
       >
-        <slot />
+        <slot name="main" />
       </div>
     </div>
     <transition enter-active-class="duration-100" enter-class="opacity-0">
