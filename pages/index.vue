@@ -9,7 +9,7 @@ const { data: home } = await useAsyncData(
   async () =>
     await storyblokApi.get('cdn/stories/home', {
       language: languageGet.value,
-      version: config.public.apiVersion
+      version: config.public.version
     }),
   {
     watch: [languageGet]

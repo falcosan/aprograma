@@ -2,7 +2,7 @@
 import { storeToRefs } from 'pinia';
 import store from '@/store';
 const route = useRoute();
-const { seo } = useSeo();
+const { seoStatic } = useSeo();
 const config = useRuntimeConfig();
 const { $languageCase } = useNuxtApp();
 const storyblokApi = useStoryblokApi();
@@ -12,7 +12,7 @@ const { data: portfolio } = await useAsyncData(
   async () =>
     await storyblokApi.get(`cdn/stories/${route.path}`, {
       language: languageGet.value,
-      version: config.public.apiVersion
+      version: config.public.version
     }),
   {
     watch: [languageGet]
@@ -21,7 +21,7 @@ const { data: portfolio } = await useAsyncData(
 watch(
   languageGet,
   () =>
-    seo({
+    seoStatic({
       name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
       description: $languageCase(
         'Some projects and skills',

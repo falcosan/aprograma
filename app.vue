@@ -2,20 +2,21 @@
 import { storeToRefs } from 'pinia';
 import store from '@/store';
 import LogoComponent from '@/storyblok/global/Logo';
+const { seoLayout } = useSeo();
 const config = useRuntimeConfig();
 const layout = ref({ content: {} });
 const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
-const checkComponent = ({ component: data }, name) => data.toLowerCase() === name;
 watch(
   languageGet,
   async language => {
     const { data } = await storyblokApi.get('cdn/stories/layout', {
       language,
       cv: 'CURRENT_TIMESTAMP',
-      version: config.public.apiVersion
+      version: config.public.version
     });
     layout.value = data.story;
+    seoLayout({ language });
   },
   { immediate: true }
 );
@@ -29,8 +30,8 @@ watch(
       :key="component._uid"
       :blok="component"
     >
-      <NuxtLoadingIndicator v-if="checkComponent(component, 'header')" />
-      <slot v-else-if="checkComponent(component, 'main')" />
+      <template #header><NuxtLoadingIndicator /></template>
+      <template #main><NuxtPage /></template>
     </component>
   </section>
   <section
