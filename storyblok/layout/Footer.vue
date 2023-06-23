@@ -180,7 +180,7 @@
           >{{ $languageCase('Made with', 'Hecho con', 'Creato con') }}
           <a
             class="nuxtjs-link"
-            href="https://nuxtjs.org/"
+            href="https://nuxt.com/"
             target="_blank"
             rel="noopener noreferrer"
             ><span class="nuxtjs underline">Nuxt.js</span></a
