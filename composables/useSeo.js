@@ -71,7 +71,7 @@ export const useSeo = () => {
       }
     ];
     return useHead({
-      title: `${story.content.title} - ${enums.name}`,
+      title: story.content.title,
       meta,
       link: [
         {
