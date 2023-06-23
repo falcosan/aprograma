@@ -14,19 +14,24 @@ const { data: portfolio } = await useAsyncData(
       language: languageGet.value,
       version: config.public.version
     });
-    seoStatic({
-      name: data.story.name,
-      description: $languageCase(
-        'Some projects and skills',
-        'Algunos proyectos y habilidades',
-        'Alcuni progetti e abiltá'
-      )
-    });
     return data.story;
   },
   {
     watch: [languageGet]
   }
+);
+watch(
+  portfolio,
+  val =>
+    seoStatic({
+      name: val.name,
+      description: $languageCase(
+        'Some projects and skills',
+        'Algunos proyectos y habilidades',
+        'Alcuni progetti e abiltá'
+      )
+    }),
+  { immediate: true }
 );
 </script>
 

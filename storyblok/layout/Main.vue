@@ -29,7 +29,8 @@
           !isDesktop ? '' : 'md:rounded-t'
         }`"
       >
-        <slot name="main" />
+        <slot v-if="/slug/.test(route.name)" name="main" />
+        <client-only v-else><slot name="main" /></client-only>
       </div>
     </div>
     <transition enter-active-class="duration-100" enter-class="opacity-0">
@@ -121,6 +122,7 @@ export default defineNuxtComponent({
       { immediate: true }
     );
     return {
+      route,
       isDesktop,
       backgroundLevel,
       backgroundPosition,

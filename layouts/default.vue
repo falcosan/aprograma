@@ -39,9 +39,7 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
       :key="component._uid"
       :blok="component"
     >
-      <template #main>
-        <client-only><slot /></client-only>
-      </template>
+      <template #main><slot /></template>
     </component>
   </section>
 </template>

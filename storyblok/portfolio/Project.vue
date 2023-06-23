@@ -5,74 +5,76 @@
     >
       {{ blok.title }}
     </h1>
-    <div v-if="sizes.xl" class="project-action min-w-0 flex items-center justify-end">
-      <RouteComponent
-        v-if="blok.url_project"
-        icon-item
-        external-link
-        :to="blok.url_project"
-        :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
-      >
-        <template #icon>
-          <IconComponent
-            link
-            :class="`project-external mr-2.5 rounded ${
-              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-            }`"
-            :style="`background-color: ${$binaryControl(
-              blok.background_color,
-              'color',
-              '#e0e0e0'
-            )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-            size="w-10 h-10 p-3"
-          />
-        </template>
-      </RouteComponent>
-      <span
-        v-else
-        class="project-private mr-5 text-xs"
-        v-text="
-          !blok.url_project
-            ? $languageCase('private project', 'proyecto privado', 'progetto privato')
-            : ''
-        "
-      />
-      <RouteComponent
-        v-if="blok.url_repository"
-        icon-item
-        external-link
-        :to="blok.url_repository"
-        title="repository"
-      >
-        <template #icon>
-          <IconComponent
-            git
-            :class="`project-repository mr-2.5 rounded ${
-              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-            }`"
-            :style="`background-color: ${$binaryControl(
-              blok.background_color,
-              'color',
-              '#e0e0e0'
-            )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-            size="w-10 h-10 p-3"
-          />
-        </template>
-      </RouteComponent>
-      <IconComponent
-        arrow
-        :style="`background-color: ${$binaryControl(
-          blok.background_color,
-          'color',
-          '#e0e0e0'
-        )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-        :class="`project-back rounded cursor-pointer ${
-          !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-        }`"
-        size="w-10 h-10 p-3"
-        @click="$goBack('portfolio')"
-      />
-    </div>
+    <client-only>
+      <div v-if="sizes.xl" class="project-action min-w-0 flex items-center justify-end">
+        <RouteComponent
+          v-if="blok.url_project"
+          icon-item
+          external-link
+          :to="blok.url_project"
+          :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
+        >
+          <template #icon>
+            <IconComponent
+              link
+              :class="`project-external mr-2.5 rounded ${
+                !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+              }`"
+              :style="`background-color: ${$binaryControl(
+                blok.background_color,
+                'color',
+                '#e0e0e0'
+              )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+              size="w-10 h-10 p-3"
+            />
+          </template>
+        </RouteComponent>
+        <span
+          v-else
+          class="project-private mr-5 text-xs"
+          v-text="
+            !blok.url_project
+              ? $languageCase('private project', 'proyecto privado', 'progetto privato')
+              : ''
+          "
+        />
+        <RouteComponent
+          v-if="blok.url_repository"
+          icon-item
+          external-link
+          :to="blok.url_repository"
+          title="repository"
+        >
+          <template #icon>
+            <IconComponent
+              git
+              :class="`project-repository mr-2.5 rounded ${
+                !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+              }`"
+              :style="`background-color: ${$binaryControl(
+                blok.background_color,
+                'color',
+                '#e0e0e0'
+              )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+              size="w-10 h-10 p-3"
+            />
+          </template>
+        </RouteComponent>
+        <IconComponent
+          arrow
+          :style="`background-color: ${$binaryControl(
+            blok.background_color,
+            'color',
+            '#e0e0e0'
+          )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+          :class="`project-back rounded cursor-pointer ${
+            !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+          }`"
+          size="w-10 h-10 p-3"
+          @click="$goBack('portfolio')"
+        />
+      </div>
+    </client-only>
     <div class="project-intro grid gap-5 auto-cols-fr col-start-1 col-end-4">
       <ModalComponent
         v-if="blok.image.filename"
@@ -137,77 +139,79 @@
           }}
         </span>
       </div>
-      <div
-        v-if="windowWidth < 1280"
-        class="project-action min-w-0 flex items-center justify-end row-start-2 row-end-3 xl:col-start-2 xl:col-end-3"
-      >
-        <RouteComponent
-          v-if="blok.url_project"
-          icon-item
-          external-link
-          :to="blok.url_project"
-          :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
+      <client-only>
+        <div
+          v-if="windowWidth < 1280"
+          class="project-action min-w-0 flex items-center justify-end row-start-2 row-end-3 xl:col-start-2 xl:col-end-3"
         >
-          <template #icon>
-            <IconComponent
-              link
-              :class="`project-external mr-2.5 rounded ${
-                !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-              }`"
-              :style="`background-color: ${$binaryControl(
-                blok.background_color,
-                'color',
-                'e0e0e0'
-              )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-              size="w-10 h-10 p-3"
-            />
-          </template>
-        </RouteComponent>
-        <span
-          v-else
-          class="project-private mr-5 text-xs"
-          v-text="
-            !blok.url_project
-              ? $languageCase('private project', 'proyecto privado', 'progetto privato')
-              : ''
-          "
-        />
-        <RouteComponent
-          v-if="blok.url_repository"
-          icon-item
-          external-link
-          :to="blok.url_repository"
-          title="repository"
-        >
-          <template #icon>
-            <IconComponent
-              git
-              :class="`project-repository mr-2.5 rounded ${
-                !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-              }`"
-              :style="`background-color: ${$binaryControl(
-                blok.background_color,
-                'color',
-                'e0e0e0'
-              )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-              size="w-10 h-10 p-3"
-            />
-          </template>
-        </RouteComponent>
-        <IconComponent
-          arrow
-          :style="`background-color: ${$binaryControl(
-            blok.background_color,
-            'color',
-            'e0e0e0'
-          )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-          :class="`project-back rounded ${
-            !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-          }`"
-          size="w-10 h-10 p-3"
-          @click="$goBack('portfolio')"
-        />
-      </div>
+          <RouteComponent
+            v-if="blok.url_project"
+            icon-item
+            external-link
+            :to="blok.url_project"
+            :title="`${$languageCase('link to', 'enlace por', 'link per')} ${blok.title}`"
+          >
+            <template #icon>
+              <IconComponent
+                link
+                :class="`project-external mr-2.5 rounded ${
+                  !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+                }`"
+                :style="`background-color: ${$binaryControl(
+                  blok.background_color,
+                  'color',
+                  'e0e0e0'
+                )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+                size="w-10 h-10 p-3"
+              />
+            </template>
+          </RouteComponent>
+          <span
+            v-else
+            class="project-private mr-5 text-xs"
+            v-text="
+              !blok.url_project
+                ? $languageCase('private project', 'proyecto privado', 'progetto privato')
+                : ''
+            "
+          />
+          <RouteComponent
+            v-if="blok.url_repository"
+            icon-item
+            external-link
+            :to="blok.url_repository"
+            title="repository"
+          >
+            <template #icon>
+              <IconComponent
+                git
+                :class="`project-repository mr-2.5 rounded ${
+                  !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+                }`"
+                :style="`background-color: ${$binaryControl(
+                  blok.background_color,
+                  'color',
+                  'e0e0e0'
+                )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+                size="w-10 h-10 p-3"
+              />
+            </template>
+          </RouteComponent>
+          <IconComponent
+            arrow
+            :style="`background-color: ${$binaryControl(
+              blok.background_color,
+              'color',
+              'e0e0e0'
+            )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+            :class="`project-back rounded ${
+              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+            }`"
+            size="w-10 h-10 p-3"
+            @click="$goBack('portfolio')"
+          />
+        </div>
+      </client-only>
     </div>
     <div v-if="blok.body?.length" class="project-details grid gap-5 col-start-1 col-end-4 mt-10">
       <h1 class="detail-project text-xl sm:text-2xl">

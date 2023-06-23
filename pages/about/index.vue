@@ -14,15 +14,20 @@ const { data: about } = await useAsyncData(
       language: languageGet.value,
       version: config.public.version
     });
-    seoStatic({
-      name: data.story.name,
-      description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
-    });
     return data.story;
   },
   {
     watch: [languageGet]
   }
+);
+watch(
+  about,
+  val =>
+    seoStatic({
+      name: val.name,
+      description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
+    }),
+  { immediate: true }
 );
 </script>
 

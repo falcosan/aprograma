@@ -13,13 +13,13 @@ const { data: project } = await useAsyncData(
       language: languageGet.value,
       version: config.public.version
     });
-    seoDynamic(data.story);
     return data.story;
   },
   {
     watch: [languageGet]
   }
 );
+watch(project, val => seoDynamic(val), { immediate: true });
 </script>
 
 <template>
