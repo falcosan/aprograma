@@ -6,11 +6,13 @@ const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: home } = await useAsyncData(
   'home',
-  async () =>
-    await storyblokApi.get('cdn/stories/home', {
+  async () => {
+    const { data } = await storyblokApi.get('cdn/stories/home', {
       language: languageGet.value,
       version: config.public.version
-    }),
+    });
+    return data.story;
+  },
   {
     watch: [languageGet]
   }
@@ -18,5 +20,5 @@ const { data: home } = await useAsyncData(
 </script>
 
 <template>
-  <StoryblokComponent :key="home.data.story.content._uid" :blok="home.data.story.content" />
+  <StoryblokComponent :key="home.content._uid" :blok="home.content" />
 </template>
