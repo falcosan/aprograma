@@ -31,7 +31,6 @@ export const useSeo = () => {
       { property: 'og:site_name', content: enums.name },
       { key: 'og:type', property: 'og:type', content: 'website' },
       {
-        key: 'description',
         name: 'description',
         content: story.content.intro
       },
