@@ -15,10 +15,9 @@
       leave-active-class="transition duration-300"
       class="slider-wrapper relative w-full grid grid-cols-1 grid-rows-2 rounded overflow-hidden transition-opacity"
     >
-      <template v-for="(project, index) in blok">
+      <template v-for="(project, index) in blok" :key="project.uuid">
         <li
-          v-if="index === frame.up || index === frame.down"
-          :key="project.uuid"
+          v-show="index === frame.up || index === frame.down"
           :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${
             index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
           }`"
@@ -65,7 +64,7 @@
         </li>
       </template>
       <li
-        v-if="frame.down === blok.length && blok.length > 2"
+        v-show="frame.down === blok.length && blok.length > 2"
         :key="`${indexControls}-0`"
         :class="`restart-control control h-full projects-center col-start-1 col-end-1 cursor-pointer shadow-inner bg-opacity-20 bg-gray-400 ${
           blok.length % 2 == 0

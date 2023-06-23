@@ -29,8 +29,7 @@
           !isDesktop ? '' : 'md:rounded-t'
         }`"
       >
-        <slot v-if="/slug/.test(route.name)" name="main" />
-        <client-only v-else><slot name="main" /></client-only>
+        <slot name="main" />
       </div>
     </div>
     <transition enter-active-class="duration-100" enter-class="opacity-0">

@@ -1,7 +1,4 @@
 export default defineNuxtConfig({
-  vite: {
-    optimizeDeps: { exclude: ['fsevents'] }
-  },
   app: {
     pageTransition: { name: 'page' }
   },
@@ -11,6 +8,9 @@ export default defineNuxtConfig({
       verification: process.env.GOOGLE_SITE_VERIFICATION,
       version: process.env.NUXT_ENV_API_VERSION === 'preview' ? 'draft' : 'published'
     }
+  },
+  vite: {
+    optimizeDeps: { exclude: ['fsevents'] }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
   modules: [
