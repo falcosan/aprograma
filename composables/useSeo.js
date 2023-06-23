@@ -34,6 +34,15 @@ export const useSeo = () => {
         name: 'description',
         content: story.content.intro
       },
+      story.content.author && {
+        name: 'author',
+        content: story.content.author
+      },
+      story.content.date && {
+        name: 'publish_date',
+        property: 'og:publish_date',
+        content: story.content.date
+      },
       {
         property: 'og:url',
         content: `${config.public.origin}${route.path}`
