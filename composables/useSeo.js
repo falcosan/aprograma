@@ -10,7 +10,7 @@ export const useSeo = () => {
         content: story.description
       }
     ];
-    return useHeadSafe({
+    return useHead({
       title: `${story.name} - ${enums.name}`,
       meta,
       link: [
@@ -29,9 +29,9 @@ export const useSeo = () => {
       'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png';
     const meta = [
       { property: 'og:site_name', content: enums.name },
-      { hid: 'og:type', property: 'og:type', content: 'website' },
-
+      { key: 'og:type', property: 'og:type', content: 'website' },
       {
+        key: 'description',
         name: 'description',
         content: story.content.intro
       },
@@ -70,7 +70,7 @@ export const useSeo = () => {
         content: image
       }
     ];
-    return useHeadSafe({
+    return useHead({
       title: `${story.content.title} - ${enums.name}`,
       meta,
       link: [
@@ -128,7 +128,7 @@ export const useSeo = () => {
         content: enums.meta.og.image
       }
     ];
-    return useHeadSafe({
+    return useHead({
       htmlAttrs: { lang: story.language },
       charset: 'utf-8',
       title: enums.meta.title,

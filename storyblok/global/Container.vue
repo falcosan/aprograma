@@ -516,17 +516,11 @@ export default defineNuxtComponent({
     });
     onBeforeUpdate(getContainerWidth);
     onBeforeUnmount(clearAll);
-    watch(
-      () => windowWidth.value,
-      () => {
-        getContainerWidth();
-        if (props.blok.slider_mode === 'slider') sliderKey.value++;
-      }
-    );
-    watch(
-      () => fullWidth.value,
-      () => (sliderIndex.value = 0)
-    );
+    watch(windowWidth, () => {
+      getContainerWidth();
+      if (props.blok.slider_mode === 'slider') sliderKey.value++;
+    });
+    watch(fullWidth, () => (sliderIndex.value = 0));
     return {
       next,
       elements,

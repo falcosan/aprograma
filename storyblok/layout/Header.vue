@@ -1,7 +1,7 @@
 <template>
   <header v-if="sizes.md && isDesktop" class="header fixed w-full top-0 z-40">
     <nav class="navbar">
-      <div class="header-loader header-loader-desktop"><slot name="header" /></div>
+      <div class="header-loader header-loader-desktop"><NuxtLoadingIndicator /></div>
       <div class="menu-wrapper h-0 grid grid-flow-col-dense justify-between">
         <div class="logo-home relative h-16 w-16 lg:w-20 lg:h-20 z-20">
           <RouteComponent
@@ -59,7 +59,7 @@
         </div>
         <IconComponent
           animate-menu
-          class="open-menu relative h-16 w-16 lg:w-20 lg:h-20 z-10 cursor-pointer rounded-bl cursor-pointer"
+          class="open-menu relative h-16 w-16 lg:w-20 lg:h-20 z-10 rounded-bl cursor-pointer"
           size="w-5 h-5"
           :color-icon-animated-menu="blok.icon_color.color"
           :style="`background-color: ${backgroundColorMenu};`"
