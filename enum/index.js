@@ -2,7 +2,11 @@ const name = 'Aprograma';
 
 export default {
   name,
-  routes: `https://api.storyblok.com/v2/cdn/links?token=${process.env.NUXT_ENV_PREVIEW_TOKEN}&cv=CURRENT_TIMESTAMP&version=published`,
+  routes: `https://api.storyblok.com/v2/cdn/links?token=${
+    process.env.NUXT_ENV_PREVIEW_TOKEN
+  }&cv=CURRENT_TIMESTAMP&version=${
+    process.env.NUXT_ENV_API_VERSION === 'preview' ? 'draft' : 'published'
+  }`,
   meta: {
     title: `${name} - A break from stressful coding`,
     description: `Coding can be defined in many ways, sometimes even stressful. The goal of ${name} is to change this`,

@@ -269,8 +269,8 @@ export default defineNuxtComponent({
   components: { IconComponent },
   setup(props) {
     const { isDesktop } = useDevice();
-    const { windowWidth } = useScreen();
     const { $rangeItems } = useNuxtApp();
+    const { windowWidth, elementSize } = useScreen();
     const container = ref(null);
     const sliderBox = ref(null);
     const sliderSlide = ref(null);
@@ -299,6 +299,8 @@ export default defineNuxtComponent({
       currentSlide,
       containerWidth
     } = toRefs(state);
+    const { width: widthContainer } = elementSize(container);
+    const { width: widthSliderBox } = elementSize(sliderBox);
     const elements = computed(() => {
       if (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') {
         return props.blok.body;
@@ -442,8 +444,7 @@ export default defineNuxtComponent({
     const setNext = () => {
       if (props.blok.slider_mode === 'slider') {
         if (
-          -((containerWidth.value + spaceFix.value) * sliderIndex.value) -
-            sliderBox.value.clientWidth >=
+          -((containerWidth.value + spaceFix.value) * sliderIndex.value) - widthSliderBox.value >=
           -((containerWidth.value + spaceFix.value) * (elements.value.length - 1))
         ) {
           sliderIndex.value++;
@@ -477,8 +478,8 @@ export default defineNuxtComponent({
       const containerSelect =
         props.blok.body.length > 1 &&
         (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel')
-          ? sliderBox.value.clientWidth
-          : container.value.clientWidth;
+          ? widthSliderBox.value
+          : widthContainer.value;
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         nextTick(() => {
           fullWidth.value = containerSelect;
@@ -506,7 +507,6 @@ export default defineNuxtComponent({
       }
     };
     onMounted(() => {
-      getContainerWidth();
       if (
         (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') &&
         props.blok.auto_play
@@ -514,13 +514,12 @@ export default defineNuxtComponent({
         autoPlay();
       }
     });
-    onBeforeUpdate(getContainerWidth);
     onBeforeUnmount(clearAll);
     watch(windowWidth, () => {
-      getContainerWidth();
       if (props.blok.slider_mode === 'slider') sliderKey.value++;
     });
     watch(fullWidth, () => (sliderIndex.value = 0));
+    watch(widthContainer, getContainerWidth);
     return {
       next,
       elements,

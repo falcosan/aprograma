@@ -21,6 +21,7 @@
     "@nuxtjs/robots": "^3.0.0",
     "@pinia/nuxt": "^0.4.11",
     "@storyblok/nuxt": "^5.5.0",
+    "@vueuse/core": "^10.2.0",
     "axios": "^1.4.0",
     "core-js": "^3.31.0",
     "highlight.js": "^11.8.0",
