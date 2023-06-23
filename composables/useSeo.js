@@ -41,7 +41,7 @@ export const useSeo = () => {
       story.content.date && {
         name: 'publish_date',
         property: 'og:publish_date',
-        content: story.content.date
+        content: new Date(story.content.date).toISOString()
       },
       {
         property: 'og:url',
