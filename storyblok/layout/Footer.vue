@@ -83,30 +83,8 @@
             © 2020 - {{ currentYear }}, <strong>{{ webName }}</strong></span
           >
           <span class="footer-powered text-xs leading-relaxed"
-            >{{ $languageCase('Made with', 'Hecho con', 'Creato con') }}
-            <a
-              class="nuxtjs-link"
-              href="https://nuxtjs.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span class="nuxtjs underline">Nuxt.js</span></a
-            >,
-            <a
-              class="netlify-link"
-              href="https://www.netlify.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span class="netlify underline">Netlify</span></a
-            >
-            {{ $languageCase('and', 'y', 'e') }}
-            <a
-              class="storyblok-link"
-              href="https://www.storyblok.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              ><span class="storyblok underline">Storyblok</span></a
-            ></span
-          >
+            {{ $languageCase('Working from a tent', 'Trabajando desde una carpa', 'Lavorando da una tenda') }}
+          </span>
         </div>
         <ul
           :class="`social-links flex flex-wrap items-center justify-end -m-1.5 ${
