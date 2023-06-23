@@ -8,18 +8,20 @@ const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: post } = await useAsyncData(
   route.params.slug,
-  async () =>
-    await storyblokApi.get(`cdn/stories/${route.path}`, {
+  async () => {
+    const { data } = await storyblokApi.get(`cdn/stories/${route.path}`, {
       language: languageGet.value,
       version: config.public.version
-    }),
+    });
+    return data.story;
+  },
   {
     watch: [languageGet]
   }
 );
-watch(post, val => seoDynamic(val.data.story), { immediate: true });
+watch(post, val => seoDynamic(val), { immediate: true });
 </script>
 
 <template>
-  <StoryblokComponent :key="post.data.story.content._uid" :blok="post.data.story.content" />
+  <StoryblokComponent :key="post.content._uid" :blok="post.content" />
 </template>

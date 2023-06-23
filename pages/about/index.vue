@@ -9,20 +9,22 @@ const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: about } = await useAsyncData(
   route.path,
-  async () =>
-    await storyblokApi.get(`cdn/stories/${route.path}`, {
+  async () => {
+    const { data } = await storyblokApi.get(`cdn/stories/${route.path}`, {
       language: languageGet.value,
       version: config.public.version
-    }),
+    });
+    return data.story;
+  },
   {
     watch: [languageGet]
   }
 );
 watch(
-  languageGet,
-  () =>
+  about,
+  val =>
     seoStatic({
-      name: `${route.name.charAt(0).toUpperCase()}${route.name.slice(1)}`,
+      name: val.name,
       description: $languageCase('Something about me', 'Algo sobre mi', 'Qualcosa su di me')
     }),
   { immediate: true }
@@ -30,5 +32,5 @@ watch(
 </script>
 
 <template>
-  <StoryblokComponent :key="about.data.story.content._uid" :blok="about.data.story.content" />
+  <StoryblokComponent :key="about.content._uid" :blok="about.content" />
 </template>
