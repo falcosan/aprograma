@@ -16,7 +16,7 @@ export const useSeo = () => {
       link: [
         {
           rel: 'canonical',
-          href: `${config.public.origin}${route.path}`
+          href: `${config.public.envDomain}${route.path}`
         }
       ]
     });
@@ -45,7 +45,7 @@ export const useSeo = () => {
       },
       {
         property: 'og:url',
-        content: `${config.public.origin}${route.path}`
+        content: `${config.public.envDomain}${route.path}`
       },
       {
         property: 'og:title',
@@ -63,7 +63,7 @@ export const useSeo = () => {
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:url',
-        content: `${config.public.origin}${route.path}`
+        content: `${config.public.envDomain}${route.path}`
       },
       {
         name: 'twitter:title',
@@ -84,7 +84,7 @@ export const useSeo = () => {
       link: [
         {
           rel: 'canonical',
-          href: `${config.public.origin}${route.path}`
+          href: `${config.public.envDomain}${route.path}`
         }
       ]
     });
@@ -93,17 +93,17 @@ export const useSeo = () => {
     const meta = [
       {
         name: 'google-site-verification',
-        content: config.public.verification
+        content: config.public.envGoogleSiteVerification
       },
       {
         name: 'description',
         content: enums.meta.description
       },
-      { property: 'og:site_name', content: config.public.origin },
+      { property: 'og:site_name', content: config.public.envDomain },
       { property: 'og:type', content: 'website' },
       {
         property: 'og:url',
-        content: config.public.origin
+        content: config.public.envDomain
       },
       {
         property: 'og:title',
@@ -121,7 +121,7 @@ export const useSeo = () => {
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:url',
-        content: config.public.origin
+        content: config.public.envDomain
       },
       {
         name: 'twitter:title',
@@ -146,7 +146,7 @@ export const useSeo = () => {
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         {
           rel: 'canonical',
-          href: config.public.origin
+          href: config.public.envDomain
         }
       ]
     });

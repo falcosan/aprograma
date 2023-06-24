@@ -1,7 +1,7 @@
 <template>
   <header v-if="sizes.md && isDesktop" class="header fixed w-full top-0 z-40">
     <nav class="navbar">
-      <div class="header-loader header-loader-desktop"><NuxtLoadingIndicator /></div>
+      <div class="header-loader header-loader-desktop"><slot name="header" /></div>
       <div class="menu-wrapper h-0 grid grid-flow-col-dense justify-between">
         <div class="logo-home relative h-16 w-16 lg:w-20 lg:h-20 z-20">
           <RouteComponent
@@ -114,7 +114,7 @@
         />
       </div>
     </nav>
-    <div class="header-loader header-loader-responsive"><slot /></div>
+    <div class="header-loader header-loader-responsive"><slot name="header" /></div>
     <nav
       class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t drop-shadow-2xl"
       :style="`background-color: ${backgroundColor};`"
