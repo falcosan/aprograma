@@ -3,17 +3,12 @@ import { storeToRefs } from 'pinia';
 import store from '@/store';
 import LogoComponent from '@/storyblok/global/Logo';
 const { seoLayout } = useSeo();
-const config = useRuntimeConfig();
-const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: layout } = await useAsyncData(
   'layout',
   async () => {
-    const { data } = await storyblokApi.get('cdn/stories/layout', {
-      language: languageGet.value,
-      version: config.public.envApiVersion
-    });
-    return data.story;
+    const { story } = await $fetch(`/api/storyblok?slug=layout&lang=${languageGet.value}`);
+    return story;
   },
   {
     watch: [languageGet]

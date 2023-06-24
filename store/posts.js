@@ -13,15 +13,10 @@ export const usePostsStore = defineStore('posts', {
   actions: {
     async addPosts() {
       const { languageGet } = storeToRefs(store.language());
-      const storyblokApi = useStoryblokApi();
-      const config = useRuntimeConfig();
-      const { data } = await storyblokApi.get('cdn/stories/', {
-        starts_with: 'blog/',
-        cv: 'CURRENT_TIMESTAMP',
-        language: languageGet.value,
-        version: config.public.envApiVersion
-      });
-      this.items = data.stories;
+      const { data } = await useFetch(
+        `/api/storyblok?slug=&lang=${languageGet.value}&starts_with=blog/`
+      );
+      this.items = data.value.stories;
     }
   }
 });
