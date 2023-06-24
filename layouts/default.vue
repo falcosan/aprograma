@@ -11,7 +11,7 @@ const { data: layout } = await useAsyncData(
   async () =>
     await storyblokApi.get('cdn/stories/layout', {
       language: languageGet.value,
-      version: config.public.version
+      version: config.public.envApiVersion
     }),
   {
     watch: [languageGet]
@@ -39,6 +39,7 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
       :key="component._uid"
       :blok="component"
     >
+      <template #header><NuxtLoadingIndicator /></template>
       <template #main><slot /></template>
     </component>
   </section>

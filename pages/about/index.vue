@@ -12,7 +12,7 @@ const { data: about } = await useAsyncData(
   async () => {
     const { data } = await storyblokApi.get(`cdn/stories/${route.path}`, {
       language: languageGet.value,
-      version: config.public.version
+      version: config.public.envApiVersion
     });
     return data.story;
   },

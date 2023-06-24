@@ -3,10 +3,11 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page' }
   },
   runtimeConfig: {
+    envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     public: {
-      origin: process.env.NUXT_ENV_DOMAIN,
-      verification: process.env.GOOGLE_SITE_VERIFICATION,
-      version: process.env.NUXT_ENV_API_VERSION === 'preview' ? 'draft' : 'published'
+      envDomain: process.env.NUXT_ENV_DOMAIN,
+      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION,
+      envApiVersion: process.env.NUXT_ENV_API_VERSION
     }
   },
   vite: {
@@ -18,17 +19,12 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/device',
     '@nuxtjs/robots',
-    '@nuxtjs/tailwindcss',
-    [
-      '@storyblok/nuxt',
-      {
-        accessToken:
-          process.env.NUXT_ENV_API_VERSION === 'preview'
-            ? process.env.NUXT_ENV_PREVIEW_TOKEN
-            : process.env.NUXT_ENV_PUBLIC_TOKEN
-      }
-    ]
+    '@storyblok/nuxt',
+    '@nuxtjs/tailwindcss'
   ],
+  storyblok: {
+    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
+  },
   image: {
     provider: 'storyblok',
     storyblok: {
