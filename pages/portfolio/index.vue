@@ -10,7 +10,7 @@ const { languageGet } = storeToRefs(store.language());
 const { data: portfolio } = await useAsyncData(
   route.path,
   async () => {
-    const { data } = await storyblokApi.get(`cdn/stories/${route.path}`, {
+    const { data } = await storyblokApi.get(`cdn/stories${route.path}`, {
       language: languageGet.value,
       version: config.public.envApiVersion
     });
