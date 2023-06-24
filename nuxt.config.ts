@@ -22,9 +22,6 @@ export default defineNuxtConfig({
     '@storyblok/nuxt',
     '@nuxtjs/tailwindcss'
   ],
-  storyblok: {
-    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
-  },
   image: {
     provider: 'storyblok',
     storyblok: {
