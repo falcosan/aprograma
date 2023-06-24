@@ -8,11 +8,13 @@ const storyblokApi = useStoryblokApi();
 const { languageGet } = storeToRefs(store.language());
 const { data: layout } = await useAsyncData(
   'layout',
-  async () =>
-    await storyblokApi.get('cdn/stories/layout', {
+  async () => {
+    const { data } = await storyblokApi.get('cdn/stories/layout', {
       language: languageGet.value,
       version: config.public.envApiVersion
-    }),
+    });
+    return data.story;
+  },
   {
     watch: [languageGet]
   }
@@ -22,7 +24,7 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
 
 <template>
   <section
-    v-if="layout.data.story.content.maintenance"
+    v-if="layout.content.maintenance"
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
     <LogoComponent transition class="rounded max-w-full mx-auto my-0" size="50vh" />
@@ -35,7 +37,7 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
   <section v-else class="aprograma-theme">
     <component
       :is="resolveComponent(component.component)"
-      v-for="component in layout.data.story.content.body"
+      v-for="component in layout.content.body"
       :key="component._uid"
       :blok="component"
     >
