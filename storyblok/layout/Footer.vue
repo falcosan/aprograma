@@ -83,7 +83,13 @@
             © 2020 - {{ currentYear }}, <strong>{{ webName }}</strong></span
           >
           <span class="footer-powered text-xs leading-relaxed">
-            {{ $languageCase('Working from a tent', 'Trabajando desde una carpa', 'Lavorando da una tenda') }}
+            {{
+              $languageCase(
+                'Working from a tent',
+                'Trabajando desde una carpa',
+                'Lavorando da una tenda'
+              )
+            }}
           </span>
         </div>
         <ul
@@ -155,7 +161,13 @@
           © 2020 - {{ currentYear }}, <strong>{{ webName }}</strong></span
         >
         <span class="footer-powered text-xs leading-relaxed">
-          {{ $languageCase('Working from a tent', 'Trabajando desde una carpa', 'Lavorando da una tenda') }}
+          {{
+            $languageCase(
+              'Working from a tent',
+              'Trabajando desde una carpa',
+              'Lavorando da una tenda'
+            )
+          }}
         </span>
       </div>
       <ul

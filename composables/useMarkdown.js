@@ -1,6 +1,6 @@
 import hljs from 'highlight.js';
 import showdown from 'showdown';
-import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/styles/agate.css';
 
 export const useMarkdown = (init = true) => {
   const converter = new showdown.Converter();
@@ -8,21 +8,16 @@ export const useMarkdown = (init = true) => {
     if (document.querySelector('pre code')) {
       [...document.querySelectorAll('pre code')].forEach(code => {
         if (!code.classList.contains('syntax-code-block')) {
-          if (code.className.split(' ')[0].includes('language-')) {
+          const syntax = code.className.split(' ').find(t => t.includes('language-'));
+          if (syntax) {
             const content = document.createElement('span');
             content.classList.add('code-language');
             code.classList.add('syntax-code-block');
-            content.appendChild(
-              document.createTextNode(code.className.split(' ')[0].replace('language-', ''))
-            );
-            const language = hljs.getLanguage(code.className.split(' ')[0].replace('language-', ''))
-              ? hljs
-                  .getLanguage(code.className.split(' ')[0].replace('language-', ''))
-                  .name.toLocaleLowerCase()
+            content.appendChild(document.createTextNode(syntax.replace('language-', '')));
+            const language = hljs.getLanguage(syntax.replace('language-', ''))
+              ? hljs.getLanguage(syntax.replace('language-', '')).name.toLocaleLowerCase()
               : null;
-            if (hljs.listLanguages().includes(language)) {
-              hljs.highlightElement(code);
-            }
+            if (hljs.listLanguages().includes(language)) hljs.highlightElement(code);
             return code.insertBefore(content, code.childNodes[0]);
           }
         } else {
