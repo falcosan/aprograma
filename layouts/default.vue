@@ -18,7 +18,7 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
 </script>
 
 <template>
-  <section
+  <div
     v-if="layout.content.maintenance"
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
@@ -28,8 +28,8 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
     >
       {{ $languageCase('under maintenance', 'en mantenimiento', 'in manutenzione') }}
     </h1>
-  </section>
-  <section v-else class="aprograma-theme">
+  </div>
+  <div v-else class="aprograma-theme">
     <component
       :is="resolveComponent(component.component)"
       v-for="component in layout.content.body"
@@ -39,5 +39,5 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
       <template #header><NuxtLoadingIndicator /></template>
       <template #main><slot /></template>
     </component>
-  </section>
+  </div>
 </template>
