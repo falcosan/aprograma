@@ -1,13 +1,16 @@
 export default defineNuxtConfig({
   app: {
-    pageTransition: { name: 'page' }
+    pageTransition: { name: 'page' },
+    rootId: '__dd',
+    rootTag: 'section'
   },
   runtimeConfig: {
+    envXAuth: process.env.NUXT_ENV_X_AUTH,
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     public: {
       envDomain: process.env.NUXT_ENV_DOMAIN,
-      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION,
-      envApiVersion: process.env.NUXT_ENV_API_VERSION
+      envApiVersion: process.env.NUXT_ENV_API_VERSION,
+      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
   },
   vite: {
@@ -47,6 +50,9 @@ export default defineNuxtConfig({
     extractCSS: process.env.NODE_ENV !== 'development'
   },
   nitro: {
+    routeRules: {
+      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
+    },
     prerender: {
       routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
     }
