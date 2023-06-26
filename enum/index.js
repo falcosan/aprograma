@@ -1,16 +1,64 @@
 const name = 'Aprograma';
+const description = `Coding can be defined in many ways, sometimes even stressful. The goal of ${name} is to change this`;
 
 export default {
   name,
   routes: `https://api.storyblok.com/v2/cdn/links?token=${process.env.NUXT_ENV_ACCESS_TOKEN}&cv=CURRENT_TIMESTAMP&version=${process.env.NUXT_ENV_API_VERSION}`,
   meta: {
     title: `${name} - A break from stressful coding`,
-    description: `Coding can be defined in many ways, sometimes even stressful. The goal of ${name} is to change this`,
+    description,
     author: 'Daniele Falchetti - danielefalche@gmail.com',
     og: {
       image: 'https://a.storyblok.com/f/106240/810x810/1be2192023/logostatic.png',
       twitter: '@danielefalche'
     }
+  },
+  manifest: {
+    name,
+    short_name: name,
+    description,
+    icons: [
+      {
+        src: 'icons/icon-48x48.png',
+        sizes: '48x48',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-72x72.png',
+        sizes: '72x72',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-128x128.png',
+        sizes: '128x128',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-144x144.png',
+        sizes: '144x144',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-152x152.png',
+        sizes: '152x152',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png'
+      },
+      {
+        src: 'icons/icon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png'
+      }
+    ]
   },
   rss: {
     description: "Aprograma's blog RSS",

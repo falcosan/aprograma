@@ -52,30 +52,10 @@ export default defineNuxtConfig({
     includeAssets: ['favicon.ico'],
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{js,css}']
+      globPatterns: ['**/*.{js,css}'],
+      globIgnores: ['sw.js', 'workbox-*.js']
     },
-    manifest: {
-      name: enums.name,
-      short_name: enums.name,
-      description: enums.meta.description,
-      icons: [
-        {
-          src: 'icons/icon_96x96.png',
-          sizes: '96x96',
-          type: 'image/png'
-        },
-        {
-          src: 'icons/icon_192x192.png',
-          sizes: '192x192',
-          type: 'image/png'
-        },
-        {
-          src: 'icons/icon_512x512.png',
-          sizes: '512x512',
-          type: 'image/png'
-        }
-      ]
-    }
+    manifest: enums.manifest
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
