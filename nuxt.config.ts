@@ -72,8 +72,7 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,ico,png}']
+      navigateFallback: '/'
     }
   },
   storyblok: {
