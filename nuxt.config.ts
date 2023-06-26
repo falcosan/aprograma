@@ -1,3 +1,5 @@
+import enums from './enum';
+
 export default defineNuxtConfig({
   app: {
     pageTransition: { name: 'page' },
@@ -21,13 +23,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/device',
+    '@vite-pwa/nuxt',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
     '@nuxtjs/tailwindcss'
   ],
-  storyblok: {
-    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
-  },
   image: {
     provider: 'storyblok',
     storyblok: {
@@ -45,6 +45,39 @@ export default defineNuxtConfig({
   },
   device: {
     refreshOnResize: true
+  },
+  pwa: {
+    registerType: 'autoUpdate',
+    includeAssets: ['favicon.ico'],
+    manifest: {
+      name: enums.name,
+      short_name: enums.name,
+      description: enums.meta.description,
+      icons: [
+        {
+          src: 'icons/icon_96x96.png',
+          sizes: '96x96',
+          type: 'image/png'
+        },
+        {
+          src: 'icons/icon_192x192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: 'icons/icon_512x512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
+    },
+    workbox: {
+      navigateFallbackAllowlist: [/^(?!.*\/\/)[^\s$?#]*(?:\/[^\s$?#]*)*$/],
+      globPatterns: ['**/*.{js,css,html,ico,png}']
+    }
+  },
+  storyblok: {
+    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
   },
   webpack: {
     extractCSS: process.env.NODE_ENV !== 'development'
