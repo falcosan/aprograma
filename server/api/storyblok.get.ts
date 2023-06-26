@@ -1,4 +1,4 @@
-import StoryblokClient from 'storyblok-js-client';
+import StoryblokClient, { ISbStoriesParams } from 'storyblok-js-client';
 
 export default defineEventHandler(async event => {
   const config = useRuntimeConfig();
@@ -6,9 +6,9 @@ export default defineEventHandler(async event => {
   const cors = getRequestHeader(event, 'sec-fetch-mode');
   if (auth === config.envXAuth && (cors === undefined || cors === 'cors')) {
     const query = getQuery(event);
-    const version: any = config.public.envApiVersion;
-    const language: any = query.lang;
-    const startsWith: any = query.starts_with;
+    const version = config.public.envApiVersion as ISbStoriesParams['version'];
+    const language = query.lang as ISbStoriesParams['language'];
+    const startsWith = query.starts_with as ISbStoriesParams['starts_with'];
     const Storyblok = new StoryblokClient({ accessToken: config.envAccessToken });
     return await Storyblok.get(`cdn/stories/${query.slug}`, {
       version,
