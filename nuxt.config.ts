@@ -72,8 +72,8 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
-      navigateFallbackAllowlist: [/^(?!.*\/\/)[^\s$?#]*(?:\/[^\s$?#]*)*$/],
-      globPatterns: ['**/*.{js,css,html,ico,png}']
+      navigateFallback: '/',
+      globPatterns: ['**/*.{js,css,ico,png}']
     }
   },
   storyblok: {
