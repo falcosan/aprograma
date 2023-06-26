@@ -17,6 +17,7 @@ export default {
     name,
     short_name: name,
     description,
+    theme_color: '#212121',
     icons: [
       {
         src: 'icons/icon-48x48.png',
