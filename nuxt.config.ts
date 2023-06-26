@@ -47,8 +47,13 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
+    strategies: 'generateSW',
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico'],
+    workbox: {
+      navigateFallback: null,
+      globPatterns: ['**/*.{js,css}']
+    },
     manifest: {
       name: enums.name,
       short_name: enums.name,
@@ -70,9 +75,6 @@ export default defineNuxtConfig({
           type: 'image/png'
         }
       ]
-    },
-    workbox: {
-      navigateFallback: '/'
     }
   },
   storyblok: {
