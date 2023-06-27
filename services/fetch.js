@@ -1,9 +1,27 @@
 import { Readable } from 'stream';
 import RSS from 'rss';
-import axios from 'axios';
 import showdown from 'showdown';
+import StoryblokClient from 'storyblok-js-client';
 import { SitemapStream, streamToPromise } from 'sitemap';
 import enums from '../enum';
+
+export async function fetchStoryblok(
+  language = 'en',
+  startsWith,
+  query = 'cdn/stories/',
+  lastCache = false,
+  version = process.env.NUXT_ENV_API_VERSION
+) {
+  const Storyblok = new StoryblokClient({ accessToken: process.env.NUXT_ENV_ACCESS_TOKEN });
+  return await Storyblok.get(query, {
+    version,
+    language,
+    ...(lastCache && { cv: 'CURRENT_TIMESTAMP' }),
+    ...(startsWith && { starts_with: startsWith })
+  })
+    .then(response => response.data)
+    .catch(error => console.error(error));
+}
 
 export async function fetchFeed(lang) {
   const $md = new showdown.Converter();
@@ -16,11 +34,10 @@ export async function fetchFeed(lang) {
     generator: `${enums.name} RSS`,
     category: enums.rss[lang].category
   });
-  const data = await axios(enums.rss[lang].data);
+  const language = enums.rss[lang].language;
+  const data = await fetchStoryblok(language, enums.rss.route, 'cdn/stories/', true);
   const dataFiltered = dataLang =>
-    dataLang.data.stories.filter(
-      filteredPost => filteredPost.name.toLowerCase() !== enums.rss.route
-    );
+    dataLang.stories.filter(filteredPost => filteredPost.name.toLowerCase() !== enums.rss.route);
   dataFiltered(data).forEach(post => {
     feed.item({
       title: post.content.title,
@@ -41,10 +58,10 @@ export async function fetchFeed(lang) {
   return feed.xml({ indent: true });
 }
 
-export async function fetchSitemap(hostname) {
+export async function fetchSitemap() {
   const links = [];
-  const stream = new SitemapStream({ hostname });
-  const { data } = await axios(enums.routes);
+  const stream = new SitemapStream({ hostname: process.env.NUXT_ENV_DOMAIN });
+  const data = await fetchStoryblok('en', null, 'cdn/links');
   const urls = Object.values(data.links)
     .map(link => {
       if (!link.is_folder && !link.is_startpage && link.slug.includes('/')) return link.slug;
@@ -59,21 +76,4 @@ export async function fetchSitemap(hostname) {
     links.push({ url, changefreq: 'monthly', priority });
   }
   return streamToPromise(Readable.from(links).pipe(stream)).then(data => data.toString());
-}
-
-export async function fetchStories(routes, page = 1) {
-  const perPage = 100;
-  const exclude = ['home', 'layout'];
-  try {
-    const res = await fetch(`${enums.routes}&per_page=${perPage}&page=${page}`);
-    const data = await res.json();
-    Object.values(data.links).forEach(link => {
-      if (!exclude.includes(link.slug)) routes.push('/' + link.slug);
-    });
-    const total = res.headers.get('total');
-    const maxPage = Math.ceil(total / perPage);
-    if (maxPage > page) await fetchStories(routes, ++page);
-  } catch (err) {
-    console.error(err);
-  }
 }
