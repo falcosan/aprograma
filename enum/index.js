@@ -3,7 +3,6 @@ const description = `Coding can be defined in many ways, sometimes even stressfu
 
 export default {
   name,
-  routes: `https://api.storyblok.com/v2/cdn/links?token=${process.env.NUXT_ENV_ACCESS_TOKEN}&cv=CURRENT_TIMESTAMP&version=${process.env.NUXT_ENV_API_VERSION}`,
   meta: {
     title: `${name} - A break from stressful coding`,
     description,
@@ -71,19 +70,19 @@ export default {
       path: '/feedeng.xml',
       title: 'Aprograma Blog ENG',
       category: 'Blog ENG',
-      data: `https://api.storyblok.com/v2/cdn/stories?starts_with=blog&token=${process.env.NUXT_ENV_ACCESS_TOKEN}&cv=CURRENT_TIMESTAMP&version=${process.env.NUXT_ENV_API_VERSION}`
+      language: 'en'
     },
     esp: {
       path: '/feedesp.xml',
       title: 'Aprograma Blog ESP',
       category: 'Blog ESP',
-      data: `https://api.storyblok.com/v2/cdn/stories?starts_with=es/blog&token=${process.env.NUXT_ENV_ACCESS_TOKEN}&cv=CURRENT_TIMESTAMP&version=${process.env.NUXT_ENV_API_VERSION}`
+      language: 'es'
     },
     ita: {
       path: '/feedita.xml',
       title: 'Aprograma Blog ITA',
       category: 'Blog ITA',
-      data: `https://api.storyblok.com/v2/cdn/stories?starts_with=it/blog&token=${process.env.NUXT_ENV_ACCESS_TOKEN}&cv=CURRENT_TIMESTAMP&version=${process.env.NUXT_ENV_API_VERSION}`
+      language: 'it'
     }
   }
 };
