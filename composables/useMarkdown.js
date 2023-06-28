@@ -87,7 +87,10 @@ export const useMarkdown = (init = true) => {
     }
   };
   const markdownToHtml = text => converter.makeHtml(text);
-  if (init) onBeforeMount(rules);
+  if (init) {
+    onMounted(rules);
+    onUpdated(rules);
+  }
   return {
     markdownToHtml
   };
