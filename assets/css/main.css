@@ -269,7 +269,7 @@ iframe {
 .markdown dd:not(:last-child),
 .markdown dt:not(:last-child),
 .markdown li:not(:last-child) {
-  margin-bottom: 0.2.5rem;
+  margin-bottom: 0.25rem;
 }
 .markdown p,
 .markdown input,
