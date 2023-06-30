@@ -14,10 +14,10 @@ export const useMarkdown = (init = true) => {
             content.classList.add('code-language');
             code.classList.add('syntax-code-block');
             content.appendChild(document.createTextNode(syntax.replace('language-', '')));
-            const language = hljs.getLanguage(syntax.replace('language-', ''))
-              ? hljs.getLanguage(syntax.replace('language-', '')).name.toLocaleLowerCase()
-              : null;
-            if (hljs.listLanguages().includes(language)) hljs.highlightElement(code);
+            const language = hljs
+              .getLanguage(syntax.replace('language-', ''))
+              ?.name.toLocaleLowerCase();
+            if (language && hljs.listLanguages().includes(language)) hljs.highlightElement(code);
             return code.insertBefore(content, code.childNodes[0]);
           }
         } else {

@@ -251,6 +251,9 @@ iframe {
 .markdown ul ul ul {
   list-style: square inside;
 }
+.markdown * li > p:first-child {
+  display: inline;
+}
 .markdown ::marker {
   font-weight: 700;
 }
