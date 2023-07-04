@@ -228,10 +228,10 @@ iframe {
 .markdown ul dl,
 .markdown ul ol,
 .markdown ul ul {
-  margin: 1rem 0 0 1rem;
+  padding: 1rem 0 0 1rem;
 }
 .markdown dl dd {
-  margin-left: 1rem;
+  padding-left: 1rem;
 }
 .markdown ol {
   list-style: decimal inside;
