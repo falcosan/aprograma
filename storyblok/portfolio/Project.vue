@@ -258,7 +258,7 @@ export default defineNuxtComponent({
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
     };
-    onMounted(rules)
+    onMounted(rules);
     return { sizes, windowWidth, isDesktop, setAlignText, markdownToHtml, changeDate };
   }
 });

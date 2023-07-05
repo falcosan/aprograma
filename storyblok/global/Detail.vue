@@ -155,7 +155,10 @@
         :class="`text-container w-full max-w-full flex flex-col self-start rounded ${
           !blok.remove_space ? 'p-5' : ''
         }`"
-        :style="`background-color: ${blok.background_color.color}; color: ${blok.text_color.color};`"
+        :style="`background-color: ${$binaryControl(
+          blok.background_color,
+          'color'
+        )}; color: ${$binaryControl(blok.text_color, 'color')};`"
       >
         <div
           :class="`detail-text markdown block max-w-none rounded ${setAlignText}`"
@@ -218,7 +221,7 @@ export default defineNuxtComponent({
           return 'webp';
       }
     };
-    onMounted(rules)
+    onMounted(rules);
     return {
       sizes,
       imageType,

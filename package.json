@@ -12,7 +12,10 @@
     "push:prod": "git checkout develop && git fetch origin master && git merge master && git push origin develop:master && git fetch origin master:master",
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm run lint:js && npm run lint:prettier",
+    "lintfix": "prettier --write --list-different . && npm run lint:js --fix",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -30,19 +33,20 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.6",
-    "@nuxt/eslint-config": "^0.1.1",
     "@nuxt/image": "^1.0.0-rc.1",
     "@nuxtjs/device": "^3.1.0",
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@tailwindcss/typography": "^0.5.9",
+    "@typescript-eslint/parser": "^5.61.0",
     "@vite-pwa/nuxt": "^0.1.0",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^3.0.0",
+    "prettier": "^2.8.8",
     "rss": "^1.2.2",
-    "sitemap": "^7.1.1"
+    "sitemap": "^7.1.1",
+    "typescript": "^5.1.6"
   },
   "main": ".eslintrc.cjs",
   "repository": {
