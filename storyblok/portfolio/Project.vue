@@ -238,7 +238,7 @@ export default defineNuxtComponent({
   setup(props) {
     const { isDesktop } = useDevice();
     const { sizes, windowWidth } = useScreen();
-    const { markdownToHtml } = useMarkdown();
+    const { rules, markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
@@ -258,6 +258,7 @@ export default defineNuxtComponent({
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
     };
+    onMounted(rules)
     return { sizes, windowWidth, isDesktop, setAlignText, markdownToHtml, changeDate };
   }
 });
