@@ -5,9 +5,7 @@
     :class="`input cursor-pointer py-3 px-4 rounded text-sm transition ${
       !isDesktop ? '' : 'hover:opacity-80'
     } ${$themeColor(blok.background_color.color) ? 'text-white' : ''}`"
-    :style="`background-color: ${
-      blok.background_color.color ? blok.background_color.color : 'transparent'
-    };`"
+    :style="`background-color: ${$binaryControl(blok.background_color, 'color', 'transparent')};`"
     :type="blok.type"
     :value="blok.text"
   />

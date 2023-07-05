@@ -5,7 +5,7 @@ export default defineNuxtPlugin(() => ({
         return element[prop];
       } else if (alternative) {
         return alternative;
-      }
+      } else return 'unset';
     }
   }
 }));

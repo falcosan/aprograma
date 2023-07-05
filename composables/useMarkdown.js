@@ -87,5 +87,5 @@ export const useMarkdown = () => {
     }
   };
   const markdownToHtml = text => converter.makeHtml(text);
-  return { rules, markdownToHtml }
+  return { rules, markdownToHtml };
 };

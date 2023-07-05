@@ -42,9 +42,11 @@
               ? ''
               : 'lg:w-1/2'
           }`"
-          :style="`background-color: ${
-            postContent.background_color.color ? postContent.background_color.color : '#e0e0e0'
-          }; color: ${postContent.text_color.color};`"
+          :style="`background-color: ${$binaryControl(
+            postContent.background_color,
+            'color',
+            '#e0e0e0'
+          )}; color: ${$binaryControl(postContent.text_color, 'color')};`"
         >
           <div class="text-description">
             <span class="teaser-title mb-1 overflow-hidden text-lg sm:text-xl">
@@ -61,9 +63,11 @@
               v-for="(category, index) in sortedCategories"
               :key="index"
               class="teaser-category text-xs p-2 m-1 rounded shadow italic brightness-90"
-              :style="`background-color: ${
-                postContent.background_color.color ? postContent.background_color.color : '#e0e0e0'
-              };`"
+              :style="`background-color: ${$binaryControl(
+                postContent.background_color,
+                'color',
+                '#e0e0e0'
+              )};`"
             >
               {{ category }}
             </li>
