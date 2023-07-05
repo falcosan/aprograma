@@ -3,6 +3,16 @@
   publish = "dist"
   ignore = "git log -1 --pretty=%B | grep dependabot"
 
+[build.processing]
+  skip_processing = false
+[build.processing.css]
+  minify = true
+  bundle = false
+[build.processing.js]
+  minify = true
+  bundle = false
+[build.processing.images]
+  compress = true
 
 [[headers]]
     for = "/*"
