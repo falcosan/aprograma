@@ -58,7 +58,7 @@ export default defineNuxtConfig({
     manifest: enums.manifest
   },
   storyblok: {
-    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
+    accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
   webpack: {
     extractCSS: process.env.NODE_ENV !== 'development'

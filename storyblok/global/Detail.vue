@@ -159,7 +159,7 @@
       >
         <div
           :class="`detail-text markdown block max-w-none rounded ${setAlignText}`"
-          v-html="markdownToHtml(blok.text)"
+          v-html="blok.text"
         />
       </div>
     </div>
@@ -190,7 +190,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { sizes } = useScreen();
-    const { markdownToHtml } = useMarkdown();
+    const { rules, markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
@@ -218,6 +218,7 @@ export default defineNuxtComponent({
           return 'webp';
       }
     };
+    onMounted(rules)
     return {
       sizes,
       imageType,

@@ -2,7 +2,7 @@ import hljs from 'highlight.js';
 import showdown from 'showdown';
 import 'highlight.js/styles/agate.css';
 
-export const useMarkdown = (init = true) => {
+export const useMarkdown = () => {
   const converter = new showdown.Converter();
   const rules = () => {
     if (document.querySelector('pre code')) {
@@ -69,7 +69,7 @@ export const useMarkdown = (init = true) => {
         });
       });
     }
-    if (document.querySelector('.markdown a') && /blog|portfolio/.test(window.location.pathname)) {
+    if (document.querySelector('.markdown a')) {
       document.querySelectorAll('.markdown a').forEach(anchor => {
         anchor.setAttribute('target', '_blank');
         anchor.setAttribute('rel', 'noopener noreferrer');
@@ -87,11 +87,5 @@ export const useMarkdown = (init = true) => {
     }
   };
   const markdownToHtml = text => converter.makeHtml(text);
-  if (init) {
-    onMounted(rules);
-    onUpdated(rules);
-  }
-  return {
-    markdownToHtml
-  };
+  return { rules, markdownToHtml }
 };
