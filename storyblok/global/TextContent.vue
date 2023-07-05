@@ -2,7 +2,10 @@
   <div
     v-if="blok.text"
     :key="blok._uid"
-    :style="`background-color: ${blok.background_color.color}; color: ${blok.text_color.color};`"
+    :style="`background-color: ${$binaryControl(
+      blok.background_color,
+      'color'
+    )}; color: ${$binaryControl(blok.text_color, 'color')};`"
     class="text-container w-full max-w-full h-full flex flex-col rounded"
   >
     <div
@@ -39,7 +42,7 @@ export default defineNuxtComponent({
           return 'text-left';
       }
     });
-    onMounted(rules)
+    onMounted(rules);
     return {
       setAlignText,
       markdownToHtml

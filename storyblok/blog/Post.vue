@@ -24,16 +24,16 @@
     </div>
     <div
       class="post-body w-full justify-center rounded"
-      :style="`background-color: ${
-        blok.background_color.color ? blok.background_color.color : '#e0e0e0'
-      };`"
+      :style="`background-color: ${$binaryControl(blok.background_color, 'color', '#e0e0e0')};`"
     >
       <div class="post-action flex flex-wrap justify-end pt-5 px-5">
         <IconComponent
           arrow
-          :style="`background-color: ${
-            blok.background_color.color ? blok.background_color.color : '#e0e0e0'
-          }; color: ${blok.text_color.color};`"
+          :style="`background-color: ${$binaryControl(
+            blok.background_color,
+            'color',
+            '#e0e0e0'
+          )}; color: ${$binaryControl(blok.text_color, 'color')};`"
           class="post-close rounded shadow cursor-pointer"
           size="p-3 w-10 h-10"
           @click="$goBack('blog')"
@@ -41,17 +41,20 @@
       </div>
       <div class="post-article w-full max-w-prose p-5 mx-auto my-0">
         <h2
-          :style="`color: ${blok.text_color.color};`"
+          :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
           class="post-intro text-xl sm:text-2xl"
           v-text="blok.intro"
         />
         <div class="post-info">
-          <p :style="`color: ${blok.text_color.color};`" class="post-author text-sm font-semibold">
+          <p
+            :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
+            class="post-author text-sm font-semibold"
+          >
             {{ $languageCase('by', 'de', 'di') }}
             {{ blok.author ? blok.author : $languageCase('Anonymous', 'Anónimo', 'Anonimo') }}
           </p>
           <p
-            :style="`color: ${blok.text_color.color};`"
+            :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
             class="post-date mt-2.5 text-xs"
             v-text="changeDate(blok.date)"
           />
@@ -60,16 +63,18 @@
               v-for="(category, index) in sortedCategories"
               :key="index"
               class="post-category self-start m-1.5 p-2 text-center text-xs rounded shadow italic brightness-90"
-              :style="`background-color: ${
-                blok.background_color.color ? blok.background_color.color : '#e0e0e0'
-              }; color: ${blok.text_color.color};`"
+              :style="`background-color: ${$binaryControl(
+                blok.background_color,
+                'color',
+                '#e0e0e0'
+              )}; color: ${$binaryControl(blok.text_color, 'color')};`"
             >
               {{ category }}
             </li>
           </ul>
         </div>
         <article
-          :style="`color: ${blok.text_color.color};`"
+          :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
           :class="`post-article markdown block my-5 ${setAlignText}`"
           v-html="markdownToHtml(blok.long_text)"
         />
@@ -130,7 +135,7 @@ export default defineNuxtComponent({
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
     };
-    onMounted(rules)
+    onMounted(rules);
     return {
       setFile,
       lookFile,

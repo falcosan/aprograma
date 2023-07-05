@@ -128,7 +128,10 @@
                 <li
                   ref="sliderSlide"
                   :tabindex="!blok.hide_controllers ? '0' : undefined"
-                  :style="`width: ${containerWidth}px; background-color: ${$binaryControl(blok.background_color_component, 'color')};`"
+                  :style="`width: ${containerWidth}px; background-color: ${$binaryControl(
+                    blok.background_color_component,
+                    'color'
+                  )};`"
                   :class="`slider-slide slide flex justify-self-center rounded ${setAlignContent} ${
                     !blok.hide_controllers ? 'outline-none' : ''
                   } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
@@ -166,7 +169,10 @@
                   } ${index === currentSlide ? 'show' : 'hidden'} ${
                     sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
                   }`"
-                  :style="`background-color: ${blok.background_color_component.color};`"
+                  :style="`background-color: ${$binaryControl(
+                    blok.background_color_component,
+                    'color'
+                  )};`"
                   @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
                   @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
                 >
@@ -220,7 +226,8 @@
                   ? `1 ${(100 - (maxElements > 1 ? spaceFix : 0)) / maxElements}%`
                   : '100%'
               }; background-color: ${
-                !blok.background_color_component.color || component.component.toLowerCase() === 'blank'
+                !blok.background_color_component.color ||
+                component.component.toLowerCase() === 'blank'
                   ? undefined
                   : blok.background_color_component.color
               };`"
