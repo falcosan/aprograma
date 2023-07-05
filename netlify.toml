@@ -11,8 +11,6 @@
 [build.processing.js]
   minify = true
   bundle = false
-[build.processing.images]
-  compress = true
 
 [[headers]]
     for = "/*"
