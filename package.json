@@ -1,6 +1,6 @@
 {
   "name": "aprograma",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Aprograma",
   "contributors": [
     "Daniele Falchetti <danielefalche@gmail.com>",
@@ -20,16 +20,16 @@
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
     "@pinia/nuxt": "^0.4.11",
-    "@storyblok/nuxt": "^5.5.0",
-    "@vueuse/core": "^10.2.0",
+    "@storyblok/nuxt": "^5.5.1",
+    "@vueuse/core": "^10.2.1",
     "axios": "^1.4.0",
     "core-js": "^3.31.0",
     "highlight.js": "^11.8.0",
-    "nuxt": "^3.6.0",
+    "nuxt": "^3.6.1",
     "showdown": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.22.5",
+    "@babel/eslint-parser": "^7.22.6",
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxt/image": "^1.0.0-rc.1",
     "@nuxtjs/device": "^3.1.0",
@@ -37,10 +37,10 @@
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@tailwindcss/typography": "^0.5.9",
     "@vite-pwa/nuxt": "^0.1.0",
-    "eslint": "^8.43.0",
+    "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.8",
+    "prettier": "^3.0.0",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1"
   },
