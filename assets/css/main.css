@@ -290,6 +290,7 @@ iframe {
 .markdown ol,
 .markdown pre,
 .markdown table,
+.markdown img,
 .markdown ul {
   margin-bottom: 1.25rem;
 }
