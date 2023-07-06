@@ -32,8 +32,8 @@
           :file="blok.media"
           :src="blok && blok.media.filename ? blok.media.filename : src"
           :alt="blok && blok.media.filename ? blok.media.alt : alt ? alt : ''"
-          :width="blok ? (/[a-zA-Z]/.test(blok.width) ? 'auto' : blok.width) : width"
-          :height="blok ? (/[a-zA-Z]/.test(blok.height) ? 'auto' : blok.height) : height"
+          :width="blok?.width ?? width"
+          :height="blok?.height ?? height"
           :sizes="checkSizes"
           @click="action.open()"
         />
@@ -51,8 +51,8 @@
               : 'object-contain',
             'my-0 mx-auto object-center rounded cursor-pointer select-none'
           ]"
-          :width="blok ? (/[a-zA-Z]/.test(blok.width) ? 'auto' : blok.width) : width"
-          :height="blok ? (/[a-zA-Z]/.test(blok.height) ? 'auto' : blok.height) : height"
+          :width="blok?.width ?? width"
+          :height="blok?.height ?? height"
           playsinline
           autoplay
           muted
@@ -121,8 +121,8 @@
         :file="blok.media"
         :src="blok && blok.media.filename ? blok.media.filename : src"
         :alt="blok && blok.media.filename ? blok.media.alt : alt ? alt : ''"
-        :width="blok ? (/[a-zA-Z]/.test(blok.width) ? 'auto' : blok.width) : width"
-        :height="blok ? (/[a-zA-Z]/.test(blok.height) ? 'auto' : blok.height) : height"
+        :width="blok?.width ?? width"
+        :height="blok?.height ?? height"
         :sizes="checkSizes"
       />
       <video
@@ -139,8 +139,8 @@
             : 'object-contain',
           'my-0 mx-auto object-center rounded pointer-events-none select-none'
         ]"
-        :width="blok ? (/[a-zA-Z]/.test(blok.width) ? 'auto' : blok.width) : width"
-        :height="blok ? (/[a-zA-Z]/.test(blok.height) ? 'auto' : blok.height) : height"
+        :width="blok?.width ?? width"
+        :height="blok?.height ?? height"
         playsinline
         autoplay
         muted
