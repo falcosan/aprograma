@@ -58,7 +58,7 @@ export default defineNuxtConfig({
         'img-src': ['*', "'self'", 'https:', 'data:'],
         'style-src': ["'self'", 'https:', "'unsafe-inline'"],
         'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
       }
     }
   },
