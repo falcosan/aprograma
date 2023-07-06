@@ -228,7 +228,7 @@
               }; background-color: ${
                 !blok.background_color_component.color ||
                 component.component.toLowerCase() === 'blank'
-                  ? undefined
+                  ? 'unset'
                   : blok.background_color_component.color
               };`"
               :class="`${component.name.toLowerCase()}-container ${

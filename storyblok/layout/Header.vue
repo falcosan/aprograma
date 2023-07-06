@@ -178,7 +178,7 @@ export default defineNuxtComponent({
           return colors.length > 1 ? colors[1] : colors[0];
         }
       } else {
-        return props.blok.background_color_menu.color;
+        return props.blok.background_color_menu.color || 'unset';
       }
     });
     const logoColors = computed(() => {
