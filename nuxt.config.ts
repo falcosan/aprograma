@@ -50,14 +50,15 @@ export default defineNuxtConfig({
       crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
         'base-uri': ["'self'"],
-        'font-src': ["'self'", 'https:', 'data:'],
+        'object-src': ["'none'"],
         'form-action': ["'self'"],
         'frame-ancestors': ["'self'"],
+        'upgrade-insecure-requests': true,
+        'font-src': ["'self'", 'https:', 'data:'],
         'img-src': ['*', "'self'", 'https:', 'data:'],
-        'object-src': ["'none'"],
-        'script-src-attr': ["'none'"],
         'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'upgrade-insecure-requests': true
+        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"],
       }
     }
   },
