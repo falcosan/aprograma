@@ -102,8 +102,8 @@ input {
 .markdown video,
 .markdown figure,
 .markdown img + figcaption {
-  display: block;
-  padding-top: 10px;
+  display: grid;
+  gap: 10px;
   text-align: center;
   font-size: 14px;
   font-style: italic;
@@ -112,7 +112,6 @@ input {
 .markdown img,
 .markdown video {
   width: 100%;
-  max-width: 65ch;
   margin: 0 auto;
   border-radius: 0.25rem;
   user-select: none;
