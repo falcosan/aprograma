@@ -260,10 +260,6 @@ iframe {
 .markdown p {
   margin-top: 0;
 }
-.markdown p:empty:before {
-  content: ' ';
-  white-space: pre;
-}
 .markdown hr {
   border: 0;
   margin: 2rem auto;
@@ -278,7 +274,7 @@ iframe {
 .markdown li:not(:last-child) {
   margin-bottom: 0.25rem;
 }
-.markdown p,
+.markdown p:not(:empty),
 .markdown input,
 .markdown select,
 .markdown textarea,
