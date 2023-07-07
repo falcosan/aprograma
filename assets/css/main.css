@@ -142,8 +142,13 @@ iframe {
   height: 100%;
   object-fit: contain;
 }
-.markdown a {
+.markdown a,
+.markdown u {
   text-decoration: underline;
+}
+.markdown a:has(mark),
+.markdown u:has(mark) {
+  text-decoration-color: #212121;
 }
 .markdown a:hover {
   filter: opacity(0.65);
