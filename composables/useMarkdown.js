@@ -1,9 +1,8 @@
+import { marked } from 'marked';
 import hljs from 'highlight.js';
-import showdown from 'showdown';
 import 'highlight.js/styles/agate.css';
 
 export const useMarkdown = () => {
-  const converter = new showdown.Converter();
   const rules = () => {
     if (document.querySelector('pre code')) {
       [...document.querySelectorAll('pre code')].forEach(code => {
@@ -25,11 +24,11 @@ export const useMarkdown = () => {
         }
       });
     }
-    if (document.querySelector('.markdown br')) {
-      [...document.querySelectorAll('* + br:last-child')].forEach(br => {
-        br.previousElementSibling.style.marginBottom = '0';
-      });
-    }
+    // if (document.querySelector('.markdown br')) {
+    //   [...document.querySelectorAll('* + br:last-child')].forEach(br => {
+    //     br.previousElementSibling.style.marginBottom = '0';
+    //   });
+    // }
     if (document.querySelector('.markdown img')) {
       document.querySelectorAll('.markdown img').forEach(image => {
         const noScroll = condition => {
@@ -75,17 +74,25 @@ export const useMarkdown = () => {
         anchor.setAttribute('rel', 'noopener noreferrer');
       });
     }
-    if (document.querySelector('.markdown code')) {
-      document.querySelectorAll('.markdown code').forEach(code => {
-        if (!code.childNodes.length) {
-          const parentCode = code.parentNode;
-          code.remove();
-          parentCode.parentNode.insertBefore(document.createElement('br'), parentCode.nextSibling);
-          if (!parentCode.childNodes.length) parentCode.remove();
-        }
-      });
-    }
+    // if (document.querySelector('.markdown code')) {
+    //   document.querySelectorAll('.markdown code').forEach(code => {
+    //     if (!code.childNodes.length) {
+    //       const parentCode = code.parentNode;
+    //       code.remove();
+    //       parentCode.parentNode.insertBefore(document.createElement('br'), parentCode.nextSibling);
+    //       if (!parentCode.childNodes.length) parentCode.remove();
+    //     }
+    //   });
+    // }
   };
-  const markdownToHtml = text => converter.makeHtml(text);
+  const markdownToHtml = markdown => {
+    marked.use({
+      gfm: true,
+      mangle: false,
+      pedantic: true,
+      headerIds: false
+    });
+    return marked.parse(markdown);
+  };
   return { rules, markdownToHtml };
 };

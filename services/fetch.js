@@ -1,6 +1,6 @@
 import { Readable } from 'stream';
+import { marked } from 'marked';
 import RSS from 'rss';
-import showdown from 'showdown';
 import StoryblokClient from 'storyblok-js-client';
 import { SitemapStream, streamToPromise } from 'sitemap';
 import enums from '../enum';
@@ -24,7 +24,12 @@ export async function fetchStoryblok(
 }
 
 export async function fetchFeed(lang) {
-  const $md = new showdown.Converter();
+  marked.use({
+    gfm: true,
+    mangle: false,
+    pedantic: true,
+    headerIds: false
+  });
   const feed = new RSS({
     title: enums.rss[lang].title,
     site_url: process.env.NUXT_ENV_DOMAIN,
@@ -46,7 +51,7 @@ export async function fetchFeed(lang) {
       author: post.content.author,
       url: `${process.env.NUXT_ENV_DOMAIN}/${enums.rss.route}/${post.slug}`,
       description: post.content.intro,
-      custom_elements: [{ 'content:encoded': $md.makeHtml(post.content.long_text) }],
+      custom_elements: [{ 'content:encoded': marked.parse(post.content.long_text) }],
       date: new Date(post.content.date),
       enclosure: {
         url: post.content.file.filename ? post.content.file.filename : enums.rss.image,

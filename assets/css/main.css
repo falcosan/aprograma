@@ -273,12 +273,17 @@ iframe {
 .markdown *:last-child {
   margin: 0 auto;
 }
+.markdown p:empty:not(:has(*)):not(:only-child),
+.markdown p:only-child:has(br),
+.markdown p:not(:empty):has(br) {
+  margin-bottom: 0;
+}
 .markdown dd:not(:last-child),
 .markdown dt:not(:last-child),
 .markdown li:not(:last-child) {
   margin-bottom: 0.25rem;
 }
-.markdown p,
+.markdown p:not(:empty),
 .markdown input,
 .markdown select,
 .markdown textarea,

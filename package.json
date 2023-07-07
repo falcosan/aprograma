@@ -28,8 +28,8 @@
     "axios": "^1.4.0",
     "core-js": "^3.31.0",
     "highlight.js": "^11.8.0",
-    "nuxt": "^3.6.1",
-    "showdown": "^2.1.0"
+    "marked": "^5.1.0",
+    "nuxt": "^3.6.1"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.6",
