@@ -53,8 +53,8 @@ h6 {
 *::placeholder {
   font-size: 14px;
 }
-iframe {
-  border-radius: 0.25rem;
+input {
+  @apply focus:outline-none border border-gray-300 rounded-lg py-2 px-3 block w-full appearance-none leading-normal bg-white;
 }
 .noscroll {
   height: 100%;
@@ -101,11 +101,11 @@ iframe {
 .markdown img,
 .markdown video,
 .markdown figure,
-.markdown img + .caption {
-  display: grid;
-  gap: 10px;
+.markdown img + figcaption {
+  display: block;
+  padding-top: 10px;
   text-align: center;
-  font-size: 15px;
+  font-size: 14px;
   font-style: italic;
   color: #c2c2c2;
 }
@@ -172,7 +172,7 @@ iframe {
 .markdown pre code {
   display: block;
   white-space: pre;
-  padding: 1em;
+  padding: 1rem;
   overflow-wrap: normal;
   word-break: normal;
   overflow: auto;
@@ -259,9 +259,6 @@ iframe {
 .markdown * li > p:first-child {
   display: inline;
 }
-.markdown ::marker {
-  font-weight: 700;
-}
 .markdown p {
   margin-top: 0;
 }
@@ -278,9 +275,10 @@ iframe {
 .markdown *:last-child {
   margin: 0 auto;
 }
-.markdown p:empty:not(:has(*)):not(:only-child),
+.markdown figure img,
 .markdown p:only-child:has(br),
-.markdown p:not(:empty):has(br) {
+.markdown p:not(:empty):has(br),
+.markdown p:empty:not(:has(*)):not(:only-child) {
   margin-bottom: 0;
 }
 .markdown dd:not(:last-child),
@@ -288,7 +286,7 @@ iframe {
 .markdown li:not(:last-child) {
   margin-bottom: 0.25rem;
 }
-.markdown p:not(:empty),
+.markdown p,
 .markdown input,
 .markdown select,
 .markdown textarea,
@@ -299,8 +297,8 @@ iframe {
 .markdown form,
 .markdown ol,
 .markdown pre,
-.markdown table,
 .markdown img,
+.markdown table,
 .markdown ul {
   margin-bottom: 1.25rem;
 }
