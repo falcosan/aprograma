@@ -24,11 +24,6 @@ export const useMarkdown = () => {
         }
       });
     }
-    // if (document.querySelector('.markdown br')) {
-    //   [...document.querySelectorAll('* + br:last-child')].forEach(br => {
-    //     br.previousElementSibling.style.marginBottom = '0';
-    //   });
-    // }
     if (document.querySelector('.markdown img')) {
       document.querySelectorAll('.markdown img').forEach(image => {
         const noScroll = condition => {
@@ -68,12 +63,17 @@ export const useMarkdown = () => {
         });
       });
     }
-    if (document.querySelector('.markdown a')) {
-      document.querySelectorAll('.markdown a').forEach(anchor => {
-        anchor.setAttribute('target', '_blank');
-        anchor.setAttribute('rel', 'noopener noreferrer');
-      });
-    }
+    // if (document.querySelector('.markdown br')) {
+    //   [...document.querySelectorAll('* + br:last-child')].forEach(br => {
+    //     br.previousElementSibling.style.marginBottom = '0';
+    //   });
+    // }
+    // if (document.querySelector('.markdown a')) {
+    //   document.querySelectorAll('.markdown a').forEach(anchor => {
+    //     anchor.setAttribute('target', '_blank');
+    //     anchor.setAttribute('rel', 'noopener noreferrer');
+    //   });
+    // }
     // if (document.querySelector('.markdown code')) {
     //   document.querySelectorAll('.markdown code').forEach(code => {
     //     if (!code.childNodes.length) {
