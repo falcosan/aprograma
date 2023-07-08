@@ -94,7 +94,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
-    const { rules, markdownToHtml } = useMarkdown();
+    const { markdownToHtml } = useMarkdown();
     const lookFile = computed(() => {
       switch (props.blok.file.filename.toLowerCase().split('.').pop()) {
         case 'pdf':
@@ -135,7 +135,6 @@ export default defineNuxtComponent({
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
     };
-    onMounted(rules);
     return {
       setFile,
       lookFile,

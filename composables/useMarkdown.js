@@ -2,7 +2,7 @@ import { marked } from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/agate.css';
 
-export const useMarkdown = () => {
+export const useMarkdown = (init = true) => {
   const rules = () => {
     if (document.querySelector('pre code')) {
       [...document.querySelectorAll('pre code')].forEach(code => {
@@ -63,28 +63,11 @@ export const useMarkdown = () => {
         });
       });
     }
-    // if (document.querySelector('.markdown br')) {
-    //   [...document.querySelectorAll('* + br:last-child')].forEach(br => {
-    //     br.previousElementSibling.style.marginBottom = '0';
-    //   });
-    // }
-    // if (document.querySelector('.markdown a')) {
-    //   document.querySelectorAll('.markdown a').forEach(anchor => {
-    //     anchor.setAttribute('target', '_blank');
-    //     anchor.setAttribute('rel', 'noopener noreferrer');
-    //   });
-    // }
-    // if (document.querySelector('.markdown code')) {
-    //   document.querySelectorAll('.markdown code').forEach(code => {
-    //     if (!code.childNodes.length) {
-    //       const parentCode = code.parentNode;
-    //       code.remove();
-    //       parentCode.parentNode.insertBefore(document.createElement('br'), parentCode.nextSibling);
-    //       if (!parentCode.childNodes.length) parentCode.remove();
-    //     }
-    //   });
-    // }
   };
+  if (init) {
+    onMounted(rules);
+    onUpdated(rules);
+  }
   const markdownToHtml = markdown => {
     marked.use({
       gfm: true,
@@ -94,5 +77,5 @@ export const useMarkdown = () => {
     });
     return marked.parse(markdown);
   };
-  return { rules, markdownToHtml };
+  return { markdownToHtml };
 };

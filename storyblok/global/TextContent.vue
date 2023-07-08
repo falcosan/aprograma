@@ -29,7 +29,7 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { rules, markdownToHtml } = useMarkdown();
+    const { markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
@@ -42,7 +42,6 @@ export default defineNuxtComponent({
           return 'text-left';
       }
     });
-    onMounted(rules);
     return {
       setAlignText,
       markdownToHtml
