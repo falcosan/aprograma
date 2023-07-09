@@ -131,7 +131,7 @@ input {
   right: 0;
   bottom: 0;
   z-index: 50;
-  background-color: #eeeeeee6;
+  background-color: #c1c1c1e6;
   cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg' fill-rule='evenodd' clip-rule='evenodd'%3E%3Cpath d='M12 11.293l10.293-10.293.707.707-10.293 10.293 10.293 10.293-.707.707-10.293-10.293-10.293 10.293-.707-.707 10.293-10.293-10.293-10.293.707-.707 10.293 10.293z'/%3E%3C/svg%3E")
       32 32,
     pointer;
@@ -195,12 +195,12 @@ input {
   opacity: 1;
 }
 .markdown blockquote {
-  @apply relative pt-10 pb-5 px-6 lg:px-8 rounded bg-[#eeeeee] text-[#212121];
-  border-top: 5px solid #eeeeee;
+  @apply relative pt-10 pb-5 px-6 lg:px-8 rounded bg-[#c1c1c1] text-[#212121];
+  border-top: 5px solid #c1c1c1;
 }
 .markdown blockquote:before {
   content: '“';
-  @apply absolute h-7 top-0 right-[calc(50%_-_20px)] pb-2.5 px-2.5 text-5xl rounded-b-full font-serif text-white bg-[#eeeeee];
+  @apply absolute h-7 top-0 right-[calc(50%_-_20px)] pb-2.5 px-2.5 text-5xl rounded-b-full font-serif text-white bg-[#c1c1c1];
 }
 .markdown table {
   border-spacing: 0;
@@ -267,7 +267,7 @@ input {
 .markdown hr {
   border: 0;
   margin: 2rem auto;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #c1c1c1;
   max-width: 10rem;
 }
 .markdown *:last-child {

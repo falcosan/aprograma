@@ -24,8 +24,13 @@ export async function fetchStoryblok(
 }
 
 export async function fetchFeed(lang) {
+  const renderer = {
+    paragraph(text) {
+      return text;
+    }
+  };
   marked.use({
-    gfm: true,
+    renderer,
     mangle: false,
     pedantic: true,
     headerIds: false

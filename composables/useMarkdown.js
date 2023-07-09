@@ -69,8 +69,13 @@ export const useMarkdown = (init = true) => {
     onUpdated(rules);
   }
   const markdownToHtml = markdown => {
+    const renderer = {
+      paragraph(text) {
+        return text;
+      }
+    };
     marked.use({
-      gfm: true,
+      renderer,
       mangle: false,
       pedantic: true,
       headerIds: false
