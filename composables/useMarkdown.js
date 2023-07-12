@@ -1,6 +1,6 @@
-import { marked } from 'marked';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/agate.css';
+import { markdownToHtml } from '@/utils/markdown';
 
 export const useMarkdown = (init = true) => {
   const rules = () => {
@@ -68,19 +68,5 @@ export const useMarkdown = (init = true) => {
     onMounted(rules);
     onUpdated(rules);
   }
-  const markdownToHtml = markdown => {
-    const renderer = {
-      paragraph(text) {
-        return text;
-      }
-    };
-    marked.use({
-      renderer,
-      mangle: false,
-      pedantic: true,
-      headerIds: false
-    });
-    return marked.parse(markdown);
-  };
   return { markdownToHtml };
 };
