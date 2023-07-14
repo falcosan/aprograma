@@ -196,7 +196,7 @@ input {
   opacity: 1;
 }
 .markdown blockquote {
-  @apply relative pt-10 pb-5 px-6 lg:px-8 rounded bg-[#c1c1c1] text-[#212121];
+  @apply relative pt-10 pb-5 px-6 lg:px-8 rounded bg-[#eeeeee] text-[#212121];
   border-top: 5px solid #c1c1c1;
 }
 .markdown blockquote:before {
