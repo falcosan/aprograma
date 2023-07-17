@@ -2,6 +2,19 @@
   <div class="post p-5">
     <div class="post-head relative w-full mb-5">
       <h1 class="post-title text-2xl sm:text-3xl" v-text="blok.title" />
+      <div v-if="showButtonEditor" class="flex justify-end flex-auto mb-5">
+        <RouteComponent
+          class="px-3 py-2 rounded hover:opacity-80"
+          external-link
+          :style="`background-color: ${$binaryControl(
+            blok.background_color,
+            'color',
+            '#e0e0e0'
+          )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+          :title="$languageCase('Edit', 'Editar', 'Modifica')"
+          :to="blok.editor.href"
+        />
+      </div>
       <div
         :class="`post-file-container w-full h-full overflow-hidden rounded ${
           blok.file.filename ? '' : 'bg-black'
@@ -84,8 +97,9 @@
 </template>
 <script>
 import IconComponent from '@/storyblok/global/Icon';
+import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
-  components: { IconComponent },
+  components: { IconComponent, RouteComponent },
   props: {
     blok: {
       type: Object,
@@ -95,6 +109,8 @@ export default defineNuxtComponent({
   setup(props) {
     const { $languageCase } = useNuxtApp();
     const { markdownToHtml } = useMarkdown();
+    const config = useRuntimeConfig();
+    const showButtonEditor = () => config.public.envApiVersion === 'draft';
     const lookFile = computed(() => {
       switch (props.blok.file.filename.toLowerCase().split('.').pop()) {
         case 'pdf':
@@ -142,7 +158,8 @@ export default defineNuxtComponent({
       changeDate,
       setAlignText,
       markdownToHtml,
-      sortedCategories
+      sortedCategories,
+      showButtonEditor
     };
   }
 });
