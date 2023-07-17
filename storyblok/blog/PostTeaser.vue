@@ -7,8 +7,6 @@
             ? ''
             : 'lg:flex-row'
         }`"
-        @mouseover="expanded = true"
-        @mouseleave="expanded = false"
       >
         <div
           :class="`teaser-file-container w-full ${
@@ -116,8 +114,6 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
-    const state = reactive({ expanded: false });
-    const { expanded } = toRefs(state);
     const setFile = computed(() => {
       return props.postContent.file.filename
         ? props.postContent.file.filename
@@ -148,7 +144,6 @@ export default defineNuxtComponent({
     };
     return {
       setFile,
-      expanded,
       lookFile,
       checkFile,
       changeDate,
