@@ -110,7 +110,7 @@ export default defineNuxtComponent({
     const { $languageCase } = useNuxtApp();
     const { markdownToHtml } = useMarkdown();
     const config = useRuntimeConfig();
-    const showButtonEditor = () => config.public.envApiVersion === 'draft';
+    const showButtonEditor = config.public.envApiVersion === 'draft';
     const lookFile = computed(() => {
       switch (props.blok.file.filename.toLowerCase().split('.').pop()) {
         case 'pdf':
