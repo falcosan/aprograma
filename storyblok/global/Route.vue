@@ -82,15 +82,7 @@ export default defineNuxtComponent({
       type: String,
       default: ''
     },
-    active: {
-      type: String,
-      default: ''
-    },
     setActive: {
-      type: String,
-      default: ''
-    },
-    iconTag: {
       type: String,
       default: ''
     },
