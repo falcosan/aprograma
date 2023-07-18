@@ -22,11 +22,12 @@ export const useSeo = () => {
     });
   };
   const seoDynamic = story => {
-    const image =
+    const image = `${
       story.image ||
       story.content.file?.filename ||
       story.content.image?.filename ||
-      enums.content.image;
+      enums.content.image
+    }/m/472x290`;
     const meta = [
       { property: 'og:site_name', content: enums.name },
       { key: 'og:type', property: 'og:type', content: 'website' },
@@ -57,6 +58,7 @@ export const useSeo = () => {
       },
       {
         property: 'og:image',
+        itemprop: 'image',
         content: image
       },
       { name: 'twitter:site', content: enums.meta.og.twitter },
@@ -115,6 +117,7 @@ export const useSeo = () => {
       },
       {
         property: 'og:image',
+        itemprop: 'image',
         content: enums.meta.og.image
       },
       { name: 'twitter:site', content: enums.meta.og.twitter },

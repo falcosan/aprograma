@@ -8,7 +8,7 @@ export default {
     description,
     author: 'Daniele Falchetti - danielefalche@gmail.com',
     og: {
-      image: 'https://a.storyblok.com/f/106240/810x810/1be2192023/logostatic.png',
+      image: 'https://a.storyblok.com/f/106240/2786x1530/1c3ed37e59/web.png/m/472x290',
       twitter: '@danielefalche'
     }
   },
