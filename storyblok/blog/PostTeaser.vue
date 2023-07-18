@@ -129,9 +129,7 @@ export default defineNuxtComponent({
           return resolveComponent('Image');
       }
     });
-    const checkFile = computed(
-      () => typeof lookFile.value === 'object' || !props.postContent.file.filename
-    );
+    const checkFile = computed(() => typeof lookFile.value === 'object' || !setFile.value);
     const changeDate = date => {
       const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${

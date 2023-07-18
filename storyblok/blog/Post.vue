@@ -128,9 +128,7 @@ export default defineNuxtComponent({
         .map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
         .sort();
     });
-    const checkFile = computed(
-      () => typeof lookFile.value === 'object' || !props.postContent.file.filename
-    );
+    const checkFile = computed(() => typeof lookFile.value === 'object' || !setFile.value);
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
