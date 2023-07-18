@@ -18,5 +18,5 @@ watch(post, val => seoDynamic(val), { immediate: true });
 </script>
 
 <template>
-  <StoryblokComponent :key="post.content._uid" :blok="post.content" />
+  <StoryblokComponent :key="post.id" :blok="{ ...post.content, id: post.id }" />
 </template>

@@ -15,5 +15,5 @@ const { data: home } = await useAsyncData(
 </script>
 
 <template>
-  <StoryblokComponent :key="home.content._uid" :blok="home.content" />
+  <StoryblokComponent :key="home.id" :blok="{ ...home.content, id: home.id }" />
 </template>

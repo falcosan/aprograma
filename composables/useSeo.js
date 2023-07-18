@@ -26,7 +26,7 @@ export const useSeo = () => {
       story.image ||
       story.content.file?.filename ||
       story.content.image?.filename ||
-      'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png';
+      enums.content.image;
     const meta = [
       { property: 'og:site_name', content: enums.name },
       { key: 'og:type', property: 'og:type', content: 'website' },

@@ -30,5 +30,5 @@ watch(
 </script>
 
 <template>
-  <StoryblokComponent :key="portfolio.content._uid" :blok="portfolio.content" />
+  <StoryblokComponent :key="portfolio.id" :blok="{ ...portfolio.content, id: portfolio.id }" />
 </template>

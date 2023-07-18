@@ -2,17 +2,17 @@
   <div class="post p-5">
     <div class="post-head relative w-full mb-5">
       <h1 class="post-title text-2xl sm:text-3xl" v-text="blok.title" />
-      <div v-if="showButtonEditor" class="flex justify-end flex-auto mb-5">
+      <div v-if="setEditorPath" class="flex justify-end flex-auto mb-5">
         <RouteComponent
           class="px-3 py-2 rounded hover:opacity-80"
           external-link
+          :to="setEditorPath"
           :style="`background-color: ${$binaryControl(
             blok.background_color,
             'color',
             '#e0e0e0'
           )}; color: ${$binaryControl(blok.text_color, 'color')};`"
           :title="$languageCase('Edit', 'Editar', 'Modifica')"
-          :to="blok.editor.href"
         />
       </div>
       <div
@@ -96,6 +96,7 @@
   </div>
 </template>
 <script>
+import enums from '@/enum';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
@@ -110,19 +111,17 @@ export default defineNuxtComponent({
     const { $languageCase } = useNuxtApp();
     const { markdownToHtml } = useMarkdown();
     const config = useRuntimeConfig();
-    const showButtonEditor = config.public.envApiVersion === 'draft';
+    const setEditorPath = computed(() =>
+      config.public.envApiVersion === 'draft' ? `${enums.editor.host}?id=${props.blok.id}` : null
+    );
+    const setFile = computed(() => props.blok.file.filename || enums.content.image);
     const lookFile = computed(() => {
-      switch (props.blok.file.filename.toLowerCase().split('.').pop()) {
+      switch (setFile.value.toLowerCase().split('.').pop()) {
         case 'pdf':
           return 'embed';
         default:
           return resolveComponent('Image');
       }
-    });
-    const setFile = computed(() => {
-      return props.blok.file.filename
-        ? props.blok.file.filename
-        : 'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png';
     });
     const sortedCategories = computed(() => {
       return props.blok.categories
@@ -157,9 +156,9 @@ export default defineNuxtComponent({
       checkFile,
       changeDate,
       setAlignText,
+      setEditorPath,
       markdownToHtml,
-      sortedCategories,
-      showButtonEditor
+      sortedCategories
     };
   }
 });
