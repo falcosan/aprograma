@@ -59,6 +59,21 @@ export const useSeo = () => {
         property: 'og:image',
         content: image
       },
+      {
+        hid: 'itemprop-name',
+        itemprop: 'name',
+        content: story.content.title
+      },
+      {
+        hid: 'itemprop-description',
+        itemprop: 'description',
+        content: story.content.intro
+      },
+      {
+        hid: 'itemprop-image',
+        itemprop: 'image',
+        content: image
+      },
       { name: 'twitter:site', content: enums.meta.og.twitter },
       { name: 'twitter:card', content: 'summary_large_image' },
       {
@@ -115,6 +130,21 @@ export const useSeo = () => {
       },
       {
         property: 'og:image',
+        content: enums.meta.og.image
+      },
+      {
+        hid: 'itemprop-name',
+        itemprop: 'name',
+        content: enums.meta.title
+      },
+      {
+        hid: 'itemprop-description',
+        itemprop: 'description',
+        content: enums.meta.description
+      },
+      {
+        hid: 'itemprop-image',
+        itemprop: 'image',
         content: enums.meta.og.image
       },
       { name: 'twitter:site', content: enums.meta.og.twitter },
