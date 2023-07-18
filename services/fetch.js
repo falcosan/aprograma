@@ -43,7 +43,7 @@ export async function fetchFeed(lang) {
       image: post.content.file.filename ? post.content.file.filename : enums.rss.image,
       guid: post.id,
       author: post.content.author,
-      url: `${process.env.NUXT_ENV_DOMAIN}${enums.rss.route}/${post.slug}`,
+      url: `${process.env.NUXT_ENV_DOMAIN}${enums.rss.route}${post.slug}`,
       description: post.content.intro,
       custom_elements: [{ 'content:encoded': markdownToHtml(post.content.long_text) }],
       date: new Date(post.content.date),
