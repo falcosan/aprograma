@@ -26,5 +26,5 @@ watch(
 </script>
 
 <template>
-  <StoryblokComponent :key="about.content._uid" :blok="about.content" />
+  <StoryblokComponent :key="about.id" :blok="{ ...about.content, id: about.id }" />
 </template>

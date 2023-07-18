@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import enums from '@/enum';
 export default defineNuxtComponent({
   props: {
     postContent: {
@@ -114,27 +115,21 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
-    const setFile = computed(() => {
-      return props.postContent.file.filename
-        ? props.postContent.file.filename
-        : 'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png';
-    });
+    const setFile = computed(() => props.postContent.file.filename || enums.content.image);
     const sortedCategories = computed(() => {
       return props.postContent.categories
         .map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
         .sort();
     });
     const lookFile = computed(() => {
-      switch (props.postContent.file.filename.toLowerCase().split('.').pop()) {
+      switch (setFile.value.toLowerCase().split('.').pop()) {
         case 'pdf':
           return 'embed';
         default:
           return resolveComponent('Image');
       }
     });
-    const checkFile = computed(
-      () => typeof lookFile.value === 'object' || !props.postContent.file.filename
-    );
+    const checkFile = computed(() => typeof lookFile.value === 'object' || !setFile.value);
     const changeDate = date => {
       const currentDateTime = new Date(date.replace(' ', 'T'));
       const formattedDate = `${currentDateTime.getDate()} / ${

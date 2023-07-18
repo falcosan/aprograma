@@ -12,6 +12,12 @@ export default {
       twitter: '@danielefalche'
     }
   },
+  editor: {
+    host: 'https://aprograma-editor.netlify.app/'
+  },
+  content: {
+    image: 'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png'
+  },
   manifest: {
     name,
     short_name: name,
