@@ -73,19 +73,19 @@ export default {
     image: 'https://img2.storyblok.com/1240x0/f/106240/4067x2440/49d9d1a222/noimagedetail.png',
     route: 'blog',
     eng: {
-      path: '/feedeng.xml',
+      path: 'feedeng.xml',
       title: 'Aprograma Blog ENG',
       category: 'Blog ENG',
       language: 'en'
     },
     esp: {
-      path: '/feedesp.xml',
+      path: 'feedesp.xml',
       title: 'Aprograma Blog ESP',
       category: 'Blog ESP',
       language: 'es'
     },
     ita: {
-      path: '/feedita.xml',
+      path: 'feedita.xml',
       title: 'Aprograma Blog ITA',
       category: 'Blog ITA',
       language: 'it'
