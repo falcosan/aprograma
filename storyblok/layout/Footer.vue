@@ -175,7 +175,7 @@
 import { storeToRefs } from 'pinia';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
-import enums from '@/enum';
+import enums from '@/utils/enum';
 import store from '@/store';
 export default defineNuxtComponent({
   props: {

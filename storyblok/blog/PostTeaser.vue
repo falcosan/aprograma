@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import enums from '@/enum';
+import enums from '@/utils/enum';
 export default defineNuxtComponent({
   props: {
     postContent: {
