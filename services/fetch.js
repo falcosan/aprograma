@@ -2,7 +2,7 @@ import { Readable } from 'stream';
 import RSS from 'rss';
 import StoryblokClient from 'storyblok-js-client';
 import { SitemapStream, streamToPromise } from 'sitemap';
-import enums from '../enum';
+import enums from '../utils/enum';
 import { markdownToHtml } from '@/utils/markdown';
 
 export async function fetchStoryblok(

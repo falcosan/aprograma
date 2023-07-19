@@ -1,4 +1,4 @@
-import enums from '@/enum';
+import enums from '@/utils/enum';
 
 export const useSeo = () => {
   const route = useRoute();
