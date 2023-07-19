@@ -110,7 +110,9 @@ input {
   color: #eeeeee;
 }
 .markdown img,
-.markdown video {
+.markdown video,
+.markdown figure,
+.markdown iframe {
   width: 100%;
   margin: 0 auto;
   border-radius: 0.25rem;
@@ -118,6 +120,9 @@ input {
 }
 .markdown img {
   cursor: pointer;
+}
+.markdown iframe {
+  @apply aspect-video;
 }
 .markdown-modal {
   position: fixed;
