@@ -20,8 +20,8 @@
     :src="src"
     :width="width"
     :height="height"
-    :modifiers="{ filters: { focal: file.focus ?? 0 } }"
-    :fit="file.focus ? undefined : 'in'"
+    :modifiers="file ? { filters: { focal: file.focus ?? 0 } } : undefined"
+    :fit="file?.focus ? undefined : 'in'"
     format="webp"
     :sizes="sizes ?? undefined"
   />
@@ -31,7 +31,7 @@ export default defineNuxtComponent({
   props: {
     file: {
       type: Object,
-      required: true
+      default: () => {}
     },
     sizes: {
       type: [String, Boolean],

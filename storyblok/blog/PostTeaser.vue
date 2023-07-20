@@ -13,7 +13,7 @@
             rowContainer || sliderContainer || containerContainer || carouselContainer
               ? ''
               : 'container-mode lg:w-1/2'
-          }  ${postContent.file.filename ? '' : 'bg-black'}`"
+          }  ${postContent.file?.filename || 'bg-black'}`"
         >
           <component
             :is="lookFile"
@@ -23,9 +23,9 @@
               rowContainer || sliderContainer || containerContainer || carouselContainer
                 ? ''
                 : 'container-mode md:aspect-[16/10] lg:aspect-[14/4] xl:aspect-[14/3] 2xl:aspect-[11/2]'
-            } ${postContent.file.filename ? 'object-cover' : 'object-contain'}`"
+            } ${postContent.file?.filename ? 'object-cover' : 'object-contain'}`"
             :alt="
-              postContent.file.alt ||
+              postContent.file?.alt ||
               $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
             "
             :src="setFile"
@@ -55,6 +55,7 @@
             </span>
           </div>
           <ul
+            v-if="sortedCategories?.length"
             class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 mt-0 overflow-x-auto"
           >
             <li
@@ -115,10 +116,10 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
-    const setFile = computed(() => props.postContent.file.filename || enums.content.image);
+    const setFile = computed(() => props.postContent.file?.filename || enums.content.image);
     const sortedCategories = computed(() => {
       return props.postContent.categories
-        .map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
+        ?.map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
         .sort();
     });
     const lookFile = computed(() => {
