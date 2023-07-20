@@ -17,7 +17,7 @@
       </div>
       <div
         :class="`post-file-container w-full h-full overflow-hidden rounded ${
-          blok.file.filename ? '' : 'bg-black'
+          blok.file?.filename || 'bg-black'
         }`"
       >
         <component
@@ -25,7 +25,7 @@
           :format="checkFile ? 'webp' : false"
           class="post-file w-full h-full aspect-[13/8] object-center select-none object-cover"
           :alt="
-            blok.file.alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
+            blok.file?.alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
           "
           :src="setFile"
           :file="blok.file"
@@ -71,7 +71,10 @@
             class="post-date mt-2.5 text-xs"
             v-text="changeDate(blok.date)"
           />
-          <ul class="post-categories flex flex-wrap justify-end mt-5 -mb-1.5 -mx-1.5">
+          <ul
+            v-if="sortedCategories?.length"
+            class="post-categories flex flex-wrap justify-end mt-5 -mb-1.5 -mx-1.5"
+          >
             <li
               v-for="(category, index) in sortedCategories"
               :key="index"
@@ -114,7 +117,7 @@ export default defineNuxtComponent({
     const setEditorPath = computed(() =>
       config.public.envApiVersion === 'draft' ? `${enums.editor.host}?id=${props.blok.id}` : null
     );
-    const setFile = computed(() => props.blok.file.filename || enums.content.image);
+    const setFile = computed(() => props.blok.file?.filename || enums.content.image);
     const lookFile = computed(() => {
       switch (setFile.value.toLowerCase().split('.').pop()) {
         case 'pdf':
@@ -125,7 +128,7 @@ export default defineNuxtComponent({
     });
     const sortedCategories = computed(() => {
       return props.blok.categories
-        .map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
+        ?.map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
         .sort();
     });
     const checkFile = computed(() => typeof lookFile.value === 'object' || !setFile.value);

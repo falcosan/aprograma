@@ -9,7 +9,7 @@
       />
     </div>
     <div
-      v-if="blok.categories_action && sortedCategories.length"
+      v-if="blok.categories_action && sortedCategories?.length"
       class="post-categories grid relative overflow-hidden"
     >
       <div
@@ -176,10 +176,8 @@ export default defineNuxtComponent({
       return sortedPosts.value
         .map(post => post.content.categories)
         .reduce((acc, cur) => {
-          cur.forEach(str => {
-            if (!acc.includes(str)) {
-              acc.push(str);
-            }
+          cur?.forEach(str => {
+            if (!acc.includes(str)) acc.push(str);
           });
           return acc;
         }, [])
