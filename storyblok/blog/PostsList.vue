@@ -150,8 +150,7 @@ export default defineNuxtComponent({
       showFilters: false
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    (async () =>
-      await useAsyncData('posts', async () => await addPosts(), { watch: [languageGet] }))();
+    (async () => await useAsyncData('posts', addPosts, { watch: [languageGet] }))();
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
