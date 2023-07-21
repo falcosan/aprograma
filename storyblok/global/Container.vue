@@ -194,13 +194,13 @@
                 :key="dot"
                 :class="`dot-number_${dot} w-2.5 h-2.5 inline-block m-1.5 rounded-full shadow-inner select-none cursor-pointer transform scale-90 transition-all duration-200 ${
                   !isDesktop ? '' : 'dot-desktop'
-                } ${dot === currentSlide + 1 ? 'bg-gray-400' : 'bg-gray-900'}`"
-                :style="dot === currentSlide + 1 ? 'box-shadow: 0 0 0 2px #9ca3af;' : undefined"
+                } ${dot === currentSlide + 1 ? 'bg-gray-300' : 'bg-gray-500'}`"
+                :style="dot === currentSlide + 1 ? 'box-shadow: 0 0 0 2px #d1d5db;' : undefined"
                 @click="changeDot(dot)"
               >
                 <span
                   v-if="isDesktop"
-                  class="dot-text absolute w-5 h-5 flex justify-center items-center left-1/2 top-0 rounded-full text-xs text-white bg-opacity-70 bg-gray-900"
+                  class="dot-text absolute w-5 h-5 flex justify-center items-center left-1/2 top-0 rounded-full text-xs text-white bg-opacity-70 bg-gray-500"
                   >{{ dot }}</span
                 >
               </span>
