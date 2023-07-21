@@ -19,7 +19,7 @@
           arrow
           size="w-auto h-auto"
           :class="`justify-center transform rotate-90 cursor-pointer ${
-            expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
+            expanded && $themeColor(backgroundColors) ? 'text-white' : ''
           }`"
           :style="`color: ${blok.icon_color.color};`"
         />
@@ -45,7 +45,7 @@
                 tooltip="Kiosco Antonio"
                 :style="`color: ${blok.icon_color.color};`"
                 :class="`${
-                  expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
+                  expanded && $themeColor(backgroundColors) ? 'text-white' : ''
                 } absolute easter-egg`"
               />
               <IconComponent
@@ -55,7 +55,7 @@
                 tooltip="Kiosco Antonio"
                 :style="`color: ${blok.icon_color.color};`"
                 :class="`${
-                  expanded && $themeColor(blok.icon_color.color) ? 'text-white' : ''
+                  expanded && $themeColor(backgroundColors) ? 'text-white' : ''
                 } absolute easter-egg`"
               />
             </transition>
@@ -69,7 +69,7 @@
           <div class="messages-container">
             <span
               :class="`footer-messages text-xs ${
-                backgroundColors && $themeColor(backgroundColors) ? '' : ''
+                backgroundColors && $themeColor(backgroundColors) ? 'text-white' : ''
               }`"
             >
               {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
