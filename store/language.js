@@ -4,7 +4,7 @@ export const useLanguageStore = defineStore('language', {
   state() {
     const locale = useCookie('locale');
     return {
-      language: locale.value || ''
+      language: locale.value || 'en'
     };
   },
   getters: {
