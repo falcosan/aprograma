@@ -7,7 +7,9 @@ const { languageGet } = storeToRefs(store.language());
 const { data: blog } = await useAsyncData(
   'blog',
   async () => {
-    const { story } = await $fetch(`/api/storyblok?slug=blog&lang=${languageGet.value}`);
+    const { story } = await $fetch('/api/storyblok', {
+      params: { slug: 'blog', lang: languageGet.value }
+    });
     return story;
   },
   {
