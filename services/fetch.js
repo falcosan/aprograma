@@ -63,9 +63,13 @@ export async function fetchSitemap() {
   const data = await fetchStoryblok('en', null, 'cdn/links');
   const urls = Object.values(data.links)
     .map(link => {
-      if (!link.is_folder && !link.is_startpage && link.slug.includes('/')) return link.slug;
-      else if (link.path != null && link.path !== '/') return link.path;
-      else return false;
+      if (!link.is_folder && !link.is_startpage && link.slug.includes('/')) {
+        return link.slug;
+      } else if (link.path != null && link.path !== '/') {
+        return link.path.substring(0, link.path.lastIndexOf('/'));
+      } else {
+        return false;
+      }
     })
     .filter(Boolean);
   for (const url of urls) {
