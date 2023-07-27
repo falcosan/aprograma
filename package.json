@@ -27,7 +27,7 @@
     "@vueuse/core": "^10.2.1",
     "axios": "^1.4.0",
     "highlight.js": "^11.8.0",
-    "marked": "^5.1.1"
+    "marked": "^5.1.2"
   },
   "devDependencies": {
     "@nuxt/image": "^1.0.0-rc.1",
@@ -35,12 +35,12 @@
     "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@nuxtjs/tailwindcss": "^6.8.0",
     "@tailwindcss/typography": "^0.5.9",
-    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/eslint-plugin": "^6.2.0",
     "@vite-pwa/nuxt": "^0.1.0",
     "eslint": "^8.45.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "nuxt": "^3.6.3",
+    "nuxt": "^3.6.5",
     "nuxt-security": "^0.14.2",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
