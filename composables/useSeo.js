@@ -137,6 +137,10 @@ export const useSeo = () => {
       {
         name: 'twitter:image',
         content: enums.meta.og.image
+      },
+      {
+        name: 'monetization',
+        content: config.envPaymentPointer
       }
     ];
     return useHead({
