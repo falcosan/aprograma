@@ -9,6 +9,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     envXAuth: process.env.NUXT_ENV_X_AUTH,
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
+    envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
