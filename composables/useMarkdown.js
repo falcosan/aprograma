@@ -25,42 +25,43 @@ export const useMarkdown = (init = true) => {
       });
     }
     if (document.querySelector('.markdown img')) {
-      document.querySelectorAll('.markdown img').forEach(image => {
-        const noScroll = condition => {
-          if (condition) {
-            document.body.classList.add('noscroll');
-            document.ontouchmove = e => e.preventDefault();
-          } else {
-            document.body.classList.remove('noscroll');
-            document.ontouchmove = () => true;
-          }
-        };
-        image.addEventListener('click', function () {
-          noScroll(true);
-          const wrapper = document.createElement('div');
-          const newImage = image.cloneNode();
-          wrapper.classList.add('markdown-modal');
-          wrapper.appendChild(newImage);
-          document.body.appendChild(wrapper).focus({ preventScroll: true });
-          if (document.body.contains(wrapper)) {
-            wrapper.addEventListener('click', function () {
-              document.body.removeChild(wrapper);
-              noScroll(false);
-            });
+      const images = document.querySelectorAll('.markdown img');
+      const noScroll = condition => {
+        if (condition) {
+          document.body.classList.add('noscroll');
+          document.ontouchmove = e => e.preventDefault();
+        } else {
+          document.body.classList.remove('noscroll');
+          document.ontouchmove = null;
+        }
+      };
+      const removeImage = wrapper => {
+        if (document.body.contains(wrapper)) {
+          document.body.removeChild(wrapper);
+          noScroll(false);
+        }
+      };
+      images.forEach(image => {
+        if (!image.classList.contains('image-clickable')) {
+          image.classList.add('image-clickable');
+          image.addEventListener('click', function () {
+            noScroll(true);
+            const wrapper = document.createElement('div');
+            const newImage = image.cloneNode(true);
+            newImage.classList.remove('image-clickable');
+            newImage.classList.add('image-modal');
+            wrapper.classList.add('markdown-modal');
+            wrapper.appendChild(newImage);
+            document.body.appendChild(wrapper).focus({ preventScroll: true });
+            wrapper.addEventListener('click', () => removeImage(wrapper));
             document.onkeydown = function (event) {
               if (event.key.toLowerCase() === 'escape') {
-                noScroll(false);
-                document.body.removeChild(wrapper);
+                removeImage(wrapper);
               }
             };
-          }
-          window.addEventListener('popstate', function () {
-            if (document.body.contains(wrapper)) {
-              noScroll(false);
-              document.body.removeChild(wrapper);
-            }
+            window.addEventListener('popstate', () => removeImage(wrapper));
           });
-        });
+        }
       });
     }
   };
