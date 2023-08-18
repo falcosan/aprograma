@@ -6,20 +6,19 @@
       carouselMode || sliderMode || containerMode ? 'grid' : 'parent-cover'
     }`"
   >
-    <component
-      :is="sliderMode || carouselMode || containerMode ? 'h2' : 'h1'"
+    <span
       v-if="blok.title"
-      :class="`container-title break-words text-xl ${
+      :class="`container-title block break-words text-xl ${
         sliderMode || carouselMode || containerMode
           ? blok.remove_space
             ? 'm-5'
-            : 'mt-5 ml-10 mr-5'
-          : 'sm:text-2xl'
+            : 'my-5 ml-10 mr-5'
+          : 'sm:text-2xl mb-5'
       }`"
-      :style="`color: ${blok.title_color.color};`"
+      :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
     >
       {{ blok.title }}
-    </component>
+    </span>
     <div
       :class="`container-content h-full rounded ${
         blok.slider_mode === 'slider' ? 'overflow-hidden' : ''

@@ -1,8 +1,8 @@
 <template>
   <section v-if="!blok.hide" :class="`${blok.name.toLowerCase()}-page p-5`">
-    <h1 v-if="blok.title" class="page-title mb-5 text-xl sm:text-2xl break-words">
+    <span v-if="blok.title" class="page-title block mb-5 text-xl sm:text-2xl break-words">
       {{ blok.title }}
-    </h1>
+    </span>
     <div class="page-components relative flex flex-wrap -m-2.5">
       <StoryblokComponent
         v-for="component in components"

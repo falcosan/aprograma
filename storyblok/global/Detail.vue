@@ -1,17 +1,17 @@
 <template>
   <div class="detail">
-    <component
-      :is="sliderMode || carouselMode || containerMode ? 'h2' : 'h1'"
+    <span
       v-if="blok.title"
-      :class="`detail-title text-lg ${
+      :class="`detail-title block break-words text-lg ${
         sliderMode || carouselMode || containerMode
           ? blok.remove_space
             ? 'm-5'
-            : 'mt-5 ml-10 mr-5'
-          : 'sm:text-xl'
+            : 'my-5 ml-10 mr-5'
+          : 'sm:text-xl mb-5'
       }`"
-      >{{ blok.title }}</component
     >
+      {{ blok.title }}
+    </span>
     <div class="detail-content grid gap-5 md:grid-flow-col auto-cols-fr rounded">
       <ul
         :class="`image-container grid gap-5 w-full justify-items-center auto-rows-max ${
@@ -162,7 +162,7 @@
       >
         <div
           :class="`detail-text markdown block max-w-none rounded ${setAlignText}`"
-          v-html="blok.text"
+          v-html="markdownToHtml(blok.text)"
         />
       </div>
     </div>
