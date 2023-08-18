@@ -10,8 +10,8 @@
         { 'cursor-close': closeMode }
       ]"
       tabindex="0"
-      @keydown.esc="closeMode && closeModal()"
       @click.stop="closeMode && closeModal()"
+      @keydown.esc="closeMode && closeModal()"
     >
       <div class="modal-container">
         <header v-if="hasSlot('header') || closeMode" class="modal-header">
