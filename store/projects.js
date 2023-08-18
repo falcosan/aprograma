@@ -13,9 +13,9 @@ export const useProjectsStore = defineStore('projects', {
   actions: {
     async addProjects() {
       const { languageGet } = storeToRefs(store.language());
-      const { data } = await useFetch(
-        `/api/storyblok?slug=&lang=${languageGet.value}&starts_with=portfolio/`
-      );
+      const { data } = await useFetch('/api/storyblok', {
+        params: { starts_with: 'portfolio', lang: languageGet.value }
+      });
       this.items = data.value.stories;
     }
   }

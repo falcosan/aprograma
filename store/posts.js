@@ -13,9 +13,9 @@ export const usePostsStore = defineStore('posts', {
   actions: {
     async addPosts() {
       const { languageGet } = storeToRefs(store.language());
-      const { data } = await useFetch(
-        `/api/storyblok?slug=&lang=${languageGet.value}&starts_with=blog/`
-      );
+      const { data } = await useFetch('/api/storyblok', {
+        params: { starts_with: 'blog', lang: languageGet.value }
+      });
       this.items = data.value.stories;
     }
   }
