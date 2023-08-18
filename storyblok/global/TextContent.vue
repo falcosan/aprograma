@@ -2,10 +2,9 @@
   <div
     v-if="blok.text"
     :key="blok._uid"
-    :style="`background-color: ${$binaryControl(
-      blok.background_color,
-      'color'
-    )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+    :style="`background-color: ${$binaryControl(blok.background_color, 'color')}; color: ${
+      blok.hidden ? 'transparent' : $binaryControl(blok.text_color, 'color')
+    };`"
     :class="[
       'text-container flex flex-col rounded',
       blok.hidden

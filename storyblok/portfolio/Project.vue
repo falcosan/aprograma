@@ -210,9 +210,9 @@
       </div>
     </div>
     <div v-if="blok.body?.length" class="project-details grid gap-5 col-start-1 col-end-4 mt-10">
-      <h1 class="detail-project text-xl sm:text-2xl">
+      <span class="detail-project block mb-5 text-xl sm:text-2xl">
         {{ $languageCase('Project details', 'Detalles del proyecto', 'Dettagli del progetto') }}
-      </h1>
+      </span>
       <StoryblokComponent
         :is="description.component"
         v-for="description in blok.body"
