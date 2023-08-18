@@ -23,7 +23,6 @@
       :alt="blok.alt"
       :height="blok.size"
       :width="blok.size"
-      :name="blok.name"
       :file="blok"
       sizes="xs:64px md:128px"
     />
