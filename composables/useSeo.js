@@ -151,10 +151,7 @@ export const useSeo = () => {
       meta,
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        {
-          rel: 'canonical',
-          href: config.public.envDomain
-        }
+        { rel: 'canonical', href: config.public.envDomain }
       ]
     });
   };

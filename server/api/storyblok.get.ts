@@ -7,9 +7,10 @@ export default defineEventHandler(async event => {
   const cors = getRequestHeader(event, 'sec-fetch-mode');
   if (auth === config.envXAuth && (cors === undefined || cors === 'cors')) {
     const query = getQuery(event);
-    const version = config.public.envApiVersion as ISbStoriesParams['version'];
+    const slug = query.slug ?? '';
     const language = query.lang as ISbStoriesParams['language'];
     const startsWith = query.starts_with as ISbStoriesParams['starts_with'];
-    return await fetchStoryblok(language, startsWith, `cdn/stories/${query.slug}`, false, version);
+    const version = config.public.envApiVersion as ISbStoriesParams['version'];
+    return await fetchStoryblok(language, startsWith, `cdn/stories/${slug}`, false, version);
   }
 });
