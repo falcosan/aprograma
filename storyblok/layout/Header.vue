@@ -209,7 +209,7 @@ export default defineNuxtComponent({
       else topPosition.value = false;
     };
     watch(
-      () => [isDesktop, windowWidth.value],
+      () => sizes.value.md,
       () => (expanded.value = false)
     );
     watch(
