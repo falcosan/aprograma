@@ -3,7 +3,7 @@ import enums from '@/utils/enum';
 export const useSeo = () => {
   const route = useRoute();
   const config = useRuntimeConfig();
-  const routeName = route.name === 'index' ? '' : route.name;
+  const routeName = route.path.replace('/', '')
   const seoStatic = story => {
     const meta = [
       {
