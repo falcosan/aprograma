@@ -3,7 +3,7 @@ import enums from '@/utils/enum';
 export const useSeo = () => {
   const route = useRoute();
   const config = useRuntimeConfig();
-  const routeName = route.path.replace('/', '')
+  const routeName = route.path.replace('/', '');
   const seoStatic = story => {
     const meta = [
       {
@@ -23,12 +23,9 @@ export const useSeo = () => {
     });
   };
   const seoDynamic = story => {
-    const image = `${
-      story.image ||
-      story.content.file?.filename ||
-      story.content.image?.filename ||
-      enums.content.image
-    }/m/472x290`;
+    const defaultImage = enums.content.image;
+    const storyImage = story.image || story.content.file?.filename || story.content.image?.filename;
+    const image = storyImage ? `${storyImage}/m/472x290` : defaultImage;
     const meta = [
       { property: 'og:site_name', content: enums.name },
       { key: 'og:type', property: 'og:type', content: 'website' },
@@ -36,18 +33,9 @@ export const useSeo = () => {
         name: 'description',
         content: story.content.intro
       },
-      story.content.author && {
-        name: 'author',
-        content: story.content.author
-      },
-      story.content.date && {
-        name: 'publish_date',
-        property: 'og:publish_date',
-        content: new Date(story.content.date).toISOString()
-      },
       {
         property: 'og:url',
-        content: `${config.public.envDomain}${route.path}`
+        content: `${config.public.envDomain}${routeName}`
       },
       {
         property: 'og:title',
@@ -66,7 +54,7 @@ export const useSeo = () => {
       { name: 'twitter:card', content: 'summary_large_image' },
       {
         name: 'twitter:url',
-        content: `${config.public.envDomain}${route.path}`
+        content: `${config.public.envDomain}${routeName}`
       },
       {
         name: 'twitter:title',
@@ -81,6 +69,19 @@ export const useSeo = () => {
         content: image
       }
     ];
+    if (story.content.author) {
+      meta.push({
+        name: 'author',
+        content: story.content.author
+      });
+    }
+    if (story.content.date) {
+      meta.push({
+        name: 'publish_date',
+        property: 'og:publish_date',
+        content: new Date(story.content.date).toISOString()
+      });
+    }
     return useHead({
       title: story.content.title,
       meta,
