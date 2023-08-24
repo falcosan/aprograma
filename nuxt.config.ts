@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
       envDomain: process.env.NUXT_ENV_DOMAIN,
+      envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }

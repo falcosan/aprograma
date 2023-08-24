@@ -152,6 +152,12 @@ export const useSeo = () => {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: config.public.envDomain }
+      ],
+      script: [
+        {
+          src: `https://www.googletagmanager.com/gtag/js?id=${config.public.envGTagId}`,
+          async: true
+        }
       ]
     });
   };
