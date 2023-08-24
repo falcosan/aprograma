@@ -1,3 +1,4 @@
+import { isProduction, isDevelopment } from 'std-env';
 import enums from './utils/enum';
 
 export default defineNuxtConfig({
@@ -14,6 +15,7 @@ export default defineNuxtConfig({
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
+      envMode: { production: isProduction, development: isDevelopment },
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
   },
