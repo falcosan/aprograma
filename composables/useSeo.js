@@ -3,6 +3,7 @@ import enums from '@/utils/enum';
 export const useSeo = () => {
   const route = useRoute();
   const config = useRuntimeConfig();
+  const routeName = route.name === 'index' ? '' : route.name;
   const seoStatic = story => {
     const meta = [
       {
@@ -16,7 +17,7 @@ export const useSeo = () => {
       link: [
         {
           rel: 'canonical',
-          href: `${config.public.envDomain}${route.path}`
+          href: `${config.public.envDomain}${routeName}`
         }
       ]
     });
@@ -86,7 +87,7 @@ export const useSeo = () => {
       link: [
         {
           rel: 'canonical',
-          href: `${config.public.envDomain}${route.path}`
+          href: `${config.public.envDomain}${routeName}`
         }
       ]
     });
@@ -152,12 +153,6 @@ export const useSeo = () => {
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'canonical', href: config.public.envDomain }
-      ],
-      script: [
-        {
-          src: `https://www.googletagmanager.com/gtag/js?id=${config.public.envGTagId}`,
-          async: true
-        }
       ]
     });
   };
