@@ -2,10 +2,12 @@ import VueGtag, { trackRouter } from 'vue-gtag-next';
 
 export default defineNuxtPlugin(nuxtApp => {
   const config = useRuntimeConfig();
-  nuxtApp.vueApp.use(VueGtag, {
-    property: {
-      id: config.public.envGTagId
-    }
-  });
-  trackRouter(useRouter());
+  if (config.public.envMode.production) {
+    nuxtApp.vueApp.use(VueGtag, {
+      property: {
+        id: config.public.envGTagId
+      }
+    });
+    trackRouter(useRouter());
+  }
 });
