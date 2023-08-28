@@ -19,9 +19,6 @@ export default defineNuxtConfig({
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
   },
-  vite: {
-    optimizeDeps: { exclude: ['fsevents'] }
-  },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
   modules: [
     '@pinia/nuxt',

@@ -151,7 +151,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { isDesktop } = useDevice();
-    const { sizes, windowWidth, scrollPosition } = useScreen();
+    const { sizes, scrollPosition } = useScreen();
     const state = reactive({
       timer: 0,
       expanded: false,
