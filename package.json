@@ -23,11 +23,11 @@
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
     "@pinia/nuxt": "^0.4.11",
-    "@storyblok/nuxt": "^5.6.5",
-    "@vueuse/core": "^10.3.0",
-    "axios": "^1.4.0",
+    "@storyblok/nuxt": "^5.6.6",
+    "@vueuse/core": "^10.4.1",
+    "axios": "^1.5.0",
     "highlight.js": "^11.8.0",
-    "marked": "^7.0.4",
+    "marked": "^7.0.5",
     "pinia": "^2.1.6"
   },
   "devDependencies": {
@@ -38,14 +38,14 @@
     "@tailwindcss/typography": "^0.5.9",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@vite-pwa/nuxt": "^0.1.0",
-    "eslint": "^8.47.0",
+    "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "nuxt": "^3.6.5",
+    "nuxt": "^3.7.0",
     "nuxt-security": "^0.14.4",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
-    "typescript": "^5.1.6",
+    "typescript": "^5.2.2",
     "vue-gtag-next": "^1.14.0"
   },
   "main": ".eslintrc.cjs",
