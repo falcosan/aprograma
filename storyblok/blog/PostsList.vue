@@ -94,8 +94,8 @@
       leave-active-class="transition duration-150"
     >
       <PostTeaserComponent
-        v-for="post in searchQuery"
-        :key="post.uuid"
+        v-for="(post, indexPost) in searchQuery"
+        :key="indexPost"
         :post-link="post.slug"
         :post-content="post.content"
         :row-container="blok.row_container"
