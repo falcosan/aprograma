@@ -116,7 +116,7 @@
     </nav>
     <div class="header-loader header-loader-responsive"><slot name="header" /></div>
     <nav
-      class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t drop-shadow-2xl"
+      class="navbar-down fixed w-full h-20 flex items-center justify-center bottom-0 z-40 rounded-t drop-shadow-2xl"
       :style="`background-color: ${backgroundColor};`"
     >
       <ul
@@ -125,7 +125,7 @@
         <li
           v-for="item in $contentByName(blok.body, 'Route')"
           :key="item._uid"
-          class="link-menu no-underline"
+          class="link-menu pb-2.5 no-underline"
         >
           <RouteComponent icon-item icon-style="w-full h-full" :blok="item" />
         </li>
