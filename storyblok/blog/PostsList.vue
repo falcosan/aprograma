@@ -32,19 +32,19 @@
         />
       </div>
       <transition
-        enter-active-class="duration-150"
-        leave-active-class="duration-150"
-        enter-class="opacity-0 transform translate-y-full"
-        leave-to-class="absolute"
+        enter-active-class="duration-100"
+        leave-active-class="duration-100"
+        enter-class="opacity-0"
+        leave-to-class="opacity-0"
       >
         <ul
           v-if="showFilters"
-          class="categories-list grid grid-cols-fit-small row-start-2 row-end-auto auto-cols-fr gap-5 mb-5"
+          class="categories-list flex flex-wrap mb-5 -mt-2.5 -mx-2.5 overflow-hidden"
         >
           <li
             v-for="(filter, index) in sortedCategories"
             :key="index"
-            :class="`category-container h-full flex justify-between overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white ${
+            :class="`category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white ${
               comparedCategories.includes(filter.value)
                 ? 'bg-opacity-70'
                 : !isDesktop
@@ -69,7 +69,7 @@
             />
           </li>
           <li
-            class="reset-container h-full overflow-hidden col-start-1 col-end-1 row-start-1 row-end-1 rounded cursor-pointer select-none"
+            class="reset-container m-2.5 overflow-hidden rounded cursor-pointer select-none"
             @click="searchCategory = []"
           >
             <InputComponent
