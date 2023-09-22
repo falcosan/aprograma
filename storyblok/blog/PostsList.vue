@@ -42,6 +42,16 @@
           class="categories-list flex flex-wrap mb-5 -mt-2.5 -mx-2.5 overflow-hidden"
         >
           <li
+            class="reset-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial m-2.5 overflow-hidden rounded cursor-pointer select-none"
+            @click="searchCategory = []"
+          >
+            <InputComponent
+              class="reset-input w-full bg-gray-200"
+              type="button"
+              :text="$languageCase('Clear filters', 'Borrar filtros', 'Rimuovi filtri')"
+            />
+          </li>
+          <li
             v-for="(filter, index) in sortedCategories"
             :key="index"
             :class="`category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white ${
@@ -66,16 +76,6 @@
               :class="`px-4 pointer-events-none transition ${
                 comparedCategories.includes(filter.value) ? '' : 'transform rotate-45'
               }`"
-            />
-          </li>
-          <li
-            class="reset-container m-2.5 overflow-hidden rounded cursor-pointer select-none"
-            @click="searchCategory = []"
-          >
-            <InputComponent
-              class="reset-input w-full bg-gray-200"
-              type="button"
-              :text="$languageCase('Clear filters', 'Borrar filtros', 'Rimuovi filtri')"
             />
           </li>
         </ul>
