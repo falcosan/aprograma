@@ -54,13 +54,18 @@
           <li
             v-for="(filter, index) in sortedCategories"
             :key="index"
-            :class="`category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white ${
+            :class="[
+              'category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white',
+              {
+                'xx:flex-none':
+                  index === sortedCategories.length - 1 && !!!(sortedCategories.length & 1)
+              },
               comparedCategories.includes(filter.value)
                 ? 'bg-opacity-70'
                 : !isDesktop
                 ? ''
                 : 'hover:bg-gray-700'
-            }`"
+            ]"
             @click="filterSearch(filter)"
           >
             <InputComponent
