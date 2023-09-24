@@ -4,7 +4,7 @@ import store from '@/store';
 import LogoComponent from '@/storyblok/global/Logo';
 const { seoLayout } = useSeo();
 const { languageGet } = storeToRefs(store.language());
-const { data: layout, pending } = await useAsyncData(
+const { data: layout } = await useAsyncData(
   'layout',
   async () => {
     const { story } = await $fetch('/api/storyblok', {
@@ -32,16 +32,14 @@ watch(languageGet, language => seoLayout({ language }), { immediate: true });
     </h1>
   </div>
   <div v-else class="aprograma-theme">
-    <template v-for="component in layout.content.body">
-      <component
-        :is="resolveComponent(component.component)"
-        v-if="/header|footer/.test(component.component.toLowerCase()) ? !pending : true"
-        :key="component._uid"
-        :blok="component"
-      >
-        <template #header><NuxtLoadingIndicator /></template>
-        <template #main><slot /></template>
-      </component>
-    </template>
+    <component
+      :is="resolveComponent(component.component)"
+      v-for="component in layout.content.body"
+      :key="component._uid"
+      :blok="component"
+    >
+      <template #header><NuxtLoadingIndicator /></template>
+      <template #main><slot /></template>
+    </component>
   </div>
 </template>
