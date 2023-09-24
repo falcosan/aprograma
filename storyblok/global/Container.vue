@@ -117,35 +117,35 @@
           <div v-if="blok.slider_mode === 'slider'" class="slider-container">
             <ul
               :key="sliderKey"
-              :style="`min-height: ${blok.height}; transform: translateX(${-(
+              :style="`min-height: ${$binaryControl(blok, 'height')}; transform: translateX(${-(
                 (containerWidth + spaceFix) *
                 sliderIndex
               )}px); gap: ${spaceFix}px;`"
               class="slider relative grid grid-flow-col-dense transition-transform"
             >
-              <template v-for="component in elements" :key="component._uid">
-                <li
-                  ref="sliderSlide"
-                  :tabindex="!blok.hide_controllers ? '0' : undefined"
-                  :style="`width: ${containerWidth}px; background-color: ${$binaryControl(
-                    blok.background_color_component,
-                    'color'
-                  )};`"
-                  :class="`slider-slide slide flex justify-self-center rounded ${setAlignContent} ${
-                    !blok.hide_controllers ? 'outline-none' : ''
-                  } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
-                  @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
-                  @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
-                  @mouseenter="focusContainer(sliderSlide[0])"
-                >
-                  <StoryblokComponent
-                    :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
-                    :blok="component"
-                    slider-mode
-                    :container-width="containerWidth"
-                  />
-                </li>
-              </template>
+              <li
+                v-for="component in elements"
+                :key="component._uid"
+                ref="sliderSlide"
+                :tabindex="!blok.hide_controllers ? '0' : undefined"
+                :style="`width: ${containerWidth}px; background-color: ${$binaryControl(
+                  blok.background_color_component,
+                  'color'
+                )};`"
+                :class="`slider-slide slide flex justify-self-center rounded ${setAlignContent} ${
+                  !blok.hide_controllers ? 'outline-none' : ''
+                } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
+                @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
+                @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
+                @mouseenter="focusContainer(sliderSlide[0])"
+              >
+                <StoryblokComponent
+                  :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
+                  :blok="component"
+                  slider-mode
+                  :container-width="containerWidth"
+                />
+              </li>
             </ul>
           </div>
           <div v-else class="carousel-container">
@@ -156,33 +156,33 @@
               leave-to-class="opacity-0"
               enter-active-class="transition duration-500"
               leave-active-class="transition duration-500"
-              :style="`min-height: ${blok.height};`"
+              :style="`min-height: ${$binaryControl(blok, 'height')};`"
             >
-              <template v-for="(component, index) in elements" :key="component._uid">
-                <li
-                  v-show="index === currentSlide"
-                  ref="carouselSlide"
-                  :tabindex="!blok.hide_controllers ? '0' : undefined"
-                  :class="`carousel-slide slide w-full flex row-start-1 row-end-1 col-start-1 col-end-1 rounded ${setAlignContent} ${
-                    !blok.hide_controllers ? 'outline-none' : ''
-                  } ${index === currentSlide ? 'show' : 'hidden'} ${
-                    sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
-                  }`"
-                  :style="`background-color: ${$binaryControl(
-                    blok.background_color_component,
-                    'color'
-                  )};`"
-                  @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
-                  @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
-                >
-                  <StoryblokComponent
-                    :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
-                    :blok="component"
-                    carousel-mode
-                    :container-width="fullWidth"
-                  />
-                </li>
-              </template>
+              <li
+                v-for="(component, index) in elements"
+                v-show="index === currentSlide"
+                :key="component._uid"
+                ref="carouselSlide"
+                :tabindex="!blok.hide_controllers ? '0' : undefined"
+                :class="`carousel-slide slide w-full flex row-start-1 row-end-1 col-start-1 col-end-1 rounded ${setAlignContent} ${
+                  !blok.hide_controllers ? 'outline-none' : ''
+                } ${index === currentSlide ? 'show' : 'hidden'} ${
+                  sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
+                }`"
+                :style="`background-color: ${$binaryControl(
+                  blok.background_color_component,
+                  'color'
+                )};`"
+                @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
+                @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
+              >
+                <StoryblokComponent
+                  :class="`${component.name.toLowerCase()}-component my-0 mx-auto`"
+                  :blok="component"
+                  carousel-mode
+                  :container-width="fullWidth"
+                />
+              </li>
             </transition-group>
             <div
               v-if="!blok.hide_dots"
@@ -216,36 +216,36 @@
                 : 'px-5 pb-5'
               : ''
           }`"
-          :style="`min-height: ${blok.height};`"
+          :style="`min-height: ${$binaryControl(blok, 'height')};`"
         >
-          <template v-for="component in elements" :key="component._uid">
-            <div
-              :style="`flex: ${
-                component.row_container
-                  ? `1 ${(100 - (maxElements > 1 ? spaceFix : 0)) / maxElements}%`
-                  : '100%'
-              }; background-color: ${
-                !blok.background_color_component.color ||
-                component.component.toLowerCase() === 'blank'
-                  ? 'unset'
-                  : blok.background_color_component.color
-              };`"
-              :class="`${component.name.toLowerCase()}-container ${
-                sliderMode || carouselMode || containerMode ? '' : 'parent-container'
-              } ${
-                component.component.toLowerCase() === 'blank'
-                  ? ''
-                  : `${setAlignContent} m-2.5 rounded`
-              }`"
-            >
-              <StoryblokComponent
-                :class="`${component.name.toLowerCase()}-component`"
-                :blok="component"
-                container-mode
-                :container-width="fullWidth"
-              />
-            </div>
-          </template>
+          <div
+            v-for="component in elements"
+            :key="component._uid"
+            :style="`flex: ${
+              component.row_container
+                ? `1 ${(100 - (maxElements > 1 ? spaceFix : 0)) / maxElements}%`
+                : '100%'
+            }; background-color: ${
+              !blok.background_color_component.color ||
+              component.component.toLowerCase() === 'blank'
+                ? 'unset'
+                : blok.background_color_component.color
+            };`"
+            :class="`${component.name.toLowerCase()}-container ${
+              sliderMode || carouselMode || containerMode ? '' : 'parent-container'
+            } ${
+              component.component.toLowerCase() === 'blank'
+                ? ''
+                : `${setAlignContent} m-2.5 rounded`
+            }`"
+          >
+            <StoryblokComponent
+              :class="`${component.name.toLowerCase()}-component`"
+              :blok="component"
+              container-mode
+              :container-width="fullWidth"
+            />
+          </div>
         </div>
       </div>
     </div>
