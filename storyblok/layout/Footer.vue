@@ -118,9 +118,7 @@ export default defineNuxtComponent({
         return $languageCase(texts[0], texts[1], texts[2]);
       } else return '';
     });
-    const backgroundColor = computed(() =>
-      $binaryControl(props.blok.background_color.color, 'color')
-    );
+    const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
     const expandIn = () => {
       if (!expanded.value) expanded.value = true;
     };
