@@ -36,13 +36,7 @@
               : true
           "
           :key="language._uid"
-          :class="`translate-item cursor-pointer ${styleTranslateItem} ${
-            !translateTransition &&
-            (cutLanguage(language) === languageGet ||
-              (cutLanguage(language) === 'en' && languageGet === ''))
-              ? 'bg-neutral-800 text-white'
-              : ''
-          }`"
+          :class="`translate-item cursor-pointer ${styleTranslateItem}`"
           @click="
             languageAction(language.language);
             $emit('translate-list-action');

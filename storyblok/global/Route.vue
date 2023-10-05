@@ -12,7 +12,7 @@
         {
           [!iconItem && !blok.icon_item
             ? 'rounded opacity-60 bg-opacity-40 bg-gray-300'
-            : 'pt-0.5 border-b-4 border-gray-300']: activated
+            : 'pt-1 border-b-4 border-gray-300']: activated
         }
       ]
     ]"
