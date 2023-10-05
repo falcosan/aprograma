@@ -22,7 +22,7 @@ export default {
     name,
     short_name: name,
     description,
-    theme_color: '#212121',
+    theme_color: '#eeeeee',
     icons: [
       {
         src: 'icon-48x48.png',
