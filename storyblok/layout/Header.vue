@@ -78,14 +78,21 @@
           class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg flex justify-between"
         >
           <RouteComponent
-            set-active="border-t-2 pb-0.5 border-gray-300"
+            set-active="border-t-4 pb-0.5 border-gray-300"
             icon-item
-            class="home-link w-2/12 rounded-bl bg-neutral-800 text-white"
+            class="home-link w-2/12 rounded-bl ext-white"
             :aria-label="webName"
             to="/"
           >
             <template #icon>
-              <IconComponent home size="w-5 h-5" class="home-link h-full w-full cursor-pointer" />
+              <IconComponent
+                home
+                size="w-5 h-5"
+                :class="[
+                  'home-link h-full w-full cursor-pointer',
+                  $themeColor(backgroundColor) ? 'invert' : ''
+                ]"
+              />
             </template>
           </RouteComponent>
           <LogoComponent
@@ -97,17 +104,20 @@
           />
           <TranslateComponent
             translate-transition
-            :class="`translate-header w-2/12 text-white bg-neutral-800 ${
+            :class="[
+              'translate-header w-2/12',
+              expanded ? '' : 'rounded-br',
+              $themeColor(backgroundColor) ? 'text-white' : ''
+            ]"
+            :style-current-language="`h-full flex items-center justify-center relative z-10 ${
               expanded ? '' : 'rounded-br'
             }`"
-            :style-current-language="`h-full flex items-center justify-center relative z-10 bg-neutral-800 text-white ${
-              expanded ? '' : 'rounded-br'
-            }`"
-            :style-translate-list="`rounded-b w-full transform transition-transform duration-200 ease-out bg-neutral-800 ${
+            :style-translate-list="`rounded-b w-full transform transition-transform duration-200 ease-out ${
               expanded ? 'translate-y-0' : '-translate-y-full'
             }`"
             style-translate-item="p-3 text-center"
             :blok="$contentByName(blok.body, 'Translate')"
+            :parent-background-color="backgroundColor"
             @translate-list-action="expanded = false"
             @current-lang-action="expanded = !expanded"
             @mouseenter="isDesktop ? expandStill() : ''"
@@ -152,6 +162,7 @@ export default defineNuxtComponent({
   setup(props) {
     const { isDesktop } = useDevice();
     const { sizes, scrollPosition } = useScreen();
+    const { $binaryControl } = useNuxtApp();
     const state = reactive({
       timer: 0,
       expanded: false,
@@ -161,31 +172,31 @@ export default defineNuxtComponent({
     const webName = enums.name;
     const backgroundColor = computed(() => {
       const colors = props.blok.background_color.color.split('; ');
-      if (colors.length > 1) {
+      if (colors.length) {
         if (sizes.value.md && isDesktop) {
           return colors[0];
         } else {
           return colors.length > 1 ? colors[1] : colors[0];
         }
       } else {
-        return props.blok.background_color.color || 'unset';
+        return $binaryControl(props.blok.background_color, 'color');
       }
     });
     const backgroundColorMenu = computed(() => {
       const colors = props.blok.background_color_menu.color.split('; ');
-      if (colors.length > 1) {
+      if (colors.length) {
         if (sizes.value.md && isDesktop) {
           return colors[0];
         } else {
           return colors.length > 1 ? colors[1] : colors[0];
         }
       } else {
-        return props.blok.background_color_menu.color || 'unset';
+        return $binaryControl(props.blok.background_color_menu, 'color');
       }
     });
     const logoColors = computed(() => {
       const colors = props.blok.logo_colors.color.split('; ');
-      if (colors.length > 1) {
+      if (colors.length) {
         return colors;
       } else {
         return [props.blok.logo_colors.color, props.blok.logo_colors.color];

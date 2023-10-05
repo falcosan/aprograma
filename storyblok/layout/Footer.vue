@@ -228,7 +228,7 @@ export default defineNuxtComponent({
     const backgroundColors = computed(() => {
       if (props.blok.background_color.color) {
         const colors = props.blok.background_color.color.split('; ');
-        if (colors.length > 1) {
+        if (colors.length) {
           if (sizes.value.md && isDesktop) return colors[0];
           else return colors.length > 1 ? colors[1] : colors[0];
         } else return props.blok.background_color.color;
