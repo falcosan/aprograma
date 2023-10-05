@@ -21,11 +21,11 @@
           v-if="hasSlot('body')"
           :class="['modal-body w-full h-full', { 'cursor-close': closeMode }]"
         >
-          <transition enter-active-class="duration-300" enter-class="opacity-0">
+          <Transition enter-active-class="duration-300" enter-class="opacity-0">
             <div class="body-container h-full">
               <slot name="body" />
             </div>
-          </transition>
+          </Transition>
         </section>
       </div>
     </div>

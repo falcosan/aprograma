@@ -7,7 +7,7 @@
     @keydown.right.prevent="next"
     @keydown.left.prevent="prev"
   >
-    <transition-group
+    <TransitionGroup
       tag="ul"
       enter-from-class="opacity-0"
       leave-to-class="opacity-0"
@@ -79,8 +79,8 @@
           @click="next"
         />
       </li>
-    </transition-group>
-    <transition-group
+    </TransitionGroup>
+    <TransitionGroup
       v-if="blok.length > 2"
       tag="div"
       enter-active-class="duration-300 in-out"
@@ -101,7 +101,7 @@
       >
         <IconComponent previous class="previous" size="p-3 w-9 h-9 cursor-pointer" @click="prev" />
       </span>
-    </transition-group>
+    </TransitionGroup>
   </div>
 </template>
 <script>

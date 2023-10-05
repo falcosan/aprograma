@@ -9,7 +9,7 @@
           backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
-        <transition
+        <Transition
           enter-from-class="opacity-0"
           leave-to-class="opacity-0"
           enter-active-class="transition duration-300"
@@ -29,7 +29,7 @@
             class="col-start-1 col-end-1 row-start-1 row-end-1"
             size="w-6"
           />
-        </transition>
+        </Transition>
       </div>
       <div
         :class="`messages-container ${

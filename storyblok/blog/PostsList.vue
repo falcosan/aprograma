@@ -31,7 +31,7 @@
           }`"
         />
       </div>
-      <transition
+      <Transition
         enter-active-class="duration-100"
         leave-active-class="duration-100"
         enter-class="opacity-0"
@@ -84,9 +84,9 @@
             />
           </li>
         </ul>
-      </transition>
+      </Transition>
     </div>
-    <transition-group
+    <TransitionGroup
       tag="ul"
       :class="`post-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${
         blok.row_container || sliderMode || carouselMode || containerMode
@@ -109,7 +109,7 @@
         :container-container="containerMode"
         :container-width="containerWidth"
       />
-    </transition-group>
+    </TransitionGroup>
   </div>
 </template>
 

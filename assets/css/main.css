@@ -60,16 +60,6 @@ input {
   width: 100%;
   overflow: hidden;
 }
-.page-enter-active,
-.page-leave-active {
-  @apply transition-opacity;
-}
-.page-leave-to {
-  @apply opacity-0;
-}
-.page-enter-from {
-  @apply opacity-0;
-}
 .color-animation {
   background-color: #ffb900 !important;
   animation-name: changeColor;

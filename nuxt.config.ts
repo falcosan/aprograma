@@ -3,7 +3,6 @@ import enums from './utils/enum';
 
 export default defineNuxtConfig({
   app: {
-    pageTransition: { name: 'page' },
     rootId: '__dd',
     rootTag: 'section'
   },
