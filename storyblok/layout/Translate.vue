@@ -1,24 +1,32 @@
 <template>
-  <div class="translate-container text-xs">
+  <div class="translate text-xs">
     <div
-      v-if="translateTransition"
-      :class="`current-language cursor-pointer ${styleCurrentLanguage}`"
-      @click="$emit('current-lang-action')"
+      class="translate-container relative h-full z-10"
+      :style="`background-color: ${parentBackgroundColor};`"
     >
-      <template v-for="selector in blok">
-        <span
-          v-if="
-            cutLanguage(selector) === languageGet ||
-            (cutLanguage(selector) === 'en' && languageGet === '')
-          "
-          :key="selector._uid"
-          class="language-item"
-        >
-          {{ selector.language.toUpperCase() }}
-        </span>
-      </template>
+      <div
+        v-if="translateTransition"
+        :class="`current-language cursor-pointer ${styleCurrentLanguage}`"
+        @click="$emit('current-lang-action')"
+      >
+        <template v-for="selector in blok">
+          <span
+            v-if="
+              cutLanguage(selector) === languageGet ||
+              (cutLanguage(selector) === 'en' && languageGet === '')
+            "
+            :key="selector._uid"
+            class="language-item"
+          >
+            {{ selector.language.toUpperCase() }}
+          </span>
+        </template>
+      </div>
     </div>
-    <ul :class="`translate-list ${styleTranslateList}`">
+    <ul
+      :class="`translate-list ${styleTranslateList}`"
+      :style="`background-color: ${parentBackgroundColor};`"
+    >
       <template v-for="language in blok">
         <li
           v-if="
@@ -28,13 +36,7 @@
               : true
           "
           :key="language._uid"
-          :class="`translate-item cursor-pointer ${styleTranslateItem} ${
-            !translateTransition &&
-            (cutLanguage(language) === languageGet ||
-              (cutLanguage(language) === 'en' && languageGet === ''))
-              ? 'bg-neutral-800 text-white'
-              : ''
-          }`"
+          :class="`translate-item cursor-pointer ${styleTranslateItem}`"
           @click="
             languageAction(language.language);
             $emit('translate-list-action');
@@ -59,6 +61,10 @@ export default defineNuxtComponent({
     translateTransition: {
       type: Boolean,
       default: false
+    },
+    parentBackgroundColor: {
+      type: String,
+      default: ''
     },
     styleTranslateItem: {
       type: String,
