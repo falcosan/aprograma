@@ -149,7 +149,7 @@
             </ul>
           </div>
           <div v-else class="carousel-container">
-            <transition-group
+            <TransitionGroup
               tag="ul"
               class="carousel relative grid rounded"
               enter-from-class="opacity-0"
@@ -183,7 +183,7 @@
                   :container-width="fullWidth"
                 />
               </li>
-            </transition-group>
+            </TransitionGroup>
             <div
               v-if="!blok.hide_dots"
               class="dot-container relative w-max max-w-1/2 flex flex-wrap justify-center z-20 my-10 mx-auto"

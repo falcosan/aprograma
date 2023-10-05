@@ -1,7 +1,10 @@
 <template>
   <main class="main min-h-screen overflow-x-hidden">
     <div
-      :class="['main-wrapper relative pt-10 mb-10 overflow-hidden', { 'md:pt-20 md:mb-20': isDesktop }]"
+      :class="[
+        'main-wrapper relative pt-10 mb-10 overflow-hidden',
+        { 'md:pt-20 md:mb-20': isDesktop }
+      ]"
     >
       <div
         v-if="blok.show_background_mask"
@@ -32,7 +35,7 @@
         <slot name="main" />
       </div>
     </div>
-    <transition enter-active-class="duration-100" enter-class="opacity-0">
+    <Transition enter-active-class="duration-100" enter-class="opacity-0">
       <ImageComponent
         v-if="$imageValidation(blok.background_media.filename)"
         :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
@@ -60,7 +63,7 @@
           :type="`video/${blok.background_media.filename.toLowerCase().split('.').pop()}`"
         />
       </video>
-    </transition>
+    </Transition>
   </main>
 </template>
 <script>

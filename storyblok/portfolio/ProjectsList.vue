@@ -1,5 +1,5 @@
 <template>
-  <transition
+  <Transition
     enter-from-class="opacity-0"
     leave-to-class="opacity-0"
     enter-active-class="transition duration-150"
@@ -30,7 +30,7 @@
         />
       </ul>
     </div>
-  </transition>
+  </Transition>
 </template>
 <script>
 import { storeToRefs } from 'pinia';
