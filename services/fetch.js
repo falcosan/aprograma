@@ -40,7 +40,7 @@ export async function fetchFeed(lang) {
   dataFiltered(data).forEach(post => {
     feed.item({
       title: post.content.title,
-      image: post.content.file.filename ? post.content.file.filename : enums.rss.image,
+      image: post.content.file?.filename ?? enums.rss.image,
       guid: post.id,
       author: post.content.author,
       url: `${process.env.NUXT_ENV_DOMAIN}${enums.rss.route}/${post.slug}`,
@@ -48,7 +48,7 @@ export async function fetchFeed(lang) {
       custom_elements: [{ 'content:encoded': markdownToHtml(post.content.long_text) }],
       date: new Date(post.content.date),
       enclosure: {
-        url: post.content.file.filename ? post.content.file.filename : enums.rss.image,
+        url: post.content.file?.filename ?? enums.rss.image,
         length: 0,
         type: 'image/jpeg'
       }
