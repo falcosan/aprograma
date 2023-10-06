@@ -5,7 +5,7 @@
       :style="`background-color: ${backgroundColor};`"
     >
       <div
-        class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg flex justify-between"
+        class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex justify-between"
       >
         <RouteComponent
           set-active="pb-1 border-t-4 border-gray-300"
@@ -61,7 +61,7 @@
       :style="`background-color: ${backgroundColor};`"
     >
       <ul
-        class="menu-wrapper wrapper-down w-full h-full max-w-sm xs:max-w-md sm:max-w-lg grid grid-cols-3"
+        class="menu-wrapper wrapper-down w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl grid grid-cols-3"
       >
         <li
           v-for="item in $contentByName(blok.body, 'Route')"
@@ -89,15 +89,14 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
+    const { sizes } = useScreen();
     const { $binaryControl } = useNuxtApp();
     const { isDesktopOrTablet } = useDevice();
-    const { sizes, scrollPosition } = useScreen();
     const state = reactive({
       timer: 0,
-      expanded: false,
-      topPosition: false
+      expanded: false
     });
-    const { topPosition, expanded, timer } = toRefs(state);
+    const { expanded, timer } = toRefs(state);
     const webName = enums.name;
     const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
     const backgroundColorMenu = computed(() =>
@@ -121,19 +120,6 @@ export default defineNuxtComponent({
         timer.value = 0;
       }
     };
-    const headerPosition = () => {
-      if (scrollPosition.value <= 1) topPosition.value = true;
-      else topPosition.value = false;
-    };
-    watch(
-      () => sizes.value.md,
-      () => (expanded.value = false)
-    );
-    watch(
-      () => scrollPosition.value,
-      () => headerPosition(),
-      { immediate: true }
-    );
     return {
       sizes,
       webName,
@@ -141,7 +127,6 @@ export default defineNuxtComponent({
       expandOut,
       expandStill,
       logoColors,
-      topPosition,
       backgroundColor,
       isDesktopOrTablet,
       backgroundColorMenu
