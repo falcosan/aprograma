@@ -20,7 +20,7 @@
     :href="blok.external_link ? blok.path : undefined"
     :rel="blok.external_link ? 'noopener noreferrer' : undefined"
     :target="blok.external_link ? '_blank' : undefined"
-    :title="blok.title && blok.icon_item ? blok.title : undefined"
+    :title="blok.title || undefined"
   >
     <span
       v-if="blok.title && !iconItem && !blok.icon_item"
@@ -59,7 +59,7 @@
     :href="externalLink ? to : undefined"
     :rel="externalLink ? 'noopener noreferrer' : undefined"
     :target="externalLink ? '_blank' : undefined"
-    :title="title && iconItem ? title : undefined"
+    :title="title || undefined"
   >
     <span v-if="title && !iconItem" class="item-text break-words">{{ title }}</span>
     <slot v-else name="icon" />
