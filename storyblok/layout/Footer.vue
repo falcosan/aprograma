@@ -83,14 +83,11 @@ export default defineNuxtComponent({
   },
   components: { IconComponent, RouteComponent },
   setup(props) {
-    const { isDesktopOrTablet } = useDevice();
-    const { sizes, scrollPosition } = useScreen();
     const { languageGet } = storeToRefs(store.language());
     const { $binaryControl, $languageCase } = useNuxtApp();
     const state = reactive({
       charIndex: 0,
       typewriter: '',
-      expanded: false,
       currentEye: false,
       setEyes: undefined,
       typewriterIndex: 0,
@@ -101,7 +98,6 @@ export default defineNuxtComponent({
     const webName = enums.name;
     const {
       setEyes,
-      expanded,
       charIndex,
       currentEye,
       typewriter,
@@ -119,12 +115,6 @@ export default defineNuxtComponent({
       } else return '';
     });
     const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
-    const expandIn = () => {
-      if (!expanded.value) expanded.value = true;
-    };
-    const expandOut = () => {
-      if (expanded.value) expanded.value = false;
-    };
     const eraseText = () => {
       if (words.value && charIndex.value) {
         typewriter.value = words.value.substring(0, charIndex.value - 1);
@@ -170,21 +160,15 @@ export default defineNuxtComponent({
         currentEye.value = !currentEye.value;
       }, '1000');
     };
-    watch(scrollPosition, () => expandOut());
-    watch(languageGet, () => restartTypewriter());
+    watch(languageGet, restartTypewriter);
     watch(currentEye, showEyes, { immediate: true });
     typeText();
     return {
-      sizes,
       webName,
-      expanded,
-      expandIn,
-      expandOut,
       currentEye,
       typewriter,
       currentYear,
-      backgroundColor,
-      isDesktopOrTablet
+      backgroundColor
     };
   }
 });
