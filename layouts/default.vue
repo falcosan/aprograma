@@ -16,7 +16,7 @@ const { data: layout } = await useAsyncData(
     watch: [languageGet]
   }
 );
-watch(languageGet, language => seoLayout({ language }), { immediate: true });
+watch(languageGet, val => seoLayout({ language: val }), { immediate: true });
 </script>
 
 <template>

@@ -33,6 +33,7 @@
           size="2.75rem"
         />
         <TranslateComponent
+          v-click-outside:[false]="toggleExpanded"
           translate-transition
           :class="[
             'translate-header w-2/12',
@@ -48,10 +49,10 @@
           style-translate-item="p-3 text-center"
           :blok="$contentByName(blok.body, 'Translate')"
           :parent-background-color="backgroundColor"
-          @translate-list-action="expanded = false"
+          @translate-list-action="toggleExpanded(false)"
           @current-lang-action="expanded = !expanded"
           @mouseenter="isDesktopOrTablet ? expandStill() : ''"
-          @mouseleave="isDesktopOrTablet ? expandOut() : (expanded = false)"
+          @mouseleave="isDesktopOrTablet ? expandOut() : toggleExpanded(false)"
         />
       </div>
     </nav>
@@ -107,10 +108,12 @@ export default defineNuxtComponent({
       if (colors.length) return colors;
       else return [props.blok.logo_colors.color, props.blok.logo_colors.color];
     });
+    const toggleExpanded = state => (expanded.value = state);
+
     const expandOut = () => {
       if (expanded.value) {
         timer.value = setTimeout(() => {
-          expanded.value = false;
+          toggleExpanded(false);
         }, 700);
       }
     };
@@ -127,6 +130,7 @@ export default defineNuxtComponent({
       expandOut,
       expandStill,
       logoColors,
+      toggleExpanded,
       backgroundColor,
       isDesktopOrTablet,
       backgroundColorMenu
