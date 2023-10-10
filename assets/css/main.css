@@ -121,7 +121,7 @@ input {
   cursor: pointer;
 }
 .markdown iframe {
-  @apply aspect-[9/16];
+  @apply aspect-square;
 }
 .markdown-modal {
   position: fixed;
