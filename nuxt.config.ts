@@ -91,8 +91,5 @@ export default defineNuxtConfig({
       routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
     },
     compressPublicAssets: { gzip: true, brotli: true }
-  },
-  experimental: {
-    watcher: 'chokidar'
   }
 });
