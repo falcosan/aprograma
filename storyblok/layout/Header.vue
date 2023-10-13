@@ -58,7 +58,7 @@
     </nav>
     <div class="header-loader header-loader-responsive"><slot name="header" /></div>
     <nav
-      class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t drop-shadow-2xl"
+      class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t shadow-[0_20px_20px_0_#0000000d]"
       :style="`background-color: ${backgroundColor};`"
     >
       <ul

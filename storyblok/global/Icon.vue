@@ -1,8 +1,10 @@
 <template>
   <div
-    :class="`icon-wrapper grid gap-5 justify-center items-center select-none ${
-      blok && !blok.remove_space ? 'p-10' : ''
-    } ${blok && (blok.tag === 'button' || blok.tag === 'a') ? 'cursor-pointer' : ''}`"
+    :class="[
+      'icon-wrapper grid gap-5 justify-center items-center select-none',
+      { 'p-10': blok && !blok.remove_space },
+      { 'cursor-pointer': blok && (blok.tag === 'button' || blok.tag === 'a') }
+    ]"
     @click="animateMenu ? (open = !open) : ''"
   >
     <ImageComponent
