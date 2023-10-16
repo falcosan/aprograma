@@ -22,13 +22,13 @@
   },
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
-    "@pinia/nuxt": "^0.4.11",
+    "@pinia/nuxt": "^0.5.0",
     "@storyblok/nuxt": "^5.7.3",
     "@vueuse/core": "^10.5.0",
     "axios": "^1.5.1",
     "highlight.js": "^11.9.0",
-    "marked": "^9.1.0",
-    "pinia": "^2.1.6"
+    "marked": "^9.1.2",
+    "pinia": "^2.1.7"
   },
   "devDependencies": {
     "@nuxt/image": "^1.0.0-rc.1",
@@ -40,7 +40,7 @@
     "@vite-pwa/nuxt": "^0.1.1",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
     "nuxt": "3.6.0",
     "nuxt-security": "^0.14.4",
     "rss": "^1.2.2",
