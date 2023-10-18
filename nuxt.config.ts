@@ -1,5 +1,6 @@
 import { isProduction, isDevelopment } from 'std-env';
 import enums from './utils/enum';
+import { fetchStories } from './services/fetch.js';
 
 export default defineNuxtConfig({
   app: {
@@ -87,9 +88,22 @@ export default defineNuxtConfig({
     routeRules: {
       '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
     },
-    prerender: {
-      routes: ['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
-    },
     compressPublicAssets: { gzip: true, brotli: true }
+  },
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (!nitroConfig.prerender?.routes || nitroConfig.dev) return;
+      const routes = ['/'];
+      try {
+        await fetchStories(routes);
+        nitroConfig.prerender.routes.push(...routes);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        nitroConfig.prerender.routes.push(
+          ...['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
+        );
+      }
+    }
   }
 });
