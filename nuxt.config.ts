@@ -24,7 +24,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
-    // 'nuxt-security',
+    'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
@@ -46,24 +46,24 @@ export default defineNuxtConfig({
       '3xl': 1920
     }
   },
-  // security: {
-  //   headers: {
-  //     xXSSProtection: '1',
-  //     crossOriginEmbedderPolicy: 'unsafe-none',
-  //     contentSecurityPolicy: {
-  //       'base-uri': ["'self'"],
-  //       'object-src': ["'none'"],
-  //       'form-action': ["'self'"],
-  //       'frame-ancestors': ["'self'"],
-  //       'upgrade-insecure-requests': true,
-  //       'font-src': ["'self'", 'https:', 'data:'],
-  //       'img-src': ['*', "'self'", 'https:', 'data:'],
-  //       'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-  //       'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-  //       'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
-  //     }
-  //   }
-  // },
+  security: {
+    headers: {
+      xXSSProtection: '1',
+      crossOriginEmbedderPolicy: 'unsafe-none',
+      contentSecurityPolicy: {
+        'base-uri': ["'self'"],
+        'object-src': ["'none'"],
+        'form-action': ["'self'"],
+        'frame-ancestors': ["'self'"],
+        'upgrade-insecure-requests': true,
+        'font-src': ["'self'", 'https:', 'data:'],
+        'img-src': ['*', "'self'", 'https:', 'data:'],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+      }
+    }
+  },
   device: {
     refreshOnResize: true
   },
