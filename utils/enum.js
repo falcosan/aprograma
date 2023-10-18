@@ -3,6 +3,7 @@ const description = `Coding can be defined in many ways, sometimes even stressfu
 
 export default {
   name,
+  routes: `https://api.storyblok.com/v2/cdn/links?token=${process.env.NUXT_ENV_ACCESS_TOKEN}&cv=CURRENT_TIMESTAMP&version=published`,
   meta: {
     title: `${name} - A break from stressful coding`,
     description,

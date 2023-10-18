@@ -10,7 +10,7 @@
   "scripts": {
     "push:dev": "git checkout develop && git add -A && git commit -m 'develop' && git push origin develop",
     "push:prod": "git checkout develop && git fetch origin master && git merge master && git push origin develop:master && git fetch origin master:master",
-    "build": "nuxt build --prerender",
+    "build": "nuxt build",
     "dev": "nuxt dev",
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
