@@ -85,24 +85,31 @@ export default defineNuxtConfig({
     extractCSS: process.env.NODE_ENV !== 'development'
   },
   nitro: {
+    prerender: {
+      routes: [
+        '/',
+        `/${enums.sitemap}`,
+        ...Object.values(enums.rss)
+          .map(item => {
+            if (item instanceof Object) return `/${item.path}`;
+            else return undefined;
+          })
+          .filter(Boolean)
+      ]
+    },
     routeRules: {
       '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
     },
     compressPublicAssets: { gzip: true, brotli: true }
   },
   hooks: {
-    async 'nitro:config'(nitroConfig) {
-      if (!nitroConfig.prerender?.routes || nitroConfig.dev) return;
-      const routes = ['/'];
+    async 'prerender:routes'({ routes }) {
       try {
-        await fetchStories(routes);
-        nitroConfig.prerender.routes.push(...routes);
+        const dynamicRoutes = [] as string[];
+        await fetchStories(dynamicRoutes);
+        dynamicRoutes.forEach(route => routes.add(route));
       } catch (err) {
         console.error(err);
-      } finally {
-        nitroConfig.prerender.routes.push(
-          ...['/feedeng.xml', '/feedesp.xml', '/feedita.xml', '/sitemap.xml']
-        );
       }
     }
   }
