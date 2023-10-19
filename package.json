@@ -31,7 +31,7 @@
     "pinia": "^2.1.7"
   },
   "devDependencies": {
-    "@nuxt/image": "^1.0.0-rc.1",
+    "@nuxt/image": "^1.0.0",
     "@nuxtjs/device": "^3.1.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/tailwindcss": "^6.8.0",
@@ -41,7 +41,7 @@
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "nuxt": "3.6.0",
+    "nuxt": "^3.6.0",
     "nuxt-security": "^0.14.4",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
