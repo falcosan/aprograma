@@ -88,7 +88,7 @@ export async function fetchStories(routes, page = 1) {
     const res = await fetch(`${enums.routes}&per_page=${perPage}&page=${page}`);
     const data = await res.json();
     Object.values(data.links).forEach(link => {
-      if (!exclude.includes(link.slug) && !link.is_startpage) routes.push(`/${link.slug}`);
+      if (!exclude.includes(link.slug)) routes.push(`/${link.slug}`);
     });
     const total = res.headers.get('total');
     const maxPage = Math.ceil(total / perPage);
