@@ -1,5 +1,5 @@
 import { isProduction, isDevelopment } from 'std-env';
-import enums from './utils/enum';
+import enums from './utils/enums';
 import { fetchStories } from './services/fetch.js';
 
 export default defineNuxtConfig({
