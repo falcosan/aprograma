@@ -99,7 +99,6 @@
   </div>
 </template>
 <script>
-import enums from '@/utils/enum';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({

@@ -80,7 +80,6 @@ import LogoComponent from '@/storyblok/global/Logo';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
 import TranslateComponent from '@/storyblok/layout/Translate';
-import enums from '@/utils/enum';
 export default defineNuxtComponent({
   components: { TranslateComponent, LogoComponent, RouteComponent, IconComponent },
   props: {
