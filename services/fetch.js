@@ -87,7 +87,7 @@ export async function fetchStories() {
   const res = await fetch(enums.routes);
   const data = await res.json();
   Object.values(data.links).forEach(link => {
-    if (!exclude.includes(link.slug) && !link.is_startpage) routes.push(`/${link.slug}`);
+    if (link && !exclude.includes(link.slug) && !link.is_startpage) routes.push(`/${link.slug}`);
   });
   return routes;
 }
