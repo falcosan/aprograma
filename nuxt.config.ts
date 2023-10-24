@@ -81,8 +81,11 @@ export default defineNuxtConfig({
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
-  webpack: {
-    extractCSS: process.env.NODE_ENV !== 'development'
+  vite: {
+    build: {
+      minify: 'terser',
+      chunkSizeWarningLimit: 1000
+    }
   },
   nitro: {
     prerender: {
