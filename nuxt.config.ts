@@ -91,28 +91,29 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    prerender: {
-      routes: [
-        '/',
-        `/${enums.sitemap}`,
-        ...Object.values(enums.rss)
-          .map(item => {
-            if (item instanceof Object) return `/${item.path}`;
-            else return undefined;
-          })
-          .filter(Boolean)
-      ]
-    },
     routeRules: {
       '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
     },
     compressPublicAssets: { gzip: true, brotli: true }
   },
   hooks: {
+    'nitro:config'(nitroConfig) {
+      if (!nitroConfig.prerender?.routes || nitroConfig.dev) return;
+      const routes = [
+        '/',
+        `/${enums.sitemap}`,
+        ...Object.values(enums.rss)
+          .map(item => {
+            if (item instanceof Object) return `/${item.path}`;
+            else return '';
+          })
+          .filter(Boolean)
+      ];
+      nitroConfig.prerender.routes.push(...routes);
+    },
     async 'prerender:routes'({ routes }) {
       try {
-        const dynamicRoutes = [] as string[];
-        await fetchStories(dynamicRoutes);
+        const dynamicRoutes = await fetchStories();
         dynamicRoutes.forEach(route => routes.add(route));
       } catch (err) {
         console.error(err);
