@@ -84,7 +84,7 @@ export async function fetchSitemap() {
 export async function fetchStories() {
   const routes = [];
   const exclude = ['home', 'layout'];
-  const res = await fetch(enums.routes);
+  const res = await fetch(enums.routes(process.env.NUXT_ENV_ACCESS_TOKEN));
   const data = await res.json();
   Object.values(data.links).forEach(link => {
     if (link && !exclude.includes(link.slug) && !link.is_startpage) routes.push(`/${link.slug}`);

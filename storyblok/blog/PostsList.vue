@@ -143,7 +143,7 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup(props) {
+  async setup(props) {
     const { addPosts } = store.posts();
     const { isDesktop } = useDevice();
     const { $languageCase } = useNuxtApp();
@@ -155,7 +155,7 @@ export default defineNuxtComponent({
       showFilters: false
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    (async () => await useAsyncData('posts', addPosts, { watch: [languageGet] }))();
+    await useAsyncData('posts', addPosts, { watch: [languageGet] });
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {

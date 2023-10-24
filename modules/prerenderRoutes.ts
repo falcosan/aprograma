@@ -4,7 +4,7 @@ import enums from '../utils/enums';
 
 export default defineNuxtModule({
   async setup() {
-    const routes = [
+    const staticRoutes = [
       '/',
       `/${enums.sitemap}`,
       ...Object.values(enums.rss)
@@ -14,12 +14,8 @@ export default defineNuxtModule({
         })
         .filter(Boolean)
     ];
-    try {
-      const dynamicRoutes = await fetchStories();
-      routes.push(...dynamicRoutes);
-    } catch (err) {
-      console.error(err);
-    }
+    const dynamicRoutes = await fetchStories();
+    const routes = [...staticRoutes, ...dynamicRoutes];
     addPrerenderRoutes(routes);
   }
 });

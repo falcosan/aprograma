@@ -61,12 +61,12 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup(props) {
+  async setup(props) {
     const { addProjects } = store.projects();
     const { sizes } = useScreen();
     const { projectsGet } = storeToRefs(store.projects());
     const { languageGet } = storeToRefs(store.language());
-    (async () => await useAsyncData('projects', addProjects, { watch: [languageGet] }))();
+    await useAsyncData('projects', addProjects, { watch: [languageGet] });
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
