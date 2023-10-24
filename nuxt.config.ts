@@ -83,6 +83,10 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
+      minify: 'terser',
+      terserOptions: {
+        toplevel: true
+      },
       chunkSizeWarningLimit: 1000
     }
   },
