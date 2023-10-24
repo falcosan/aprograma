@@ -32,10 +32,10 @@
         />
       </div>
       <Transition
-        enter-active-class="duration-100"
-        leave-active-class="duration-100"
-        enter-class="opacity-0"
+        enter-from-class="opacity-0"
         leave-to-class="opacity-0"
+        enter-active-class="transition duration-100"
+        leave-active-class="transition duration-100"
       >
         <ul
           v-if="showFilters"
