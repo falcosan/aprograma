@@ -58,7 +58,7 @@
           class="post-intro text-xl sm:text-2xl"
           v-text="blok.intro"
         />
-        <div class="post-info">
+        <div class="post-info mb-10">
           <p
             :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
             class="post-author text-sm font-semibold"
@@ -73,7 +73,7 @@
           />
           <ul
             v-if="sortedCategories?.length"
-            class="post-categories flex flex-wrap justify-end mt-5 -mb-1.5 -mx-1.5"
+            class="post-categories flex flex-wrap mt-5 -mb-1.5 -mx-1.5"
           >
             <li
               v-for="(category, index) in sortedCategories"
@@ -91,7 +91,7 @@
         </div>
         <article
           :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
-          :class="`post-article markdown block my-5 ${setAlignText}`"
+          :class="`post-article markdown block mb-5 ${setAlignText}`"
           v-html="markdownToHtml(blok.long_text)"
         />
       </div>

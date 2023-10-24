@@ -35,7 +35,7 @@
           />
         </div>
         <div
-          :class="`teaser-text w-full flex flex-col flex-auto justify-between space-y-2.5 lg:space-y-px 2xl:space-y-0 p-5 ${
+          :class="`teaser-text w-full flex flex-col flex-auto justify-between p-5 ${
             rowContainer || sliderContainer || carouselContainer || containerContainer
               ? ''
               : 'lg:w-1/2'
@@ -46,31 +46,33 @@
             '#e0e0e0'
           )}; color: ${$binaryControl(postContent.text_color, 'color')};`"
         >
-          <div class="text-description">
-            <span class="teaser-title mb-1 overflow-hidden text-lg sm:text-xl">
-              {{ postContent.title }}
-            </span>
-            <span class="teaser-intro h-12 mb-1.5 overflow-hidden leading-relaxed text-sm">
-              {{ postContent.intro }}
-            </span>
-          </div>
-          <ul
-            v-if="sortedCategories?.length"
-            class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 mt-0 overflow-x-auto"
-          >
-            <li
-              v-for="(category, index) in sortedCategories"
-              :key="index"
-              class="teaser-category text-xs p-2 m-1 rounded shadow italic brightness-90"
-              :style="`background-color: ${$binaryControl(
-                postContent.background_color,
-                'color',
-                '#e0e0e0'
-              )};`"
+          <div class="text-body">
+            <div class="text-description mb-2.5">
+              <span class="teaser-title mb-1 overflow-hidden text-lg sm:text-xl">
+                {{ postContent.title }}
+              </span>
+              <span class="teaser-intro h-12 overflow-hidden leading-relaxed text-sm">
+                {{ postContent.intro }}
+              </span>
+            </div>
+            <ul
+              v-if="sortedCategories?.length"
+              class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 mt-0 xs:mb-2.5 md:mb-0 xl:mb-2.5 overflow-x-auto"
             >
-              {{ category }}
-            </li>
-          </ul>
+              <li
+                v-for="(category, index) in sortedCategories"
+                :key="index"
+                class="teaser-category text-xs p-2 m-1 rounded shadow italic brightness-90"
+                :style="`background-color: ${$binaryControl(
+                  postContent.background_color,
+                  'color',
+                  '#e0e0e0'
+                )};`"
+              >
+                {{ category }}
+              </li>
+            </ul>
+          </div>
           <span
             class="teaser-date flex-none self-end text-xs text-right"
             v-text="changeDate(postContent.date)"
