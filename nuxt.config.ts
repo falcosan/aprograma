@@ -83,15 +83,6 @@ export default defineNuxtConfig({
   },
   vite: {
     build: {
-      minify: 'terser',
-      terserOptions: {
-        module: true,
-        compress: {
-          unsafe: true
-        },
-        keep_fnames: true,
-        keep_classnames: true
-      },
       chunkSizeWarningLimit: 1000
     }
   },
