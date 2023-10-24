@@ -45,6 +45,7 @@
     "nuxt-security": "^0.14.4",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
+    "terser": "^5.22.0",
     "typescript": "^5.2.2",
     "vue-gtag-next": "^1.14.0"
   },
