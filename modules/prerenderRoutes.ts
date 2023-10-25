@@ -1,11 +1,10 @@
 import { defineNuxtModule, addPrerenderRoutes } from '@nuxt/kit';
-// import { fetchStories } from '../services/fetch';
+
 import enums from '../utils/enums';
 
 export default defineNuxtModule({
   setup() {
-    const staticRoutes = [
-      // '/',
+    const routes = [
       `/${enums.sitemap}`,
       ...Object.values(enums.rss)
         .map(item => {
@@ -13,11 +12,6 @@ export default defineNuxtModule({
           else return '';
         })
         .filter(Boolean)
-    ];
-    // const dynamicRoutes = await fetchStories();
-    const routes = [
-      ...staticRoutes
-      // ...dynamicRoutes
     ];
     addPrerenderRoutes(routes);
   }
