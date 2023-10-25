@@ -39,7 +39,7 @@ watch(languageGet, val => seoLayout({ language: val }), { immediate: true });
       :blok="component"
     >
       <template #header><NuxtLoadingIndicator /></template>
-      <template #main><slot /></template>
+      <template #main><slot :key="languageGet" /></template>
     </component>
   </div>
 </template>
