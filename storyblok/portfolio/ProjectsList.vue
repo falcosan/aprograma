@@ -64,12 +64,16 @@ export default defineNuxtComponent({
     const { locale } = useI18n();
     const { sizes } = useScreen();
     const { addProjects } = store.projects();
-    const { data: projects } = await useAsyncData('projects', async () => {
-      const { stories } = await $fetch('/api/storyblok', {
-        params: { starts_with: 'portfolio', lang: locale.value }
-      });
-      return stories;
-    });
+    const { data: projects } = await useAsyncData(
+      'projects',
+      async () => {
+        const { stories } = await $fetch('/api/storyblok', {
+          params: { starts_with: 'portfolio', lang: locale.value }
+        });
+        return stories;
+      },
+      { watch: [locale] }
+    );
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
