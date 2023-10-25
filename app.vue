@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
     <VitePwaManifest />
-    <NuxtPage :page-key="route => route.fullPath" />
+    <NuxtPage />
   </NuxtLayout>
 </template>
