@@ -68,20 +68,6 @@ export default {
       }
     ]
   },
-  internationalization: [
-    {
-      code: 'en',
-      name: 'English'
-    },
-    {
-      code: 'es',
-      name: 'Español'
-    },
-    {
-      code: 'it',
-      name: 'Italiano'
-    }
-  ].map(lang => ({ file: lang.code + '.json', ...lang })),
   sitemap: 'sitemap.xml',
   rss: {
     description: "Aprograma's blog RSS",
