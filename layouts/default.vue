@@ -21,7 +21,7 @@ watch(languageGet, val => seoLayout({ language: val }), { immediate: true });
 
 <template>
   <div
-    v-if="layout.content.maintenance"
+    v-if="layout?.content.maintenance"
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
     <LogoComponent transition class="rounded max-w-full mx-auto my-0" size="50vh" />
@@ -31,7 +31,7 @@ watch(languageGet, val => seoLayout({ language: val }), { immediate: true });
       {{ $languageCase('under maintenance', 'en mantenimiento', 'in manutenzione') }}
     </h1>
   </div>
-  <div v-else class="aprograma-theme">
+  <div v-else-if="layout?.content.body" class="aprograma-theme">
     <component
       :is="resolveComponent(component.component)"
       v-for="component in layout.content.body"

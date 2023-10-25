@@ -1,4 +1,4 @@
-import { ISbStoriesParams } from 'storyblok-js-client';
+import type { ISbStoriesParams } from 'storyblok-js-client';
 import { fetchStoryblok } from '@/services/fetch';
 
 export default defineEventHandler(async event => {
