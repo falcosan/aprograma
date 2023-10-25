@@ -172,7 +172,7 @@ export default defineNuxtComponent({
           ? 'md:grid-cols-fill-medium'
           : props.sliderMode
           ? 'sm:grid-cols-fill-small'
-          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
+          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium lg:grid-cols-fill-big';
       } else {
         return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
       }
