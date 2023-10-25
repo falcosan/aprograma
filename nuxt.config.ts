@@ -83,14 +83,6 @@ export default defineNuxtConfig({
   vite: {
     build: {
       chunkSizeWarningLimit: 1000
-    },
-    server: {
-      headers: {
-        'x-auth': process.env.NUXT_ENV_X_AUTH
-      },
-      cors: {
-        origin: process.env.NUXT_ENV_DOMAIN
-      }
     }
   },
   sourcemap: {
