@@ -10,9 +10,7 @@ const { data: layout } = await useAsyncData(
     });
     return story;
   },
-  {
-    watch: [locale]
-  }
+  { watch: [locale] }
 );
 watch(locale, val => seoLayout({ language: val }), { immediate: true });
 </script>
