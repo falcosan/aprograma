@@ -153,12 +153,16 @@ export default defineNuxtComponent({
       showFilters: false
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    const { data: posts } = await useAsyncData('posts', async () => {
-      const { stories } = await $fetch('/api/storyblok', {
-        params: { starts_with: 'blog', lang: locale.value }
-      });
-      return stories;
-    });
+    const { data: posts } = await useAsyncData(
+      'posts',
+      async () => {
+        const { stories } = await $fetch('/api/storyblok', {
+          params: { starts_with: 'blog', lang: locale.value }
+        });
+        return stories;
+      },
+      { watch: [locale] }
+    );
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {

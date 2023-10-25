@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout>
     <VitePwaManifest />
-    <NuxtPage />
+    <NuxtPage :page-key="route => route.name.split('_')[0]" />
   </NuxtLayout>
 </template>
