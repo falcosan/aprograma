@@ -3,18 +3,12 @@ const { locale } = useI18n();
 const { seoStatic } = useSeo();
 const { $languageCase } = useNuxtApp();
 
-const { data: blog } = await useAsyncData(
-  'blog',
-  async () => {
-    const { story } = await $fetch('/api/storyblok', {
-      params: { slug: 'blog', lang: locale.value }
-    });
-    return story;
-  },
-  {
-    watch: [locale]
-  }
-);
+const { data: blog } = await useAsyncData('blog', async () => {
+  const { story } = await $fetch('/api/storyblok', {
+    params: { slug: 'blog', lang: locale.value }
+  });
+  return story;
+});
 watch(
   blog,
   val =>
