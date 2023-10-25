@@ -69,10 +69,8 @@
 </template>
 
 <script>
-import { storeToRefs } from 'pinia';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
-import store from '@/store';
 export default defineNuxtComponent({
   props: {
     blok: {
@@ -82,7 +80,7 @@ export default defineNuxtComponent({
   },
   components: { IconComponent, RouteComponent },
   setup(props) {
-    const { languageGet } = storeToRefs(store.language());
+    const { locale } = useI18n();
     const { $binaryControl, $languageCase } = useNuxtApp();
     const state = reactive({
       charIndex: 0,
@@ -159,7 +157,7 @@ export default defineNuxtComponent({
         currentEye.value = !currentEye.value;
       }, '1000');
     };
-    watch(languageGet, restartTypewriter);
+    watch(locale, restartTypewriter);
     watch(currentEye, showEyes, { immediate: true });
     typeText();
     return {

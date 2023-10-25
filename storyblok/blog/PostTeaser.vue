@@ -1,6 +1,6 @@
 <template>
   <li v-if="postContent" class="post-teaser w-full overflow-hidden rounded">
-    <NuxtLink :to="{ name: 'blog-slug', params: { slug: postLink } }" class="teaser-link">
+    <RouteComponent :to="{ name: 'blog-slug', params: { slug: postLink } }" class="teaser-link">
       <div
         :class="`teaser-content h-full flex flex-col ${
           rowContainer || sliderContainer || containerContainer || carouselContainer
@@ -79,12 +79,14 @@
           />
         </div>
       </div>
-    </NuxtLink>
+    </RouteComponent>
   </li>
 </template>
 
 <script>
+import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
+  components: { RouteComponent },
   props: {
     postContent: {
       type: Object,

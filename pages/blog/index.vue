@@ -1,21 +1,14 @@
 <script setup>
-import { storeToRefs } from 'pinia';
-import store from '@/store';
+const { locale } = useI18n();
 const { seoStatic } = useSeo();
 const { $languageCase } = useNuxtApp();
-const { languageGet } = storeToRefs(store.language());
-const { data: blog } = await useAsyncData(
-  'blog',
-  async () => {
-    const { story } = await $fetch('/api/storyblok', {
-      params: { slug: 'blog', lang: languageGet.value }
-    });
-    return story;
-  },
-  {
-    watch: [languageGet]
-  }
-);
+
+const { data: blog } = await useAsyncData('blog', async () => {
+  const { story } = await $fetch('/api/storyblok', {
+    params: { slug: 'blog', lang: locale.value }
+  });
+  return story;
+});
 watch(
   blog,
   val =>

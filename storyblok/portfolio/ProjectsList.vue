@@ -33,7 +33,6 @@
   </Transition>
 </template>
 <script>
-import { storeToRefs } from 'pinia';
 import store from '@/store';
 import ProjectSliderComponent from '@/storyblok/portfolio/ProjectSlider';
 import ProjectTeaserComponent from '@/storyblok/portfolio/ProjectTeaser';
@@ -61,11 +60,22 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup(props) {
-    const { addProjects } = store.projects();
+  async setup(props) {
+    const { locale } = useI18n();
     const { sizes } = useScreen();
-    const { projectsGet } = storeToRefs(store.projects());
-    const { languageGet } = storeToRefs(store.language());
+    const { addProjects } = store.projects();
+    const { data: projects } = await useAsyncData(
+      'projects',
+      async () => {
+        const { stories } = await $fetch('/api/storyblok', {
+          params: { starts_with: 'portfolio', lang: locale.value }
+        });
+        return stories;
+      },
+      {
+        watch: [locale]
+      }
+    );
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
@@ -81,12 +91,12 @@ export default defineNuxtComponent({
       }
     });
     const sortedProjects = computed(() => {
-      const projects = props.blok.projects;
-      const featuredProjects = projectsGet.value.filter(post => projects.includes(post.uuid));
-      featuredProjects.sort((a, b) => projects.indexOf(a.uuid) - projects.indexOf(b.uuid));
+      const data = props.blok.projects;
+      const featuredProjects = projects.value.filter(project => data.includes(project.uuid));
+      featuredProjects.sort((a, b) => data.indexOf(a.uuid) - data.indexOf(b.uuid));
       return featuredProjects;
     });
-    watch(languageGet, addProjects, { immediate: true });
+    watch(projects, val => addProjects(val), { immediate: true });
     return { sizes, maxProjects, sortedProjects };
   }
 });

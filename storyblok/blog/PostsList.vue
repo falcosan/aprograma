@@ -114,7 +114,6 @@
 </template>
 
 <script>
-import { storeToRefs } from 'pinia';
 import store from '@/store';
 import IconComponent from '@/storyblok/global/Icon';
 import InputComponent from '@/storyblok/global/Input';
@@ -143,18 +142,29 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup(props) {
+  async setup(props) {
+    const { locale } = useI18n();
     const { addPosts } = store.posts();
     const { isDesktop } = useDevice();
     const { $languageCase } = useNuxtApp();
-    const { postsGet } = storeToRefs(store.posts());
-    const { languageGet } = storeToRefs(store.language());
     const state = reactive({
       searchTerm: '',
       searchCategory: [],
       showFilters: false
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
+    const { data: posts } = await useAsyncData(
+      'posts',
+      async () => {
+        const { stories } = await $fetch('/api/storyblok', {
+          params: { starts_with: 'blog', lang: locale.value }
+        });
+        return stories;
+      },
+      {
+        watch: [locale]
+      }
+    );
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
@@ -170,9 +180,9 @@ export default defineNuxtComponent({
       }
     });
     const sortedPosts = computed(() => {
-      const posts = props.blok.posts;
-      const featuredPosts = postsGet.value.filter(post => posts.includes(post.uuid));
-      featuredPosts.sort((a, b) => posts.indexOf(a.uuid) - posts.indexOf(b.uuid));
+      const data = props.blok.posts;
+      const featuredPosts = posts.value.filter(post => data.includes(post.uuid));
+      featuredPosts.sort((a, b) => data.indexOf(a.uuid) - data.indexOf(b.uuid));
       return featuredPosts;
     });
     const sortedCategories = computed(() => {
@@ -255,7 +265,7 @@ export default defineNuxtComponent({
       searchCategory.value = [];
       showFilters.value = !showFilters.value;
     };
-    watch(languageGet, addPosts, { immediate: true });
+    watch(posts, val => addPosts(val), { immediate: true });
     return {
       maxPosts,
       isDesktop,

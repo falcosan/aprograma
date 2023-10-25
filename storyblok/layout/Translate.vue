@@ -12,8 +12,7 @@
         <template v-for="selector in blok">
           <span
             v-if="
-              cutLanguage(selector) === languageGet ||
-              (cutLanguage(selector) === 'en' && languageGet === '')
+              cutLanguage(selector) === locale || (cutLanguage(selector) === 'en' && locale === '')
             "
             :key="selector._uid"
             class="language-item"
@@ -31,14 +30,14 @@
         <li
           v-if="
             translateTransition
-              ? (cutLanguage(language) !== languageGet && languageGet !== '') ||
-                (cutLanguage(language) !== 'en' && languageGet === '')
+              ? (cutLanguage(language) !== locale && locale !== '') ||
+                (cutLanguage(language) !== 'en' && locale === '')
               : true
           "
           :key="language._uid"
           :class="`translate-item cursor-pointer ${styleTranslateItem}`"
           @click="
-            languageAction(language.language);
+            setLanguage(language.language);
             $emit('translate-list-action');
           "
         >
@@ -50,8 +49,6 @@
 </template>
 
 <script>
-import { storeToRefs } from 'pinia';
-import store from '@/store';
 export default defineNuxtComponent({
   props: {
     blok: {
@@ -80,17 +77,13 @@ export default defineNuxtComponent({
     }
   },
   setup() {
-    const languageStore = store.language();
-    const { languageAction } = languageStore;
-    const { languageGet } = storeToRefs(languageStore);
+    const { locale, setLocale } = useI18n();
+    const setLanguage = language => setLocale(language);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
-    onMounted(() => {
-      if (!languageGet.value) languageAction(Intl.DateTimeFormat().resolvedOptions().locale);
-    });
     return {
-      languageGet,
+      locale,
       cutLanguage,
-      languageAction
+      setLanguage
     };
   }
 });
