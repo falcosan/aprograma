@@ -18,7 +18,7 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js --fix",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare && patch-package"
   },
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
@@ -27,6 +27,7 @@
     "@vueuse/core": "^10.5.0",
     "highlight.js": "^11.9.0",
     "marked": "^9.1.2",
+    "patch-package": "^8.0.0",
     "pinia": "^2.1.7"
   },
   "devDependencies": {
