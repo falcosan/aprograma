@@ -1,5 +1,4 @@
-import { defineStore, storeToRefs } from 'pinia';
-import store from '@/store';
+import { defineStore } from 'pinia';
 
 export const useProjectsStore = defineStore('projects', {
   state: () => ({
@@ -11,12 +10,8 @@ export const useProjectsStore = defineStore('projects', {
     }
   },
   actions: {
-    async addProjects() {
-      const { languageGet } = storeToRefs(store.language());
-      const { data } = await useFetch('/api/storyblok', {
-        params: { starts_with: 'portfolio', lang: languageGet.value }
-      });
-      if (data.value?.stories.length) this.items = data.value.stories;
+    addProjects(projects) {
+      this.items = projects;
     }
   }
 });

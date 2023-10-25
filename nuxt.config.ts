@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
+    '@nuxtjs/i18n',
     'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
@@ -44,6 +45,16 @@ export default defineNuxtConfig({
       '2xl': 1600,
       '3xl': 1920
     }
+  },
+  i18n: {
+    locales: Object.values(enums.rss)
+      .map(item => {
+        if (item instanceof Object) return item.language;
+        else return '';
+      })
+      .filter(Boolean),
+    defaultLocale: 'en',
+    detectBrowserLanguage: false
   },
   security: {
     headers: {

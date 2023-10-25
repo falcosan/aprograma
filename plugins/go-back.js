@@ -2,7 +2,8 @@ export default defineNuxtPlugin(() => ({
   provide: {
     goBack: name => {
       const router = useRouter();
-      if (name) router.push({ name });
+      const localePath = useLocalePath();
+      if (name) router.push(localePath({ name }));
       else router.go(-1);
     }
   }

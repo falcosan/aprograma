@@ -1,19 +1,17 @@
 <script setup>
-import { storeToRefs } from 'pinia';
-import store from '@/store';
+const { locale } = useI18n();
 const route = useRoute();
 const { seoDynamic } = useSeo();
-const { languageGet } = storeToRefs(store.language());
 const { data: post } = await useAsyncData(
   'post',
   async () => {
     const { story } = await $fetch('/api/storyblok', {
-      params: { slug: route.path, lang: languageGet.value }
+      params: { slug: route.path, lang: locale.value }
     });
     return story;
   },
   {
-    watch: [languageGet]
+    watch: [locale]
   }
 );
 watch(post, val => seoDynamic(val), { immediate: true });

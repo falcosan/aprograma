@@ -1,22 +1,20 @@
 <script setup>
-import { storeToRefs } from 'pinia';
-import store from '@/store';
 import LogoComponent from '@/storyblok/global/Logo';
+const { locale } = useI18n();
 const { seoLayout } = useSeo();
-const { languageGet } = storeToRefs(store.language());
 const { data: layout } = await useAsyncData(
   'layout',
   async () => {
     const { story } = await $fetch('/api/storyblok', {
-      params: { slug: 'layout', lang: languageGet.value }
+      params: { slug: 'layout', lang: locale.value }
     });
     return story;
   },
   {
-    watch: [languageGet]
+    watch: [locale]
   }
 );
-watch(languageGet, val => seoLayout({ language: val }), { immediate: true });
+watch(locale, val => seoLayout({ language: val }), { immediate: true });
 </script>
 
 <template>

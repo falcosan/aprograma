@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="blok.external_link ? 'a' : RouteLink"
+    :is="blok.external_link ? 'a' : NuxtLink"
     v-if="blok && (blok.title || (blok.icon_item && blok.body.length))"
     :class="[
       'item-link h-full cursor-pointer',
@@ -16,7 +16,7 @@
         }
       ]
     ]"
-    :to="blok.external_link ? undefined : blok.path"
+    :to="blok.external_link ? undefined : localePath(blok.path)"
     :href="blok.external_link ? blok.path : undefined"
     :rel="blok.external_link ? 'noopener noreferrer' : undefined"
     :target="blok.external_link ? '_blank' : undefined"
@@ -38,9 +38,10 @@
       :carousel-mode="carouselMode"
       :container-mode="containerMode"
     />
+    <slot v-else />
   </component>
   <component
-    :is="externalLink ? 'a' : RouteLink"
+    :is="externalLink ? 'a' : NuxtLink"
     v-else
     :class="[
       `item-link h-full cursor-pointer ${
@@ -55,14 +56,15 @@
         }
       ]
     ]"
-    :to="externalLink ? undefined : to"
+    :to="externalLink ? undefined : localePath(to)"
     :href="externalLink ? to : undefined"
     :rel="externalLink ? 'noopener noreferrer' : undefined"
     :target="externalLink ? '_blank' : undefined"
     :title="title || undefined"
   >
     <span v-if="title && !iconItem" class="item-text break-words">{{ title }}</span>
-    <slot v-else name="icon" />
+    <slot v-else-if="slots.icon" name="icon" />
+    <slot />
   </component>
 </template>
 <script>
@@ -79,7 +81,7 @@ export default defineNuxtComponent({
       default: false
     },
     to: {
-      type: String,
+      type: [String, Object],
       default: ''
     },
     setActive: {
@@ -116,8 +118,9 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
+    const slots = useSlots();
     const route = useRoute();
-    const RouteLink = resolveComponent('NuxtLink');
+    const NuxtLink = resolveComponent('NuxtLink');
     const activated = computed(() => {
       const targetRoute = props.blok?.path ?? props.to;
       if (route.path === targetRoute) {
@@ -133,7 +136,7 @@ export default defineNuxtComponent({
       }
       return false;
     });
-    return { RouteLink, activated };
+    return { NuxtLink, activated, slots };
   }
 });
 </script>

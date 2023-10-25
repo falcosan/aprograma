@@ -15,54 +15,52 @@
       leave-active-class="transition duration-300"
       class="slider-wrapper relative w-full grid grid-cols-1 grid-rows-2 rounded overflow-hidden transition-opacity"
     >
-      <template v-for="(project, index) in blok" :key="project.uuid">
-        <li
-          v-show="index === frame.up || index === frame.down"
-          :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${
-            index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
-          }`"
+      <li
+        v-for="(project, index) in blok"
+        v-show="index === frame.up || index === frame.down"
+        :key="project.uuid"
+        :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${
+          index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
+        }`"
+      >
+        <RouteComponent
+          :to="{ name: 'portfolio-slug', params: { slug: project.slug } }"
+          class="project-link w-full grid grid-rows-1 grid-cols-2"
         >
-          <NuxtLink
-            :to="{ name: 'portfolio-slug', params: { slug: project.slug } }"
-            class="project-link w-full grid grid-rows-1 grid-cols-2"
+          <div
+            :class="`text-container ${
+              index % 2 == 0 ? 'col-start-1 col-end-1 text-right' : 'col-start-2 col-end-2 text-end'
+            } flex flex-col justify-center row-start-1 row-end-1`"
+            :style="`background-color: ${$binaryControl(
+              project.content.background_color,
+              'color',
+              '#e0e0e0'
+            )};`"
           >
-            <div
-              :class="`text-container ${
-                index % 2 == 0
-                  ? 'col-start-1 col-end-1 text-right'
-                  : 'col-start-2 col-end-2 text-end'
-              } flex flex-col justify-center row-start-1 row-end-1`"
-              :style="`background-color: ${$binaryControl(
-                project.content.background_color,
-                'color',
-                '#e0e0e0'
-              )};`"
+            <h2
+              class="project-text text-xl sm:text-2xl px-10 overflow-hidden"
+              :style="`color: ${$binaryControl(project.content.text_color, 'color')};`"
             >
-              <h2
-                class="project-text text-xl sm:text-2xl px-10 overflow-hidden"
-                :style="`color: ${$binaryControl(project.content.text_color, 'color')};`"
-              >
-                {{ project.content.title }}
-              </h2>
-            </div>
-            <div
-              :class="`image-container flex row-start-1 row-end-1 ${
-                index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
-              }`"
-            >
-              <ImageComponent
-                :file="project.content.image"
-                class="project-image w-full h-full object-cover object-center pointer-events-none select-none"
-                :src="project.content.image.filename"
-                :alt="project.content.image.alt"
-                width="620"
-                height="320"
-                sizes="lg:491px xl:620px"
-              />
-            </div>
-          </NuxtLink>
-        </li>
-      </template>
+              {{ project.content.title }}
+            </h2>
+          </div>
+          <div
+            :class="`image-container flex row-start-1 row-end-1 ${
+              index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
+            }`"
+          >
+            <ImageComponent
+              :file="project.content.image"
+              class="project-image w-full h-full object-cover object-center pointer-events-none select-none"
+              :src="project.content.image.filename"
+              :alt="project.content.image.alt"
+              width="620"
+              height="320"
+              sizes="lg:491px xl:620px"
+            />
+          </div>
+        </RouteComponent>
+      </li>
       <li
         v-show="frame.down === blok.length && blok.length > 2"
         :key="`${indexControls}-0`"
@@ -107,8 +105,9 @@
 <script>
 import IconComponent from '@/storyblok/global/Icon';
 import ImageComponent from '@/storyblok/global/Image';
+import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
-  components: { IconComponent, ImageComponent },
+  components: { IconComponent, ImageComponent, RouteComponent },
   props: {
     blok: {
       type: Array,

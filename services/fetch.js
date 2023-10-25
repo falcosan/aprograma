@@ -12,8 +12,18 @@ export async function fetchStoryblok(
   lastCache = false,
   version = process.env.NUXT_ENV_API_VERSION
 ) {
+  const setQuery = url => {
+    const languages = Object.values(enums.rss)
+      .map(item => {
+        if (item instanceof Object) return item.language;
+        else return '';
+      })
+      .filter(Boolean);
+    const regex = new RegExp(`/(${languages.join('|')})\\b`);
+    return url.replace(regex, '');
+  };
   const Storyblok = new StoryblokClient({ accessToken: process.env.NUXT_ENV_ACCESS_TOKEN });
-  return await Storyblok.get(query, {
+  return await Storyblok.get(setQuery(query), {
     version,
     language,
     ...(lastCache && { cv: 'CURRENT_TIMESTAMP' }),

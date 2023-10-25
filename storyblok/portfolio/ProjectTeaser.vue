@@ -3,7 +3,7 @@
     v-if="projectContent"
     class="project-teaser w-full h-full aspect-square overflow-hidden rounded"
   >
-    <NuxtLink
+    <RouteComponent
       :key="projectContent._uid"
       :to="{ name: 'portfolio-slug', params: { slug: projectLink } }"
       class="teaser-link"
@@ -38,14 +38,15 @@
           >
         </div>
       </div>
-    </NuxtLink>
+    </RouteComponent>
   </li>
 </template>
 
 <script>
 import ImageComponent from '@/storyblok/global/Image';
+import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
-  components: { ImageComponent },
+  components: { ImageComponent, RouteComponent },
   props: {
     projectContent: {
       type: Object,

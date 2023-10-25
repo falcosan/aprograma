@@ -1,17 +1,15 @@
 <script setup>
-import { storeToRefs } from 'pinia';
-import store from '@/store';
-const { languageGet } = storeToRefs(store.language());
+const { locale } = useI18n();
 const { data: home } = await useAsyncData(
   'home',
   async () => {
     const { story } = await $fetch('/api/storyblok', {
-      params: { slug: 'home', lang: languageGet.value }
+      params: { slug: 'home', lang: locale.value }
     });
     return story;
   },
   {
-    watch: [languageGet]
+    watch: [locale]
   }
 );
 </script>
