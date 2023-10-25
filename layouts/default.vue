@@ -31,7 +31,7 @@ watch(languageGet, val => seoLayout({ language: val }), { immediate: true });
       {{ $languageCase('under maintenance', 'en mantenimiento', 'in manutenzione') }}
     </h1>
   </div>
-  <div v-else class="aprograma-theme">
+  <div v-else :key="languageGet" class="aprograma-theme">
     <component
       :is="resolveComponent(component.component)"
       v-for="component in layout.content.body"
