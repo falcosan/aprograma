@@ -84,9 +84,6 @@ export default defineNuxtComponent({
     const { languageAction } = languageStore;
     const { languageGet } = storeToRefs(languageStore);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
-    onMounted(() => {
-      if (!languageGet.value) languageAction(Intl.DateTimeFormat().resolvedOptions().locale);
-    });
     return {
       languageGet,
       cutLanguage,

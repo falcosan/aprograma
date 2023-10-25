@@ -2,9 +2,8 @@ import { defineStore } from 'pinia';
 
 export const useLanguageStore = defineStore('language', {
   state() {
-    const locale = useCookie('locale');
     return {
-      language: locale.value ?? ''
+      language: ''
     };
   },
   getters: {
@@ -14,9 +13,7 @@ export const useLanguageStore = defineStore('language', {
   },
   actions: {
     languageAction(setLanguage) {
-      const locale = useCookie('locale');
       this.language = setLanguage;
-      locale.value = this.languageGet;
     }
   }
 });
