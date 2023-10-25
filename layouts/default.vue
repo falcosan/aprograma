@@ -2,12 +2,18 @@
 import LogoComponent from '@/storyblok/global/Logo';
 const { locale } = useI18n();
 const { seoLayout } = useSeo();
-const { data: layout } = await useAsyncData('layout', async () => {
-  const { story } = await $fetch('/api/storyblok', {
-    params: { slug: 'layout', lang: locale.value }
-  });
-  return story;
-});
+const { data: layout } = await useAsyncData(
+  'layout',
+  async () => {
+    const { story } = await $fetch('/api/storyblok', {
+      params: { slug: 'layout', lang: locale.value }
+    });
+    return story;
+  },
+  {
+    watch: [locale]
+  }
+);
 watch(locale, val => seoLayout({ language: val }), { immediate: true });
 </script>
 
