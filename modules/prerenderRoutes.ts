@@ -1,5 +1,4 @@
 import { defineNuxtModule, addPrerenderRoutes } from '@nuxt/kit';
-
 import enums from '../utils/enums';
 
 export default defineNuxtModule({
