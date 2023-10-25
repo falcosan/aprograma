@@ -66,7 +66,6 @@ export default defineNuxtComponent({
     const { sizes } = useScreen();
     const { projectsGet } = storeToRefs(store.projects());
     const { languageGet } = storeToRefs(store.language());
-    (async () => await useAsyncData('projects', addProjects, { watch: [languageGet] }))();
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
@@ -87,6 +86,7 @@ export default defineNuxtComponent({
       featuredProjects.sort((a, b) => projects.indexOf(a.uuid) - projects.indexOf(b.uuid));
       return featuredProjects;
     });
+    watch(languageGet, addProjects, { immediate: true });
     return { sizes, maxProjects, sortedProjects };
   }
 });

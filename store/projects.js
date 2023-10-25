@@ -16,7 +16,7 @@ export const useProjectsStore = defineStore('projects', {
       const { data } = await useFetch('/api/storyblok', {
         params: { starts_with: 'portfolio', lang: languageGet.value }
       });
-      this.items = data.value.stories;
+      if (data.value?.stories.length) this.items = data.value.stories;
     }
   }
 });
