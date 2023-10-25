@@ -18,7 +18,7 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js --fix",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare && patch-package"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@nuxtjs/robots": "^3.0.0",
@@ -27,7 +27,6 @@
     "@vueuse/core": "^10.5.0",
     "highlight.js": "^11.9.0",
     "marked": "^9.1.2",
-    "patch-package": "^8.0.0",
     "pinia": "^2.1.7"
   },
   "devDependencies": {
@@ -41,7 +40,7 @@
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "nuxt": "^3.7.1",
+    "nuxt": "^3.5.3",
     "nuxt-security": "^0.14.4",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
