@@ -90,6 +90,14 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
+    routeRules: {
+      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
+    },
     compressPublicAssets: { gzip: true, brotli: true }
+  },
+  hooks: {
+    close: nuxt => {
+      if (!nuxt.options._prepare) process.exit();
+    }
   }
 });
