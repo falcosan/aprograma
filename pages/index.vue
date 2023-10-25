@@ -1,11 +1,15 @@
 <script setup>
 const { locale } = useI18n();
-const { data: home } = await useAsyncData('home', async () => {
-  const { story } = await $fetch('/api/storyblok', {
-    params: { slug: 'home', lang: locale.value }
-  });
-  return story;
-});
+const { data: home } = await useAsyncData(
+  'home',
+  async () => {
+    const { story } = await $fetch('/api/storyblok', {
+      params: { slug: 'home', lang: locale.value }
+    });
+    return story;
+  },
+  { watch: [locale] }
+);
 </script>
 
 <template>
