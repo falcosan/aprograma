@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     rootTag: 'section'
   },
   runtimeConfig: {
-    envXAuth: process.env.NUXT_ENV_X_AUTH,
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
@@ -86,6 +85,9 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
+    routeRules: {
+      '/api/**': { cors: true, headers: { 'access-control-allow-methods': 'GET' } }
+    },
     compressPublicAssets: true
   }
   // hooks: {
