@@ -37,7 +37,7 @@
           :key="language._uid"
           :class="`translate-item cursor-pointer ${styleTranslateItem}`"
           @click="
-            setLanguage(language.language);
+            setLocale(language.language);
             $emit('translate-list-action');
           "
         >
@@ -78,12 +78,11 @@ export default defineNuxtComponent({
   },
   setup() {
     const { locale, setLocale } = useI18n();
-    const setLanguage = language => setLocale(language);
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
     return {
       locale,
-      cutLanguage,
-      setLanguage
+      setLocale,
+      cutLanguage
     };
   }
 });
