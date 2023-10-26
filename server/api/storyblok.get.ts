@@ -3,14 +3,9 @@ import { fetchStoryblok } from '@/services/fetch';
 
 export default defineEventHandler(async event => {
   const config = useRuntimeConfig();
-  const host = getRequestHeader(event, 'host');
   const auth = getResponseHeader(event, 'x-auth');
   const cors = getRequestHeader(event, 'sec-fetch-mode');
-  if (
-    auth === config.envXAuth &&
-    (cors === undefined || cors === 'cors') &&
-    new RegExp(host ?? '').test(config.public.envDomain)
-  ) {
+  if (auth === config.envXAuth && (cors === undefined || cors === 'cors')) {
     const query = getQuery(event);
     const slug = query.slug ?? '';
     const language = query.lang as ISbStoriesParams['language'];
