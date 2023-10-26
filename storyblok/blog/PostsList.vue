@@ -1,5 +1,5 @@
 <template>
-  <div v-if="sortedPosts.length" class="posts w-full">
+  <div v-if="sortedPosts.length" :key="containerKey" class="posts w-full">
     <div v-if="blok.search_action" class="post-search grid self-start mb-5">
       <input
         v-model="searchTerm"
@@ -144,15 +144,19 @@ export default defineNuxtComponent({
   },
   async setup(props) {
     const { locale } = useI18n();
-    const { addPosts } = store.posts();
     const { isDesktop } = useDevice();
+    const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
     const state = reactive({
       searchTerm: '',
+      containerKey: 0,
       searchCategory: [],
       showFilters: false
     });
-    const { searchTerm, searchCategory, showFilters } = toRefs(state);
+    const { searchTerm, containerKey, searchCategory, showFilters } = toRefs(state);
+    onMounted(() => {
+      if (props.sliderMode || props.carouselMode || props.containerMode) containerKey.value++;
+    });
     const { data: posts } = await useAsyncData(
       'posts',
       async () => {
@@ -166,15 +170,15 @@ export default defineNuxtComponent({
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
-          return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
+          return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
         }
         return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
           : props.sliderMode
           ? 'sm:grid-cols-fill-small'
-          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
+          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       } else {
-        return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
+        return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       }
     });
     const sortedPosts = computed(() => {
@@ -268,10 +272,11 @@ export default defineNuxtComponent({
       maxPosts,
       isDesktop,
       searchTerm,
-      searchQuery,
       sortedPosts,
+      searchQuery,
       showFilters,
       filterSearch,
+      containerKey,
       searchCategory,
       showCategories,
       sortedCategories,

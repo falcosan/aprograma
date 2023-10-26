@@ -1,36 +1,29 @@
 <template>
-  <Transition
-    enter-from-class="opacity-0"
-    leave-to-class="opacity-0"
-    enter-active-class="transition duration-150"
-    leave-active-class="transition duration-150"
-  >
-    <div v-if="sortedProjects.length" class="projects w-full">
-      <ProjectSliderComponent
-        v-if="
-          sizes.lg &&
-          blok.show_slider &&
-          !blok.row_container &&
-          sortedProjects.length > 2 &&
-          !sliderMode
-        "
-        :blok="sortedProjects"
+  <div v-if="sortedProjects.length" :key="containerKey" class="projects w-full">
+    <ProjectSliderComponent
+      v-if="
+        sizes.lg &&
+        !sliderMode &&
+        blok.show_slider &&
+        !blok.row_container &&
+        sortedProjects.length > 2
+      "
+      :blok="sortedProjects"
+    />
+    <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
+      <ProjectTeaserComponent
+        v-for="project in sortedProjects"
+        :key="project.uuid"
+        :project-link="project.slug"
+        :project-content="project.content"
+        :row-container="blok.row_container"
+        :slider-container="sliderMode"
+        :carousel-container="carouselMode"
+        :container-container="containerMode"
+        :container-width="containerWidth"
       />
-      <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
-        <ProjectTeaserComponent
-          v-for="project in sortedProjects"
-          :key="project.uuid"
-          :project-link="project.slug"
-          :project-content="project.content"
-          :row-container="blok.row_container"
-          :slider-container="sliderMode"
-          :carousel-container="carouselMode"
-          :container-container="containerMode"
-          :container-width="containerWidth"
-        />
-      </ul>
-    </div>
-  </Transition>
+    </ul>
+  </div>
 </template>
 <script>
 import store from '@/store';
@@ -64,6 +57,10 @@ export default defineNuxtComponent({
     const { locale } = useI18n();
     const { sizes } = useScreen();
     const { addProjects } = store.projects();
+    const containerKey = ref(0);
+    onMounted(() => {
+      if (props.sliderMode || props.carouselMode || props.containerMode) containerKey.value++;
+    });
     const { data: projects } = await useAsyncData(
       'projects',
       async () => {
@@ -77,7 +74,7 @@ export default defineNuxtComponent({
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
-          return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
+          return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
         }
         return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
@@ -85,7 +82,7 @@ export default defineNuxtComponent({
           ? 'sm:grid-cols-fill-small'
           : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
       } else {
-        return 'md:grid-cols-fill-medium lg:grid-cols-fill-big';
+        return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       }
     });
     const sortedProjects = computed(() => {
@@ -95,7 +92,7 @@ export default defineNuxtComponent({
       return featuredProjects;
     });
     watch(projects, val => addProjects(val), { immediate: true });
-    return { sizes, maxProjects, sortedProjects };
+    return { sizes, maxProjects, sortedProjects, containerKey };
   }
 });
 </script>
