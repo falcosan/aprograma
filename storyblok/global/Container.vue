@@ -41,7 +41,7 @@
         @mouseenter="blok.slider_mode === 'carousel' && focusContainer(carouselSlide[0])"
       >
         <IconComponent
-          v-if="
+          v-show="
             (blok.slider_mode === 'slider' ||
               windowWidth < 768 ||
               !isDesktop ||
@@ -66,17 +66,20 @@
           @click="previous(true)"
         />
         <div
-          v-else-if="
-            blok.slider_mode === 'carousel' &&
-            (!sliderMode || !carouselMode) &&
-            !blok.row_container &&
-            !blok.hide_controllers
+          v-show="
+            (blok.slider_mode === 'carousel' &&
+              windowWidth >= 768 &&
+              isDesktop &&
+              !sliderMode &&
+              !carouselMode &&
+              !blok.row_container) ||
+            blok.hide_controllers
           "
           class="previous-control control h-full w-full absolute top-0 z-10 -left-1/2 cursor-previous"
           @click="previous(true)"
         />
         <IconComponent
-          v-if="
+          v-show="
             (blok.slider_mode === 'slider' ||
               windowWidth < 768 ||
               !isDesktop ||
@@ -101,11 +104,14 @@
           @click="next(true)"
         />
         <div
-          v-else-if="
-            blok.slider_mode === 'carousel' &&
-            (!sliderMode || !carouselMode) &&
-            !blok.row_container &&
-            !blok.hide_controllers
+          v-show="
+            (blok.slider_mode === 'carousel' &&
+              windowWidth >= 768 &&
+              isDesktop &&
+              !sliderMode &&
+              !carouselMode &&
+              !blok.row_container) ||
+            blok.hide_controllers
           "
           class="next-control control h-full w-full absolute top-0 z-10 -right-1/2 cursor-next"
           @click="next(true)"
