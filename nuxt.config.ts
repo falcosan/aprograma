@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
+    'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
@@ -57,6 +58,24 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: 'locale',
       fallbackLocale: 'en'
+    }
+  },
+  security: {
+    hidePoweredBy: true,
+    headers: {
+      crossOriginEmbedderPolicy: isDevelopment ? 'unsafe-none' : 'require-corp',
+      contentSecurityPolicy: {
+        'base-uri': ["'self'"],
+        'object-src': ["'none'"],
+        'form-action': ["'self'"],
+        'frame-ancestors': ["'self'"],
+        'upgrade-insecure-requests': true,
+        'font-src': ["'self'", 'https:', 'data:'],
+        'img-src': ['*', "'self'", 'https:', 'data:'],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+      }
     }
   },
   device: {
