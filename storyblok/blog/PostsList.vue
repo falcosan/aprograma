@@ -42,7 +42,7 @@
           class="categories-list flex flex-wrap mb-5 -mt-2.5 -mx-2.5 overflow-hidden"
         >
           <li
-            class="reset-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial m-2.5 overflow-hidden rounded cursor-pointer select-none"
+            class="reset-container w-full xx:w-auto xx:min-w-[41.666667%] xx:max-w-[46%] sm:min-w-[initial] sm:max-w-full flex-auto sm:flex-initial m-2.5 overflow-hidden rounded cursor-pointer select-none"
             @click="searchCategory = []"
           >
             <InputComponent
@@ -55,7 +55,7 @@
             v-for="(filter, index) in sortedCategories"
             :key="index"
             :class="[
-              'category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white',
+              'category-container w-full xx:w-auto xx:min-w-[41.666667%] xx:max-w-[46%] sm:min-w-[initial] sm:max-w-full flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white',
               {
                 'xx:flex-none':
                   index === sortedCategories.length - 1 && !!!(sortedCategories.length & 1)
