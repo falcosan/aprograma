@@ -61,23 +61,18 @@ export default defineNuxtConfig({
     }
   },
   security: {
-    corsHandler: {
-      origin: process.env.NUXT_ENV_DOMAIN
-    },
     headers: {
-      xXSSProtection: '1',
       crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
         'base-uri': ["'self'"],
         'object-src': ["'none'"],
         'form-action': ["'self'"],
         'frame-ancestors': ["'self'"],
+        'script-src-attr': ["'none'"],
         'upgrade-insecure-requests': true,
         'font-src': ["'self'", 'https:', 'data:'],
         'img-src': ['*', "'self'", 'https:', 'data:'],
-        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"]
       }
     }
   },
