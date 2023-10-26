@@ -75,7 +75,7 @@
               !blok.row_container) ||
             blok.hide_controllers
           "
-          class="previous-control control h-full w-full absolute top-0 z-10 -left-1/2 cursor-previous"
+          class="previous-control control h-full w-full absolute top-0 z-[1] -left-1/2 cursor-previous"
           @click="previous(true)"
         />
         <IconComponent
@@ -113,7 +113,7 @@
               !blok.row_container) ||
             blok.hide_controllers
           "
-          class="next-control control h-full w-full absolute top-0 z-10 -right-1/2 cursor-next"
+          class="next-control control h-full w-full absolute top-0 z-[1] -right-1/2 cursor-next"
           @click="next(true)"
         />
         <div
@@ -157,7 +157,7 @@
           <div v-else class="carousel-container">
             <TransitionGroup
               tag="ul"
-              class="carousel relative grid rounded"
+              class="carousel relative grid justify-center rounded"
               enter-from-class="opacity-0"
               leave-to-class="opacity-0"
               enter-active-class="transition duration-500"
@@ -170,7 +170,7 @@
                 :key="component._uid"
                 ref="carouselSlide"
                 :tabindex="!blok.hide_controllers ? '0' : undefined"
-                :class="`carousel-slide slide w-full flex row-start-1 row-end-1 col-start-1 col-end-1 rounded ${setAlignContent} ${
+                :class="`carousel-slide slide md:relative w-full flex row-start-1 row-end-1 col-start-1 col-end-1 md:z-[1] rounded ${setAlignContent} ${
                   !blok.hide_controllers ? 'outline-none' : ''
                 } ${index === currentSlide ? 'show' : 'hidden'} ${
                   sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
