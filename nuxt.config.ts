@@ -61,7 +61,6 @@ export default defineNuxtConfig({
     }
   },
   security: {
-    hidePoweredBy: true,
     headers: {
       crossOriginEmbedderPolicy: isDevelopment ? 'unsafe-none' : 'require-corp',
       contentSecurityPolicy: {
@@ -106,8 +105,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } },
-      '/api/**': { cors: true, headers: { 'access-control-allow-methods': 'GET' } }
+      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
     },
     compressPublicAssets: true
   }

@@ -9,6 +9,7 @@
     :src="src"
     :width="width"
     :height="height"
+    crossorigin="anonymous"
   />
   <NuxtImg
     v-else
@@ -24,6 +25,7 @@
     :fit="file?.focus ? undefined : 'in'"
     format="webp"
     :sizes="sizes ?? undefined"
+    crossorigin="anonymous"
   />
 </template>
 <script>
