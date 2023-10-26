@@ -12,5 +12,7 @@ export default defineEventHandler(async event => {
     const startsWith = query.starts_with as ISbStoriesParams['starts_with'];
     const version = config.public.envApiVersion as ISbStoriesParams['version'];
     return await fetchStoryblok(language, startsWith, `cdn/stories/${slug}`, false, version);
+  } else {
+    return setResponseStatus(event, 204, 'No Content');
   }
 });
