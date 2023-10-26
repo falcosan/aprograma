@@ -8,10 +8,10 @@ export default defineNuxtConfig({
     rootTag: 'section'
   },
   runtimeConfig: {
-    envXAuth: process.env.NUXT_ENV_X_AUTH,
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
+      envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
+    'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
@@ -59,6 +60,24 @@ export default defineNuxtConfig({
       fallbackLocale: 'en'
     }
   },
+  security: {
+    corsHandler: false,
+    headers: {
+      crossOriginEmbedderPolicy: 'unsafe-none',
+      contentSecurityPolicy: {
+        'base-uri': ["'self'"],
+        'object-src': ["'none'"],
+        'form-action': ["'self'"],
+        'frame-ancestors': ["'self'"],
+        'upgrade-insecure-requests': true,
+        'font-src': ["'self'", 'https:', 'data:'],
+        'img-src': ['*', "'self'", 'https:', 'data:'],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+      }
+    }
+  },
   device: {
     refreshOnResize: true
   },
@@ -87,8 +106,12 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } },
-      '/api/**': { cors: true, headers: { 'access-control-allow-methods': 'GET' } }
+      '/**': {
+        cors: true,
+        headers: {
+          'access-control-allow-origin': process.env.NUXT_ENV_DOMAIN
+        }
+      }
     },
     compressPublicAssets: true
   }

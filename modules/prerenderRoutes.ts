@@ -1,7 +1,6 @@
 import { defineNuxtModule, addPrerenderRoutes } from '@nuxt/kit';
 import enums from '../utils/enums';
-import { fetchStories } from '../services/fetch';
-
+import { fetchStories } from '../utils/fetch';
 export default defineNuxtModule({
   async setup() {
     const staticRoutes = [

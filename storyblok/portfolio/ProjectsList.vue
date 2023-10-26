@@ -56,6 +56,7 @@ export default defineNuxtComponent({
   async setup(props) {
     const { locale } = useI18n();
     const { sizes } = useScreen();
+    const config = useRuntimeConfig();
     const { addProjects } = store.projects();
     const containerKey = ref(0);
     onMounted(() => {
@@ -65,6 +66,7 @@ export default defineNuxtComponent({
       'projects',
       async () => {
         const { stories } = await $fetch('/api/storyblok', {
+          headers: { 'x-auth': config.public.envXAuth },
           params: { starts_with: 'portfolio', lang: locale.value }
         });
         return stories;
