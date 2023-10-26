@@ -8,10 +8,10 @@ export default defineNuxtConfig({
     rootTag: 'section'
   },
   runtimeConfig: {
-    envXAuth: process.env.NUXT_ENV_X_AUTH,
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
+      envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
@@ -62,7 +62,8 @@ export default defineNuxtConfig({
   },
   security: {
     headers: {
-      crossOriginEmbedderPolicy: isDevelopment ? 'unsafe-none' : 'require-corp',
+      corsHandler: false,
+      crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
         'base-uri': ["'self'"],
         'object-src': ["'none'"],
@@ -105,7 +106,12 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
+      '/**': {
+        cors: true,
+        headers: {
+          'access-control-allow-origin': process.env.NUXT_ENV_DOMAIN
+        }
+      }
     },
     compressPublicAssets: true
   }

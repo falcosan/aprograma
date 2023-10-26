@@ -1,11 +1,13 @@
 <script setup>
 const { locale } = useI18n();
 const { seoStatic } = useSeo();
+const config = useRuntimeConfig();
 const { $languageCase } = useNuxtApp();
 const { data: about } = await useAsyncData(
   'about',
   async () => {
     const { story } = await $fetch('/api/storyblok', {
+      headers: { 'x-auth': config.public.envXAuth },
       params: { slug: 'about', lang: locale.value }
     });
     return story;

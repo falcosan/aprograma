@@ -145,6 +145,7 @@ export default defineNuxtComponent({
   async setup(props) {
     const { locale } = useI18n();
     const { isDesktop } = useDevice();
+    const config = useRuntimeConfig();
     const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
     const state = reactive({
@@ -161,6 +162,7 @@ export default defineNuxtComponent({
       'posts',
       async () => {
         const { stories } = await $fetch('/api/storyblok', {
+          headers: { 'x-auth': config.public.envXAuth },
           params: { starts_with: 'blog', lang: locale.value }
         });
         return stories;

@@ -1,5 +1,3 @@
-import { fetchFeed } from '@/services/fetch';
-
 export default defineEventHandler(async event => {
   const feed = await fetchFeed('ita');
   event.node.res.setHeader('content-type', 'text/xml');
