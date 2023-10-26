@@ -7,7 +7,7 @@ const { data: project } = await useAsyncData(
   'project',
   async () => {
     const { story } = await $fetch('/api/storyblok', {
-      params: { slug: route.path, lang: locale.value }
+      params: { slug: `portfolio/${route.params.slug}`, lang: locale.value }
     });
     return story;
   },
