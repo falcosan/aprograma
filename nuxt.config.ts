@@ -61,8 +61,8 @@ export default defineNuxtConfig({
     }
   },
   security: {
+    hidePoweredBy: true,
     headers: {
-      xXSSProtection: '1',
       crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
         'base-uri': ["'self'"],
@@ -106,7 +106,9 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
+      '/**': {
+        headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH }
+      }
     },
     compressPublicAssets: { gzip: true, brotli: true }
   }
