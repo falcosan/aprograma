@@ -61,6 +61,7 @@ export default defineNuxtConfig({
     }
   },
   security: {
+    hidePoweredBy: true,
     headers: {
       crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
@@ -68,11 +69,12 @@ export default defineNuxtConfig({
         'object-src': ["'none'"],
         'form-action': ["'self'"],
         'frame-ancestors': ["'self'"],
-        'script-src-attr': ["'none'"],
         'upgrade-insecure-requests': true,
         'font-src': ["'self'", 'https:', 'data:'],
         'img-src': ['*', "'self'", 'https:', 'data:'],
-        'style-src': ["'self'", 'https:', "'unsafe-inline'"]
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
       }
     }
   },
