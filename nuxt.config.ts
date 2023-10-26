@@ -106,7 +106,14 @@ export default defineNuxtConfig({
   },
   nitro: {
     routeRules: {
-      '/**': { headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH } }
+      '/**': {
+        headers: { 'x-auth': process.env.NUXT_ENV_X_AUTH },
+        security: {
+          corsHandler: {
+            origin: process.env.NUXT_ENV_DOMAIN
+          }
+        }
+      }
     },
     compressPublicAssets: { gzip: true, brotli: true }
   }
