@@ -77,14 +77,7 @@ export default defineNuxtComponent({
     }
   },
   setup() {
-    const { locale, setLocale, getBrowserLocale, getLocaleCookie, setLocaleCookie } = useI18n();
-    const cookieLocale = getLocaleCookie();
-    const browserLocale = getBrowserLocale();
-    if (cookieLocale == null) {
-      setLocale(browserLocale);
-      setLocaleCookie(browserLocale);
-      reloadNuxtApp({ ttl: 0 });
-    }
+    const { locale, setLocale } = useI18n();
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
     return {
       locale,
