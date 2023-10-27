@@ -83,6 +83,7 @@ export default defineNuxtComponent({
     if (cookieLocale == null) {
       setLocale(browserLocale);
       setLocaleCookie(browserLocale);
+      refreshNuxtData();
     }
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
     return {
