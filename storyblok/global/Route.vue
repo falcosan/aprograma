@@ -123,12 +123,22 @@ export default defineNuxtComponent({
     const NuxtLink = resolveComponent('NuxtLink');
     const activated = computed(() => {
       const targetRoute = props.blok?.path ?? props.to;
-      if (route.path === targetRoute) {
+      const regex = new RegExp(
+        `/(${Object.values(enums.rss)
+          .map(item => {
+            if (item instanceof Object) return item.language;
+            else return '';
+          })
+          .filter(Boolean)
+          .join('|')})\\b`
+      );
+      const currentRoute = route.path.replace(regex, '') || '/';
+      if (currentRoute === targetRoute) {
         for (const [key, value] of Object.entries(route.query)) {
           if (!targetRoute.includes(`${key}=${value}`)) return false;
         }
         return true;
-      } else if (route.path.startsWith(`${targetRoute}/`)) {
+      } else if (currentRoute.startsWith(`${targetRoute}/`)) {
         for (const [key, value] of Object.entries(route.query)) {
           if (!targetRoute.includes(`${key}=${value}`)) return false;
         }
