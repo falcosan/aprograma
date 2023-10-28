@@ -1,4 +1,5 @@
 <script setup>
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps({
   error: {
     type: Object,
