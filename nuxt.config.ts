@@ -59,6 +59,7 @@ export default defineNuxtConfig({
   security: {
     corsHandler: false,
     headers: {
+      xXSSProtection: 1,
       crossOriginEmbedderPolicy: 'unsafe-none',
       contentSecurityPolicy: {
         'base-uri': ["'self'"],
