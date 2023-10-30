@@ -96,10 +96,6 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 1000
     }
   },
-  sourcemap: {
-    server: true,
-    client: true
-  },
   nitro: {
     compressPublicAssets: true
   }
