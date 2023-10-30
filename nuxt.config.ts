@@ -57,7 +57,6 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false
   },
   security: {
-    corsHandler: false,
     headers: {
       xXSSProtection: 1,
       crossOriginEmbedderPolicy: 'unsafe-none',
@@ -102,14 +101,6 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    routeRules: {
-      '/**': {
-        cors: true,
-        headers: {
-          'access-control-allow-origin': process.env.NUXT_ENV_DOMAIN
-        }
-      }
-    },
     compressPublicAssets: true
   }
   // hooks: {
