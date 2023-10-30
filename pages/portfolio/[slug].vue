@@ -4,7 +4,7 @@ const { locale } = useI18n();
 const { seoDynamic } = useSeo();
 const config = useRuntimeConfig();
 const { data: project } = await useAsyncData(
-  'project',
+  route.params.slug,
   async () => {
     const { story } = await $fetch('/api/storyblok', {
       headers: { 'x-auth': config.public.envXAuth },
