@@ -1,5 +1,6 @@
 <script setup>
 const route = useRoute();
+const nuxtApp = useNuxtApp();
 const { locale } = useI18n();
 const { seoDynamic } = useSeo();
 const config = useRuntimeConfig();
@@ -12,7 +13,7 @@ const { data: post } = await useAsyncData(
     });
     return story;
   },
-  { watch: [locale] }
+  { watch: [locale], getCachedData: key => nuxtApp.payload.static[key] ?? nuxtApp.payload.data[key] }
 );
 watch(post, val => seoDynamic(val), { immediate: true });
 </script>
