@@ -102,12 +102,12 @@ export default defineNuxtConfig({
   },
   nitro: {
     compressPublicAssets: { brotli: true, gzip: true }
+  },
+  hooks: {
+    close: nuxt => {
+      if (!nuxt.options._prepare) process.exit();
+    }
   }
-  // hooks: {
-  //   close: nuxt => {
-  //     if (!nuxt.options._prepare) process.exit();
-  //   }
-  // },
   // experimental: {
   //   payloadExtraction: false
   // }
