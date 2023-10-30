@@ -1,5 +1,21 @@
 <template>
-  <section v-if="!blok.hide" :class="`${blok.name.toLowerCase()}-page p-5`">
+  <section
+    v-if="blok.hide"
+    class="page-maintenance fixed w-full h-full flex items-center justify-center inset-0 px-5"
+  >
+    <h1
+      class="maintenance-text p-10 lg:p-20 text-xs xs:text-base sm:text-lg text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
+    >
+      {{
+        $languageCase(
+          'This page is in maintenance, sorry for the inconvenience',
+          'Esta página está en mantenimiento, disculpe las molestias',
+          "Questa pagina è in manutenzione, scusa per l'inconveniente"
+        )
+      }}
+    </h1>
+  </section>
+  <section v-else :class="`${blok.name.toLowerCase()}-page p-5`">
     <span v-if="blok.title" class="page-title block mb-5 text-xl sm:text-2xl break-words">
       {{ blok.title }}
     </span>
@@ -26,22 +42,6 @@
         ]"
       />
     </div>
-  </section>
-  <section
-    v-else
-    class="page-maintenance fixed w-full h-full flex items-center justify-center inset-0 px-5"
-  >
-    <h1
-      class="maintenance-text p-10 lg:p-20 text-xs xs:text-base sm:text-lg text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
-    >
-      {{
-        $languageCase(
-          'This page is in maintenance, sorry for the inconvenience',
-          'Esta página está en mantenimiento, disculpe las molestias',
-          "Questa pagina è in manutenzione, scusa per l'inconveniente"
-        )
-      }}
-    </h1>
   </section>
 </template>
 
