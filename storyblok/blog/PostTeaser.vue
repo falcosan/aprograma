@@ -57,7 +57,7 @@
             </div>
             <ul
               v-if="sortedCategories?.length"
-              class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 mt-0 xs:mb-2.5 md:mb-0 xl:mb-2.5 overflow-x-auto"
+              class="teaser-categories w-full flex flex-wrap lg:flex-nowrap -mx-1 mb-1.5 xs:mb-2.5 overflow-x-auto"
             >
               <li
                 v-for="(category, index) in sortedCategories"
