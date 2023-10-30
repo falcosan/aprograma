@@ -158,13 +158,17 @@ export default defineNuxtComponent({
     onMounted(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) containerKey.value++;
     });
-    const { data: posts } = await useAsyncData('posts', async () => {
-      const { stories } = await $fetch('/api/storyblok', {
-        headers: { 'x-auth': config.public.envXAuth },
-        params: { starts_with: 'blog', lang: locale.value }
-      });
-      return stories;
-    });
+    const { data: posts } = await useAsyncData(
+      'posts',
+      async () => {
+        const { stories } = await $fetch('/api/storyblok', {
+          headers: { 'x-auth': config.public.envXAuth },
+          params: { starts_with: 'blog', lang: locale.value }
+        });
+        return stories;
+      },
+      { watch: [locale] }
+    );
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
