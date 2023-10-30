@@ -13,7 +13,7 @@ const { data: project } = await useAsyncData(
     });
     return story;
   },
-  { watch: [locale], getCachedData: key => nuxtApp.payload.static[key] ?? nuxtApp.payload.data[key] }
+  { watch: [locale] }
 );
 watch(project, val => seoDynamic(val), { immediate: true });
 </script>
