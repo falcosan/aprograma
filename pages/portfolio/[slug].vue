@@ -1,6 +1,5 @@
 <script setup>
 const route = useRoute();
-const nuxtApp = useNuxtApp();
 const { locale } = useI18n();
 const { seoDynamic } = useSeo();
 const config = useRuntimeConfig();
