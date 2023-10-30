@@ -78,6 +78,7 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
+    manifest: enums.manifest,
     strategies: 'generateSW',
     registerType: 'autoUpdate',
     includeAssets: ['favicon.ico'],
@@ -85,8 +86,7 @@ export default defineNuxtConfig({
       navigateFallback: null,
       globPatterns: ['**/*.{js,css}'],
       globIgnores: ['sw.js', 'workbox-*.js']
-    },
-    manifest: enums.manifest
+    }
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
@@ -96,8 +96,12 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 1000
     }
   },
+  sourcemap: {
+    server: true,
+    client: true
+  },
   nitro: {
-    compressPublicAssets: true
+    compressPublicAssets: { brotli: true, gzip: true }
   }
   // hooks: {
   //   close: nuxt => {
