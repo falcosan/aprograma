@@ -105,6 +105,9 @@ export default defineNuxtConfig({
     server: true,
     client: true
   },
+  routeRules: {
+    '*': { swr: true }
+  },
   nitro: {
     compressPublicAssets: { brotli: true, gzip: true }
   },
