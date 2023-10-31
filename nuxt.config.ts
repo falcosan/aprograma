@@ -105,10 +105,8 @@ export default defineNuxtConfig({
     server: true,
     client: true
   },
-  routeRules: {
-    '*': { swr: true }
-  },
   nitro: {
+    preset: 'netlify-edge',
     compressPublicAssets: { brotli: true, gzip: true }
   },
   hooks: {
