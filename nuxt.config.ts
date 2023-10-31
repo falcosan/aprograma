@@ -106,6 +106,7 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
+    preset: 'netlify-edge',
     compressPublicAssets: { brotli: true, gzip: true }
   },
   hooks: {
