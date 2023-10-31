@@ -77,17 +77,8 @@ export default defineNuxtComponent({
     }
   },
   setup() {
-    const route = useRoute();
-    const { locale, setLocale, getLocaleCookie, setLocaleCookie } = useI18n();
+    const { locale, setLocale } = useI18n();
     const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
-    watchPostEffect(async () => {
-      const lang = route.name.split('___')[1];
-      if (getLocaleCookie() == null) setLocaleCookie(lang || 'en');
-      if (lang) {
-        setLocale(lang);
-        await refreshNuxtData();
-      }
-    });
     return {
       locale,
       setLocale,
