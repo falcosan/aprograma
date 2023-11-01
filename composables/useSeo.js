@@ -10,8 +10,7 @@ export const useSeo = () => {
       }
     ];
     return config.public.envProductionDomain
-      ? undefined
-      : useHead({
+      ? useHead({
           title: story.name,
           meta,
           link: [
@@ -20,7 +19,8 @@ export const useSeo = () => {
               href: `${config.public.envDomain}${routeName}`
             }
           ]
-        });
+        })
+      : undefined;
   };
   const seoDynamic = story => {
     const defaultImage = enums.content.image;
@@ -83,8 +83,7 @@ export const useSeo = () => {
       });
     }
     return config.public.envProductionDomain
-      ? undefined
-      : useHead({
+      ? useHead({
           title: story.content.title,
           meta,
           link: [
@@ -93,7 +92,8 @@ export const useSeo = () => {
               href: `${config.public.envDomain}${routeName}`
             }
           ]
-        });
+        })
+      : undefined;
   };
   const seoLayout = story => {
     const meta = [
@@ -148,8 +148,7 @@ export const useSeo = () => {
       }
     ];
     return config.public.envProductionDomain
-      ? undefined
-      : useHead({
+      ? useHead({
           htmlAttrs: { lang: story.language },
           charset: 'utf-8',
           title: enums.meta.title,
@@ -159,7 +158,8 @@ export const useSeo = () => {
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'canonical', href: config.public.envDomain }
           ]
-        });
+        })
+      : undefined;
   };
   return { seoStatic, seoDynamic, seoLayout };
 };
