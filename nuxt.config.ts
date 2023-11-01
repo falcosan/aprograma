@@ -1,4 +1,4 @@
-import { isProduction, isDevelopment } from 'std-env';
+import { isProduction, isDevelopment, isNetlify } from 'std-env';
 import enums from './utils/enums';
 
 export default defineNuxtConfig({
@@ -17,7 +17,8 @@ export default defineNuxtConfig({
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
       envMode: { production: isProduction, development: isDevelopment },
-      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
+      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION,
+      envProductionDomain: isNetlify && !/netlify/.test(process.env.NUXT_ENV_DOMAIN || 'netlify')
     }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],

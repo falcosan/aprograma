@@ -9,16 +9,18 @@ export const useSeo = () => {
         content: story.description
       }
     ];
-    return useHead({
-      title: story.name,
-      meta,
-      link: [
-        {
-          rel: 'canonical',
-          href: `${config.public.envDomain}${routeName}`
-        }
-      ]
-    });
+    return config.public.envProductionDomain
+      ? undefined
+      : useHead({
+          title: story.name,
+          meta,
+          link: [
+            {
+              rel: 'canonical',
+              href: `${config.public.envDomain}${routeName}`
+            }
+          ]
+        });
   };
   const seoDynamic = story => {
     const defaultImage = enums.content.image;
@@ -80,16 +82,18 @@ export const useSeo = () => {
         content: new Date(story.content.date).toISOString()
       });
     }
-    return useHead({
-      title: story.content.title,
-      meta,
-      link: [
-        {
-          rel: 'canonical',
-          href: `${config.public.envDomain}${routeName}`
-        }
-      ]
-    });
+    return config.public.envProductionDomain
+      ? undefined
+      : useHead({
+          title: story.content.title,
+          meta,
+          link: [
+            {
+              rel: 'canonical',
+              href: `${config.public.envDomain}${routeName}`
+            }
+          ]
+        });
   };
   const seoLayout = story => {
     const meta = [
@@ -143,17 +147,19 @@ export const useSeo = () => {
         content: config.envPaymentPointer
       }
     ];
-    return useHead({
-      htmlAttrs: { lang: story.language },
-      charset: 'utf-8',
-      title: enums.meta.title,
-      titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
-      meta,
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'canonical', href: config.public.envDomain }
-      ]
-    });
+    return config.public.envProductionDomain
+      ? undefined
+      : useHead({
+          htmlAttrs: { lang: story.language },
+          charset: 'utf-8',
+          title: enums.meta.title,
+          titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
+          meta,
+          link: [
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+            { rel: 'canonical', href: config.public.envDomain }
+          ]
+        });
   };
   return { seoStatic, seoDynamic, seoLayout };
 };
