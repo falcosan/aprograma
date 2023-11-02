@@ -1,6 +1,9 @@
 <template>
   <li v-if="postContent" class="post-teaser w-full overflow-hidden rounded">
-    <RouteComponent :to="{ name: 'blog-slug', params: { slug: postLink } }" class="teaser-link">
+    <RouteComponent
+      :to="{ name: 'blog-slug', params: { slug: postLink } }"
+      class="teaser-link h-full"
+    >
       <div
         :class="`teaser-content h-full flex flex-col ${
           rowContainer || sliderContainer || containerContainer || carouselContainer

@@ -5,8 +5,8 @@
   >
     <RouteComponent
       :key="projectContent._uid"
+      class="teaser-link h-full"
       :to="{ name: 'portfolio-slug', params: { slug: projectLink } }"
-      class="teaser-link"
     >
       <div
         class="teaser-content h-full flex flex-col justify-end pt-0.5"

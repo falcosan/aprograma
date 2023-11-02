@@ -3,7 +3,7 @@
     :is="blok.external_link ? 'a' : NuxtLink"
     v-if="blok && (blok.title || (blok.icon_item && blok.body.length))"
     :class="[
-      'item-link h-full cursor-pointer',
+      'item-link cursor-pointer',
       { 'w-full': sliderMode },
       sliderMode || carouselMode || containerMode
         ? 'flex items-center justify-center self-center'
@@ -44,7 +44,7 @@
     :is="externalLink ? 'a' : NuxtLink"
     v-else
     :class="[
-      `item-link h-full cursor-pointer ${
+      `item-link cursor-pointer ${
         sliderMode || carouselMode || containerMode
           ? 'flex items-center justify-center self-center'
           : 'block'
