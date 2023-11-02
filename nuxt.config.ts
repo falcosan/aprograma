@@ -95,13 +95,6 @@ export default defineNuxtConfig({
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
-  postcss: {
-    plugins: {
-      cssnano: isProduction
-        ? { preset: ['default', { discardComments: { removeAll: true } }] }
-        : false
-    }
-  },
   vite: {
     build: {
       chunkSizeWarningLimit: 1000

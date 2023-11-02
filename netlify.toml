@@ -4,6 +4,8 @@
   ignore = "git log -1 --pretty=%B | grep dependabot"
     [build.processing]
         skip_processing = true
+    [build.environment]
+        NODE_OPTIONS = "--max_old_space_size=4096"
 
 [[headers]]
     for = "/*"
