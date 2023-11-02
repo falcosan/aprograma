@@ -60,6 +60,7 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false
   },
   security: {
+    nonce: true,
     headers: {
       xXSSProtection: '1',
       crossOriginEmbedderPolicy: 'unsafe-none',
@@ -71,9 +72,9 @@ export default defineNuxtConfig({
         'upgrade-insecure-requests': true,
         'font-src': ["'self'", 'https:', 'data:'],
         'img-src': ['*', "'self'", 'https:', 'data:'],
-        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+        'script-src': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"],
+        'script-src-attr': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"],
+        'style-src': ["'self'", isProduction ? "'nonce-{{nonce}}'" : "'unsafe-inline'"]
       }
     }
   },
@@ -93,6 +94,13 @@ export default defineNuxtConfig({
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
+  },
+  postcss: {
+    plugins: {
+      cssnano: isProduction
+        ? { preset: ['default', { discardComments: { removeAll: true } }] }
+        : false
+    }
   },
   vite: {
     build: {
