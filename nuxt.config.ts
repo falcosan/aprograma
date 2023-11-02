@@ -60,7 +60,6 @@ export default defineNuxtConfig({
     detectBrowserLanguage: false
   },
   security: {
-    nonce: true,
     headers: {
       xXSSProtection: '1',
       crossOriginEmbedderPolicy: 'unsafe-none',
@@ -72,9 +71,9 @@ export default defineNuxtConfig({
         'upgrade-insecure-requests': true,
         'font-src': ["'self'", 'https:', 'data:'],
         'img-src': ['*', "'self'", 'https:', 'data:'],
-        'script-src': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"],
-        'script-src-attr': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"],
-        'style-src': ["'self'", isProduction ? "'nonce-{{nonce}}'" : "'unsafe-inline'"]
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
       }
     }
   },
