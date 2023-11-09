@@ -4,6 +4,7 @@ import { fetchStories } from '../utils/fetch';
 export default defineNuxtModule({
   async setup() {
     const staticRoutes = [
+      '/',
       `/${enums.sitemap}`,
       ...Object.values(enums.rss)
         .map(item => {
