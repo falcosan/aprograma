@@ -101,8 +101,7 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    compressPublicAssets: true,
-    preset: process.env.NUXT_ENV_LOCAL ? 'node-server' : 'netlify-edge'
+    compressPublicAssets: true
   },
   hooks: {
     close: nuxt => {
