@@ -81,16 +81,10 @@ export default defineNuxtConfig({
   pwa: {
     manifest: enums.manifest,
     strategies: 'generateSW',
-    registerType: 'autoUpdate',
     workbox: {
       globDirectory: 'dist',
       navigateFallback: null,
-      globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: [
-        '*.{js,json,css,ico,png,jpg,jpeg,svg}',
-        '**/*.{js,json,css,png,jpg,jpeg,svg}',
-        '**/**/*.{js,json,css,png,jpg,jpeg,svg}'
-      ]
+      globPatterns: ['**/*.{js,css}']
     }
   },
   storyblok: {
@@ -106,6 +100,7 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
+    preset: 'netlify-edge',
     compressPublicAssets: true
   },
   hooks: {
