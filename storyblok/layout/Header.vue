@@ -10,7 +10,7 @@
         <RouteComponent
           set-active="pb-1 border-t-4 border-gray-300"
           icon-item
-          class="home-link w-2/12 rounded-bl ext-white"
+          class="home-link w-2/12 h-full rounded-bl ext-white"
           :aria-label="webName"
           to="/"
         >
@@ -69,7 +69,7 @@
           :key="item._uid"
           class="link-menu no-underline"
         >
-          <RouteComponent icon-item icon-style="w-full h-full" :blok="item" />
+          <RouteComponent class="h-full" icon-item icon-style="w-full h-full" :blok="item" />
         </li>
       </ul>
     </nav>

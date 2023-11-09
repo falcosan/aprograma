@@ -37,12 +37,12 @@
               '#e0e0e0'
             )};`"
           >
-            <h2
+            <span
               class="project-text text-xl sm:text-2xl px-10 overflow-hidden"
               :style="`color: ${$binaryControl(project.content.text_color, 'color')};`"
             >
               {{ project.content.title }}
-            </h2>
+            </span>
           </div>
           <div
             :class="`image-container flex row-start-1 row-end-1 ${

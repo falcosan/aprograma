@@ -4,7 +4,7 @@
     class="page-maintenance fixed w-full h-full flex items-center justify-center inset-0 px-5"
   >
     <h1
-      class="maintenance-text p-10 lg:p-20 text-xs xs:text-base sm:text-lg text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
+      class="maintenance-text p-10 lg:p-20 text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
     >
       {{
         $languageCase(
@@ -16,9 +16,9 @@
     </h1>
   </section>
   <section v-else :class="`${blok.name.toLowerCase()}-page p-5`">
-    <span v-if="blok.title" class="page-title block mb-5 text-xl sm:text-2xl break-words">
+    <h1 v-if="blok.title" class="page-title block mb-5 break-words">
       {{ blok.title }}
-    </span>
+    </h1>
     <div class="page-components relative flex flex-wrap -m-2.5">
       <StoryblokComponent
         v-for="component in components"

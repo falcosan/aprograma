@@ -23,9 +23,7 @@ watch(locale, val => seoLayout({ language: val }), { immediate: true });
     class="aprograma-maintenance h-screen flex flex-col justify-center p-5"
   >
     <LogoComponent transition class="rounded max-w-full mx-auto my-0" size="50vh" />
-    <h1
-      class="maintenance-text text-xs xs:text-base sm:text-lg text-center xs:whitespace-nowrap pointer-events-none uppercase italic"
-    >
+    <h1 class="maintenance-text xs:whitespace-nowrap pointer-events-none uppercase italic">
       {{ $languageCase('under maintenance', 'en mantenimiento', 'in manutenzione') }}
     </h1>
   </div>
