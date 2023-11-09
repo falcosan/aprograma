@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
-    // 'nuxt-security',
+    'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
