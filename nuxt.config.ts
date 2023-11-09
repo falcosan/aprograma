@@ -106,10 +106,5 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'netlify-edge',
     compressPublicAssets: { brotli: true, gzip: true }
-  },
-  hooks: {
-    close: nuxt => {
-      if (!nuxt.options._prepare) process.exit();
-    }
   }
 });
