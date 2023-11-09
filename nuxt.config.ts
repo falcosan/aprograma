@@ -4,7 +4,9 @@ import enums from './utils/enums';
 export default defineNuxtConfig({
   app: {
     rootId: '__dd',
-    rootTag: 'section'
+    rootTag: 'section',
+    pageTransition: false,
+    layoutTransition: false
   },
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
