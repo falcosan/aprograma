@@ -80,13 +80,10 @@ export default defineNuxtConfig({
   },
   pwa: {
     manifest: enums.manifest,
-    strategies: 'generateSW',
     registerType: 'autoUpdate',
-    includeAssets: ['favicon.ico'],
     workbox: {
       navigateFallback: null,
-      globPatterns: ['*.{js,css,png}'],
-      globIgnores: ['sw.js', 'workbox-*.js']
+      globPatterns: ['**/*.{js,css,png,svg,ico}']
     }
   },
   storyblok: {
