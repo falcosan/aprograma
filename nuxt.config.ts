@@ -80,11 +80,11 @@ export default defineNuxtConfig({
   },
   pwa: {
     manifest: enums.manifest,
-    strategies: 'generateSW',
+    strategies: 'injectManifest',
     registerType: 'autoUpdate',
     workbox: {
+      directoryIndex: '',
       globDirectory: 'dist',
-      directoryIndex: null,
       navigateFallback: null,
       globIgnores: ['sw.js', 'workbox-*.js'],
       globPatterns: [
