@@ -79,15 +79,17 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
+    scope: '/',
+    buildBase: '/',
     manifest: enums.manifest,
-    strategies: 'generateSW',
+    injectRegister: 'script',
     registerType: 'autoUpdate',
     workbox: {
       globDirectory: 'dist',
       directoryIndex: null,
       navigateFallback: '/',
-      navigateFallbackDenylist: [/\/[api]+\/.*/],
       globIgnores: ['sw.js', 'workbox-*.js'],
+      navigateFallbackDenylist: [/\/[api]+\/.*/],
       globPatterns: [
         '**/*.{js,json,css,png,jpg,jpeg,svg}',
         '*.{js,json,css,ico,png,jpg,jpeg,svg}',
