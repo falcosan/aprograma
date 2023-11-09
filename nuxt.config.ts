@@ -81,10 +81,16 @@ export default defineNuxtConfig({
   pwa: {
     manifest: enums.manifest,
     strategies: 'generateSW',
+    registerType: 'autoUpdate',
     workbox: {
       globDirectory: 'dist',
-      navigateFallback: null,
-      globPatterns: ['**/*.{js,css}']
+      navigateFallback: '/',
+      globIgnores: ['sw.js', 'workbox-*.js'],
+      globPatterns: [
+        '**/*.{js,json,css,png,jpg,jpeg,svg}',
+        '*.{js,json,css,ico,png,jpg,jpeg,svg}',
+        '**/**/*.{js,json,css,png,jpg,jpeg,svg}'
+      ]
     }
   },
   storyblok: {
