@@ -80,11 +80,11 @@ export default defineNuxtConfig({
   },
   pwa: {
     manifest: enums.manifest,
+    strategies: 'generateSW',
     registerType: 'autoUpdate',
-    includeAssets: ['favicon.ico'],
     workbox: {
-      navigateFallback: null,
       globDirectory: 'dist',
+      navigateFallback: null,
       globPatterns: ['**/*.{js,ico,png,txt,css,svg}']
     }
   },
