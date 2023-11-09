@@ -85,8 +85,8 @@ export default defineNuxtConfig({
     workbox: {
       globDirectory: 'dist',
       navigateFallback: null,
-      globPatterns: ['**/*.{js,json,css,png,svg,ico}'],
-      globIgnores: ['index.html', 'sw.js', 'workbox-*.js']
+      globIgnores: ['sw.js', 'workbox-*.js'],
+      globPatterns: ['**/dist/**/*.{js,json,css,ico,png,jpg,jpeg,woff2,ttf,eot,svg}'],
     }
   },
   storyblok: {
