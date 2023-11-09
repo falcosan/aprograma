@@ -83,6 +83,7 @@ export default defineNuxtConfig({
     strategies: 'generateSW',
     registerType: 'autoUpdate',
     workbox: {
+      clientsClaim: false,
       globDirectory: 'dist',
       directoryIndex: null,
       navigateFallback: null,
