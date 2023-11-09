@@ -4,9 +4,7 @@ import enums from './utils/enums';
 export default defineNuxtConfig({
   app: {
     rootId: '__dd',
-    rootTag: 'section',
-    pageTransition: false,
-    layoutTransition: false
+    rootTag: 'section'
   },
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
@@ -84,11 +82,16 @@ export default defineNuxtConfig({
     manifest: enums.manifest,
     strategies: 'generateSW',
     registerType: 'autoUpdate',
-    includeAssets: ['favicon.ico'],
     workbox: {
+      globDirectory: 'dist',
+      directoryIndex: null,
       navigateFallback: null,
-      globPatterns: ['**/*.{js,css}'],
-      globIgnores: ['sw.js', 'workbox-*.js']
+      globIgnores: ['sw.js', 'workbox-*.js'],
+      globPatterns: [
+        '**/*.{js,json,css,png,jpg,jpeg,svg}',
+        '*.{js,json,css,ico,png,jpg,jpeg,svg}',
+        '**/**/*.{js,json,css,png,jpg,jpeg,svg}'
+      ]
     }
   },
   storyblok: {
@@ -105,7 +108,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'netlify-edge',
-    compressPublicAssets: { brotli: true, gzip: true }
+    compressPublicAssets: true
   },
   hooks: {
     close: nuxt => {
