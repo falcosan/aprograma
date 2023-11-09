@@ -55,7 +55,10 @@ export default defineNuxtConfig({
       })
       .filter(Boolean),
     defaultLocale: 'en',
-    detectBrowserLanguage: false
+    detectBrowserLanguage: {
+      useCookie: true,
+      fallbackLocale: null
+    }
   },
   security: {
     headers: {
