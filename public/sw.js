@@ -7,7 +7,6 @@ clientsClaim();
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 
-//You can remove this code if you aren't precaching anything, or leave it in and live with the warning message
 try {
     const handler = createHandlerBoundToURL('/');
     const route = new NavigationRoute(handler);
