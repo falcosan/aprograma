@@ -79,10 +79,8 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
-    scope: '/',
-    buildBase: '/',
     manifest: enums.manifest,
-    injectRegister: 'script',
+    strategies: 'generateSW',
     registerType: 'autoUpdate',
     workbox: {
       globDirectory: 'dist',
