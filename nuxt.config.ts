@@ -27,7 +27,6 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     'nuxt-security',
     '@nuxtjs/device',
-    '@vite-pwa/nuxt',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
     '@nuxtjs/tailwindcss'
@@ -77,22 +76,6 @@ export default defineNuxtConfig({
   },
   device: {
     refreshOnResize: true
-  },
-  pwa: {
-    manifest: enums.manifest,
-    strategies: 'generateSW',
-    registerType: 'autoUpdate',
-    workbox: {
-      globDirectory: 'dist',
-      directoryIndex: null,
-      navigateFallback: null,
-      globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: [
-        '**/*.{js,json,css,png,jpg,jpeg,svg}',
-        '*.{js,json,css,ico,png,jpg,jpeg,svg}',
-        '**/**/*.{js,json,css,png,jpg,jpeg,svg}'
-      ]
-    }
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
