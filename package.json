@@ -47,7 +47,9 @@
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
     "typescript": "^5.2.2",
-    "vue-gtag-next": "^1.14.0"
+    "vue": "^3.3.8",
+    "vue-gtag-next": "^1.14.0",
+    "vue-router": "^4.2.5"
   },
   "main": ".eslintrc.cjs",
   "repository": {
