@@ -103,10 +103,10 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     preset: process.env.NUXT_ENV_LOCAL ? 'node-server' : 'netlify-edge'
-  },
-  hooks: {
-    close: nuxt => {
-      if (!nuxt.options._prepare) process.exit();
-    }
   }
+  // hooks: {
+  //   close: nuxt => {
+  //     if (!nuxt.options._prepare) process.exit();
+  //   }
+  // }
 });
