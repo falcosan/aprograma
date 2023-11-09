@@ -25,7 +25,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
-    'nuxt-security',
+    // 'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
@@ -57,30 +57,30 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     detectBrowserLanguage: false
   },
-  security: {
-    headers: {
-      xXSSProtection: '1',
-      crossOriginEmbedderPolicy: 'unsafe-none',
-      contentSecurityPolicy: {
-        'base-uri': ["'self'"],
-        'object-src': ["'none'"],
-        'form-action': ["'self'"],
-        'frame-ancestors': ["'self'"],
-        'upgrade-insecure-requests': true,
-        'font-src': ["'self'", 'https:', 'data:'],
-        'img-src': ['*', "'self'", 'https:', 'data:'],
-        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
-      }
-    }
-  },
+  // security: {
+  //   headers: {
+  //     xXSSProtection: '1',
+  //     crossOriginEmbedderPolicy: 'unsafe-none',
+  //     contentSecurityPolicy: {
+  //       'base-uri': ["'self'"],
+  //       'object-src': ["'none'"],
+  //       'form-action': ["'self'"],
+  //       'frame-ancestors': ["'self'"],
+  //       'upgrade-insecure-requests': true,
+  //       'font-src': ["'self'", 'https:', 'data:'],
+  //       'img-src': ['*', "'self'", 'https:', 'data:'],
+  //       'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+  //       'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+  //       'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+  //     }
+  //   }
+  // },
   device: {
     refreshOnResize: true
   },
   pwa: {
     manifest: enums.manifest,
-    strategies: 'generateSW',
+    strategies: 'injectManifest',
     registerType: 'autoUpdate',
     workbox: {
       directoryIndex: '',
@@ -107,7 +107,7 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    preset: 'netlify-edge',
+    // preset: 'netlify-edge',
     compressPublicAssets: true
   },
   hooks: {
