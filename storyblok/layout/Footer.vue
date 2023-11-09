@@ -60,7 +60,10 @@
             :key="iconLink._uid"
             class="link-item m-1.5"
           >
-            <RouteComponent :blok="iconLink" class="social-icon transition-all duration-700" />
+            <RouteComponent
+              :blok="iconLink"
+              class="social-icon h-full transition-all duration-700"
+            />
           </li>
         </template>
       </ul>

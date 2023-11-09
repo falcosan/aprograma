@@ -1,7 +1,7 @@
 <template>
   <div class="post p-5">
     <div class="post-head relative w-full mb-5">
-      <h1 class="post-title text-2xl sm:text-3xl" v-text="blok.title" />
+      <h1 class="post-title" v-text="blok.title" />
       <div v-if="setEditorPath" class="flex justify-end flex-auto mb-5">
         <RouteComponent
           class="px-3 py-2 rounded hover:opacity-80"
