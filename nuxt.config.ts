@@ -85,7 +85,7 @@ export default defineNuxtConfig({
     includeAssets: ['favicon.ico'],
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{js,css}'],
+      globPatterns: ['**/*.{js,css,png}'],
       globIgnores: ['sw.js', 'workbox-*.js']
     }
   },
