@@ -87,7 +87,6 @@ export default defineNuxtConfig({
     includeAssets: ['favicon.ico'],
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{json,ico,html,png,js,txt,css,svg}'],
       globIgnores: ['sw.js', 'workbox-*.js']
     }
   },
@@ -104,8 +103,8 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    preset: 'netlify-edge',
-    compressPublicAssets: { brotli: true, gzip: true }
+    compressPublicAssets: true,
+    preset: process.env.NUXT_ENV_LOCAL ? 'node-server' : 'netlify-edge'
   },
   hooks: {
     close: nuxt => {
