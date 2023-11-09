@@ -87,7 +87,6 @@ export default defineNuxtConfig({
       directoryIndex: null,
       navigateFallback: null,
       globIgnores: ['sw.js', 'workbox-*.js'],
-      navigateFallbackDenylist: [/\/[api]+\/.*/],
       globPatterns: [
         '**/*.{js,json,css,png,jpg,jpeg,svg}',
         '*.{js,json,css,ico,png,jpg,jpeg,svg}',
