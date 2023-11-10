@@ -43,15 +43,17 @@
           :style-current-language="`h-full flex items-center justify-center relative z-10 ${
             expanded ? '' : 'rounded-br'
           }`"
-          :style-translate-list="`rounded-b w-full transform transition-transform duration-200 ease-out ${
-            expanded ? 'translate-y-0' : '-translate-y-full'
+          :style-translate-list="`rounded-b w-full transition-transform duration-200 ease-out ${
+            expanded
+              ? 'translate-y-0 border-b border-x border-gray-200 border-opacity-20'
+              : '-translate-y-full'
           }`"
           style-translate-item="p-3 text-center"
           :blok="$contentByName(blok.body, 'Translate')"
           :parent-background-color="backgroundColor"
           @translate-list-action="toggleExpanded(false)"
           @current-lang-action="expanded = !expanded"
-          @mouseenter="isDesktopOrTablet ? expandStill() : ''"
+          @mouseenter="isDesktopOrTablet ? expandStill() : undefined"
           @mouseleave="isDesktopOrTablet ? expandOut() : toggleExpanded(false)"
         />
       </div>
