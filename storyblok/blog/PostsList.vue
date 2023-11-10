@@ -1,5 +1,5 @@
 <template>
-  <div v-if="sortedPosts.length" :key="containerKey" class="posts w-full">
+  <div v-if="sortedPosts.length" class="posts w-full">
     <div v-if="blok.search_action" class="post-search grid self-start mb-5">
       <input
         v-model="searchTerm"
@@ -151,14 +151,10 @@ export default defineNuxtComponent({
     const { $languageCase } = useNuxtApp();
     const state = reactive({
       searchTerm: '',
-      containerKey: 0,
       searchCategory: [],
       showFilters: false
     });
-    const { searchTerm, containerKey, searchCategory, showFilters } = toRefs(state);
-    onMounted(() => {
-      if (props.sliderMode || props.carouselMode || props.containerMode) containerKey.value++;
-    });
+    const { searchTerm, searchCategory, showFilters } = toRefs(state);
     const { data: posts } = await useAsyncData(
       'posts',
       async () => {
@@ -279,7 +275,6 @@ export default defineNuxtComponent({
       searchQuery,
       showFilters,
       filterSearch,
-      containerKey,
       searchCategory,
       showCategories,
       sortedCategories,

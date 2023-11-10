@@ -164,7 +164,6 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { isDesktop } = useDevice();
-    const { sizes, windowWidth } = useScreen();
     const { markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
@@ -185,7 +184,7 @@ export default defineNuxtComponent({
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
     };
-    return { sizes, windowWidth, isDesktop, setAlignText, markdownToHtml, changeDate };
+    return { isDesktop, setAlignText, markdownToHtml, changeDate };
   }
 });
 </script>
