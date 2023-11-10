@@ -38,7 +38,7 @@
             )};`"
           >
             <span
-              class="project-text text-xl sm:text-2xl px-10 overflow-hidden"
+              class="project-text px-10 overflow-hidden text-xl sm:text-2xl"
               :style="`color: ${$binaryControl(project.content.text_color, 'color')};`"
             >
               {{ project.content.title }}
