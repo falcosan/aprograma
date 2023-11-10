@@ -1,16 +1,20 @@
 <template>
-  <div v-if="sortedProjects.length" :key="containerKey" class="projects w-full">
+  <div v-if="sortedProjects.length" class="projects w-full">
     <ProjectSliderComponent
-      v-if="
-        sizes.lg &&
-        !sliderMode &&
-        blok.show_slider &&
-        !blok.row_container &&
-        sortedProjects.length > 2
-      "
+      v-if="!sliderMode && blok.show_slider && !blok.row_container && sortedProjects.length > 2"
+      v-show="windowWidth >= 1024"
       :blok="sortedProjects"
     />
-    <ul v-else :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`">
+    <ul
+      v-show="
+        sliderMode ||
+        !blok.show_slider ||
+        windowWidth < 1024 ||
+        blok.row_container ||
+        sortedProjects.length <= 2
+      "
+      :class="`project-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${maxProjects}`"
+    >
       <ProjectTeaserComponent
         v-for="project in sortedProjects"
         :key="project.uuid"
@@ -55,13 +59,9 @@ export default defineNuxtComponent({
   },
   async setup(props) {
     const { locale } = useI18n();
-    const { sizes } = useScreen();
     const config = useRuntimeConfig();
+    const { windowWidth } = useScreen();
     const { addProjects } = store.projects();
-    const containerKey = ref(0);
-    onMounted(() => {
-      if (props.sliderMode || props.carouselMode || props.containerMode) containerKey.value++;
-    });
     const { data: projects } = await useAsyncData(
       'projects',
       async () => {
@@ -94,7 +94,7 @@ export default defineNuxtComponent({
       return featuredProjects;
     });
     watch(projects, val => addProjects(val), { immediate: true });
-    return { sizes, maxProjects, sortedProjects, containerKey };
+    return { windowWidth, maxProjects, sortedProjects };
   }
 });
 </script>

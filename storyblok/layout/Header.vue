@@ -91,7 +91,6 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { sizes } = useScreen();
     const { $binaryControl } = useNuxtApp();
     const { isDesktopOrTablet } = useDevice();
     const state = reactive({
@@ -125,7 +124,6 @@ export default defineNuxtComponent({
       }
     };
     return {
-      sizes,
       webName,
       expanded,
       expandOut,

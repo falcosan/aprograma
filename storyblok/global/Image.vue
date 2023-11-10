@@ -23,7 +23,7 @@
     :modifiers="file ? { filters: { focal: file.focus ?? 0 } } : undefined"
     :fit="file?.focus ? undefined : 'in'"
     format="webp"
-    :sizes="sizes ?? undefined"
+    :sizes="sizes || undefined"
   />
 </template>
 <script>

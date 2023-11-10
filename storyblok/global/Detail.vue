@@ -14,9 +14,10 @@
     </span>
     <div class="detail-content grid gap-5 md:grid-flow-col auto-cols-fr rounded">
       <ul
-        :class="`image-container grid gap-5 w-full justify-items-center auto-rows-max ${
-          sizes.md ? (blok.invert_direction ? 'col-start-2 col-end-2' : '') : ''
-        }`"
+        :class="[
+          'image-container grid gap-5 w-full justify-items-center auto-rows-max',
+          { 'md:col-start-2 md:col-end-2': blok.invert_direction }
+        ]"
         :style="`grid-template-columns: repeat(${
           blok.column_container ? $rangeItems(Number(blok.column_container), 3) : blok.media.length
         }, 1fr)`"
@@ -192,7 +193,6 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { sizes } = useScreen();
     const { markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
@@ -222,7 +222,6 @@ export default defineNuxtComponent({
       }
     };
     return {
-      sizes,
       imageType,
       setAlignText,
       markdownToHtml
