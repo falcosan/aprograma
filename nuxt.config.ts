@@ -84,6 +84,7 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     workbox: {
       navigateFallback: null,
+      globDirectory: 'dist',
       globIgnores: ['sw.js', 'workbox-*.js'],
       globPatterns: ['**/*.{js,css,png,jpg,jpeg,svg,ico}']
     }
