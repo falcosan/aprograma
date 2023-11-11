@@ -84,7 +84,7 @@ export default defineNuxtConfig({
     strategies: 'injectManifest',
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{js,css}', '*.{png,jpg,jpeg,svg,ico}']
+      globPatterns: ['**/*.{js,css,png,jpg,jpeg,svg,ico}']
     }
   },
   storyblok: {
