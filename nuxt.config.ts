@@ -79,14 +79,10 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
-    strategies: 'generateSW',
+    filename: 'sw.ts',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
-    workbox: {
-      navigateFallback: null,
-      globPatterns: ['**/*.{js,css}'],
-      globIgnores: ['sw.js', 'workbox-*.js', 'manifest.webmanifest', '.netlify/**/*']
-    }
+    strategies: 'injectManifest'
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
