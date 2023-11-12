@@ -79,13 +79,13 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
-    strategies: 'generateSW',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
+    strategies: 'injectManifest',
     workbox: {
       navigateFallback: null,
       globPatterns: ['**/*.{js,css}'],
-      globIgnores: ['sw.js', 'workbox-*.js']
+      globIgnores: ['sw.js', 'workbox-*.js', 'manifest.webmanifest', 'ignoredFolder/**/*']
     }
   },
   storyblok: {
