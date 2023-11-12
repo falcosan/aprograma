@@ -79,12 +79,11 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
-    filename: 'ap-sw.ts',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
     injectManifest: {
-      injectionPoint: null
+      injectionPoint: undefined
     },
     devOptions: {
       enabled: true,

@@ -1,12 +1,9 @@
-export default {}
-declare let self: ServiceWorkerGlobalScope
-
 const cache = 'cache_V1'
 const assets = ['/']
 
-self.addEventListener('install', (event: ExtendableEvent) => {
+self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(cache).then((cache: Cache) => {
+        caches.open(cache).then((cache) => {
             return Promise.all(assets.map(async (url) => {
                 const response = await fetch(url);
                 return await cache.put(url, response);
@@ -15,9 +12,9 @@ self.addEventListener('install', (event: ExtendableEvent) => {
     );
 });
 
-self.addEventListener('fetch', (event: FetchEvent) => {
+self.addEventListener('fetch', (event) => {
     event.respondWith(
-        caches.match(event.request).then((response: Response | undefined) => {
+        caches.match(event.request).then((response) => {
             return response || fetch(event.request);
         })
     );
