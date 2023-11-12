@@ -79,9 +79,9 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
+    strategies: 'generateSW',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
-    strategies: 'injectManifest',
     workbox: {
       navigateFallback: null,
       globPatterns: ['**/*.{js,css}'],
