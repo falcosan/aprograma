@@ -82,7 +82,10 @@ export default defineNuxtConfig({
     filename: 'sw.ts',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
-    strategies: 'injectManifest'
+    strategies: 'injectManifest',
+    injectManifest: {
+      injectionPoint: undefined
+    }
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
