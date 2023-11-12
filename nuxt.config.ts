@@ -79,16 +79,10 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
+    filename: 'ap-sw.ts',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
-    strategies: 'injectManifest',
-    injectManifest: {
-      injectionPoint: undefined
-    },
-    devOptions: {
-      enabled: true,
-      type: 'module'
-    }
+    strategies: 'injectManifest'
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
