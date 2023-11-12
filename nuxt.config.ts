@@ -85,7 +85,7 @@ export default defineNuxtConfig({
     includeAssets: ['favicon.ico'],
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{js,css}']
+      globPatterns: ['**/*.{js.json,css}']
     }
   },
   storyblok: {
@@ -101,7 +101,6 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    preset: 'netlify-edge',
     compressPublicAssets: true
   },
   hooks: {
