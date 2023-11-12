@@ -21,7 +21,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/robots": "^3.0.0",
     "@pinia/nuxt": "^0.5.1",
     "@storyblok/nuxt": "^5.7.6",
     "@vueuse/core": "^10.6.0",
@@ -34,6 +33,7 @@
     "@nuxtjs/device": "^3.1.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/i18n": "^8.0.0-rc.5",
+    "@nuxtjs/robots": "^3.0.0",
     "@nuxtjs/tailwindcss": "^6.9.4",
     "@tailwindcss/typography": "^0.5.10",
     "@typescript-eslint/eslint-plugin": "^6.10.0",

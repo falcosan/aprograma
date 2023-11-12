@@ -84,6 +84,13 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     strategies: 'injectManifest'
   },
+  robots: {
+    rules: [
+      { UserAgent: '*' },
+      { Disallow: '' },
+      { Sitemap: `${process.env.NUXT_ENV_DOMAIN}sitemap.xml` }
+    ]
+  },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
