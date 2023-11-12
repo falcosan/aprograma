@@ -82,6 +82,7 @@ export default defineNuxtConfig({
     manifest: enums.manifest,
     registerType: 'autoUpdate',
     workbox: {
+      navigateFallback: 'index.html',
       globPatterns: ['**/*.{js,css,ico,png,svg}']
     }
   },
