@@ -85,7 +85,7 @@ export default defineNuxtConfig({
     workbox: {
       navigateFallback: null,
       globPatterns: ['**/*.{js,css}'],
-      globIgnores: ['sw.js', 'workbox-*.js', 'manifest.webmanifest', 'ignoredFolder/**/*']
+      globIgnores: ['sw.js', 'workbox-*.js', 'manifest.webmanifest', '.netlify/**/*']
     }
   },
   storyblok: {
