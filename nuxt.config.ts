@@ -83,6 +83,9 @@ export default defineNuxtConfig({
     manifest: enums.manifest,
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
+    injectManifest: {
+      injectionPoint: null
+    },
     devOptions: {
       enabled: true,
       type: 'module'
