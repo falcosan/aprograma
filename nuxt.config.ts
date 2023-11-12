@@ -71,8 +71,20 @@ export default defineNuxtConfig({
         'img-src': ["'self'", 'https:', 'data:'],
         'font-src': ["'self'", 'https:', 'data:'],
         'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"],
-        'script-src-attr': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"]
+        'script-src': [
+          "'self'",
+          'https:',
+          "'unsafe-inline'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'"
+        ],
+        'script-src-attr': [
+          "'self'",
+          'https:',
+          "'unsafe-inline'",
+          "'strict-dynamic'",
+          "'nonce-{{nonce}}'"
+        ]
       }
     }
   },
