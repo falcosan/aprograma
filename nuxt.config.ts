@@ -82,10 +82,14 @@ export default defineNuxtConfig({
     manifest: enums.manifest,
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
-    includeAssets: ['favicon.ico'],
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{js.json,css}']
+      globIgnores: ['sw.js', 'workbox-*.js'],
+      globPatterns: [
+        '**/*.{js,json,css,png,jpg,jpeg,svg}',
+        '*.{js,json,css,ico,png,jpg,jpeg,svg}',
+        '**/**/*.{js,json,css,png,jpg,jpeg,svg}'
+      ]
     }
   },
   storyblok: {
@@ -101,6 +105,7 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
+    preset: 'netlify-edge',
     compressPublicAssets: true
   },
   hooks: {
