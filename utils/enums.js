@@ -5,6 +5,7 @@ export default {
   name,
   routes: token =>
     `https://api.storyblok.com/v2/cdn/links?token=${token}&cv=CURRENT_TIMESTAMP&version=published`,
+  pages: ['/', '/about', '/portfolio', '/blog'],
   meta: {
     title: `${name} - A break from stressful coding`,
     description,
