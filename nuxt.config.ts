@@ -70,7 +70,7 @@ export default defineNuxtConfig({
         'upgrade-insecure-requests': true,
         'img-src': ["'self'", 'https:', 'data:'],
         'font-src': ["'self'", 'https:', 'data:'],
-        'style-src': ["'self'", "'nonce-{{nonce}}'"],
+        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
         'script-src': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"],
         'script-src-attr': ["'self'", "'nonce-{{nonce}}'", "'strict-dynamic'"]
       }
