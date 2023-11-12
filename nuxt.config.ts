@@ -83,7 +83,7 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     workbox: {
       navigateFallback: null,
-      globPatterns: ['**/*.{js,html,css}'],
+      globPatterns: ['**/*.{js,css}', '**/index.html'],
       globIgnores: ['sw.js', 'workbox-*.js']
     }
   },
