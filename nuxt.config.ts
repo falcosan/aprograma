@@ -81,10 +81,11 @@ export default defineNuxtConfig({
   pwa: {
     manifest: enums.manifest,
     registerType: 'autoUpdate',
+    includeAssets: ['fallback.html'],
     workbox: {
-      navigateFallback: '/fallback.html',
-      globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: ['**/*.{js,css}', 'fallback.html']
+      globPatterns: ['**/*.{js,css}'],
+      navigateFallback: 'fallback.html',
+      globIgnores: ['sw.js', 'workbox-*.js']
     }
   },
   storyblok: {
