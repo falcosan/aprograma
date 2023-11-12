@@ -10,7 +10,7 @@ precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
 
 try {
-    const handler = createHandlerBoundToURL('/index.html');
+    const handler = createHandlerBoundToURL('/');
     const route = new NavigationRoute(handler);
     registerRoute(route);
 } catch (error) {
