@@ -82,7 +82,7 @@ export default defineNuxtConfig({
     manifest: enums.manifest,
     registerType: 'autoUpdate',
     workbox: {
-      navigateFallback: undefined,
+      navigateFallback: null,
       globPatterns: ['**/*.{js,html,css}'],
       globIgnores: ['sw.js', 'workbox-*.js']
     }
