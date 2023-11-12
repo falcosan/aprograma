@@ -83,8 +83,8 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     workbox: {
       navigateFallback: null,
-      globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: ['**/*.{js,html,css}']
+      globPatterns: ['**/*.{js,html,css}'],
+      globIgnores: ['sw.js', 'workbox-*.js']
     }
   },
   storyblok: {
