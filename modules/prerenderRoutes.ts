@@ -5,6 +5,7 @@ export default defineNuxtModule({
   async setup() {
     const staticRoutes = [
       '/',
+      '/robots.txt',
       `/${enums.sitemap}`,
       ...Object.values(enums.rss)
         .map(item => {
