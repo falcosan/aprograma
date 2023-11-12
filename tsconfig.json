@@ -1,3 +1,4 @@
 {
   "extends": "./.nuxt/tsconfig.json",
+  "compilerOptions": { "lib": ["ESNext", "DOM", "WebWorker"] }
 }
