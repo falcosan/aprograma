@@ -1,9 +1,16 @@
-import { clientsClaim } from 'workbox-core'
-import { precacheAndRoute,cleanupOutdatedCaches } from 'workbox-precaching'
+import { clientsClaim } from 'workbox-core';
+import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
-declare let self: ServiceWorkerGlobalScope
+declare let self: ServiceWorkerGlobalScope;
 
-self.skipWaiting()
-clientsClaim()
-precacheAndRoute(self.__WB_MANIFEST)
-cleanupOutdatedCaches()
+self.skipWaiting();
+clientsClaim();
+precacheAndRoute(
+  self.__WB_MANIFEST
+    .map(entry => {
+      if (typeof entry === 'object') return entry.url;
+      else return entry;
+    })
+    .filter(entry => entry.endsWith('.css'))
+);
+cleanupOutdatedCaches();
