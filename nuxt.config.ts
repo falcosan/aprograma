@@ -82,7 +82,10 @@ export default defineNuxtConfig({
     filename: 'ap-sw.ts',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
-    strategies: 'injectManifest'
+    strategies: 'injectManifest',
+    injectManifest: {
+      globPatterns: ['**/*.{css,png,jpg,jpeg,svg}']
+    }
   },
   robots: {
     rules: [
