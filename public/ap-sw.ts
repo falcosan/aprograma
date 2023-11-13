@@ -5,12 +5,5 @@ declare let self: ServiceWorkerGlobalScope;
 
 self.skipWaiting();
 clientsClaim();
-precacheAndRoute(
-  self.__WB_MANIFEST
-    .map(entry => {
-      if (typeof entry === 'object') return entry.url;
-      else return entry;
-    })
-    .filter(entry => entry.endsWith('.css'))
-);
+precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
