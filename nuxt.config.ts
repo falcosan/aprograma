@@ -84,7 +84,7 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
     injectManifest: {
-      globIgnores: ['**/node_modules/**/*', '**/*.{js}']
+      globPatterns: ['**/*.{css,png,jpg,jpeg,svg}']
     }
   },
   robots: {
