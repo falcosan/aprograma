@@ -58,9 +58,12 @@ export default defineNuxtComponent({
         nextTick(() => modal.value.focus({ preventScroll: true }));
         $noscroll(true);
       } else {
-        modal.value.parentNode.removeChild(modal.value);
-        document.querySelector('.modal.opened').appendChild(modal.value);
-        $noscroll(false);
+        const openedModal = document.querySelector('.modal.opened');
+        if (openedModal) {
+          modal.value.parentNode.removeChild(modal.value);
+          openedModal.appendChild(modal.value);
+          $noscroll(false);
+        }
       }
     };
     const hasSlot = name => {
