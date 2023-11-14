@@ -26,15 +26,6 @@
           />
         </template>
       </RouteComponent>
-      <span
-        v-else
-        class="project-private mr-5 text-xs"
-        v-text="
-          !blok.url_project
-            ? $languageCase('private project', 'proyecto privado', 'progetto privato')
-            : ''
-        "
-      />
       <RouteComponent
         v-if="blok.url_repository"
         icon-item
