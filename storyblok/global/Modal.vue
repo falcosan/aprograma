@@ -1,5 +1,5 @@
 <template>
-  <div ref="modalParent" :class="['modal', { opened: openEvent || open }]">
+  <div ref="modalContainer" :class="['modal', { opened: openEvent || open }]">
     <slot name="activator" :open="openModal" />
     <div
       v-show="openEvent || open"
@@ -48,7 +48,7 @@ export default defineNuxtComponent({
   setup(props) {
     const { $noscroll } = useNuxtApp();
     const modal = ref(null);
-    const modalParent = ref(null);
+    const modalContainer = ref(null);
     const state = reactive({ openEvent: false });
     const { openEvent } = toRefs(state);
     const openModal = () => (openEvent.value = true);
@@ -60,7 +60,7 @@ export default defineNuxtComponent({
         $noscroll(true);
       } else {
         modal.value.parentNode.removeChild(modal.value);
-        modalParent.value.appendChild(modal.value);
+        modalContainer.value.appendChild(modal.value);
         $noscroll(false);
       }
     };
@@ -81,7 +81,7 @@ export default defineNuxtComponent({
       openEvent,
       openModal,
       closeModal,
-      modalParent
+      modalContainer
     };
   }
 });
