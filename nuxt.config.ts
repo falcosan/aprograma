@@ -3,7 +3,7 @@ import enums from './utils/enums';
 
 export default defineNuxtConfig({
   app: {
-    rootId: '__dd',
+    rootId: '__ap',
     rootTag: 'section'
   },
   runtimeConfig: {
@@ -79,11 +79,11 @@ export default defineNuxtConfig({
     refreshOnResize: true
   },
   pwa: {
-    filename: 'ap-sw.ts',
     manifest: enums.manifest,
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
     injectManifest: {
+      globIgnores: ['sw.js', 'workbox-*.js'],
       globPatterns: ['**/*.{js,css,png,jpg,jpeg,svg,ico}']
     }
   },
