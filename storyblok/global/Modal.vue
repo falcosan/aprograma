@@ -1,5 +1,5 @@
 <template>
-  <div :class="['modal', { opened: openEvent || open }]">
+  <div ref="modalParent" :class="['modal', { opened: openEvent || open }]">
     <slot name="activator" :open="openModal" />
     <div
       v-show="openEvent || open"
@@ -48,6 +48,7 @@ export default defineNuxtComponent({
   setup(props) {
     const { $noscroll } = useNuxtApp();
     const modal = ref(null);
+    const modalParent = ref(null);
     const state = reactive({ openEvent: false });
     const { openEvent } = toRefs(state);
     const openModal = () => (openEvent.value = true);
@@ -58,12 +59,9 @@ export default defineNuxtComponent({
         nextTick(() => modal.value.focus({ preventScroll: true }));
         $noscroll(true);
       } else {
-        const openedModal = document.querySelector('.modal.opened');
-        if (openedModal) {
-          modal.value.parentNode.removeChild(modal.value);
-          openedModal.appendChild(modal.value);
-          $noscroll(false);
-        }
+        modal.value.parentNode.removeChild(modal.value);
+        modalParent.value.appendChild(modal.value);
+        $noscroll(false);
       }
     };
     const hasSlot = name => {
@@ -82,7 +80,8 @@ export default defineNuxtComponent({
       hasSlot,
       openEvent,
       openModal,
-      closeModal
+      closeModal,
+      modalParent
     };
   }
 });
