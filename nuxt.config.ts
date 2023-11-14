@@ -83,8 +83,7 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
     injectManifest: {
-      globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: ['**/*.{js,css,png,jpg,jpeg,svg,ico}']
+      globPatterns: ['**/*.{css,png,jpg,jpeg,svg,ico}']
     }
   },
   robots: {
