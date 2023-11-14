@@ -5,7 +5,7 @@
   >
     <div class="footer-content h-52 grid gap-5 text-center">
       <div
-        :class="`input-footer relative grid gap-5 grid-flow-col-dense items-end justify-center bottom-6 text-md ${
+        :class="`input-footer relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${
           backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
