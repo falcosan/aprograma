@@ -40,7 +40,7 @@
                 :alt="media.alt"
                 width="711"
                 height="711"
-                sizes="xs:299px sm:380px md:514px lg:620px"
+                sizes="xs:380px sm:514px md:711px lg:804px"
                 @click="action.open()"
               />
               <video
@@ -79,7 +79,7 @@
                 width="1920"
                 height="auto"
                 original
-                sizes="xs:380px sm:514px md:711px lg:804px"
+                sizes="xs:380px sm:514px md:711px lg:804px xl:1366px 2xl:1680px"
                 :src="media.filename"
                 :alt="media.alt"
                 :file="media"
@@ -125,7 +125,7 @@
               :alt="media.alt"
               width="711"
               height="711"
-              sizes="xs:299px sm:380px md:514px lg:620px"
+              sizes="xs:380px sm:514px md:711px lg:804px"
             />
             <video
               v-else
