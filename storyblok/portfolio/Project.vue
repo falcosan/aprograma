@@ -74,11 +74,11 @@
               class="intro-image h-full w-full aspect-[11/10] md:aspect-[11/9] border-t-2 border-b-2 object-cover rounded select-none"
               :src="blok.image.filename"
               :file="blok.image"
-              :alt="blok.image.alt"
+              :alt="blok.image?.alt"
               width="984"
               height="805"
               :style="`border-color: ${$binaryControl(blok.background_color, 'color', 'e0e0e0')}`"
-              sizes="xs:299px sm:380px md:514px"
+              sizes="xs:299px sm:380px md:514px lg:711px xl:804px"
             />
           </div>
         </template>
@@ -87,9 +87,9 @@
             class="image-project select-none"
             width="1920"
             height="auto"
-            sizes="xs:380px sm:514px md:711px lg:804px"
+            sizes="xs:380px sm:514px md:711px lg:804px xl:1680px"
             :src="blok.image.filename"
-            :alt="blok.image.alt"
+            :alt="blok.image?.alt"
             :file="blok.image"
             original
           />
