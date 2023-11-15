@@ -3,7 +3,7 @@
     v-if="imageType === 'svg+xml' || original"
     :loading="lazy ? 'lazy' : undefined"
     class="image"
-    :alt="alt"
+    :alt="alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')"
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"
@@ -14,7 +14,7 @@
     v-else
     :loading="lazy ? 'lazy' : undefined"
     class="image"
-    :alt="alt"
+    :alt="alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')"
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"

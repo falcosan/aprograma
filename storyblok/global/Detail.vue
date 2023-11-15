@@ -40,7 +40,7 @@
                 :alt="media.alt"
                 width="711"
                 height="711"
-                sizes="xs:299px sm:380px md:514px"
+                sizes="xs:299px sm:380px md:514px lg:620px"
                 @click="action.open()"
               />
               <video
@@ -125,7 +125,7 @@
               :alt="media.alt"
               width="711"
               height="711"
-              sizes="xs:299px sm:380px md:514px"
+              sizes="xs:299px sm:380px md:514px lg:620px"
             />
             <video
               v-else

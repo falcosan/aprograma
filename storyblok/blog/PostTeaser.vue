@@ -27,14 +27,11 @@
                 ? ''
                 : 'container-mode md:aspect-[16/10] lg:aspect-[14/4] xl:aspect-[14/3] 2xl:aspect-[11/2]'
             } ${postContent.file?.filename ? 'object-cover' : 'object-contain'}`"
-            :alt="
-              postContent.file?.alt ||
-              $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
-            "
+            :alt="postContent.file?.alt"
             :src="setFile"
             :width="checkFile ? '1200' : false"
             :height="checkFile ? '434' : false"
-            :sizes="checkFile ? 'xs:299px sm:380px md:514px' : false"
+            :sizes="checkFile ? 'xs:299px sm:380px md:514px lg:620px' : false"
           />
         </div>
         <div

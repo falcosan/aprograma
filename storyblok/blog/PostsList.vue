@@ -225,10 +225,7 @@ export default defineNuxtComponent({
         } else {
           return sortedPosts.value;
         }
-      })().sort(
-        ({ content: contentA }, { content: contentB }) =>
-          new Date(contentB.date) - new Date(contentA.date)
-      );
+      })();
     });
     const filterByTerms = computed(() => {
       return sortedPosts.value.filter(post =>

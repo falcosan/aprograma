@@ -25,14 +25,12 @@
           :is="lookFile"
           :format="checkFile ? 'webp' : false"
           class="post-file w-full h-full aspect-[13/8] object-center select-none object-cover"
-          :alt="
-            blok.file?.alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')
-          "
+          :alt="blok.file?.alt"
           :src="setFile"
           :file="blok.file"
           :width="checkFile ? '1366' : false"
           :height="checkFile ? '707' : false"
-          :sizes="checkFile ? 'xs:380px sm:514px md:711px' : false"
+          :sizes="checkFile ? 'xs:380px sm:514px md:711px xl:804px' : false"
         />
       </div>
     </div>

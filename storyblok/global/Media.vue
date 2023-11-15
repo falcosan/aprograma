@@ -31,7 +31,7 @@
           lazy
           :file="blok.media"
           :src="blok && blok.media.filename ? blok.media.filename : src"
-          :alt="blok && blok.media.filename ? blok.media.alt : alt ? alt : ''"
+          :alt="blok && blok.media.alt ? blok.media.alt : alt"
           :width="blok?.width ?? width"
           :height="blok?.height ?? height"
           :sizes="checkSizes"
@@ -76,7 +76,7 @@
           original
           :file="blok.media"
           :src="blok && blok.media.filename ? blok.media.filename : src"
-          :alt="blok && blok.media.filename ? blok.media.alt : alt ? alt : ''"
+          :alt="blok && blok.media.alt ? blok.media.alt : alt"
           width="1920"
           height="1980"
           sizes="xs:380px sm:514px md:711px lg:804px"
@@ -120,7 +120,7 @@
         lazy
         :file="blok.media"
         :src="blok && blok.media.filename ? blok.media.filename : src"
-        :alt="blok && blok.media.filename ? blok.media.alt : alt ? alt : ''"
+        :alt="blok && blok.media.alt ? blok.media.alt : alt"
         :width="blok?.width ?? width"
         :height="blok?.height ?? height"
         :sizes="checkSizes"

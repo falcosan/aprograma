@@ -20,10 +20,10 @@
           class="project-image h-full w-full object-cover object-center select-none rounded-t"
           :src="projectContent.image.filename"
           :file="projectContent.image"
-          :alt="projectContent.image.alt"
+          :alt="projectContent.image?.alt"
           width="340"
           height="306"
-          sizes="xs:299px sm:380px md:514px"
+          sizes="xs:299px sm:380px md:514px lg:620px"
         />
         <div
           :style="`background-color: ${$binaryControl(
