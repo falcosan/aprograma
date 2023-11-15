@@ -56,7 +56,7 @@
               :alt="project.content.image?.alt"
               width="620"
               height="320"
-              sizes="lg:514px"
+              sizes="lg:620px"
             />
           </div>
         </RouteComponent>
