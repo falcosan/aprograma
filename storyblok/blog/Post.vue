@@ -16,9 +16,10 @@
         />
       </div>
       <div
-        :class="`post-file-container w-full h-full overflow-hidden rounded ${
-          blok.file?.filename || 'bg-black'
-        }`"
+        :class="[
+          'post-file-container w-full h-full overflow-hidden rounded',
+          { 'bg-black': !blok.file?.filename }
+        ]"
       >
         <component
           :is="lookFile"
@@ -31,7 +32,7 @@
           :file="blok.file"
           :width="checkFile ? '1366' : false"
           :height="checkFile ? '707' : false"
-          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1366px' : false"
+          :sizes="checkFile ? 'xs:380px sm:514px md:711px' : false"
         />
       </div>
     </div>

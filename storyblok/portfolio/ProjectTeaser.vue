@@ -23,7 +23,7 @@
           :alt="projectContent.image.alt"
           width="340"
           height="306"
-          sizes="xs:299px sm:380px md:514px lg:711px xl:804px"
+          sizes="xs:299px sm:380px md:514px"
         />
         <div
           :style="`background-color: ${$binaryControl(

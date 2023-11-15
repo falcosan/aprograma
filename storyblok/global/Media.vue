@@ -79,7 +79,7 @@
           :alt="blok && blok.media.filename ? blok.media.alt : alt ? alt : ''"
           width="1920"
           height="1980"
-          sizes="xs:380px sm:514px md:711px lg:804px xl:1680px 2xl:1920px"
+          sizes="xs:380px sm:514px md:711px lg:804px"
         />
         <video
           v-else-if="(blok && blok.media.filename) || video"

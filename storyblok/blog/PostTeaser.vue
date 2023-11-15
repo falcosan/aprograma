@@ -34,7 +34,7 @@
             :src="setFile"
             :width="checkFile ? '1200' : false"
             :height="checkFile ? '434' : false"
-            :sizes="checkFile ? 'xs:299px sm:380px md:514px lg:620px xl:984px 2xl:1200px' : false"
+            :sizes="checkFile ? 'xs:299px sm:380px md:514px' : false"
           />
         </div>
         <div
