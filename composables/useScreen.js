@@ -1,6 +1,13 @@
-import { useWindowSize, useWindowScroll, useElementSize, useMutationObserver } from '@vueuse/core';
+import {
+  useWindowSize,
+  useElementSize,
+  useWindowScroll,
+  useMutationObserver,
+  useDocumentVisibility
+} from '@vueuse/core';
 
 export const useScreen = () => {
+  const visibility = useDocumentVisibility();
   const { width: windowWidth } = useWindowSize();
   const { y: scrollPosition } = useWindowScroll();
   const windowLoad = computed(
@@ -11,6 +18,7 @@ export const useScreen = () => {
     useMutationObserver(element, mutations => callback(mutations), config);
   return {
     windowLoad,
+    visibility,
     windowWidth,
     elementSize,
     scrollPosition,
