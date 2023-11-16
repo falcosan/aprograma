@@ -84,7 +84,7 @@ export default defineNuxtConfig({
     strategies: 'injectManifest',
     injectManifest: {
       globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: ['**/*.{css,png,jpg,jpeg,svg,ico}']
+      globPatterns: ['**/*.{js,css,png,jpg,jpeg,svg,ico}']
     }
   },
   robots: {
