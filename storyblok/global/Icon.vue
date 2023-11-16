@@ -8,7 +8,7 @@
     @click="animateMenu ? (open = !open) : ''"
   >
     <ImageComponent
-      v-if="blok && blok.icon_image.filename"
+      v-if="blok?.icon_image.filename"
       :class="`icon ${blok.icon_image.filename
         .split(/[\\/]/)
         .pop()
@@ -22,7 +22,7 @@
       }; filter: invert(${blok && blok.invert_color ? '1' : '0'})`"
       :title="(blok.title && !blok.show_title) || tooltip ? (blok ? blok.title : tooltip) : ''"
       :src="blok.icon_image.filename"
-      :alt="blok.alt"
+      :alt="blok.icon_image.alt"
       :height="blok.size"
       :width="blok.size"
       :file="blok"
