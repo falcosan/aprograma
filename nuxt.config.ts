@@ -99,7 +99,11 @@ export default defineNuxtConfig({
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
   colorMode: {
-    classSuffix: ''
+    classSuffix: '',
+    hid: 'theme-script',
+    storageKey: 'theme',
+    globalName: '__THEME__',
+    componentName: 'ThemeScheme'
   },
   vite: {
     build: {

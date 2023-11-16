@@ -26,7 +26,7 @@
                 { 'opacity-0': checkColorMode.light }
               ]"
               size="w-6"
-              tooltip="Light"
+              tooltip="Light theme"
               @click="changeColorMode('dark')"
             />
             <IconComponent
@@ -36,7 +36,7 @@
                 { 'opacity-0': checkColorMode.dark }
               ]"
               size="w-6"
-              tooltip="Dark"
+              tooltip="Dark theme"
               @click="changeColorMode('light')"
             />
           </div>
