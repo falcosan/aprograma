@@ -10,19 +10,15 @@
         <RouteComponent
           set-active="pb-1 border-t-4 border-gray-300"
           icon-item
-          class="home-link w-2/12 h-full rounded-bl ext-white"
+          :class="[
+            'home-link w-2/12 h-full rounded-bl',
+            $themeColor(backgroundColor) ? 'text-white' : ''
+          ]"
           :aria-label="webName"
           to="/"
         >
           <template #icon>
-            <IconComponent
-              home
-              size="w-5 h-5"
-              :class="[
-                'home-link h-full w-full cursor-pointer',
-                $themeColor(backgroundColor) ? 'invert' : ''
-              ]"
-            />
+            <IconComponent home size="w-5 h-5" class="home-link h-full w-full cursor-pointer" />
           </template>
         </RouteComponent>
         <LogoComponent

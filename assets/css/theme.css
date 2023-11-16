@@ -1,0 +1,22 @@
+.footer,
+.main-flat,
+.navbar-up,
+.page-title,
+.post-title,
+.navbar-down,
+.detail-title,
+.project-title,
+.navbar-up-flat,
+.detail-project,
+.main-flat.color-animation {
+  @apply dark:invert transition-[filter];
+}
+.footer,
+.main-flat,
+.navbar-up,
+.navbar-down {
+  @apply dark:contrast-75;
+}
+.main-flat.color-animation {
+  @apply dark:contrast-100;
+}
