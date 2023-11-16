@@ -26,6 +26,7 @@
                 { 'opacity-0': checkColorMode.light }
               ]"
               size="w-6"
+              tooltip="Light"
               @click="changeColorMode('dark')"
             />
             <IconComponent
@@ -35,6 +36,7 @@
                 { 'opacity-0': checkColorMode.dark }
               ]"
               size="w-6"
+              tooltip="Dark"
               @click="changeColorMode('light')"
             />
           </div>
@@ -42,7 +44,7 @@
             v-else
             :class="[
               'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
-              backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-800'
+              backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-500'
             ]"
             style="transform: rotateX(45deg)"
           />
