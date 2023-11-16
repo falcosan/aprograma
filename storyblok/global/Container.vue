@@ -77,7 +77,7 @@
               !blok.row_container) ||
             blok.hide_controllers
           "
-          class="previous-control control h-full w-full absolute top-0 z-[1] -left-1/2 cursor-previous"
+          class="previous-control control h-full w-full absolute top-0 z-[1] -left-1/2 cursor-previous-black dark:cursor-previous-white"
           @click="previous(true)"
         />
         <IconComponent
@@ -115,7 +115,7 @@
               !blok.row_container) ||
             blok.hide_controllers
           "
-          class="next-control control h-full w-full absolute top-0 z-[1] -right-1/2 cursor-next"
+          class="next-control control h-full w-full absolute top-0 z-[1] -right-1/2 cursor-next-black dark:cursor-next-white"
           @click="next(true)"
         />
         <div

@@ -1,9 +1,10 @@
 <template>
   <header class="header flex justify-center">
-    <nav
-      class="navbar-up w-full h-10 fixed flex justify-center top-0 z-40 shadow-sm rounded-b"
-      :style="`background-color: ${backgroundColor};`"
-    >
+    <nav class="navbar-up w-full h-10 fixed flex justify-center top-0 z-40 shadow-sm rounded-b">
+      <div
+        class="navbar-up-flat absolute h-full w-full -z-10"
+        :style="`background-color: ${backgroundColor};`"
+      />
       <div
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex justify-between"
       >
@@ -25,7 +26,7 @@
           transition
           :color-a="logoColors[0]"
           :color-p="logoColors[1]"
-          class="absolute -top-0.5 right-1/2 p-1 transform translate-x-1/2 rounded-b-full drop-shadow-md bg-white"
+          class="absolute -top-0.5 right-1/2 p-1 transform translate-x-1/2 rounded-b-full border border-gray-200 bg-white"
           size="2.75rem"
         />
         <TranslateComponent

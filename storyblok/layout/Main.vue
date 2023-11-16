@@ -22,9 +22,11 @@
         };`"
       />
       <div
-        :class="`main-flat fixed w-full h-full inset-0 -z-20 ${
-          blok.color_animation ? 'color-animation' : ''
-        }`"
+        :class="[
+          'main-flat fixed w-full h-full inset-0 -z-20',
+          { 'color-animation': blok.color_animation },
+          { 'dark:invert dark:contrast-75 bg-white': !randomBackgroundColor }
+        ]"
         :style="`background-color: ${randomBackgroundColor};`"
       />
       <div
