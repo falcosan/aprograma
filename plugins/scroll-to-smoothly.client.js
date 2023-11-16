@@ -1,6 +1,6 @@
 export default defineNuxtPlugin(() => ({
   provide: {
-    scrollToSmoothly: (pos, time = 300) => {
+    scrollToSmoothly: (pos, time = 200) => {
       const currentPos = window.scrollY;
       let start = null;
       pos = Number(pos);

@@ -15,7 +15,7 @@
           enter-active-class="transition duration-300"
           leave-active-class="transition duration-300"
         >
-          <div
+          <button
             v-if="colorModeLoaded"
             class="icon-wrapper grid col-start-1 col-end-1 row-start-1 row-end-1"
           >
@@ -39,7 +39,7 @@
               tooltip="Dark theme"
               @click="changeColorMode('light')"
             />
-          </div>
+          </button>
           <div
             v-else
             :class="[
@@ -104,7 +104,7 @@ export default defineNuxtComponent({
   setup(props) {
     const { locale } = useI18n();
     const colorMode = useColorMode();
-    const { $binaryControl, $languageCase } = useNuxtApp();
+    const { $binaryControl, $languageCase, $scrollToSmoothly } = useNuxtApp();
     const state = reactive({
       charIndex: 0,
       typewriter: '',
@@ -137,7 +137,10 @@ export default defineNuxtComponent({
       dark: colorMode?.value === 'dark',
       light: colorMode?.value === 'light'
     }));
-    const changeColorMode = mode => (colorMode.preference = mode);
+    const changeColorMode = mode => {
+      colorMode.preference = mode;
+      $scrollToSmoothly(0, 150);
+    };
     const eraseText = () => {
       if (words.value && charIndex.value) {
         typewriter.value = words.value.substring(0, charIndex.value - 1);
