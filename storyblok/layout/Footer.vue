@@ -5,7 +5,7 @@
   >
     <div class="footer-content h-52 grid gap-5 text-center">
       <div
-        :class="`input-footer relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${
+        :class="`icon-container relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${
           backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
@@ -15,19 +15,38 @@
           enter-active-class="transition duration-300"
           leave-active-class="transition duration-300"
         >
-          <IconComponent
-            v-if="currentEye"
-            key="eye-bold"
-            eye-bold
-            class="col-start-1 col-end-1 row-start-1 row-end-1"
-            size="w-6"
-          />
-          <IconComponent
+          <div
+            v-if="colorModeLoaded"
+            class="icon-wrapper grid col-start-1 col-end-1 row-start-1 row-end-1"
+          >
+            <IconComponent
+              eye-bold
+              :class="[
+                'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
+                { 'opacity-0': checkColorMode.light }
+              ]"
+              size="w-6"
+              tooltip="Light theme"
+              @click="changeColorMode('dark')"
+            />
+            <IconComponent
+              eye
+              :class="[
+                'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
+                { 'opacity-0': checkColorMode.dark }
+              ]"
+              size="w-6"
+              tooltip="Dark theme"
+              @click="changeColorMode('light')"
+            />
+          </div>
+          <div
             v-else
-            key="eye"
-            eye
-            class="col-start-1 col-end-1 row-start-1 row-end-1"
-            size="w-6"
+            :class="[
+              'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
+              backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-500'
+            ]"
+            style="transform: rotateX(45deg)"
           />
         </Transition>
       </div>
@@ -84,27 +103,26 @@ export default defineNuxtComponent({
   components: { IconComponent, RouteComponent },
   setup(props) {
     const { locale } = useI18n();
+    const colorMode = useColorMode();
     const { $binaryControl, $languageCase } = useNuxtApp();
     const state = reactive({
       charIndex: 0,
       typewriter: '',
-      currentEye: false,
-      setEyes: undefined,
       typewriterIndex: 0,
+      colorModeLoaded: false,
       playTypeText: undefined,
       playEraseText: undefined,
       currentYear: new Date().getFullYear()
     });
     const webName = enums.name;
     const {
-      setEyes,
       charIndex,
-      currentEye,
       typewriter,
       currentYear,
       playTypeText,
       playEraseText,
-      typewriterIndex
+      typewriterIndex,
+      colorModeLoaded
     } = toRefs(state);
     const words = computed(() => {
       if (props.blok.text_typewriter.length) {
@@ -115,6 +133,11 @@ export default defineNuxtComponent({
       } else return '';
     });
     const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
+    const checkColorMode = computed(() => ({
+      dark: colorMode?.value === 'dark',
+      light: colorMode?.value === 'light'
+    }));
+    const changeColorMode = mode => (colorMode.preference = mode);
     const eraseText = () => {
       if (words.value && charIndex.value) {
         typewriter.value = words.value.substring(0, charIndex.value - 1);
@@ -154,21 +177,18 @@ export default defineNuxtComponent({
         setTimeout(typeText, 400);
       }
     };
-    const showEyes = () => {
-      clearInterval(setEyes.value);
-      setEyes.value = setInterval(() => {
-        currentEye.value = !currentEye.value;
-      }, '1000');
-    };
-    watch(locale, restartTypewriter);
-    watch(currentEye, showEyes, { immediate: true });
     typeText();
+    onMounted(() => (colorModeLoaded.value = true));
+    watch(locale, restartTypewriter);
     return {
       webName,
-      currentEye,
+      colorMode,
       typewriter,
       currentYear,
-      backgroundColor
+      checkColorMode,
+      colorModeLoaded,
+      backgroundColor,
+      changeColorMode
     };
   }
 });

@@ -20,7 +20,7 @@ export default defineNuxtConfig({
         isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify')
     }
   },
-  css: ['~/assets/css/tailwind.css', '~/assets/css/main.css'],
+  css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
@@ -30,6 +30,7 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
+    '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss'
   ],
   image: {
@@ -96,6 +97,13 @@ export default defineNuxtConfig({
   },
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
+  },
+  colorMode: {
+    classSuffix: '',
+    hid: 'theme-script',
+    storageKey: 'theme',
+    globalName: '__THEME__',
+    componentName: 'ThemeScheme'
   },
   vite: {
     build: {

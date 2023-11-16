@@ -1,35 +1,32 @@
 <template>
   <header class="header flex justify-center">
-    <nav
-      class="navbar-up w-full h-10 fixed flex justify-center top-0 z-40 shadow-sm rounded-b"
-      :style="`background-color: ${backgroundColor};`"
-    >
+    <nav class="navbar-up w-full h-10 fixed flex justify-center top-0 z-40 shadow-sm rounded-b">
+      <div
+        class="navbar-up-flat absolute h-full w-full -z-10"
+        :style="`background-color: ${backgroundColor};`"
+      />
       <div
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex justify-between"
       >
         <RouteComponent
           set-active="pb-1 border-t-4 border-gray-300"
           icon-item
-          class="home-link w-2/12 h-full rounded-bl ext-white"
+          :class="[
+            'home-link w-2/12 h-full rounded-bl',
+            $themeColor(backgroundColor) ? 'text-white' : ''
+          ]"
           :aria-label="webName"
           to="/"
         >
           <template #icon>
-            <IconComponent
-              home
-              size="w-5 h-5"
-              :class="[
-                'home-link h-full w-full cursor-pointer',
-                $themeColor(backgroundColor) ? 'invert' : ''
-              ]"
-            />
+            <IconComponent home size="w-5 h-5" class="home-link h-full w-full cursor-pointer" />
           </template>
         </RouteComponent>
         <LogoComponent
           transition
           :color-a="logoColors[0]"
           :color-p="logoColors[1]"
-          class="absolute -top-0.5 right-1/2 p-1 transform translate-x-1/2 rounded-b-full drop-shadow-md bg-white"
+          class="absolute -top-0.5 right-1/2 p-1 transform translate-x-1/2 rounded-b-full border border-gray-200 bg-white"
           size="2.75rem"
         />
         <TranslateComponent

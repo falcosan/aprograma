@@ -8,13 +8,15 @@
   >
     <span
       v-if="blok.title"
-      :class="`container-title block break-words text-xl ${
+      :class="[
+        'container-title block break-words text-xl',
         sliderMode || carouselMode || containerMode
           ? blok.remove_space
             ? 'm-5'
             : 'my-5 ml-10 mr-5'
-          : 'sm:text-2xl mb-5'
-      }`"
+          : 'sm:text-2xl mb-5',
+        { 'dark:invert': !blok.title_color.color && !parent?.background_color_component.color }
+      ]"
       :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
     >
       {{ blok.title }}
@@ -75,7 +77,7 @@
               !blok.row_container) ||
             blok.hide_controllers
           "
-          class="previous-control control h-full w-full absolute top-0 z-[1] -left-1/2 cursor-previous"
+          class="previous-control control h-full w-full absolute top-0 z-[1] -left-1/2 cursor-previous-black dark:cursor-previous-white"
           @click="previous(true)"
         />
         <IconComponent
@@ -113,7 +115,7 @@
               !blok.row_container) ||
             blok.hide_controllers
           "
-          class="next-control control h-full w-full absolute top-0 z-[1] -right-1/2 cursor-next"
+          class="next-control control h-full w-full absolute top-0 z-[1] -right-1/2 cursor-next-black dark:cursor-next-white"
           @click="next(true)"
         />
         <div
@@ -279,6 +281,11 @@ export default defineNuxtComponent({
     }
   },
   components: { IconComponent },
+  provide() {
+    return {
+      parent: computed(() => this.blok)
+    };
+  },
   setup(props) {
     const { isDesktop } = useDevice();
     const { $rangeItems } = useNuxtApp();
@@ -287,6 +294,8 @@ export default defineNuxtComponent({
     const sliderBox = ref(null);
     const sliderSlide = ref(null);
     const carouselSlide = ref(null);
+    const parent =
+      props.sliderMode || props.carouselMode || props.containerMode ? inject('parent') : undefined;
     const state = reactive({
       spaceFix: 20,
       sliderKey: 0,
@@ -534,6 +543,7 @@ export default defineNuxtComponent({
     watch(widthContainer, getContainerWidth);
     return {
       next,
+      parent,
       elements,
       container,
       previous,

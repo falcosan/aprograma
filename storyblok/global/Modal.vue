@@ -7,7 +7,7 @@
       :class="[
         'modal-backdrop w-full fixed flex justify-center inset-0 z-50 overflow-auto focus:outline-none bg-opacity-90 bg-gray-200',
         modalStyle,
-        { 'cursor-close': closeMode }
+        { 'cursor-close-black dark:cursor-close-white': closeMode }
       ]"
       tabindex="0"
       @click.stop="closeMode && closeModal()"
@@ -19,7 +19,10 @@
         </header>
         <section
           v-if="hasSlot('body')"
-          :class="['modal-body w-full h-full', { 'cursor-close': closeMode }]"
+          :class="[
+            'modal-body w-full h-full',
+            { 'cursor-close-black dark:cursor-close-white': closeMode }
+          ]"
         >
           <div class="body-container h-full">
             <slot name="body" />
