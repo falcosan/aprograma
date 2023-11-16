@@ -5,7 +5,7 @@
   >
     <div class="footer-content h-52 grid gap-5 text-center">
       <div
-        :class="`input-footer relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${
+        :class="`icon-container relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${
           backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
@@ -15,7 +15,10 @@
           enter-active-class="transition duration-300"
           leave-active-class="transition duration-300"
         >
-          <div v-if="colorModeLoaded" class="grid col-start-1 col-end-1 row-start-1 row-end-1">
+          <div
+            v-if="colorModeLoaded"
+            class="icon-wrapper grid col-start-1 col-end-1 row-start-1 row-end-1"
+          >
             <IconComponent
               eye-bold
               :class="[
@@ -38,7 +41,7 @@
           <div
             v-else
             :class="[
-              'w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
+              'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
               backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-800'
             ]"
             style="transform: rotateX(45deg)"
@@ -129,8 +132,8 @@ export default defineNuxtComponent({
     });
     const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
     const checkColorMode = computed(() => ({
-      dark: colorMode?.preference === 'dark',
-      light: colorMode?.preference === 'light'
+      dark: colorMode?.value === 'dark',
+      light: colorMode?.value === 'light'
     }));
     const changeColorMode = mode => (colorMode.preference = mode);
     const eraseText = () => {

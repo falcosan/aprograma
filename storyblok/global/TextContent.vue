@@ -9,7 +9,7 @@
       'text-container flex flex-col rounded',
       blok.hidden
         ? `absolute w-0 h-0 top-0 -z-50 mx-auto select-none ${setPositionText}`
-        : 'w-full max-w-full h-full'
+        : ['w-full max-w-full h-full', { 'dark:invert': !blok.background_color.color }]
     ]"
   >
     <div

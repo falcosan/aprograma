@@ -1,6 +1,17 @@
 .navbar-up,
 .navbar-down,
 .footer,
-.main-flat {
+.main-flat,
+.logo-container,
+.page-title,
+.project-title,
+.post-title {
   @apply dark:invert;
+}
+
+.navbar-up,
+.navbar-down,
+.footer,
+.main-flat {
+  @apply dark:contrast-75;
 }
