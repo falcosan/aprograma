@@ -1,0 +1,6 @@
+.navbar-up,
+.navbar-down,
+.footer,
+.main-flat {
+  @apply dark:invert;
+}
