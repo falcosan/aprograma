@@ -78,7 +78,7 @@
               width="984"
               height="805"
               :style="`border-color: ${$binaryControl(blok.background_color, 'color', 'e0e0e0')}`"
-              sizes="xs:380px sm:514px md:711px lg:804px xl:1366px"
+              sizes="xs:380px sm:514px md:711px lg:804px xl:1240px"
             />
           </div>
         </template>
@@ -87,7 +87,7 @@
             class="image-project select-none"
             width="1920"
             height="auto"
-            sizes="xs:380px sm:514px md:711px lg:804px xl:1366px 2xl:1680px"
+            sizes="xs:380px sm:514px md:711px lg:804px xl:1240px 2xl:1680px"
             :src="blok.image.filename"
             :alt="blok.image?.alt"
             :file="blok.image"

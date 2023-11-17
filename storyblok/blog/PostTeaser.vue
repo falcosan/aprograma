@@ -12,11 +12,13 @@
         }`"
       >
         <div
-          :class="`teaser-file-container w-full ${
+          :class="[
+            'teaser-file-container w-full',
             rowContainer || sliderContainer || containerContainer || carouselContainer
               ? ''
-              : 'container-mode lg:w-1/2'
-          }  ${postContent.file?.filename || 'bg-black'}`"
+              : 'container-mode lg:w-1/2',
+            { 'bg-black': !postContent.file?.filename }
+          ]"
         >
           <component
             :is="lookFile"
@@ -31,7 +33,7 @@
             :src="setFile"
             :width="checkFile ? '1200' : false"
             :height="checkFile ? '434' : false"
-            :sizes="checkFile ? 'xs:299px sm:380px md:514px lg:620px' : false"
+            :sizes="checkFile ? 'xs:299px sm:380px md:514px lg:620px xl:711px' : false"
           />
         </div>
         <div

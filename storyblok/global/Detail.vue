@@ -79,7 +79,7 @@
                 width="1920"
                 height="auto"
                 original
-                sizes="xs:380px sm:514px md:711px lg:804px xl:1366px 2xl:1680px"
+                sizes="xs:380px sm:514px md:711px lg:804px xl:1240px 2xl:1680px"
                 :src="media.filename"
                 :alt="media.alt"
                 :file="media"
