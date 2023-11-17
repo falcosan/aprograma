@@ -30,7 +30,7 @@
           :file="blok.file"
           :width="checkFile ? '1366' : false"
           :height="checkFile ? '707' : false"
-          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1366px' : false"
+          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1240px' : false"
         />
       </div>
     </div>
