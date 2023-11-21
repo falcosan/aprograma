@@ -84,8 +84,7 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
     injectManifest: {
-      globIgnores: ['sw.js', 'workbox-*.js'],
-      globPatterns: ['**/*.{js,css,png,jpg,jpeg,svg,ico}']
+      globPatterns: ['**/*.{css,png,jpg,jpeg,svg,ico}']
     }
   },
   robots: {
@@ -101,6 +100,7 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: '',
     hid: 'theme-script',
+    preference: 'light',
     storageKey: 'theme',
     globalName: '__THEME__',
     componentName: 'ThemeScheme'

@@ -29,7 +29,7 @@
     "pinia": "^2.1.7"
   },
   "devDependencies": {
-    "@nuxt/image": "^1.0.0",
+    "@nuxt/image": "^1.1.0",
     "@nuxtjs/color-mode": "^3.3.2",
     "@nuxtjs/device": "^3.1.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
@@ -37,17 +37,20 @@
     "@nuxtjs/robots": "^3.0.0",
     "@nuxtjs/tailwindcss": "^6.9.5",
     "@tailwindcss/typography": "^0.5.10",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@vite-pwa/nuxt": "^0.2.3",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
-    "nuxt": "3.8.1",
-    "nuxt-security": "1.0.0-rc.4",
+    "nuxt": "3.6.1",
+    "nuxt-security": "1.0.0-rc.2",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
-    "typescript": "^5.2.2",
+    "typescript": "^5.3.2",
     "vue-gtag-next": "^1.14.0"
+  },
+  "overrides": {
+    "globby": "13.2.2"
   },
   "main": ".eslintrc.cjs",
   "repository": {
