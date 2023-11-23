@@ -57,12 +57,12 @@
             blok.slider_mode === 'slider'
               ? 'top-1/2 -translate-y-1/2'
               : sliderMode || carouselMode
-              ? !blok.hide_dots
-                ? 'bottom-3.5'
-                : '-bottom-3.5'
-              : !blok.hide_dots
-              ? 'bottom-7'
-              : '-bottom-7'
+                ? !blok.hide_dots
+                  ? 'bottom-3.5'
+                  : '-bottom-3.5'
+                : !blok.hide_dots
+                  ? 'bottom-7'
+                  : '-bottom-7'
           } ${sliderMode ? (fullWidth > 295 ? 'left-10' : 'left-5') : 'left-2'}`"
           :size="`${sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'}`"
           @click="previous(true)"
@@ -95,12 +95,12 @@
             blok.slider_mode === 'slider'
               ? 'top-1/2 -translate-y-1/2'
               : sliderMode || carouselMode
-              ? !blok.hide_dots
-                ? 'bottom-3.5'
-                : '-bottom-3.5'
-              : !blok.hide_dots
-              ? 'bottom-7'
-              : '-bottom-7'
+                ? !blok.hide_dots
+                  ? 'bottom-3.5'
+                  : '-bottom-3.5'
+                : !blok.hide_dots
+                  ? 'bottom-7'
+                  : '-bottom-7'
           } ${sliderMode ? (fullWidth > 295 ? 'right-10' : 'right-5') : 'right-2'}`"
           :size="`${sliderMode || carouselMode ? 'w-5 h-5 p-1.5' : 'w-6 h-6 p-2'}`"
           @click="next(true)"

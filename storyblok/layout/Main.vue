@@ -17,8 +17,8 @@
               ? `${randomBackgroundColorMask}b3`
               : randomBackgroundColorMask
             : blok.transparency
-            ? '#ffffffb3'
-            : '#ffffff'
+              ? '#ffffffb3'
+              : '#ffffff'
         };`"
       />
       <div
