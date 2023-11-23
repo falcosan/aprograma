@@ -1,4 +1,4 @@
-export const getWilly = (text = "I'm Willy") => {
+export const getWilly = (text) => {
   console.clear()
   const message = `
                             ${text}   
