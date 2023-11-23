@@ -1,5 +1,6 @@
-export const getWilly = (text) => {
-  console.clear()
+/* eslint-disable no-console */
+export const getWilly = text => {
+  console.clear();
   const message = `
                             ${text}   
                  _.--.
@@ -15,5 +16,5 @@ export const getWilly = (text) => {
         ,\`__. < _)))_)))
        (,'
 `;
-  console.log(message);
+  console.table(message);
 };

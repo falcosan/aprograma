@@ -1,14 +1,18 @@
 import { getWilly } from '@/utils/console';
 export default defineNuxtPlugin(({ $i18n }) => {
   const { locale } = $i18n;
-  watch(locale, () => {
-    switch (locale.value) {
+  watch(
+    locale,
+    () => {
+      switch (locale.value) {
         case 'es':
-          return getWilly('Yo soy Willy')
+          return getWilly('Yo soy Willy');
         case 'it':
-          return getWilly('Io sono Willy')
+          return getWilly('Io sono Willy');
         default:
-          return getWilly("I'm Willy")
+          return getWilly("I'm Willy");
       }
-  }, { immediate: true });
+    },
+    { immediate: true }
+  );
 });
