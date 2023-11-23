@@ -3,11 +3,13 @@ import type { Config } from 'tailwindcss';
 export default <Partial<Config>>{
   darkMode: 'class',
   content: [
-    './storyblok/**/*.{js,vue,ts}',
-    './layouts/**/*.vue',
+    './app.vue',
+    './error.vue',
     './pages/**/*.vue',
+    './layouts/**/*.vue',
+    './nuxt.config.{js,ts}',
     './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}'
+    './storyblok/**/*.{js,vue,ts}'
   ],
   theme: {
     screens: {

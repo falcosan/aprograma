@@ -24,8 +24,8 @@
             blok.height === 'full'
               ? 'h-full object-cover'
               : /[a-zA-Z]/.test(blok.height)
-              ? 'object-cover'
-              : 'object-contain',
+                ? 'object-cover'
+                : 'object-contain',
             'my-0 mx-auto object-center rounded cursor-pointer select-none'
           ]"
           lazy
@@ -47,8 +47,8 @@
             blok.height === 'full'
               ? 'h-full object-cover'
               : /[a-zA-Z]/.test(blok.height)
-              ? 'object-cover'
-              : 'object-contain',
+                ? 'object-cover'
+                : 'object-contain',
             'my-0 mx-auto object-center rounded cursor-pointer select-none'
           ]"
           :width="blok?.width ?? width"
@@ -113,8 +113,8 @@
           blok.height === 'full'
             ? 'h-full object-cover'
             : /[a-zA-Z]/.test(blok.height)
-            ? 'object-cover'
-            : 'object-contain',
+              ? 'object-cover'
+              : 'object-contain',
           'my-0 mx-auto object-center rounded pointer-events-none select-none'
         ]"
         lazy
@@ -135,8 +135,8 @@
           blok.height === 'full'
             ? 'h-full object-cover'
             : /[a-zA-Z]/.test(blok.height)
-            ? 'object-cover'
-            : 'object-contain',
+              ? 'object-cover'
+              : 'object-contain',
           'my-0 mx-auto object-center rounded pointer-events-none select-none'
         ]"
         :width="blok?.width ?? width"

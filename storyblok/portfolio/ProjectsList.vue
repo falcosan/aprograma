@@ -77,8 +77,8 @@ export default defineNuxtComponent({
         return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
           : props.sliderMode
-          ? 'sm:grid-cols-fill-small'
-          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
+            ? 'sm:grid-cols-fill-small'
+            : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
       } else {
         return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       }
