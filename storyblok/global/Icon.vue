@@ -1,9 +1,9 @@
 <template>
-  <div
+  <component
+    :is="blok?.tag ?? tag"
     :class="[
       'icon-wrapper grid gap-5 justify-center items-center select-none',
-      { 'p-10': blok && !blok.remove_space },
-      { 'cursor-pointer': blok && (blok.tag === 'button' || blok.tag === 'a') }
+      { 'p-10': blok && !blok.remove_space }
     ]"
     @click="animateMenu ? (open = !open) : ''"
   >
@@ -269,7 +269,7 @@
       "
       >{{ blok ? blok.title : title }}</span
     >
-  </div>
+  </component>
 </template>
 
 <script>
@@ -344,6 +344,10 @@ export default defineNuxtComponent({
     title: {
       type: String,
       default: ''
+    },
+    tag: {
+      type: String,
+      default: 'span'
     },
     tooltip: {
       type: String,
