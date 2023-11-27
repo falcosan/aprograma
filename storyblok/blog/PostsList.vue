@@ -1,7 +1,9 @@
 <template>
   <div v-if="sortedPosts.length" class="posts w-full">
-    <div class="post-actions flex flex-col lg:flex-row flex-wrap lg:items-center lg:-mt-5 lg:-mx-5">
-      <div v-if="blok.search_action" class="post-search grid flex-auto mb-5 lg:mt-5 lg:mx-5">
+    <div
+      class="post-actions flex flex-col md:flex-row flex-wrap md:items-center md:-mt-2.5 md:-mx-2.5 md:mb-2.5"
+    >
+      <div v-if="blok.search_action" class="post-search flex-auto mb-5 md:m-2.5">
         <input
           v-model="searchTerm"
           :placeholder="$languageCase('Search the post', 'Busca el post', 'Cerca il post')"
@@ -10,7 +12,7 @@
         />
       </div>
       <div
-        :class="`show-categories flex justify-self-end self-end lg:self-auto row-start-2 row-end-1 mb-5 lg:mt-5 lg:mx-5 cursor-pointer rounded transition bg-gray-200 ${
+        :class="`show-categories flex justify-self-end self-end md:self-auto row-start-2 row-end-1 mb-5 md:m-2.5 cursor-pointer rounded transition bg-gray-200 ${
           !isDesktop ? '' : 'hover:opacity-80'
         }`"
         @click="showCategories"
@@ -65,8 +67,8 @@
               comparedCategories.includes(filter.value)
                 ? 'bg-opacity-70'
                 : !isDesktop
-                  ? ''
-                  : 'hover:bg-gray-700'
+                ? ''
+                : 'hover:bg-gray-700'
             ]"
             @click="filterSearch(filter)"
           >
@@ -172,8 +174,8 @@ export default defineNuxtComponent({
         return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
           : props.sliderMode
-            ? 'sm:grid-cols-fill-small'
-            : 'sm:grid-cols-fill-small md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
+          ? 'sm:grid-cols-fill-small'
+          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       } else {
         return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       }
