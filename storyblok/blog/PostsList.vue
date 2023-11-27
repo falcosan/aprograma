@@ -1,19 +1,16 @@
 <template>
   <div v-if="sortedPosts.length" class="posts w-full">
-    <div v-if="blok.search_action" class="post-search grid self-start mb-5">
-      <input
-        v-model="searchTerm"
-        :placeholder="$languageCase('Search the post', 'Busca el post', 'Cerca il post')"
-        class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
-        type="text"
-      />
-    </div>
-    <div
-      v-if="blok.categories_action && sortedCategories?.length"
-      class="post-categories grid relative overflow-hidden"
-    >
+    <div class="post-actions flex flex-col lg:flex-row flex-wrap lg:items-center lg:-mt-5 lg:-mx-5">
+      <div v-if="blok.search_action" class="post-search grid flex-auto mb-5 lg:mt-5 lg:mx-5">
+        <input
+          v-model="searchTerm"
+          :placeholder="$languageCase('Search the post', 'Busca el post', 'Cerca il post')"
+          class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
+          type="text"
+        />
+      </div>
       <div
-        :class="`show-categories flex justify-self-end row-start-2 row-end-1 mb-5 cursor-pointer rounded transition bg-gray-200 ${
+        :class="`show-categories flex justify-self-end self-end lg:self-auto row-start-2 row-end-1 mb-5 lg:mt-5 lg:mx-5 cursor-pointer rounded transition bg-gray-200 ${
           !isDesktop ? '' : 'hover:opacity-80'
         }`"
         @click="showCategories"
@@ -31,6 +28,11 @@
           }`"
         />
       </div>
+    </div>
+    <div
+      v-if="blok.categories_action && sortedCategories?.length"
+      class="post-categories grid relative overflow-hidden"
+    >
       <Transition
         enter-from-class="opacity-0"
         leave-to-class="opacity-0"
