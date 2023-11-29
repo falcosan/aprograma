@@ -581,7 +581,6 @@ export default defineNuxtComponent({
   position: relative;
   z-index: 1;
 }
-
 .slider-box .slider .slider-slide {
   transform: translate3d(0, 0, 0);
 }
