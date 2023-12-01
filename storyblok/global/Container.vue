@@ -31,15 +31,11 @@
         v-if="
           blok.body.length > 1 && (blok.slider_mode === 'slider' || blok.slider_mode === 'carousel')
         "
-        :class="`slider-wrapper relative ${
-          sliderMode || containerMode ? 'flex justify-center' : ''
-        } ${
-          !blok.remove_space
-            ? !blok.background_color_container.color && blok.title
-              ? 'p-5'
-              : 'px-5 pb-5'
-            : ''
-        }`"
+        :class="[
+          'slider-wrapper relative',
+          { 'flex justify-center': sliderMode || containerMode },
+          { 'p-5': !blok.remove_space }
+        ]"
         @mouseenter="blok.slider_mode === 'carousel' && focusContainer(carouselSlide[0])"
       >
         <IconComponent
@@ -140,7 +136,7 @@
                   blok.background_color_component,
                   'color'
                 )};`"
-                :class="`slider-slide slide flex justify-self-center rounded ${setAlignContent} ${
+                :class="`slider-slide slide flex justify-self-center rounded ${setHorizontalAlign} ${setVerticalAlign} ${
                   !blok.hide_controllers ? 'outline-none' : ''
                 } ${sliderMode || carouselMode || containerMode ? '' : 'parent-slide'}`"
                 @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
@@ -172,7 +168,7 @@
                 :key="component._uid"
                 ref="carouselSlide"
                 :tabindex="!blok.hide_controllers ? '0' : undefined"
-                :class="`carousel-slide slide md:relative w-full flex row-start-1 row-end-1 col-start-1 col-end-1 md:z-[1] rounded ${setAlignContent} ${
+                :class="`carousel-slide slide md:relative w-full flex row-start-1 row-end-1 col-start-1 col-end-1 md:z-[1] rounded ${setHorizontalAlign} ${setVerticalAlign} ${
                   !blok.hide_controllers ? 'outline-none' : ''
                 } ${index === currentSlide ? 'show' : 'hidden'} ${
                   sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
@@ -217,13 +213,10 @@
       </div>
       <div v-else class="container-box h-full overflow-hidden">
         <div
-          :class="`container-components h-full flex flex-wrap rounded -m-2.5 ${
-            !blok.remove_space
-              ? !blok.background_color_container.color && blok.title
-                ? 'p-5'
-                : 'px-5 pb-5'
-              : ''
-          }`"
+          :class="[
+            'container-components h-full flex flex-wrap rounded -m-2.5',
+            { 'p-5': !blok.remove_space }
+          ]"
           :style="`min-height: ${$binaryControl(blok, 'height')};`"
         >
           <div
@@ -244,7 +237,9 @@
             } ${
               component.component.toLowerCase() === 'blank'
                 ? ''
-                : `${setAlignContent} m-2.5 rounded`
+                : `${
+                    setHorizontalAlign ? `flex ${setHorizontalAlign}` : ''
+                  } ${setVerticalAlign} m-2.5 rounded`
             }`"
           >
             <StoryblokComponent
@@ -384,14 +379,26 @@ export default defineNuxtComponent({
         return fullWidth.value >= 535 ? $rangeItems(rowComponent.value.length, 2) : 1;
       }
     });
-    const setAlignContent = computed(() => {
-      switch (props.blok.align_content) {
+    const setVerticalAlign = computed(() => {
+      switch (props.blok.vertical_align) {
         case 'center':
           return 'self-center';
         case 'end':
           return 'self-end';
         default:
           return 'self-start';
+      }
+    });
+    const setHorizontalAlign = computed(() => {
+      switch (props.blok.horizontal_align) {
+        case 'left':
+          return 'justify-start';
+        case 'center':
+          return 'justify-center';
+        case 'right':
+          return 'justify-end';
+        default:
+          return '';
       }
     });
     const previous = (autoFocus = false) => {
@@ -561,7 +568,8 @@ export default defineNuxtComponent({
       carouselSlide,
       focusContainer,
       containerWidth,
-      setAlignContent
+      setVerticalAlign,
+      setHorizontalAlign
     };
   }
 });
