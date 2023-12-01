@@ -346,38 +346,21 @@ export default defineNuxtComponent({
         (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel') &&
         elements.value.length > 1
       ) {
-        if (max.value && max.value <= defaultMax.value) {
-          if (fullWidth.value >= 1239) {
-            return $rangeItems(max.value, 5);
-          } else if (fullWidth.value >= 983) {
-            return $rangeItems(max.value, 4);
-          } else if (fullWidth.value >= 727) {
-            return $rangeItems(max.value, 3);
-          }
-          return fullWidth.value >= 535 ? $rangeItems(max.value, 2) : 1;
-        } else {
-          if (fullWidth.value >= 1239) {
-            return $rangeItems(defaultMax.value, 5);
-          } else if (fullWidth.value >= 983) {
-            return $rangeItems(defaultMax.value, 4);
-          } else if (fullWidth.value >= 727) {
-            return $rangeItems(defaultMax.value, 3);
-          }
-          return fullWidth.value >= 535 ? $rangeItems(defaultMax.value, 2) : 1;
-        }
+        const setterMax = max.value && max.value <= defaultMax.value ? max.value : defaultMax.value;
+        if (fullWidth.value >= 1239) return $rangeItems(setterMax, 5);
+        else if (fullWidth.value >= 983) return $rangeItems(setterMax, 4);
+        else if (fullWidth.value >= 727) return $rangeItems(setterMax, 3);
+        else return fullWidth.value >= 535 ? $rangeItems(setterMax, 2) : 1;
       } else if (columnSet.value && elements.value.length > 1) {
         if (fullWidth.value + spaceFix.value * $rangeItems(defaultMax.value, 3) >= 1239) {
           return $rangeItems(columnSet.value, 3);
+        } else {
+          return fullWidth.value + spaceFix.value * $rangeItems(defaultMax.value, 3) >= 535
+            ? $rangeItems(columnSet.value, 2)
+            : 1;
         }
-        return fullWidth.value + spaceFix.value * $rangeItems(defaultMax.value, 3) >= 535
-          ? $rangeItems(columnSet.value, 2)
-          : 1;
-      } else {
-        if (fullWidth.value >= 983) {
-          return $rangeItems(rowComponent.value.length, 3);
-        }
-        return fullWidth.value >= 535 ? $rangeItems(rowComponent.value.length, 2) : 1;
-      }
+      } else if (fullWidth.value >= 983) return $rangeItems(rowComponent.value.length, 3);
+      else return fullWidth.value >= 535 ? $rangeItems(rowComponent.value.length, 2) : 1;
     });
     const setVerticalAlign = computed(() => {
       switch (props.blok.vertical_align) {

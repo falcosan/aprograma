@@ -69,16 +69,11 @@ export default defineNuxtComponent({
     );
     const maxComponents = computed(() => {
       if (Number(props.blok.column_container)) {
-        if (windowWidth.value >= 1440) {
-          return $rangeItems(Number(props.blok.column_container), 3);
-        }
-        return windowWidth.value >= 768 ? $rangeItems(Number(props.blok.column_container), 2) : 1;
-      } else {
-        if (windowWidth.value >= 1440) {
-          return $rangeItems(rowComponent.value.length, 3);
-        }
-        return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
-      }
+        if (windowWidth.value >= 1440) return $rangeItems(Number(props.blok.column_container), 3);
+        else
+          return windowWidth.value >= 768 ? $rangeItems(Number(props.blok.column_container), 2) : 1;
+      } else if (windowWidth.value >= 1440) return $rangeItems(rowComponent.value.length, 3);
+      else return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
     });
     const setVerticalAlign = computed(() => {
       switch (props.blok.vertical_align) {
