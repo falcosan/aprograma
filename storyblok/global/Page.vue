@@ -32,7 +32,8 @@
         :class="[
           `${component.component.toLowerCase()}-content`,
           {
-            [`${setAlignContent} m-2.5`]: component.component.toLowerCase() !== 'blank'
+            [`${setHorizontalAlign} ${setVerticalAlign} m-2.5`]:
+              component.component.toLowerCase() !== 'blank'
           },
           {
             'overflow-hidden':
@@ -79,16 +80,26 @@ export default defineNuxtComponent({
         return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
       }
     });
-    const setAlignContent = computed(() => {
-      switch (props.blok.align_content) {
-        case 'start':
-          return 'self-start';
+    const setVerticalAlign = computed(() => {
+      switch (props.blok.vertical_align) {
         case 'center':
           return 'self-center';
         case 'end':
           return 'self-end';
         default:
-          return 'self-baseline';
+          return 'self-start';
+      }
+    });
+    const setHorizontalAlign = computed(() => {
+      switch (props.blok.horizontal_align) {
+        case 'left':
+          return 'flex justify-start';
+        case 'center':
+          return 'flex justify-center';
+        case 'right':
+          return 'flex justify-end';
+        default:
+          return '';
       }
     });
     onBeforeMount(() => $noscroll(props.blok.hide));
@@ -96,7 +107,8 @@ export default defineNuxtComponent({
       spaceFix,
       components,
       maxComponents,
-      setAlignContent
+      setVerticalAlign,
+      setHorizontalAlign
     };
   }
 });
