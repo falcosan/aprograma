@@ -159,7 +159,7 @@
     <p
       v-if="(blok && blok.title) || title"
       class="media-title p-5 text-center"
-      :style="`color: ${blok && blok.title_color.color ? blok.title_color.color : false};`"
+      :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
       v-text="blok && blok.title ? blok.title : title"
     />
   </div>
