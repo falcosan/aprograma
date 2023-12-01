@@ -16,9 +16,12 @@
     </h1>
   </section>
   <section v-else :class="`${blok.name.toLowerCase()}-page p-5`">
-    <h1 v-if="blok.title" class="page-title block mb-5 break-words">
-      {{ blok.title }}
-    </h1>
+    <h1
+      v-if="blok.title"
+      class="page-title block mb-5 break-words"
+      :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
+      v-text="blok.title"
+    />
     <div class="page-components relative flex flex-wrap -m-2.5">
       <StoryblokComponent
         v-for="component in components"
