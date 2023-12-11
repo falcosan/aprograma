@@ -68,7 +68,7 @@
                 ? 'bg-opacity-70'
                 : !isDesktop
                 ? ''
-                : 'hover:bg-gray-700'
+                : 'hover:bg-opacity-90'
             ]"
             @click="filterSearch(filter)"
           >
