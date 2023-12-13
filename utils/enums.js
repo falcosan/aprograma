@@ -69,6 +69,7 @@ export default {
     ]
   },
   sitemap: 'sitemap.xml',
+  ignore: ['/note'],
   rss: {
     description: "Aprograma's blog RSS",
     name: 'Daniele Falchetti',

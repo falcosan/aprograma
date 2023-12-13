@@ -91,7 +91,7 @@ export default defineNuxtConfig({
     rules: [
       { UserAgent: '*' },
       { Disallow: '' },
-      { Sitemap: `${process.env.NUXT_ENV_DOMAIN}sitemap.xml` }
+      { Sitemap: `${process.env.NUXT_ENV_DOMAIN}${enums.sitemap}` }
     ]
   },
   storyblok: {
@@ -117,7 +117,7 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'netlify-edge',
     compressPublicAssets: true,
-    prerender: { ignore: ['/note'] }
+    prerender: { ignore: enums.ignore }
   },
   hooks: {
     close: nuxt => {
