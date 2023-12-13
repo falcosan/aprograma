@@ -24,6 +24,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@storyblok/nuxt": "^5.7.9",
     "@vueuse/core": "^10.7.0",
+    "globby": "^14.0.0",
     "highlight.js": "^11.9.0",
     "marked": "^11.1.0",
     "pinia": "^2.1.7"
