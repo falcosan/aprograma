@@ -24,7 +24,6 @@
     "@pinia/nuxt": "^0.5.1",
     "@storyblok/nuxt": "^5.7.9",
     "@vueuse/core": "^10.7.0",
-    "globby": "^14.0.0",
     "highlight.js": "^11.9.0",
     "marked": "^11.1.0",
     "pinia": "^2.1.7"
@@ -44,7 +43,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
     "nuxt": "3.8.2",
-    "nuxt-security": "1.0.0",
+    "nuxt-security": "1.0.0-rc.2",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
     "typescript": "^5.3.3",
