@@ -67,8 +67,8 @@
               comparedCategories.includes(filter.value)
                 ? 'bg-opacity-70'
                 : !isDesktop
-                ? ''
-                : 'hover:bg-opacity-90'
+                  ? ''
+                  : 'hover:bg-opacity-90'
             ]"
             @click="filterSearch(filter)"
           >
@@ -159,13 +159,17 @@ export default defineNuxtComponent({
       showFilters: false
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    const { data: posts } = await useAsyncData('posts', async () => {
-      const { stories } = await $fetch('/api/storyblok', {
-        headers: { 'x-auth': config.public.envXAuth },
-        params: { starts_with: 'blog', lang: locale.value }
-      });
-      return stories;
-    });
+    const { data: posts } = await useAsyncData(
+      'posts',
+      async () => {
+        const { stories } = await $fetch('/api/storyblok', {
+          headers: { 'x-auth': config.public.envXAuth },
+          params: { starts_with: 'blog', lang: locale.value }
+        });
+        return stories;
+      },
+      { watch: [locale] }
+    );
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
@@ -174,8 +178,8 @@ export default defineNuxtComponent({
         return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
           : props.sliderMode
-          ? 'sm:grid-cols-fill-small'
-          : 'sm:grid-cols-fill-small md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
+            ? 'sm:grid-cols-fill-small'
+            : 'sm:grid-cols-fill-small md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       } else {
         return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
       }
