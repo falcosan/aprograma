@@ -116,7 +116,8 @@ export default defineNuxtConfig({
   },
   nitro: {
     preset: 'netlify-edge',
-    compressPublicAssets: true
+    compressPublicAssets: true,
+    prerender: { ignore: ['/note'] }
   },
   hooks: {
     close: nuxt => {
