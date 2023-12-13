@@ -16,9 +16,12 @@
     </h1>
   </section>
   <section v-else :class="`${blok.name.toLowerCase()}-page p-5`">
-    <h1 v-if="blok.title" class="page-title block mb-5 break-words">
-      {{ blok.title }}
-    </h1>
+    <h1
+      v-if="blok.title"
+      class="page-title block mb-5 break-words"
+      :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
+      v-text="blok.title"
+    />
     <div class="page-components relative flex flex-wrap -m-2.5">
       <StoryblokComponent
         v-for="component in components"
@@ -69,16 +72,11 @@ export default defineNuxtComponent({
     );
     const maxComponents = computed(() => {
       if (Number(props.blok.column_container)) {
-        if (windowWidth.value >= 1440) {
-          return $rangeItems(Number(props.blok.column_container), 3);
-        }
-        return windowWidth.value >= 768 ? $rangeItems(Number(props.blok.column_container), 2) : 1;
-      } else {
-        if (windowWidth.value >= 1440) {
-          return $rangeItems(rowComponent.value.length, 3);
-        }
-        return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
-      }
+        if (windowWidth.value >= 1440) return $rangeItems(Number(props.blok.column_container), 3);
+        else
+          return windowWidth.value >= 768 ? $rangeItems(Number(props.blok.column_container), 2) : 1;
+      } else if (windowWidth.value >= 1440) return $rangeItems(rowComponent.value.length, 3);
+      else return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
     });
     const setVerticalAlign = computed(() => {
       switch (props.blok.vertical_align) {

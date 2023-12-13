@@ -100,9 +100,9 @@ export default defineNuxtComponent({
       } else if (props.blok.background_position === 'up') {
         return 'object-bottom';
       } else if (props.blok.background_position === 'down') {
-        return 'object-center';
-      } else {
         return 'object-top';
+      } else {
+        return 'object-center';
       }
     });
     const setBackgroundColor = () => {
