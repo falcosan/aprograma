@@ -25,13 +25,13 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
-    'nuxt-security',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    ...(!process.env.NUXT_ENV_LOCAL_BUILD ? ['nuxt-security'] : [])
   ],
   image: {
     provider: 'storyblok',
@@ -57,24 +57,6 @@ export default defineNuxtConfig({
       .filter(Boolean),
     defaultLocale: 'en',
     detectBrowserLanguage: false
-  },
-  security: {
-    headers: {
-      xXSSProtection: '1',
-      crossOriginEmbedderPolicy: 'unsafe-none',
-      contentSecurityPolicy: {
-        'base-uri': ["'self'"],
-        'object-src': ["'none'"],
-        'form-action': ["'self'"],
-        'frame-ancestors': ["'self'"],
-        'upgrade-insecure-requests': true,
-        'font-src': ["'self'", 'https:', 'data:'],
-        'img-src': ['*', "'self'", 'https:', 'data:'],
-        'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-        'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
-      }
-    }
   },
   device: {
     refreshOnResize: true
@@ -105,6 +87,26 @@ export default defineNuxtConfig({
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
   },
+  ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+    security: {
+      headers: {
+        xXSSProtection: '1',
+        crossOriginEmbedderPolicy: 'unsafe-none',
+        contentSecurityPolicy: {
+          'base-uri': ["'self'"],
+          'object-src': ["'none'"],
+          'form-action': ["'self'"],
+          'frame-ancestors': ["'self'"],
+          'upgrade-insecure-requests': true,
+          'font-src': ["'self'", 'https:', 'data:'],
+          'img-src': ['*', "'self'", 'https:', 'data:'],
+          'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+          'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+          'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+        }
+      }
+    }
+  }),
   vite: {
     build: {
       chunkSizeWarningLimit: 1000
@@ -115,7 +117,9 @@ export default defineNuxtConfig({
     client: true
   },
   nitro: {
-    preset: 'netlify-edge',
+    ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+      preset: 'netlify-edge'
+    }),
     compressPublicAssets: true,
     prerender: { ignore: enums.ignore }
   },
