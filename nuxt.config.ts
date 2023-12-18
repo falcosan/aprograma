@@ -108,9 +108,6 @@ export default defineNuxtConfig({
     }
   }),
   vite: {
-    optimizeDeps: {
-      exclude: ['@nuxt/kit']
-    },
     build: {
       chunkSizeWarningLimit: 1000
     }
