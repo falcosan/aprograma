@@ -6,7 +6,7 @@
       <div v-if="blok.search_action" class="post-search flex-auto mb-5 md:m-2.5">
         <input
           v-model="searchTerm"
-          :placeholder="$languageCase('Search the post', 'Busca el post', 'Cerca il post')"
+          :placeholder="$languageCase('Search', 'Buscar', 'Cercare')"
           class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
           type="text"
         />
@@ -120,6 +120,8 @@
 
 <script>
 import store from '@/store';
+import { highlighter } from '@/utils/string';
+import { multipleFilters } from '@/utils/array';
 import IconComponent from '@/storyblok/global/Icon';
 import InputComponent from '@/storyblok/global/Input';
 import PostTeaserComponent from '@/storyblok/blog/PostTeaser';
@@ -206,36 +208,40 @@ export default defineNuxtComponent({
     });
     const comparedCategories = computed(() => searchCategory.value.map(({ value }) => value));
     const searchQuery = computed(() => {
-      return (() => {
-        if (
-          searchTerm.value &&
-          props.blok.search_action &&
-          (!props.blok.categories_action || !comparedCategories.value.length)
-        ) {
-          return filterByTerms.value;
-        } else if (
-          (!searchTerm.value || !props.blok.search_action) &&
-          props.blok.categories_action &&
-          comparedCategories.value.length
-        ) {
-          return filterByCategory.value;
-        } else if (
-          searchTerm.value &&
-          props.blok.search_action &&
-          props.blok.categories_action &&
-          comparedCategories.value.length
-        ) {
-          return filterBoth.value;
-        } else {
-          return sortedPosts.value;
-        }
-      })();
+      if (
+        searchTerm.value &&
+        props.blok.search_action &&
+        (!props.blok.categories_action || !comparedCategories.value.length)
+      ) {
+        return filterByTerms.value;
+      } else if (
+        (!searchTerm.value || !props.blok.search_action) &&
+        props.blok.categories_action &&
+        comparedCategories.value.length
+      ) {
+        return filterByCategory.value;
+      } else if (
+        searchTerm.value &&
+        props.blok.search_action &&
+        props.blok.categories_action &&
+        comparedCategories.value.length
+      ) {
+        return filterBoth.value;
+      } else {
+        return sortedPosts.value;
+      }
     });
     const filterByTerms = computed(() => {
-      return sortedPosts.value.filter(post =>
-        `${post.content.title} ${post.content.intro}`
-          .toLowerCase()
-          .includes(searchTerm.value.toLowerCase())
+      const keys = ['title', 'intro'];
+      const filters = keys.reduce((acc, key) => {
+        acc[key] = val => val.toLowerCase().includes(searchTerm.value.toLowerCase());
+        return acc;
+      }, {});
+      return highlighter(
+        multipleFilters(sortedPosts.value, filters, 'content'),
+        keys,
+        searchTerm.value,
+        'content'
       );
     });
     const filterByCategory = computed(() => {
