@@ -6,7 +6,7 @@
       <div v-if="blok.search_action" class="post-search flex-auto mb-5 md:m-2.5">
         <input
           v-model="searchTerm"
-          :placeholder="$languageCase('Search the post', 'Busca el post', 'Cerca il post')"
+          :placeholder="$languageCase('Search', 'Buscar', 'Cercare')"
           class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
           type="text"
         />
