@@ -109,9 +109,9 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
+    const config = useRuntimeConfig();
     const { $languageCase } = useNuxtApp();
     const { markdownToHtml } = useMarkdown();
-    const config = useRuntimeConfig();
     const setEditorPath = computed(() =>
       config.public.envApiVersion === 'draft' ? `${enums.editor.host}?id=${props.blok.id}` : null
     );

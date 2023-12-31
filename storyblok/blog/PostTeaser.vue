@@ -50,12 +50,14 @@
         >
           <div class="text-body">
             <div class="text-description mb-2.5">
-              <span class="teaser-title mb-1 overflow-hidden text-lg sm:text-xl">
-                {{ postContent.title }}
-              </span>
-              <span class="teaser-intro h-12 overflow-hidden leading-relaxed text-sm">
-                {{ postContent.intro }}
-              </span>
+              <span
+                class="teaser-title mb-1 overflow-hidden text-lg sm:text-xl"
+                v-html="postContent.title"
+              />
+              <span
+                class="teaser-intro h-12 overflow-hidden leading-relaxed text-sm"
+                v-html="postContent.intro"
+              />
             </div>
             <ul
               v-if="sortedCategories?.length"
