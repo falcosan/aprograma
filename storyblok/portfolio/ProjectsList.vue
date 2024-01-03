@@ -58,17 +58,10 @@ export default defineNuxtComponent({
     }
   },
   async setup(props) {
-    const { locale } = useI18n();
-    const config = useRuntimeConfig();
     const { windowWidth } = useScreen();
     const { addProjects } = store.projects();
-    const { data: projects } = await useAsyncData('projects', async () => {
-      const { stories } = await $fetch('/api/storyblok', {
-        headers: { 'x-auth': config.public.envXAuth },
-        params: { starts_with: 'portfolio', lang: locale.value }
-      });
-      return stories;
-    });
+    const { fetcher } = useFetcher({ starts_with: 'portfolio' });
+    const { data: projects } = await useAsyncData('projects', fetcher);
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {

@@ -150,24 +150,17 @@ export default defineNuxtComponent({
     }
   },
   async setup(props) {
-    const { locale } = useI18n();
     const { isDesktop } = useDevice();
-    const config = useRuntimeConfig();
     const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
+    const { fetcher } = useFetcher({ starts_with: 'blog' });
     const state = reactive({
       searchTerm: '',
-      searchCategory: [],
-      showFilters: false
+      showFilters: false,
+      searchCategory: []
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    const { data: posts } = await useAsyncData('posts', async () => {
-      const { stories } = await $fetch('/api/storyblok', {
-        headers: { 'x-auth': config.public.envXAuth },
-        params: { starts_with: 'blog', lang: locale.value }
-      });
-      return stories;
-    });
+    const { data: posts } = await useAsyncData('posts', fetcher);
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
