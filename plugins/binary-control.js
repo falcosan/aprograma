@@ -1,11 +1,9 @@
 export default defineNuxtPlugin(() => ({
   provide: {
-    binaryControl: (element, prop, alternative = false) => {
+    binaryControl: (element, prop, alternative = 'unset') => {
       if (element != null && element[prop]) {
         return element[prop];
-      } else if (alternative) {
-        return alternative;
-      } else return 'unset';
+      } else return alternative;
     }
   }
 }));
