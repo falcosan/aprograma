@@ -164,7 +164,7 @@
             >
               <li
                 v-for="(component, index) in elements"
-                v-show="index === currentSlide"
+                v-show="widthContainer ? index === currentSlide : true"
                 :key="component._uid"
                 ref="carouselSlide"
                 :tabindex="!blok.hide_controllers ? '0' : undefined"
@@ -173,9 +173,10 @@
                 } ${index === currentSlide ? 'show' : 'hidden'} ${
                   sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
                 }`"
-                :style="`display:${
-                  index === currentSlide ? 'block' : 'none'
-                };background-color:${$binaryControl(blok.background_color_component, 'color')};`"
+                :style="`background-color:${$binaryControl(
+                  blok.background_color_component,
+                  'color'
+                )};`"
                 @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
                 @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
               >
