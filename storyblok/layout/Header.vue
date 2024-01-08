@@ -50,8 +50,8 @@
           :parent-background-color="backgroundColor"
           @translate-list-action="toggleExpanded(false)"
           @current-lang-action="expanded = !expanded"
-          @mouseenter="isDesktopOrTablet ? expandStill() : undefined"
-          @mouseleave="isDesktopOrTablet ? expandOut() : toggleExpanded(false)"
+          @mouseenter="$device.isDesktopOrTablet ? expandStill() : undefined"
+          @mouseleave="$device.isDesktopOrTablet ? expandOut() : toggleExpanded(false)"
         />
       </div>
     </nav>
@@ -89,7 +89,6 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { $binaryControl } = useNuxtApp();
-    const { isDesktopOrTablet } = useDevice();
     const state = reactive({
       timer: 0,
       expanded: false
@@ -128,7 +127,6 @@ export default defineNuxtComponent({
       logoColors,
       toggleExpanded,
       backgroundColor,
-      isDesktopOrTablet,
       backgroundColorMenu
     };
   }
