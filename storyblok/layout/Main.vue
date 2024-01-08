@@ -3,13 +3,13 @@
     <div
       :class="[
         'main-wrapper relative pt-10 mb-10 overflow-hidden',
-        { 'md:pt-20 md:mb-20': isDesktop }
+        { 'md:pt-20 md:mb-20': $device.isDesktop }
       ]"
     >
       <div
         v-if="blok.show_background_mask"
         :class="`main-background absolute max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${
-          !isDesktop ? '' : 'md:rounded-t'
+          !$device.isDesktop ? '' : 'md:rounded-t'
         } ${blok.color_animation ? 'color-animation' : ''}`"
         :style="`background-color: ${
           randomBackgroundColorMask
@@ -31,7 +31,7 @@
       />
       <div
         :class="`max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl my-0 mx-auto rounded-b ${
-          !isDesktop ? '' : 'md:rounded-t'
+          !$device.isDesktop ? '' : 'md:rounded-t'
         }`"
       >
         <slot name="main" />
@@ -127,7 +127,6 @@ export default defineNuxtComponent({
     );
     return {
       route,
-      isDesktop,
       backgroundLevel,
       backgroundPosition,
       randomBackgroundColor,

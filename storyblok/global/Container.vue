@@ -22,6 +22,7 @@
       {{ blok.title }}
     </span>
     <div
+      :key="widthContainer"
       :class="`container-content h-full rounded ${
         blok.slider_mode === 'slider' ? 'overflow-hidden' : ''
       }`"
@@ -42,7 +43,7 @@
           v-show="
             (blok.slider_mode === 'slider' ||
               windowWidth < 768 ||
-              !isDesktop ||
+              !$device.isDesktop ||
               sliderMode ||
               carouselMode ||
               blok.row_container) &&
@@ -67,7 +68,7 @@
           v-show="
             (blok.slider_mode === 'carousel' &&
               windowWidth >= 768 &&
-              isDesktop &&
+              $device.isDesktop &&
               !sliderMode &&
               !carouselMode &&
               !blok.row_container) ||
@@ -80,7 +81,7 @@
           v-show="
             (blok.slider_mode === 'slider' ||
               windowWidth < 768 ||
-              !isDesktop ||
+              !$device.isDesktop ||
               sliderMode ||
               carouselMode ||
               blok.row_container) &&
@@ -105,7 +106,7 @@
           v-show="
             (blok.slider_mode === 'carousel' &&
               windowWidth >= 768 &&
-              isDesktop &&
+              $device.isDesktop &&
               !sliderMode &&
               !carouselMode &&
               !blok.row_container) ||
@@ -120,8 +121,7 @@
         >
           <div v-if="blok.slider_mode === 'slider'" class="slider-container">
             <ul
-              :key="sliderKey"
-              :style="`min-height: ${$binaryControl(blok, 'height')}; transform: translateX(${-(
+              :style="`min-height:${$binaryControl(blok, 'height')}; transform: translateX(${-(
                 (containerWidth + spaceFix) *
                 sliderIndex
               )}px); gap: ${spaceFix}px;`"
@@ -160,7 +160,7 @@
               leave-to-class="opacity-0"
               enter-active-class="transition duration-500"
               leave-active-class="transition duration-500"
-              :style="`min-height: ${$binaryControl(blok, 'height')};`"
+              :style="`min-height:${$binaryControl(blok, 'height')};`"
             >
               <li
                 v-for="(component, index) in elements"
@@ -173,10 +173,9 @@
                 } ${index === currentSlide ? 'show' : 'hidden'} ${
                   sliderMode || carouselMode || containerMode ? '' : 'parent-slide'
                 }`"
-                :style="`background-color: ${$binaryControl(
-                  blok.background_color_component,
-                  'color'
-                )};`"
+                :style="`display:${
+                  index === currentSlide ? 'block' : 'none'
+                };background-color:${$binaryControl(blok.background_color_component, 'color')};`"
                 @keydown.right.prevent="!blok.hide_controllers ? next(true) : null"
                 @keydown.left.prevent="!blok.hide_controllers ? previous(true) : null"
               >
@@ -196,13 +195,13 @@
                 v-for="dot in elements.length"
                 :key="dot"
                 :class="`dot-number_${dot} w-2.5 h-2.5 inline-block m-1.5 rounded-full shadow-inner select-none cursor-pointer transform scale-90 transition-all duration-200 ${
-                  !isDesktop ? '' : 'dot-desktop'
+                  !$device.isDesktop ? '' : 'dot-desktop'
                 } ${dot === currentSlide + 1 ? 'bg-gray-300' : 'bg-gray-500'}`"
                 :style="dot === currentSlide + 1 ? 'box-shadow: 0 0 0 2px #d1d5db;' : undefined"
                 @click="changeDot(dot)"
               >
                 <span
-                  v-if="isDesktop"
+                  v-if="$device.isDesktop"
                   class="dot-text absolute w-5 h-5 flex justify-center items-center left-1/2 top-0 rounded-full text-xs text-white bg-opacity-70 bg-gray-500"
                   >{{ dot }}</span
                 >
@@ -217,7 +216,7 @@
             'container-components h-full flex flex-wrap rounded -m-2.5',
             { 'p-5': !blok.remove_space }
           ]"
-          :style="`min-height: ${$binaryControl(blok, 'height')};`"
+          :style="`min-height:${$binaryControl(blok, 'height')};`"
         >
           <div
             v-for="component in elements"
@@ -282,7 +281,6 @@ export default defineNuxtComponent({
     };
   },
   setup(props) {
-    const { isDesktop } = useDevice();
     const { $rangeItems } = useNuxtApp();
     const { windowWidth, elementSize } = useScreen();
     const container = ref(null);
@@ -293,7 +291,6 @@ export default defineNuxtComponent({
       props.sliderMode || props.carouselMode || props.containerMode ? inject('parent') : undefined;
     const state = reactive({
       spaceFix: 20,
-      sliderKey: 0,
       fullWidth: 0,
       sliderIndex: 0,
       setAutoPlay: 0,
@@ -306,7 +303,6 @@ export default defineNuxtComponent({
     const {
       max,
       spaceFix,
-      sliderKey,
       fullWidth,
       columnSet,
       sliderIndex,
@@ -491,19 +487,10 @@ export default defineNuxtComponent({
         (props.blok.slider_mode === 'slider' || props.blok.slider_mode === 'carousel')
           ? widthSliderBox.value
           : widthContainer.value;
-      if (props.sliderMode || props.carouselMode || props.containerMode) {
-        nextTick(() => {
-          fullWidth.value = containerSelect;
-          containerWidth.value =
-            containerSelect / maxElements.value -
-            (spaceFix.value / maxElements.value) * (maxElements.value - 1);
-        });
-      } else {
-        fullWidth.value = containerSelect;
-        containerWidth.value =
-          containerSelect / maxElements.value -
-          (spaceFix.value / maxElements.value) * (maxElements.value - 1);
-      }
+      fullWidth.value = containerSelect;
+      containerWidth.value =
+        containerSelect / maxElements.value -
+        (spaceFix.value / maxElements.value) * (maxElements.value - 1);
     };
     const focusContainer = element => {
       if (!focusDisable.value) nextTick(() => element.focus({ preventScroll: true }));
@@ -526,11 +513,8 @@ export default defineNuxtComponent({
       }
     });
     onBeforeUnmount(clearAll);
-    watch(windowWidth, () => {
-      if (props.blok.slider_mode === 'slider') sliderKey.value++;
-    });
     watch(fullWidth, () => (sliderIndex.value = 0));
-    watch(widthContainer, getContainerWidth);
+    watch([widthContainer, widthSliderBox], getContainerWidth);
     return {
       next,
       parent,
@@ -539,9 +523,7 @@ export default defineNuxtComponent({
       previous,
       changeDot,
       spaceFix,
-      isDesktop,
       fullWidth,
-      sliderKey,
       sliderBox,
       maxElements,
       windowWidth,
@@ -549,6 +531,7 @@ export default defineNuxtComponent({
       sliderIndex,
       currentSlide,
       carouselSlide,
+      widthContainer,
       focusContainer,
       containerWidth,
       setVerticalAlign,

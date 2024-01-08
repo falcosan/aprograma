@@ -13,7 +13,7 @@
       </div>
       <div
         :class="`show-categories flex justify-self-end self-end md:self-auto row-start-2 row-end-1 mb-5 md:m-2.5 cursor-pointer rounded transition bg-gray-200 ${
-          !isDesktop ? '' : 'hover:opacity-80'
+          !$device.isDesktop ? '' : 'hover:opacity-80'
         }`"
         @click="showCategories"
       >
@@ -66,7 +66,7 @@
               },
               comparedCategories.includes(filter.value)
                 ? 'bg-opacity-70'
-                : !isDesktop
+                : !$device.isDesktop
                   ? ''
                   : 'hover:bg-opacity-90'
             ]"
@@ -150,7 +150,6 @@ export default defineNuxtComponent({
     }
   },
   async setup(props) {
-    const { isDesktop } = useDevice();
     const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
     const { fetcher } = useFetcher({ starts_with: 'blog' });
@@ -265,7 +264,6 @@ export default defineNuxtComponent({
     watch(posts, val => addPosts(val), { immediate: true });
     return {
       maxPosts,
-      isDesktop,
       searchTerm,
       sortedPosts,
       searchQuery,

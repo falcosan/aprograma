@@ -3,7 +3,7 @@
     v-if="blok"
     :id="`${blok.type}-input`"
     :class="`input cursor-pointer py-3 px-4 rounded text-sm transition ${
-      !isDesktop ? '' : 'hover:opacity-80'
+      !$device.isDesktop ? '' : 'hover:opacity-80'
     } ${$themeColor(blok.background_color.color) ? 'text-white' : ''}`"
     :style="`background-color: ${$binaryControl(blok.background_color, 'color', 'transparent')};`"
     :type="blok.type"
@@ -13,7 +13,7 @@
     v-else
     :id="`${text}-input`"
     :class="`input cursor-pointer py-3 px-4 rounded text-sm transition ${
-      !isDesktop ? '' : 'hover:opacity-80'
+      !$device.isDesktop ? '' : 'hover:opacity-80'
     }`"
     :type="type"
     :value="text"
@@ -34,10 +34,6 @@ export default defineNuxtComponent({
       type: String,
       default: ''
     }
-  },
-  setup() {
-    const { isDesktop } = useDevice();
-    return { isDesktop };
   }
 });
 </script>

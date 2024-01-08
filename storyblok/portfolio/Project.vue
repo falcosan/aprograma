@@ -15,7 +15,7 @@
           <IconComponent
             link
             :class="`project-external mr-2.5 rounded ${
-              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
             }`"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
@@ -37,7 +37,7 @@
           <IconComponent
             git
             :class="`project-repository mr-2.5 rounded ${
-              !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
             }`"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
@@ -56,7 +56,7 @@
           '#e0e0e0'
         )}; color: ${$binaryControl(blok.text_color, 'color')};`"
         :class="`project-back rounded cursor-pointer ${
-          !isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
+          !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
         }`"
         size="w-10 h-10 p-3"
         @click="$goBack('portfolio')"
@@ -154,7 +154,6 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { isDesktop } = useDevice();
     const { markdownToHtml } = useMarkdown();
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
@@ -175,7 +174,7 @@ export default defineNuxtComponent({
       } / ${currentDateTime.getFullYear()}`;
       return formattedDate.toString();
     };
-    return { isDesktop, setAlignText, markdownToHtml, changeDate };
+    return { setAlignText, markdownToHtml, changeDate };
   }
 });
 </script>
