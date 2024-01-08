@@ -1,7 +1,7 @@
 <template>
   <footer
     class="footer px-5 pt-20 pb-40 rounded-t"
-    :style="`background-color: ${blok.transparency ? `${backgroundColor}B3` : backgroundColor};`"
+    :style="`background-color:${blok.transparency ? `${backgroundColor}B3` : backgroundColor};`"
   >
     <div class="footer-content h-52 grid gap-5 text-center">
       <div
