@@ -22,7 +22,7 @@
       {{ blok.title }}
     </span>
     <div
-      v-if="widthContainer"
+      :key="widthContainer"
       :class="`container-content h-full rounded ${
         blok.slider_mode === 'slider' ? 'overflow-hidden' : ''
       }`"
