@@ -4,7 +4,7 @@
       <h1 class="post-title" v-text="blok.title" />
       <div v-if="setEditorPath" class="post-editor flex justify-end flex-auto mb-5">
         <RouteComponent
-          class="px-3 py-2 rounded hover:opacity-80"
+          class="post-edit-button px-3 py-2 rounded hover:opacity-80"
           external-link
           :to="setEditorPath"
           :style="`background-color: ${$binaryControl(
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div
-      class="post-body w-full justify-center rounded"
+      class="post-body w-full rounded"
       :style="`background-color: ${$binaryControl(blok.background_color, 'color', '#e0e0e0')};`"
     >
       <div class="post-action flex flex-wrap justify-end pt-5 px-5">
@@ -89,8 +89,8 @@
           </ul>
         </div>
         <article
-          :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
           :class="`post-article markdown block mb-5 ${setAlignText}`"
+          :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
           v-html="markdownToHtml(blok.long_text)"
         />
       </div>
