@@ -1,11 +1,11 @@
 <template>
   <div
-    class="note-body w-full p-5 rounded"
+    class="note-body w-full h-full p-5"
     :style="`background-color:${$binaryControl(blok.background_color, 'color', '#e0e0e0')};`"
   >
     <article
       :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
-      class="note-article markdown block mb-5"
+      class="note-article markdown block"
       v-html="markdownToHtml(blok.long_text)"
     />
   </div>
