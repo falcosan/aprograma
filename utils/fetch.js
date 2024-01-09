@@ -71,7 +71,7 @@ export async function fetchSitemap() {
         return false;
       }
     })
-    .filter(Boolean);
+    .filter(link => link && !new RegExp(enums.ignore.join('|')).test(link.split('/')[0]));
   for (const url of urls) {
     let priority = 0.3;
     if (/blog/.test(url)) priority = 0.7;

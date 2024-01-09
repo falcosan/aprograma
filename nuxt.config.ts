@@ -121,7 +121,7 @@ export default defineNuxtConfig({
       preset: 'netlify-edge'
     }),
     compressPublicAssets: true,
-    prerender: { ignore: enums.ignore }
+    prerender: { ignore: enums.ignore.map(path => `/${path}`) }
   },
   hooks: {
     close: nuxt => {
