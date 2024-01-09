@@ -90,7 +90,20 @@ export default defineNuxtConfig({
   ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
     security: {
       headers: {
-        contentSecurityPolicy: false
+        xXSSProtection: '1',
+        crossOriginEmbedderPolicy: 'unsafe-none',
+        contentSecurityPolicy: {
+          'base-uri': ["'self'"],
+          'object-src': ["'none'"],
+          'form-action': ["'self'"],
+          'frame-ancestors': ["'self'"],
+          'upgrade-insecure-requests': true,
+          'font-src': ["'self'", 'https:', 'data:'],
+          'img-src': ['*', "'self'", 'https:', 'data:'],
+          'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+          'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+          'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+        }
       }
     }
   }),
