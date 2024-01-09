@@ -87,26 +87,26 @@ export default defineNuxtConfig({
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
   },
-  ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
-    security: {
-      headers: {
-        xXSSProtection: '1',
-        crossOriginEmbedderPolicy: 'unsafe-none',
-        contentSecurityPolicy: {
-          'base-uri': ["'self'"],
-          'object-src': ["'none'"],
-          'form-action': ["'self'"],
-          'frame-ancestors': ["'self'"],
-          'upgrade-insecure-requests': true,
-          'font-src': ["'self'", 'https:', 'data:'],
-          'img-src': ['*', "'self'", 'https:', 'data:'],
-          'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-          'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-          'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
-        }
-      }
-    }
-  }),
+  // ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+  //   security: {
+  //     headers: {
+  //       xXSSProtection: '1',
+  //       crossOriginEmbedderPolicy: 'unsafe-none',
+  //       contentSecurityPolicy: {
+  //         'base-uri': ["'self'"],
+  //         'object-src': ["'none'"],
+  //         'form-action': ["'self'"],
+  //         'frame-ancestors': ["'self'"],
+  //         'upgrade-insecure-requests': true,
+  //         'font-src': ["'self'", 'https:', 'data:'],
+  //         'img-src': ['*', "'self'", 'https:', 'data:'],
+  //         'style-src': ["'self'", 'https:', "'unsafe-inline'"],
+  //         'script-src': ["'self'", 'https:', "'unsafe-inline'"],
+  //         'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
+  //       }
+  //     }
+  //   }
+  // }),
   vite: {
     build: {
       chunkSizeWarningLimit: 1000
