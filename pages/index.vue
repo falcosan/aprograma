@@ -1,6 +1,5 @@
 <script setup>
-const { fetcher } = useFetcher({ slug: 'home' });
-const { data: home } = await useAsyncData('home', fetcher);
+const { data: home } = await useFetcher({ slug: 'home' });
 </script>
 
 <template>

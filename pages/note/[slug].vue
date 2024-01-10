@@ -1,7 +1,6 @@
 <script setup>
 const route = useRoute();
-const { fetcher } = useFetcher({ slug: `note/${route.params.slug}` });
-const { data: note } = await useAsyncData('note', fetcher);
+const { data: note } = await useFetcher({ slug: `note/${route.params.slug}` });
 </script>
 
 <template>

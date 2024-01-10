@@ -1,8 +1,7 @@
 <script setup>
 const { seoStatic } = useSeo();
 const { $languageCase } = useNuxtApp();
-const { fetcher } = useFetcher({ slug: 'portfolio' });
-const { data: portfolio } = await useAsyncData('portfolio', fetcher);
+const { data: portfolio } = await useFetcher({ slug: 'portfolio' });
 watch(
   portfolio,
   val =>

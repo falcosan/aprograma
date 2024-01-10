@@ -152,14 +152,13 @@ export default defineNuxtComponent({
   async setup(props) {
     const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
-    const { fetcher } = useFetcher({ starts_with: 'blog' });
+    const { data: posts } = await useFetcher({ slug: 'posts', startsWith: 'blog' });
     const state = reactive({
       searchTerm: '',
       showFilters: false,
       searchCategory: []
     });
     const { searchTerm, searchCategory, showFilters } = toRefs(state);
-    const { data: posts } = await useAsyncData('posts', fetcher);
     const maxPosts = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {

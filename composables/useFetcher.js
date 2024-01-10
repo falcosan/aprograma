@@ -1,14 +1,22 @@
-export const useFetcher = options => {
+export const useFetcher = async options => {
   const { locale } = useI18n();
   const config = useRuntimeConfig();
-  const fetcher = async () => {
-    const data = await $fetch('/api/storyblok', {
-      headers: { 'x-auth': config.public.envXAuth },
-      params: { ...options, lang: locale.value }
-    });
-    return data.story ?? data.stories;
-  };
+  const { slug, startsWith, watching } = options;
+  const { data } = await useAsyncData(
+    slug,
+    async () => {
+      const data = await $fetch('/api/storyblok', {
+        headers: { 'x-auth': config.public.envXAuth },
+        params: {
+          ...(startsWith ? { startsWith } : { slug }),
+          lang: locale.value
+        }
+      });
+      return data.story ?? data.stories;
+    },
+    { ...(!!watching && { watch: [locale] }) }
+  );
   return {
-    fetcher
+    data
   };
 };

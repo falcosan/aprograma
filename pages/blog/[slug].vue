@@ -1,8 +1,7 @@
 <script setup>
 const route = useRoute();
 const { seoDynamic } = useSeo();
-const { fetcher } = useFetcher({ slug: `blog/${route.params.slug}` });
-const { data: post } = await useAsyncData('post', fetcher);
+const { data: post } = await useFetcher({ slug: `blog/${route.params.slug}` });
 watch(post, val => seoDynamic(val), { immediate: true });
 </script>
 
