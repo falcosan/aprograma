@@ -60,8 +60,7 @@ export default defineNuxtComponent({
   async setup(props) {
     const { windowWidth } = useScreen();
     const { addProjects } = store.projects();
-    const { fetcher } = useFetcher({ starts_with: 'portfolio' });
-    const { data: projects } = await useAsyncData('projects', fetcher);
+    const { data: projects } = await useFetcher({ slug: 'projects', startsWith: 'portfolio' });
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {

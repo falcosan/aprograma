@@ -2,8 +2,7 @@
 import LogoComponent from '@/storyblok/global/Logo';
 const { locale } = useI18n();
 const { seoLayout } = useSeo();
-const { fetcher } = useFetcher({ slug: 'layout' });
-const { data: layout } = await useAsyncData('layout', fetcher, { watch: [locale] });
+const { data: layout } = await useFetcher({ slug: 'layout', watching: true });
 watch(locale, val => seoLayout({ language: val }), { immediate: true });
 </script>
 
