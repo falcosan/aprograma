@@ -1,7 +1,7 @@
 export const useFetcher = async options => {
   const { locale } = useI18n();
   const config = useRuntimeConfig();
-  const { slug, startsWith } = options;
+  const { slug, startsWith, watching } = options;
   const { data } = await useAsyncData(
     slug,
     async () => {
@@ -14,7 +14,7 @@ export const useFetcher = async options => {
       });
       return data.story ?? data.stories;
     },
-    { watch: [locale] }
+    { ...(!!watching && { watch: [locale] }) }
   );
   return {
     data
