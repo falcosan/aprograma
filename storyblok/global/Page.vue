@@ -33,9 +33,9 @@
             : '100%'
         };`"
         :class="[
-          `${component.component.toLowerCase()}-content`,
+          `${component.component.toLowerCase()}-content m-2.5`,
           {
-            [`${setHorizontalAlign} ${setVerticalAlign} m-2.5`]:
+            [`${setHorizontalAlign} ${setVerticalAlign}`]:
               component.component.toLowerCase() !== 'blank'
           },
           {
