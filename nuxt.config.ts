@@ -112,10 +112,7 @@ export default defineNuxtConfig({
       chunkSizeWarningLimit: 1000
     }
   },
-  sourcemap: {
-    server: true,
-    client: true
-  },
+  sourcemap: true,
   nitro: {
     ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
       preset: 'netlify-edge'
