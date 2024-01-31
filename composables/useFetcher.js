@@ -3,7 +3,7 @@ export const useFetcher = async options => {
   const config = useRuntimeConfig();
   const { slug, startsWith, watching } = options;
   const { data } = await useAsyncData(
-    slug,
+    `${slug}-${locale.value}`,
     async () => {
       const data = await $fetch('/api/storyblok', {
         headers: { 'x-auth': config.public.envXAuth },
