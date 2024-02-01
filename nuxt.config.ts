@@ -124,8 +124,5 @@ export default defineNuxtConfig({
     close: nuxt => {
       if (!nuxt.options._prepare) process.exit();
     }
-  },
-  experimental: {
-    sharedPrerenderData: true
   }
 });
