@@ -27,7 +27,7 @@
           { 'color-animation': blok.color_animation },
           { 'dark:invert dark:contrast-75 bg-white': !randomBackgroundColor }
         ]"
-        :style="`background-color: ${randomBackgroundColor};`"
+        :style="`background-color: ${$binaryControl(randomBackgroundColor)};`"
       />
       <div
         :class="`max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl my-0 mx-auto rounded-b ${
