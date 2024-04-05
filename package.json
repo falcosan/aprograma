@@ -44,7 +44,7 @@
     "nuxt-security": "1.2.2",
     "rss": "^1.2.2",
     "sitemap": "^7.1.1",
-    "typescript": "5.4.2",
+    "typescript": "^5.4.4",
     "vue-gtag-next": "^1.14.0"
   },
   "main": ".eslintrc.cjs",
