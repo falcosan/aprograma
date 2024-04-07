@@ -56,7 +56,11 @@ export default defineNuxtConfig({
       })
       .filter(Boolean),
     defaultLocale: 'en',
-    detectBrowserLanguage: false
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'ap_i18n',
+      redirectOn: 'root'
+    }
   },
   device: {
     refreshOnResize: true
