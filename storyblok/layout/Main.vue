@@ -30,7 +30,7 @@
         :style="randomBackgroundColor ? `background-color: ${randomBackgroundColor};` : undefined"
       />
       <div
-        :class="`max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl my-0 mx-auto rounded-b ${
+        :class="`main-content max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl my-0 mx-auto rounded-b ${
           !$device.isDesktop ? '' : 'md:rounded-t'
         }`"
       >

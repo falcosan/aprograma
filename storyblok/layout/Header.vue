@@ -9,6 +9,7 @@
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex justify-between"
       >
         <RouteComponent
+          v-if="!blank"
           set-active="pb-1 border-t-4 border-gray-300"
           icon-item
           :class="[
@@ -57,6 +58,7 @@
     </nav>
     <div class="header-loader header-loader-responsive"><slot name="header" /></div>
     <nav
+      v-if="!blank"
       class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t shadow-[0_20px_20px_0_#0000000d]"
       :style="`background-color: ${backgroundColor};`"
     >
@@ -85,6 +87,10 @@ export default defineNuxtComponent({
     blok: {
       type: Object,
       required: true
+    },
+    blank: {
+      type: Boolean,
+      default: false
     }
   },
   setup(props) {
@@ -100,9 +106,9 @@ export default defineNuxtComponent({
       $binaryControl(props.blok.background_color_menu, 'color')
     );
     const logoColors = computed(() => {
-      const colors = props.blok.logo_colors.color;
+      const colors = props.blok.logo_colors?.color ?? [];
       if (colors.length) return colors;
-      else return [props.blok.logo_colors.color, props.blok.logo_colors.color];
+      else return [props.blok.logo_colors?.color, props.blok.logo_colors?.color].filter(Boolean);
     });
     const toggleExpanded = state => (expanded.value = state);
 
