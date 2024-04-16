@@ -1,6 +1,5 @@
 <template>
   <div class="note p-5">
-    <h1 class="note-title" v-text="blok.title" />
     <div class="note-editor flex justify-end flex-auto mb-5">
       <RouteComponent
         class="note-editor-button px-3 py-2 rounded hover:opacity-80"
