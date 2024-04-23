@@ -1,23 +1,37 @@
 import { isProduction, isDevelopment } from 'std-env';
 import enums from './utils/enums';
 
+const mode = {
+  production: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
+  development: isDevelopment || /netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify') || process.env.NUXT_ENV_LOCAL_BUILD
+};
+
 export default defineNuxtConfig({
   app: {
     rootId: '__ap',
-    rootTag: 'section'
+    rootTag: 'section',
+    ...(mode.production && {
+      head: {
+        script: [
+          { 
+            type: 'text/javascript', 
+            src: `https://app.termly.io/resource-blocker/${process.env.NUXT_ENV_TERMLY}?autoBlock=on`
+          }
+        ]
+      }
+    }),
   },
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
+      envProductionDomain: mode.production,
       envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
-      envTermly: process.env.NUXT_ENV_TERMLY,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
       envMode: { production: isProduction, development: isDevelopment },
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION,
-      envProductionDomain: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
     }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
@@ -31,7 +45,7 @@ export default defineNuxtConfig({
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
-    ...(!process.env.NUXT_ENV_LOCAL_BUILD ? ['nuxt-security'] : [])
+    ...(!mode.development ? ['nuxt-security'] : [])
   ],
   image: {
     provider: 'storyblok',
@@ -91,7 +105,7 @@ export default defineNuxtConfig({
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
   },
-  ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+  ...(!mode.development && {
     security: {
       headers: {
         xXSSProtection: '1',
@@ -118,7 +132,7 @@ export default defineNuxtConfig({
   },
   sourcemap: true,
   nitro: {
-    ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+    ...(!mode.development && {
       preset: 'netlify-edge'
     }),
     compressPublicAssets: true,
