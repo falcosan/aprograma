@@ -157,6 +157,11 @@ export const useSeo = () => {
           link: [
             { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
             { rel: 'canonical', href: config.public.envDomain }
+          ],
+          script: [
+            ...(config.public.envTermly !== 'false' && {
+              src: `https://app.termly.io/resource-blocker/${config.public.envTermly}?autoBlock=on`, type: 'text/javascript'
+            })
           ]
         })
       : undefined;
