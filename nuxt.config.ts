@@ -1,13 +1,16 @@
 import { isProduction, isDevelopment } from 'std-env';
 import enums from './utils/enums';
 
-const envProductionDomain = isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify');
+const mode = {
+  production: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
+  development: isDevelopment || /netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify') || process.env.NUXT_ENV_LOCAL_BUILD
+};
 
 export default defineNuxtConfig({
   app: {
     rootId: '__ap',
     rootTag: 'section',
-    ...(envProductionDomain && {
+    ...(mode.production && {
       head: {
         script: [
           { 
@@ -22,7 +25,7 @@ export default defineNuxtConfig({
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
-      envProductionDomain,
+      envProductionDomain: mode.production,
       envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
@@ -42,7 +45,7 @@ export default defineNuxtConfig({
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
-    ...(!process.env.NUXT_ENV_LOCAL_BUILD ? ['nuxt-security'] : [])
+    ...(!mode.development ? ['nuxt-security'] : [])
   ],
   image: {
     provider: 'storyblok',
@@ -102,7 +105,7 @@ export default defineNuxtConfig({
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
   },
-  ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+  ...(!mode.development && {
     security: {
       headers: {
         xXSSProtection: '1',
@@ -129,7 +132,7 @@ export default defineNuxtConfig({
   },
   sourcemap: true,
   nitro: {
-    ...(!process.env.NUXT_ENV_LOCAL_BUILD && {
+    ...(!mode.development && {
       preset: 'netlify-edge'
     }),
     compressPublicAssets: true,
