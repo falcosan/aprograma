@@ -1,23 +1,34 @@
 import { isProduction, isDevelopment } from 'std-env';
 import enums from './utils/enums';
 
+const envProductionDomain = isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify');
+
 export default defineNuxtConfig({
   app: {
     rootId: '__ap',
-    rootTag: 'section'
+    rootTag: 'section',
+    ...(envProductionDomain && {
+      head: {
+        script: [
+          { 
+            type: 'text/javascript', 
+            src: `https://app.termly.io/resource-blocker/${process.env.NUXT_ENV_TERMLY}?autoBlock=on`
+          }
+        ]
+      }
+    }),
   },
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
+      envProductionDomain,
       envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
-      envTermly: process.env.NUXT_ENV_TERMLY,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
       envMode: { production: isProduction, development: isDevelopment },
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION,
-      envProductionDomain: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
     }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],

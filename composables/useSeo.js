@@ -155,13 +155,8 @@ export const useSeo = () => {
           titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
           meta,
           link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-            { rel: 'canonical', href: config.public.envDomain }
-          ],
-          script: [
-            ...(config.public.envTermly !== 'false' && {
-              src: `https://app.termly.io/resource-blocker/${config.public.envTermly}?autoBlock=on`, type: 'text/javascript'
-            })
+            { rel: 'canonical', href: config.public.envDomain },
+            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
           ]
         })
       : undefined;
