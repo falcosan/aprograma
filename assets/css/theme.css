@@ -10,11 +10,16 @@
 .logo-container,
 .navbar-up .item-link,
 .navbar-up .translate,
-.main-flat.color-animation {
+.main-flat.color-animation,
+[class*='t-consentPrompt'],
+[class*='termly-styles-modal'] {
   @apply dark:invert transition-[filter];
 }
+
 .footer,
 .navbar-up,
-.navbar-down {
+.navbar-down,
+[class*='t-consentPrompt'],
+[class*='termly-styles-modal'] {
   @apply dark:contrast-75;
 }
