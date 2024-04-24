@@ -9,6 +9,7 @@
           :placeholder="$languageCase('Search', 'Buscar', 'Cercare')"
           class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
           type="text"
+          name="search-posts"
         />
       </div>
       <div
