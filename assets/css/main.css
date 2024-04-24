@@ -308,8 +308,6 @@ input {
   border: 1px solid #eeeeee !important;
 }
 
-img[src*='termly'],
-[class*='termly-styles-logo'],
-img[src*='termly'] + style + span[style*='background'] {
+[class*='termly-styles-logo'] {
   display: none !important;
 }
