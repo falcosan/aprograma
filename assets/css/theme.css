@@ -10,11 +10,13 @@
 .logo-container,
 .navbar-up .item-link,
 .navbar-up .translate,
-.main-flat.color-animation {
+.main-flat.color-animation,
+[class*='termly-styles-root'] {
   @apply dark:invert transition-[filter];
 }
 .footer,
 .navbar-up,
-.navbar-down {
+.navbar-down,
+[class*='termly-styles-root'] {
   @apply dark:contrast-75;
 }
