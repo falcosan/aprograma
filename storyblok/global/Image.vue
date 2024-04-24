@@ -1,9 +1,9 @@
 <template>
-  <img
+  <NuxtImg
     v-if="imageType === 'svg+xml' || original"
     :loading="lazy ? 'lazy' : undefined"
     class="image"
-    :alt="alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')"
+    :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"
@@ -14,7 +14,7 @@
     v-else
     :loading="lazy ? 'lazy' : undefined"
     class="image"
-    :alt="alt || $languageCase('quantum vacuum', 'vacío cuántico', 'vuoto quantistico')"
+    :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"
