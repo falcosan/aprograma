@@ -72,8 +72,8 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: true,
-      cookieKey: 'ap_i18n',
-      redirectOn: 'root'
+      redirectOn: 'root',
+      cookieKey: 'ap_language'
     }
   },
   device: {
@@ -100,8 +100,7 @@ export default defineNuxtConfig({
   colorMode: {
     classSuffix: '',
     hid: 'theme-script',
-    preference: 'light',
-    storageKey: 'theme',
+    storageKey: 'ap_theme',
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
   },
