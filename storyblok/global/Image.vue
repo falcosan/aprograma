@@ -1,5 +1,5 @@
 <template>
-  <img
+  <NuxtImg
     v-if="imageType === 'svg+xml' || original"
     :loading="lazy ? 'lazy' : undefined"
     class="image"
