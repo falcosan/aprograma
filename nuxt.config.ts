@@ -3,7 +3,10 @@ import enums from './utils/enums';
 
 const mode = {
   production: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
-  development: isDevelopment || /netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify') || process.env.NUXT_ENV_LOCAL_BUILD
+  development:
+    isDevelopment ||
+    /netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify') ||
+    process.env.NUXT_ENV_LOCAL_BUILD
 };
 
 export default defineNuxtConfig({
@@ -13,13 +16,13 @@ export default defineNuxtConfig({
     ...(mode.production && {
       head: {
         script: [
-          { 
-            type: 'text/javascript', 
+          {
+            type: 'text/javascript',
             src: `https://app.termly.io/resource-blocker/${process.env.NUXT_ENV_TERMLY}?autoBlock=on`
           }
         ]
       }
-    }),
+    })
   },
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
@@ -31,7 +34,7 @@ export default defineNuxtConfig({
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
       envMode: { production: isProduction, development: isDevelopment },
-      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION,
+      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
