@@ -303,6 +303,7 @@ input {
 
 [class*='t-consentPrompt'],
 [class*='termly-styles-modal'] {
+  overflow: hidden !important;
   box-shadow: none !important;
   border-radius: 4px !important;
   border: 1px solid #eeeeee !important;

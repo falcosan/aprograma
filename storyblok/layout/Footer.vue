@@ -60,9 +60,10 @@
         </span>
       </div>
       <div
-        :class="`footer-info grid gap-y-1.5 ${
-          backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
-        }`"
+        :class="[
+          'footer-info grid gap-y-1.5',
+          { 'text-white': backgroundColor && $themeColor(backgroundColor) }
+        ]"
       >
         <span class="footer-copyright text-sm">
           © 2020 - {{ currentYear }}, <strong>{{ webName }}</strong>
@@ -86,6 +87,24 @@
           </li>
         </template>
       </ul>
+      <div
+        :class="[
+          'footer-cookies text-sm',
+          { 'text-white': backgroundColor && $themeColor(backgroundColor) }
+        ]"
+      >
+        <a
+          href="#"
+          class="termly-display-preferences"
+          v-text="
+            $languageCase(
+              'Consent Preferences',
+              'Preferencias de Consentimiento',
+              'Preferenze di Consenso'
+            )
+          "
+        />
+      </div>
     </div>
   </footer>
 </template>
