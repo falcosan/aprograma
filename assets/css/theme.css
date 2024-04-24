@@ -11,12 +11,15 @@
 .navbar-up .item-link,
 .navbar-up .translate,
 .main-flat.color-animation,
-[class*='termly-styles-root'] {
+[class*='termly-styles-root'],
+[class*='termly-styles-modal'] {
   @apply dark:invert transition-[filter];
 }
+
 .footer,
 .navbar-up,
 .navbar-down,
-[class*='termly-styles-root'] {
+[class*='termly-styles-root'],
+[class*='termly-styles-modal'] {
   @apply dark:contrast-75;
 }
