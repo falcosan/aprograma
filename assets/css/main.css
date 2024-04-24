@@ -309,6 +309,10 @@ input {
   border: 1px solid #eeeeee !important;
 }
 
-[class*='termly-styles-logo'] {
+[class*='termly-styles-logo'],
+[class*='t-preference-modal'] > * > [class*='termly-styles-root']:nth-child(1),
+[class*='t-preference-modal'] > * > [class*='termly-styles-root']:nth-child(3),
+[class*='t-preference-modal'] > * > [class*='termly-styles-root']:nth-child(4),
+[class*='t-preference-modal'] > * > [class*='termly-styles-root']:last-child {
   display: none !important;
 }
