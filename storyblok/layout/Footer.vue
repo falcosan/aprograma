@@ -89,7 +89,7 @@
       </ul>
       <div
         :class="[
-          'footer-cookies text-sm',
+          'footer-cookies text-xs',
           { 'text-white': backgroundColor && $themeColor(backgroundColor) }
         ]"
       >
