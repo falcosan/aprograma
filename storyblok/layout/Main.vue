@@ -8,7 +8,7 @@
     >
       <div
         v-if="blok.show_background_mask"
-        :class="`main-background absolute max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${
+        :class="`main-background absolute inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${setWidth} ${
           !$device.isDesktop ? '' : 'md:rounded-t'
         } ${blok.color_animation ? 'color-animation' : ''}`"
         :style="`background-color: ${
@@ -30,7 +30,7 @@
         :style="randomBackgroundColor ? `background-color: ${randomBackgroundColor};` : undefined"
       />
       <div
-        :class="`main-content max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl my-0 mx-auto rounded-b ${
+        :class="`main-content my-0 mx-auto rounded-b ${setWidth} ${
           !$device.isDesktop ? '' : 'md:rounded-t'
         }`"
       >
@@ -76,6 +76,11 @@ export default defineNuxtComponent({
     blok: {
       type: Object,
       required: true
+    },
+    layout: {
+      type: String,
+      default: 'default',
+      validator: val => /default|blank/.test(val)
     }
   },
   setup(props) {
@@ -84,6 +89,9 @@ export default defineNuxtComponent({
     const route = useRoute();
     const state = reactive({ index: { background: 0, mask: 0 } });
     const { index } = toRefs(state);
+    const setWidth = computed(() => {
+      return props.layout !== 'blank' ? 'max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl': '';
+    });
     const randomBackgroundColor = computed(
       () => props.blok.background_color.color.split('; ')[index.value.background]
     );
@@ -127,6 +135,7 @@ export default defineNuxtComponent({
     );
     return {
       route,
+      setWidth,
       backgroundLevel,
       backgroundPosition,
       randomBackgroundColor,

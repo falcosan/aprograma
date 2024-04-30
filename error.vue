@@ -12,7 +12,7 @@ const handleError = () => clearError({ redirect: localePath('index') });
 <template>
   <div>
     <div
-      class="error fixed w-screen h-screen flex items-center justify-center inset-0 px-5 bg-white"
+      class="error fixed w-screen h-screen flex items-center justify-center inset-0 px-5 dark:invert dark:contrast-75 bg-white"
     >
       <div
         :class="`error-${error.statusCode} w-full max-w-3xl flex flex-col justify-center items-center space-y-5 text-center`"

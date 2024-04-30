@@ -9,7 +9,7 @@
         class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex justify-between"
       >
         <RouteComponent
-          v-if="!blank"
+          v-if="layout !== 'blank'"
           set-active="pb-1 border-t-4 border-gray-300"
           icon-item
           :class="[
@@ -58,7 +58,7 @@
     </nav>
     <div class="header-loader header-loader-responsive"><slot name="header" /></div>
     <nav
-      v-if="!blank"
+      v-if="layout !== 'blank'"
       class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t shadow-[0_20px_20px_0_#0000000d]"
       :style="`background-color: ${backgroundColor};`"
     >
@@ -88,9 +88,10 @@ export default defineNuxtComponent({
       type: Object,
       required: true
     },
-    blank: {
-      type: Boolean,
-      default: false
+    layout: {
+      type: String,
+      default: 'default',
+      validator: val => /default|blank/.test(val)
     }
   },
   setup(props) {
