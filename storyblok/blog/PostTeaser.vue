@@ -66,7 +66,7 @@
               <li
                 v-for="(category, index) in sortedCategories"
                 :key="index"
-                class="teaser-category text-xs p-2 m-1 rounded shadow italic brightness-90"
+                class="teaser-category text-xs p-2 m-1 rounded italic brightness-90"
                 :style="`background-color: ${$binaryControl(
                   postContent.background_color,
                   'color',
