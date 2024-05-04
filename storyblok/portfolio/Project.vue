@@ -14,9 +14,7 @@
         <template #icon>
           <IconComponent
             link
-            :class="`project-external mr-2.5 rounded ${
-              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-            }`"
+            class="project-external mr-2.5 rounded"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
               'color',
@@ -36,9 +34,7 @@
         <template #icon>
           <IconComponent
             git
-            :class="`project-repository mr-2.5 rounded ${
-              !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-            }`"
+            class="project-repository mr-2.5 rounded"
             :style="`background-color: ${$binaryControl(
               blok.background_color,
               'color',
@@ -55,9 +51,7 @@
           'color',
           '#e0e0e0'
         )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-        :class="`project-back rounded cursor-pointer ${
-          !$device.isDesktop ? '' : 'hover:shadow transition-shadow duration-100'
-        }`"
+        class="project-back rounded cursor-pointer"
         size="w-10 h-10 p-3"
         @click="$goBack('portfolio')"
       />

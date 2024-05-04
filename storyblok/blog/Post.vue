@@ -46,7 +46,7 @@
             'color',
             '#e0e0e0'
           )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-          class="post-close rounded shadow cursor-pointer"
+          class="post-close rounded cursor-pointer brightness-110"
           size="p-3 w-10 h-10"
           @click="$goBack('blog')"
         />
@@ -77,7 +77,7 @@
             <li
               v-for="(category, index) in sortedCategories"
               :key="index"
-              class="post-category self-start m-1.5 p-2 text-center text-xs rounded shadow italic brightness-90"
+              class="post-category self-start m-1.5 p-2 text-center text-xs rounded italic brightness-90"
               :style="`background-color: ${$binaryControl(
                 blok.background_color,
                 'color',
