@@ -90,7 +90,9 @@ export default defineNuxtComponent({
     const state = reactive({ index: { background: 0, mask: 0 } });
     const { index } = toRefs(state);
     const setWidth = computed(() => {
-      return props.layout !== 'blank' ? 'max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl': '';
+      return props.layout !== 'blank'
+        ? 'max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl'
+        : '';
     });
     const randomBackgroundColor = computed(
       () => props.blok.background_color.color.split('; ')[index.value.background]
