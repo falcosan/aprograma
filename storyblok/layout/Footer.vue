@@ -87,24 +87,6 @@
           </li>
         </template>
       </ul>
-      <div
-        :class="[
-          'footer-cookies text-xs',
-          { 'text-white': backgroundColor && $themeColor(backgroundColor) }
-        ]"
-      >
-        <a
-          href="#"
-          class="termly-display-preferences"
-          v-text="
-            $languageCase(
-              'Consent Preferences',
-              'Preferencias de Consentimiento',
-              'Preferenze di Consenso'
-            )
-          "
-        />
-      </div>
     </div>
   </footer>
 </template>
