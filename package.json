@@ -43,7 +43,7 @@
     "nuxt": "^3.11.2",
     "nuxt-security": "^1.4.3",
     "rss": "^1.2.2",
-    "sitemap": "^7.1.1",
+    "sitemap": "^8.0.0",
     "typescript": "^5.4.5",
     "vue-gtag-next": "^1.14.0"
   },
