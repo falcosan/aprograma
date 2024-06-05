@@ -58,8 +58,7 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup(props, ctx) {
-    console.log(ctx);
+  setup(props) {
     const imageType = computed(() => {
       switch (props.src.toLowerCase().split('.').pop()) {
         case 'jpg':
