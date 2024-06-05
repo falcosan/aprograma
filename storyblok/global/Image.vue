@@ -1,7 +1,6 @@
 <template>
   <NuxtImg
     v-if="imageType === 'svg+xml' || original"
-    :loading="lazy ? 'lazy' : undefined"
     class="image"
     :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
     :type="`image/${imageType}`"
@@ -12,7 +11,6 @@
   />
   <NuxtImg
     v-else
-    :loading="lazy ? 'lazy' : undefined"
     class="image"
     :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
     :type="`image/${imageType}`"
@@ -52,10 +50,6 @@ export default defineNuxtComponent({
     alt: {
       type: String,
       default: ''
-    },
-    lazy: {
-      type: Boolean,
-      default: false
     },
     original: {
       type: Boolean,

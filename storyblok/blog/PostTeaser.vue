@@ -22,7 +22,6 @@
         >
           <component
             :is="lookFile"
-            :lazy="checkFile"
             :file="postContent.file"
             :class="`teaser-file w-full h-full object-center select-none aspect-video ${
               rowContainer || sliderContainer || containerContainer || carouselContainer

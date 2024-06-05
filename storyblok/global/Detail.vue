@@ -35,7 +35,6 @@
                     /\.[^/.]+$/,
                     ''
                   )}-image my-0 mx-auto object-contain object-center rounded cursor-pointer select-none`"
-                lazy
                 :src="media.filename"
                 :alt="media.alt"
                 width="711"
@@ -120,7 +119,6 @@
                   /\.[^/.]+$/,
                   ''
                 )}-image my-0 mx-auto object-contain object-center rounded pointer-events-none cursor-pointer select-none`"
-              lazy
               :src="media.filename"
               :alt="media.alt"
               width="711"

@@ -28,7 +28,6 @@
                 : 'object-contain',
             'my-0 mx-auto object-center rounded cursor-pointer select-none'
           ]"
-          lazy
           :file="blok.media"
           :src="blok && blok.media.filename ? blok.media.filename : src"
           :alt="blok && blok.media.alt ? blok.media.alt : alt"
@@ -117,7 +116,6 @@
               : 'object-contain',
           'my-0 mx-auto object-center rounded pointer-events-none select-none'
         ]"
-        lazy
         :file="blok.media"
         :src="blok && blok.media.filename ? blok.media.filename : src"
         :alt="blok && blok.media.alt ? blok.media.alt : alt"

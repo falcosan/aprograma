@@ -16,7 +16,6 @@
           /\.[^/.]+$/,
           ''
         )}-icon mx-auto my-0 fill-current object-contain object-center pointer-events-none`"
-      lazy
       :style="`width: ${/[a-zA-Z]/g.test(blok.size) ? blok.size : `${blok.size}px`}; height: ${
         /[a-zA-Z]/g.test(blok.size) ? blok.size : `${blok.size}px`
       }; filter: invert(${blok && blok.invert_color ? '1' : '0'})`"
