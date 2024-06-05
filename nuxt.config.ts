@@ -102,7 +102,8 @@ export default defineNuxtConfig({
   },
   delayHydration: {
     mode: 'mount',
-    debug: mode.development
+    debug: mode.development,
+    postIdleTimeout: { mobile: 500, desktop: 500 }
   },
   ...(!mode.development && {
     security: {
