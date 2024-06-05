@@ -1,5 +1,6 @@
 import { getWilly } from '@/utils/console';
 export default defineNuxtPlugin(({ $i18n }) => {
+  const config = useRuntimeConfig();
   const { locale } = $i18n;
   watch(
     locale,
@@ -12,6 +13,6 @@ export default defineNuxtPlugin(({ $i18n }) => {
         default:
           return getWilly("I'm Willy");
       }
-    }
+    }, { immediate: config.public.envProductionDomain }
   );
 });
