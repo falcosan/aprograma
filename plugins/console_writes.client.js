@@ -12,7 +12,6 @@ export default defineNuxtPlugin(({ $i18n }) => {
         default:
           return getWilly("I'm Willy");
       }
-    },
-    { immediate: true }
+    }
   );
 });

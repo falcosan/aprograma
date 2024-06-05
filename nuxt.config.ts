@@ -3,10 +3,11 @@ import enums from './utils/enums';
 
 const mode = {
   production: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
-  development:
+  development: !!(
     isDevelopment ||
     /netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify') ||
     process.env.NUXT_ENV_LOCAL_BUILD
+  )
 };
 
 export default defineNuxtConfig({
@@ -48,6 +49,7 @@ export default defineNuxtConfig({
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
+    'nuxt-delay-hydration',
     ...(!mode.development ? ['nuxt-security'] : [])
   ],
   image: {
@@ -97,6 +99,10 @@ export default defineNuxtConfig({
     storageKey: 'ap_theme',
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
+  },
+  delayHydration: {
+    mode: 'mount',
+    debug: mode.development
   },
   ...(!mode.development && {
     security: {
