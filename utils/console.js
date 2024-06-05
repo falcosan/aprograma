@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 export const getWilly = text => {
-  console.clear();
   const message = `
                             ${text}   
                  _.--.
