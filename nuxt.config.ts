@@ -101,9 +101,8 @@ export default defineNuxtConfig({
     componentName: 'ThemeScheme'
   },
   delayHydration: {
-    mode: 'mount',
-    debug: mode.development,
-    postIdleTimeout: { mobile: 500, desktop: 500 }
+    mode: 'init',
+    debug: mode.development
   },
   ...(!mode.development && {
     security: {
