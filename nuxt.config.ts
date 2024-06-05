@@ -45,7 +45,6 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
-    'nuxt-lazy-load',
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',

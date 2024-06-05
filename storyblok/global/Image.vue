@@ -5,6 +5,7 @@
     :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
     :type="`image/${imageType}`"
     draggable="false"
+    loading="lazy"
     :src="src"
     :width="width"
     :height="height"
@@ -15,6 +16,7 @@
     :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
     :type="`image/${imageType}`"
     draggable="false"
+    loading="lazy"
     :src="src"
     :width="width"
     :height="height"
@@ -56,7 +58,8 @@ export default defineNuxtComponent({
       default: false
     }
   },
-  setup(props) {
+  setup(props, ctx) {
+    console.log(ctx);
     const imageType = computed(() => {
       switch (props.src.toLowerCase().split('.').pop()) {
         case 'jpg':
