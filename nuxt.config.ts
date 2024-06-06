@@ -49,8 +49,7 @@ export default defineNuxtConfig({
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
-    'nuxt-delay-hydration',
-    ...(!mode.development ? ['nuxt-security'] : [])
+    'nuxt-delay-hydration'
   ],
   image: {
     provider: 'storyblok',
@@ -104,26 +103,6 @@ export default defineNuxtConfig({
     mode: 'init',
     debug: mode.development
   },
-  ...(!mode.development && {
-    security: {
-      headers: {
-        xXSSProtection: '1',
-        crossOriginEmbedderPolicy: 'unsafe-none',
-        contentSecurityPolicy: {
-          'base-uri': ["'self'"],
-          'object-src': ["'none'"],
-          'form-action': ["'self'"],
-          'frame-ancestors': ["'self'"],
-          'upgrade-insecure-requests': true,
-          'font-src': ["'self'", 'https:', 'data:'],
-          'img-src': ['*', "'self'", 'https:', 'data:'],
-          'style-src': ["'self'", 'https:', "'unsafe-inline'"],
-          'script-src': ["'self'", 'https:', "'unsafe-inline'"],
-          'script-src-attr': ["'self'", 'https:', "'unsafe-inline'"]
-        }
-      }
-    }
-  }),
   vite: {
     build: {
       chunkSizeWarningLimit: 1000
