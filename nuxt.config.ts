@@ -99,10 +99,8 @@ export default defineNuxtConfig({
   },
   sourcemap: true,
   nitro: {
-    ...(!mode.development && {
-      preset: 'netlify-edge'
-    }),
     compressPublicAssets: true,
+    ...(!mode.development && { preset: 'netlify-edge' }),
     prerender: { ignore: enums.ignore.map(path => `/${path}`) }
   },
   hooks: {
