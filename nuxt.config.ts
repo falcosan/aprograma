@@ -22,9 +22,9 @@ export default defineNuxtConfig({
       envProductionDomain: mode.production,
       envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
-      envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
-      envMode: { production: isProduction, development: isDevelopment }
+      envMode: { production: isProduction, development: isDevelopment },
+      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],

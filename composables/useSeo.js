@@ -98,6 +98,10 @@ export const useSeo = () => {
   const seoLayout = story => {
     const meta = [
       {
+        name: 'google-site-verification',
+        content: config.public.envGoogleSiteVerification
+      },
+      {
         name: 'description',
         content: enums.meta.description
       },
