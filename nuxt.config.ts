@@ -13,17 +13,7 @@ const mode = {
 export default defineNuxtConfig({
   app: {
     rootId: '__ap',
-    rootTag: 'section',
-    ...(mode.production && {
-      head: {
-        script: [
-          {
-            type: 'text/javascript',
-            src: `https://app.termly.io/resource-blocker/${process.env.NUXT_ENV_TERMLY}?autoBlock=on`
-          }
-        ]
-      }
-    })
+    rootTag: 'section'
   },
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
@@ -34,8 +24,7 @@ export default defineNuxtConfig({
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envGTagId: process.env.NUXT_ENV_GTAG_ID,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
-      envMode: { production: isProduction, development: isDevelopment },
-      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
+      envMode: { production: isProduction, development: isDevelopment }
     }
   },
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
