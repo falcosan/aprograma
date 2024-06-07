@@ -11,15 +11,15 @@ export const useSeo = () => {
     ];
     return config.public.envProductionDomain
       ? useHead({
-          title: story.name,
-          meta,
-          link: [
-            {
-              rel: 'canonical',
-              href: `${config.public.envDomain}${routeName}`
-            }
-          ]
-        })
+        title: story.name,
+        meta,
+        link: [
+          {
+            rel: 'canonical',
+            href: `${config.public.envDomain}${routeName}`
+          }
+        ]
+      })
       : undefined;
   };
   const seoDynamic = story => {
@@ -84,23 +84,19 @@ export const useSeo = () => {
     }
     return config.public.envProductionDomain
       ? useHead({
-          title: story.content.title,
-          meta,
-          link: [
-            {
-              rel: 'canonical',
-              href: `${config.public.envDomain}${routeName}`
-            }
-          ]
-        })
+        title: story.content.title,
+        meta,
+        link: [
+          {
+            rel: 'canonical',
+            href: `${config.public.envDomain}${routeName}`
+          }
+        ]
+      })
       : undefined;
   };
   const seoLayout = story => {
     const meta = [
-      {
-        name: 'google-site-verification',
-        content: config.public.envGoogleSiteVerification
-      },
       {
         name: 'description',
         content: enums.meta.description
@@ -149,16 +145,16 @@ export const useSeo = () => {
     ];
     return config.public.envProductionDomain
       ? useHead({
-          htmlAttrs: { lang: story.language },
-          charset: 'utf-8',
-          title: enums.meta.title,
-          titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
-          meta,
-          link: [
-            { rel: 'canonical', href: config.public.envDomain },
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-          ]
-        })
+        htmlAttrs: { lang: story.language },
+        charset: 'utf-8',
+        title: enums.meta.title,
+        titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
+        meta,
+        link: [
+          { rel: 'canonical', href: config.public.envDomain },
+          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        ]
+      })
       : undefined;
   };
   return { seoStatic, seoDynamic, seoLayout };
