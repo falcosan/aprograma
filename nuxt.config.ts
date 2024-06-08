@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     registerType: "autoUpdate",
     strategies: "injectManifest",
     injectManifest: {
-      globPatterns: ["**/*.{css,png,jpg,jpeg,gif,webp}"],
+      globPatterns: ["**/*.{css,jpg,jpeg,png,gif,webp}"],
     },
   },
   robots: {
