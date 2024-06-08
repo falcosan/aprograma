@@ -6,6 +6,5 @@ export const useScreen = () => {
   return {
     windowWidth,
     elementSize,
-    scrollPosition
   };
 };
