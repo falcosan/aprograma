@@ -53,7 +53,7 @@
             <InputComponent
               class="reset-input w-full bg-gray-200"
               type="button"
-              :text="$languageCase('Clear filters', 'Borrar filtros', 'Rimuovi filtri')"
+              :text="$languageCase('Clear categories', 'Borrar categorías', 'Rimuovi categorie')"
             />
           </li>
           <li
