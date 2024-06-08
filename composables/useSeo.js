@@ -10,7 +10,7 @@ export const useSeo = () => {
       }
     ];
     return config.public.envProductionDomain
-      ? useHead({
+      ? useHeadSafe({
         title: story.name,
         meta,
         link: [
@@ -83,7 +83,7 @@ export const useSeo = () => {
       });
     }
     return config.public.envProductionDomain
-      ? useHead({
+      ? useHeadSafe({
         title: story.content.title,
         meta,
         link: [
@@ -148,7 +148,7 @@ export const useSeo = () => {
       }
     ];
     return config.public.envProductionDomain
-      ? useHead({
+      ? useHeadSafe({
         htmlAttrs: { lang: story.language },
         charset: 'utf-8',
         title: enums.meta.title,
