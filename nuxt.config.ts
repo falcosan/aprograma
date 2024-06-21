@@ -113,4 +113,7 @@ export default defineNuxtConfig({
       if (!nuxt.options._prepare) process.exit();
     },
   },
+  devtools: {
+    enabled: false
+  }
 });
