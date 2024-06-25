@@ -5,6 +5,6 @@ export const useScreen = () => {
   const elementSize = element => useElementSize(element);
   return {
     windowWidth,
-    elementSize,
+    elementSize
   };
 };

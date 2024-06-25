@@ -13,6 +13,7 @@ export default defineNuxtPlugin(({ $i18n }) => {
         default:
           return getWilly("I'm Willy");
       }
-    }, { immediate: config.public.envProductionDomain }
+    },
+    { immediate: config.public.envProductionDomain }
   );
 });
