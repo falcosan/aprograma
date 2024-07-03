@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     rootId: '__ap',
     rootTag: 'section'
   },
+
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
     envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
@@ -27,7 +28,9 @@ export default defineNuxtConfig({
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
   },
+
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
+
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
@@ -40,12 +43,14 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     'nuxt-delay-hydration'
   ],
+
   image: {
     provider: 'storyblok',
     storyblok: {
       baseURL: 'https://a.storyblok.com'
     }
   },
+
   i18n: {
     locales: Object.values(enums.rss)
       .map(item => {
@@ -60,9 +65,11 @@ export default defineNuxtConfig({
       cookieKey: 'ap_language'
     }
   },
+
   device: {
     refreshOnResize: true
   },
+
   pwa: {
     manifest: enums.manifest,
     registerType: 'autoUpdate',
@@ -71,6 +78,7 @@ export default defineNuxtConfig({
       globPatterns: ['**/*.{jpg,jpeg,png,gif,webp}']
     }
   },
+
   robots: {
     rules: [
       { UserAgent: '*' },
@@ -78,9 +86,11 @@ export default defineNuxtConfig({
       { Sitemap: `${process.env.NUXT_ENV_DOMAIN}${enums.sitemap}` }
     ]
   },
+
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
+
   colorMode: {
     classSuffix: '',
     hid: 'theme-script',
@@ -88,27 +98,35 @@ export default defineNuxtConfig({
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
   },
+
   delayHydration: {
     mode: 'mount',
     debug: mode.development
   },
+
   vite: {
     build: {
       chunkSizeWarningLimit: 1000
     }
   },
+
   sourcemap: true,
+
   nitro: {
     compressPublicAssets: true,
     ...(!mode.development && { preset: 'netlify-edge' }),
     prerender: { ignore: enums.ignore.map(path => `/${path}`) }
   },
+
   hooks: {
     close: nuxt => {
       if (!nuxt.options._prepare) process.exit();
     }
   },
+
   devtools: {
     enabled: false
-  }
+  },
+
+  compatibilityDate: '2024-07-03'
 });
