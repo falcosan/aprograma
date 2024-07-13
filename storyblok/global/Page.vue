@@ -1,11 +1,7 @@
 <template>
-  <section
-    v-if="blok.hide"
-    class="page-maintenance fixed w-full h-full flex items-center justify-center inset-0 px-5"
-  >
+  <section v-if="blok.hide" class="page-maintenance fixed w-full h-full flex items-center justify-center inset-0 px-5">
     <h1
-      class="maintenance-text p-10 lg:p-20 text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white"
-    >
+      class="maintenance-text p-10 lg:p-20 text-center pointer-events-none rounded uppercase italic bg-opacity-80 bg-white">
       {{
         $languageCase(
           'This page is in maintenance, sorry for the inconvenience',
@@ -16,23 +12,13 @@
     </h1>
   </section>
   <section v-else :class="`${blok.name.toLowerCase()}-page p-5`">
-    <h1
-      v-if="blok.title"
-      class="page-title block mb-5 break-words"
-      :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
-      v-text="blok.title"
-    />
+    <h1 v-if="blok.title" class="page-title block mb-5 break-words"
+      :style="`color: ${$binaryControl(blok.title_color, 'color')};`" v-text="blok.title" />
     <div class="page-components relative flex flex-wrap -m-2.5">
-      <StoryblokComponent
-        v-for="component in components"
-        :key="component._uid"
-        :blok="component"
-        :style="`flex: ${
-          component.row_container
-            ? `1 ${(100 - (maxComponents > 1 ? spaceFix : 0)) / $rangeItems(maxComponents, 3)}%`
-            : '100%'
-        };`"
-        :class="[
+      <StoryblokComponent v-for="component in components" :key="component._uid" :blok="component" :style="`flex: ${component.row_container
+          ? `1 ${(100 - (maxComponents > 1 ? spaceFix : 0)) / $rangeItems(maxComponents, 3)}%`
+          : '100%'
+        };`" :class="[
           `${component.component.toLowerCase()}-content m-2.5`,
           {
             [`${setHorizontalAlign} ${setVerticalAlign}`]:
@@ -43,8 +29,7 @@
               component.component.toLowerCase() === 'container' &&
               component.slider_mode === 'slider'
           }
-        ]"
-      />
+        ]" />
     </div>
   </section>
 </template>

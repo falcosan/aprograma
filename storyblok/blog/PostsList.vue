@@ -1,120 +1,60 @@
 <template>
   <div v-if="sortedPosts.length" class="posts w-full">
-    <div
-      class="post-actions flex flex-col md:flex-row flex-wrap md:items-center md:-mt-2.5 md:-mx-2.5 md:mb-2.5"
-    >
+    <div class="post-actions flex flex-col md:flex-row flex-wrap md:items-center md:-mt-2.5 md:-mx-2.5 md:mb-2.5">
       <div v-if="blok.search_action" class="post-search flex-auto mb-5 md:m-2.5">
-        <input
-          v-model="searchTerm"
-          :placeholder="$languageCase('Search', 'Buscar', 'Cercare')"
-          class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50"
-          type="text"
-          name="search-posts"
-        />
+        <input v-model="searchTerm" :placeholder="$languageCase('Search', 'Buscar', 'Cercare')"
+          class="search-bar w-full h-10 p-2 rounded border border-gray-500 text-black bg-gray-50" type="text"
+          name="search-posts" />
       </div>
-      <div
-        :class="`show-categories flex justify-self-end self-end md:self-auto row-start-2 row-end-1 mb-5 md:m-2.5 cursor-pointer rounded transition bg-gray-200 ${
-          !$device.isDesktop ? '' : 'hover:opacity-80'
-        }`"
-        @click="showCategories"
-      >
-        <InputComponent
-          class="input-show w-full pr-0 bg-transparent"
-          type="button"
-          :text="$languageCase('Categories', 'Categorías', 'Categorie')"
-        />
-        <IconComponent
-          next
-          class="px-4 rounded bg-gray-200"
-          :size="`w-3 h-3 transition ${
-            showFilters ? 'transform -rotate-90' : 'transform rotate-90'
-          }`"
-        />
+      <div :class="`show-categories flex justify-self-end self-end md:self-auto row-start-2 row-end-1 mb-5 md:m-2.5 cursor-pointer rounded transition bg-gray-200 ${!$device.isDesktop ? '' : 'hover:opacity-80'
+        }`" @click="showCategories">
+        <InputComponent class="input-show w-full pr-0 bg-transparent" type="button"
+          :text="$languageCase('Categories', 'Categorías', 'Categorie')" />
+        <IconComponent next class="px-4 rounded bg-gray-200" :size="`w-3 h-3 transition ${showFilters ? 'transform -rotate-90' : 'transform rotate-90'
+          }`" />
       </div>
     </div>
-    <div
-      v-if="blok.categories_action && sortedCategories?.length"
-      class="post-categories grid relative overflow-hidden"
-    >
-      <Transition
-        enter-from-class="opacity-0"
-        leave-to-class="opacity-0"
-        enter-active-class="transition duration-100"
-        leave-active-class="transition duration-100"
-      >
-        <ul
-          v-if="showFilters"
-          class="categories-list flex flex-wrap mb-5 -mt-2.5 -mx-2.5 overflow-hidden"
-        >
+    <div v-if="blok.categories_action && sortedCategories?.length"
+      class="post-categories grid relative overflow-hidden">
+      <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" enter-active-class="transition duration-100"
+        leave-active-class="transition duration-100">
+        <ul v-if="showFilters" class="categories-list flex flex-wrap mb-5 -mt-2.5 -mx-2.5 overflow-hidden">
           <li
             class="reset-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] sm:max-w-full flex-auto sm:flex-initial m-2.5 overflow-hidden rounded cursor-pointer select-none"
-            @click="searchCategory = []"
-          >
-            <InputComponent
-              class="reset-input w-full bg-gray-200"
-              type="button"
-              :text="$languageCase('Clear categories', 'Borrar categorías', 'Rimuovi categorie')"
-            />
+            @click="searchCategory = []">
+            <InputComponent class="reset-input w-full bg-gray-200" type="button"
+              :text="$languageCase('Clear categories', 'Borrar categorías', 'Rimuovi categorie')" />
           </li>
-          <li
-            v-for="(filter, index) in sortedCategories"
-            :key="index"
-            :class="[
-              'category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] sm:max-w-full flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white',
-              {
-                'xx:flex-none':
-                  index === sortedCategories.length - 1 && !!!(sortedCategories.length & 1)
-              },
-              comparedCategories.includes(filter.value)
-                ? 'bg-opacity-70'
-                : !$device.isDesktop
-                  ? ''
-                  : 'hover:bg-opacity-90'
-            ]"
-            @click="filterSearch(filter)"
-          >
-            <InputComponent
-              :class="[
-                'category-input w-full text-left rounded pointer-events-none italic break-all ss:truncate transition-all',
-                comparedCategories.includes(filter.value) ? 'bg-neutral-500' : 'bg-transparent'
-              ]"
-              type="button"
-              :text="filter.render"
-            />
-            <IconComponent
-              close
-              size="w-2.5 h-2.5"
-              :class="`px-4 pointer-events-none transition ${
-                comparedCategories.includes(filter.value) ? '' : 'transform rotate-45'
-              }`"
-            />
+          <li v-for="(filter, index) in sortedCategories" :key="index" :class="[
+            'category-container w-full xx:w-auto xx:min-w-[41.666667%] sm:min-w-[initial] sm:max-w-full flex-auto sm:flex-initial flex justify-between m-2.5 overflow-hidden rounded cursor-pointer select-none transition-all bg-neutral-600 text-white',
+            {
+              'xx:flex-none':
+                index === sortedCategories.length - 1 && !!!(sortedCategories.length & 1)
+            },
+            comparedCategories.includes(filter.value)
+              ? 'bg-opacity-70'
+              : !$device.isDesktop
+                ? ''
+                : 'hover:bg-opacity-90'
+          ]" @click="filterSearch(filter)">
+            <InputComponent :class="[
+              'category-input w-full text-left rounded pointer-events-none italic break-all ss:truncate transition-all',
+              comparedCategories.includes(filter.value) ? 'bg-neutral-500' : 'bg-transparent'
+            ]" type="button" :text="filter.render" />
+            <IconComponent close size="w-2.5 h-2.5" :class="`px-4 pointer-events-none transition ${comparedCategories.includes(filter.value) ? '' : 'transform rotate-45'
+              }`" />
           </li>
         </ul>
       </Transition>
     </div>
-    <TransitionGroup
-      tag="ul"
-      :class="`post-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${
-        blok.row_container || sliderMode || carouselMode || containerMode
-          ? maxPosts
-          : 'md:grid-cols-fill-medium lg:grid-cols-none lg:grid-flow-row'
-      }`"
-      enter-from-class="opacity-0"
-      leave-to-class="opacity-0"
-      enter-active-class="transition duration-150"
-      leave-active-class="transition duration-150"
-    >
-      <PostTeaserComponent
-        v-for="(post, indexPost) in searchQuery"
-        :key="indexPost"
-        :post-link="post.slug"
-        :post-content="post.content"
-        :row-container="blok.row_container"
-        :slider-container="sliderMode"
-        :carousel-container="carouselMode"
-        :container-container="containerMode"
-        :container-width="containerWidth"
-      />
+    <TransitionGroup tag="ul" :class="`post-list w-full grid gap-5 auto-cols-fr auto-rows-fr ${blok.row_container || sliderMode || carouselMode || containerMode
+      ? maxPosts
+      : 'md:grid-cols-fill-medium lg:grid-cols-none lg:grid-flow-row'
+      }`" enter-from-class="opacity-0" leave-to-class="opacity-0" enter-active-class="transition duration-150"
+      leave-active-class="transition duration-150">
+      <PostTeaserComponent v-for="(post, indexPost) in searchQuery" :key="indexPost" :post-link="post.slug"
+        :post-content="post.content" :row-container="blok.row_container" :slider-container="sliderMode"
+        :carousel-container="carouselMode" :container-container="containerMode" :container-width="containerWidth" />
     </TransitionGroup>
   </div>
 </template>

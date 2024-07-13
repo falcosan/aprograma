@@ -1,8 +1,6 @@
 <template>
-  <component
-    :is="blok.external_link ? 'a' : NuxtLink"
-    v-if="blok && (blok.title || (blok.icon_item && blok.body.length))"
-    :class="[
+  <component :is="blok.external_link ? 'a' : NuxtLink"
+    v-if="blok && (blok.title || (blok.icon_item && blok.body.length))" :class="[
       'item-link cursor-pointer',
       { 'w-full': sliderMode },
       sliderMode || carouselMode || containerMode
@@ -15,53 +13,31 @@
             : 'pt-1 border-b-4 border-gray-300']: activated
         }
       ]
-    ]"
-    :to="blok.external_link ? undefined : localePath(blok.path)"
-    :href="blok.external_link ? blok.path : undefined"
-    :rel="blok.external_link ? 'noopener noreferrer' : undefined"
-    :target="blok.external_link ? '_blank' : undefined"
-    :title="blok.title || undefined"
-  >
-    <span
-      v-if="blok.title && !iconItem && !blok.icon_item"
-      class="item-text break-words"
-      :style="`color: ${$binaryControl(blok.text_color, 'color', '#212121')};`"
-    >
+    ]" :to="blok.external_link ? undefined : localePath(blok.path)" :href="blok.external_link ? blok.path : undefined"
+    :rel="blok.external_link ? 'noopener noreferrer' : undefined" :target="blok.external_link ? '_blank' : undefined"
+    :title="blok.title || undefined">
+    <span v-if="blok.title && !iconItem && !blok.icon_item" class="item-text break-words"
+      :style="`color: ${$binaryControl(blok.text_color, 'color', '#212121')};`">
       {{ blok.title }}
     </span>
-    <IconComponent
-      v-else-if="iconItem || blok.icon_item"
-      :class="`item-icon ${iconStyle}`"
-      :tag="blok.body[0].tag"
-      :blok="blok.body[0]"
-      :slider-mode="sliderMode"
-      :carousel-mode="carouselMode"
-      :container-mode="containerMode"
-    />
+    <IconComponent v-else-if="iconItem || blok.icon_item" :class="`item-icon ${iconStyle}`" :tag="blok.body[0].tag"
+      :blok="blok.body[0]" :slider-mode="sliderMode" :carousel-mode="carouselMode" :container-mode="containerMode" />
     <slot v-else />
   </component>
-  <component
-    :is="externalLink ? 'a' : NuxtLink"
-    v-else
-    :class="[
-      `item-link cursor-pointer ${
-        sliderMode || carouselMode || containerMode
-          ? 'flex items-center justify-center self-center'
-          : 'block'
-      }`,
-      [
-        {
-          [!iconItem ? setActive || 'rounded opacity-60 bg-opacity-40 bg-gray-300' : setActive]:
-            activated
-        }
-      ]
-    ]"
-    :to="externalLink ? undefined : localePath(to)"
-    :href="externalLink ? to : undefined"
-    :rel="externalLink ? 'noopener noreferrer' : undefined"
-    :target="externalLink ? '_blank' : undefined"
-    :title="title || undefined"
-  >
+  <component :is="externalLink ? 'a' : NuxtLink" v-else :class="[
+    `item-link cursor-pointer ${sliderMode || carouselMode || containerMode
+      ? 'flex items-center justify-center self-center'
+      : 'block'
+    }`,
+    [
+      {
+        [!iconItem ? setActive || 'rounded opacity-60 bg-opacity-40 bg-gray-300' : setActive]:
+          activated
+      }
+    ]
+  ]" :to="externalLink ? undefined : localePath(to)" :href="externalLink ? to : undefined"
+    :rel="externalLink ? 'noopener noreferrer' : undefined" :target="externalLink ? '_blank' : undefined"
+    :title="title || undefined">
     <span v-if="title && !iconItem" class="item-text break-words">{{ title }}</span>
     <slot v-else-if="slots.icon" name="icon" />
     <slot />

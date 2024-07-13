@@ -11,15 +11,15 @@ export const useSeo = () => {
     ];
     return config.public.envProductionDomain
       ? useHeadSafe({
-          title: story.name,
-          meta,
-          link: [
-            {
-              rel: 'canonical',
-              href: `${config.public.envDomain}${routeName}`
-            }
-          ]
-        })
+        title: story.name,
+        meta,
+        link: [
+          {
+            rel: 'canonical',
+            href: `${config.public.envDomain}${routeName}`
+          }
+        ]
+      })
       : undefined;
   };
   const seoDynamic = story => {
@@ -84,15 +84,15 @@ export const useSeo = () => {
     }
     return config.public.envProductionDomain
       ? useHeadSafe({
-          title: story.content.title,
-          meta,
-          link: [
-            {
-              rel: 'canonical',
-              href: `${config.public.envDomain}${routeName}`
-            }
-          ]
-        })
+        title: story.content.title,
+        meta,
+        link: [
+          {
+            rel: 'canonical',
+            href: `${config.public.envDomain}${routeName}`
+          }
+        ]
+      })
       : undefined;
   };
   const seoLayout = story => {
@@ -149,16 +149,16 @@ export const useSeo = () => {
     ];
     return config.public.envProductionDomain
       ? useHeadSafe({
-          htmlAttrs: { lang: story.language },
-          charset: 'utf-8',
-          title: enums.meta.title,
-          titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
-          meta,
-          link: [
-            { rel: 'canonical', href: config.public.envDomain },
-            { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-          ]
-        })
+        htmlAttrs: { lang: story.language },
+        charset: 'utf-8',
+        title: enums.meta.title,
+        titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
+        meta,
+        link: [
+          { rel: 'canonical', href: config.public.envDomain },
+          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        ]
+      })
       : undefined;
   };
   return { seoStatic, seoDynamic, seoLayout };

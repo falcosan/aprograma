@@ -1,46 +1,28 @@
 <template>
   <div class="translate text-xs">
-    <div
-      class="translate-container relative h-full z-10"
-      :style="`background-color: ${parentBackgroundColor};`"
-    >
-      <div
-        v-if="translateTransition"
-        :class="`current-language cursor-pointer ${styleCurrentLanguage}`"
-        @click="$emit('current-lang-action')"
-      >
+    <div class="translate-container relative h-full z-10" :style="`background-color: ${parentBackgroundColor};`">
+      <div v-if="translateTransition" :class="`current-language cursor-pointer ${styleCurrentLanguage}`"
+        @click="$emit('current-lang-action')">
         <template v-for="selector in blok">
-          <span
-            v-if="
-              cutLanguage(selector) === locale || (cutLanguage(selector) === 'en' && locale === '')
-            "
-            :key="selector._uid"
-            class="language-item"
-          >
+          <span v-if="
+            cutLanguage(selector) === locale || (cutLanguage(selector) === 'en' && locale === '')
+          " :key="selector._uid" class="language-item">
             {{ selector.language.toUpperCase() }}
           </span>
         </template>
       </div>
     </div>
-    <ul
-      :class="`translate-list ${styleTranslateList}`"
-      :style="`background-color: ${parentBackgroundColor};`"
-    >
+    <ul :class="`translate-list ${styleTranslateList}`" :style="`background-color: ${parentBackgroundColor};`">
       <template v-for="language in blok">
-        <li
-          v-if="
-            translateTransition
-              ? (cutLanguage(language) !== locale && locale !== '') ||
-                (cutLanguage(language) !== 'en' && locale === '')
-              : true
-          "
-          :key="language._uid"
-          :class="`translate-item cursor-pointer ${styleTranslateItem}`"
-          @click="
+        <li v-if="
+          translateTransition
+            ? (cutLanguage(language) !== locale && locale !== '') ||
+            (cutLanguage(language) !== 'en' && locale === '')
+            : true
+        " :key="language._uid" :class="`translate-item cursor-pointer ${styleTranslateItem}`" @click="
             setLocale(language.language);
-            $emit('translate-list-action');
-          "
-        >
+          $emit('translate-list-action');
+          ">
           <span class="translate-language">{{ language.language.toUpperCase() }}</span>
         </li>
       </template>
