@@ -1,69 +1,36 @@
 <template>
   <main class="main min-h-screen overflow-x-hidden">
-    <div
-      :class="[
-        'main-wrapper relative pt-10 mb-10 overflow-hidden',
-        { 'md:pt-20 md:mb-20': $device.isDesktop }
-      ]"
-    >
-      <div
-        v-if="blok.show_background_mask"
-        :class="`main-background absolute inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${setWidth} ${
-          !$device.isDesktop ? '' : 'md:rounded-t'
-        } ${blok.color_animation ? 'color-animation' : ''}`"
-        :style="`background-color: ${
-          randomBackgroundColorMask
+    <div :class="[
+      'main-wrapper relative pt-10 mb-10 overflow-hidden',
+      { 'md:pt-20 md:mb-20': $device.isDesktop }
+    ]">
+      <div v-if="blok.show_background_mask" :class="`main-background absolute inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${setWidth} ${!$device.isDesktop ? '' : 'md:rounded-t'
+        } ${blok.color_animation ? 'color-animation' : ''}`" :style="`background-color: ${randomBackgroundColorMask
             ? blok.transparency
               ? `${randomBackgroundColorMask}b3`
               : randomBackgroundColorMask
             : blok.transparency
               ? '#ffffffb3'
               : '#ffffff'
-        };`"
-      />
-      <div
-        :class="[
-          'main-flat fixed w-full h-full inset-0 -z-20',
-          { 'color-animation': blok.color_animation },
-          { 'dark:invert dark:contrast-75 bg-white': !randomBackgroundColor }
-        ]"
-        :style="randomBackgroundColor ? `background-color: ${randomBackgroundColor};` : undefined"
-      />
-      <div
-        :class="`main-content my-0 mx-auto rounded-b ${setWidth} ${
-          !$device.isDesktop ? '' : 'md:rounded-t'
-        }`"
-      >
+          };`" />
+      <div :class="[
+        'main-flat fixed w-full h-full inset-0 -z-20',
+        { 'color-animation': blok.color_animation },
+        { 'dark:invert dark:contrast-75 bg-white': !randomBackgroundColor }
+      ]" :style="randomBackgroundColor ? `background-color: ${randomBackgroundColor};` : undefined" />
+      <div :class="`main-content my-0 mx-auto rounded-b ${setWidth} ${!$device.isDesktop ? '' : 'md:rounded-t'
+        }`">
         <slot name="main" />
       </div>
     </div>
     <Transition enter-active-class="duration-100" enter-class="opacity-0">
-      <ImageComponent
-        v-if="$imageValidation(blok.background_media.filename)"
-        :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
-          blok.color_animation ? 'color-animation' : ''
-        }`"
-        :src="blok.background_media.filename"
-        :file="blok.background_media"
-        :alt="blok.background_media?.alt"
-        width="2560"
-        height="1440"
-        sizes="xs:514px sm:711px md:804px lg:1680px xl:1920px 2xl:2560px"
-      />
-      <video
-        v-else-if="blok.background_media.filename"
-        :class="`media-video w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
-          blok.color_animation ? 'color-animation' : ''
-        }`"
-        playsinline
-        autoplay
-        muted
-        loop
-      >
-        <source
-          :src="blok.background_media.filename"
-          :type="`video/${blok.background_media.filename.toLowerCase().split('.').pop()}`"
-        />
+      <ImageComponent v-if="$imageValidation(blok.background_media.filename)" :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${blok.color_animation ? 'color-animation' : ''
+        }`" :src="blok.background_media.filename" :file="blok.background_media" :alt="blok.background_media?.alt"
+        width="2560" height="1440" sizes="xs:514px sm:711px md:804px lg:1680px xl:1920px 2xl:2560px" />
+      <video v-else-if="blok.background_media.filename" :class="`media-video w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${blok.color_animation ? 'color-animation' : ''
+        }`" playsinline autoplay muted loop>
+        <source :src="blok.background_media.filename"
+          :type="`video/${blok.background_media.filename.toLowerCase().split('.').pop()}`" />
       </video>
     </Transition>
   </main>

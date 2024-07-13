@@ -1,10 +1,13 @@
-import type { RouterOptions } from '@nuxt/schema';
-export default <RouterOptions>{
+import type { RouterConfig } from '@nuxt/schema';
+
+export default <RouterConfig>{
   scrollBehavior(_, __, savedPosition) {
     if (savedPosition) return savedPosition;
     else {
       const { $scrollToSmoothly } = useNuxtApp();
-      $scrollToSmoothly(0);
+      const scrollToSmoothly = $scrollToSmoothly as Function;
+
+      scrollToSmoothly(0);
     }
   }
 };

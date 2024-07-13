@@ -1,26 +1,17 @@
 <template>
-  <div
-    v-if="blok.text"
-    :key="blok._uid"
-    :style="`background-color: ${$binaryControl(blok.background_color, 'color')}; color: ${
-      blok.hidden ? 'transparent' : $binaryControl(blok.text_color, 'color')
-    };`"
-    :class="[
+  <div v-if="blok.text" :key="blok._uid" :style="`background-color: ${$binaryControl(blok.background_color, 'color')}; color: ${blok.hidden ? 'transparent' : $binaryControl(blok.text_color, 'color')
+    };`" :class="[
       'text-container flex flex-col rounded',
       blok.hidden
         ? `absolute w-0 h-0 top-0 -z-50 mx-auto select-none ${setPositionText}`
         : ['w-full max-w-full h-full', { 'dark:invert': !blok.background_color.color }]
-    ]"
-  >
-    <div
-      :class="[
-        'text-content markdown block max-w-none rounded',
-        setAlignText,
-        { 'p-5': !blok.remove_space },
-        { 'w-0 h-0 select-none': blok.hidden }
-      ]"
-      v-html="markdownToHtml(blok.text)"
-    />
+    ]">
+    <div :class="[
+      'text-content markdown block max-w-none rounded',
+      setAlignText,
+      { 'p-5': !blok.remove_space },
+      { 'w-0 h-0 select-none': blok.hidden }
+    ]" v-html="markdownToHtml(blok.text)" />
   </div>
 </template>
 <script>

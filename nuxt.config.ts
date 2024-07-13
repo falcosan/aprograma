@@ -35,6 +35,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
+    "@nuxt/eslint",
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
