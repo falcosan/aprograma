@@ -5,9 +5,7 @@ export default <RouterConfig>{
     if (savedPosition) return savedPosition;
     else {
       const { $scrollToSmoothly } = useNuxtApp();
-      const scrollToSmoothly = $scrollToSmoothly as Function;
-
-      scrollToSmoothly(0);
+      $scrollToSmoothly(0);
     }
   }
 };

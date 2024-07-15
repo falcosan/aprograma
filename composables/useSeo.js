@@ -144,7 +144,7 @@ export const useSeo = () => {
       },
       {
         name: 'monetization',
-        content: config.envPaymentPointer
+        content: config.public.envPaymentPointer
       }
     ];
     return config.public.envProductionDomain

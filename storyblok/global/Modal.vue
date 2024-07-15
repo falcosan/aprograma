@@ -1,19 +1,38 @@
 <template>
-  <div ref="modalContainer" :class="['modal', { opened: openEvent || open }]">
-    <slot name="activator" :open="openModal" />
-    <div v-show="openEvent || open" ref="modal" :class="[
-      'modal-backdrop w-full fixed flex justify-center inset-0 z-50 overflow-auto focus:outline-none bg-opacity-90 bg-gray-200',
-      modalStyle,
-      { 'cursor-close-black dark:cursor-close-white': closeMode }
-    ]" tabindex="0" @click.stop="closeMode && closeModal()" @keydown.esc="closeMode && closeModal()">
+  <div
+    ref="modalContainer"
+    :class="['modal', { opened: openEvent || open }]"
+  >
+    <slot
+      name="activator"
+      :open="openModal"
+    />
+    <div
+      v-show="openEvent || open"
+      ref="modal"
+      :class="[
+        'modal-backdrop w-full fixed flex justify-center inset-0 z-50 overflow-auto focus:outline-none bg-opacity-90 bg-gray-200',
+        modalStyle,
+        { 'cursor-close-black dark:cursor-close-white': closeMode }
+      ]"
+      tabindex="0"
+      @click.stop="closeMode && closeModal()"
+      @keydown.esc="closeMode && closeModal()"
+    >
       <div class="modal-container">
-        <header v-if="hasSlot('header') || closeMode" class="modal-header">
+        <header
+          v-if="hasSlot('header') || closeMode"
+          class="modal-header"
+        >
           <slot name="header" />
         </header>
-        <section v-if="hasSlot('body')" :class="[
-          'modal-body w-full h-full',
-          { 'cursor-close-black dark:cursor-close-white': closeMode }
-        ]">
+        <section
+          v-if="hasSlot('body')"
+          :class="[
+            'modal-body w-full h-full',
+            { 'cursor-close-black dark:cursor-close-white': closeMode }
+          ]"
+        >
           <div class="body-container h-full">
             <slot name="body" />
           </div>

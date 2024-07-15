@@ -21,7 +21,10 @@ const handleError = () => clearError({ redirect: localePath('index') });
         <span class="text-center text-gray-900">
           {{ error.statusMessage }}
         </span>
-        <button class="py-3 px-4 rounded text-sm text-white bg-gray-800" @click="handleError">
+        <button
+          class="py-3 px-4 rounded text-sm text-white bg-gray-800"
+          @click="handleError"
+        >
           Back
         </button>
       </div>

@@ -1,59 +1,104 @@
 <template>
   <div class="post p-5">
     <div class="post-head relative w-full mb-5">
-      <h1 class="post-title" v-text="blok.title" />
-      <div v-if="setEditorPath" class="post-editor flex justify-end flex-auto mb-5">
-        <RouteComponent class="post-edit-button px-3 py-2 rounded hover:opacity-80" external-link :to="setEditorPath"
+      <h1
+        class="post-title"
+        v-text="blok.title"
+      />
+      <div
+        v-if="setEditorPath"
+        class="post-editor flex justify-end flex-auto mb-5"
+      >
+        <RouteComponent
+          class="post-edit-button px-3 py-2 rounded hover:opacity-80"
+          external-link
+          :to="setEditorPath"
           :style="`background-color: ${$binaryControl(
             blok.background_color,
             'color',
             '#e0e0e0'
           )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-          :title="$languageCase('Edit', 'Editar', 'Modifica')" />
+          :title="$languageCase('Edit', 'Editar', 'Modifica')"
+        />
       </div>
-      <div :class="[
-        'post-file-container w-full h-full overflow-hidden rounded',
-        { 'bg-black': !blok.file?.filename }
-      ]">
-        <component :is="lookFile" :format="checkFile ? 'webp' : false"
-          class="post-file w-full h-full aspect-[13/8] object-center select-none object-cover" :alt="blok.file?.alt"
-          :src="setFile" :file="blok.file" :width="checkFile ? '1366' : false" :height="checkFile ? '707' : false"
-          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1240px' : false" />
+      <div
+        :class="[
+          'post-file-container w-full h-full overflow-hidden rounded',
+          { 'bg-black': !blok.file?.filename }
+        ]"
+      >
+        <component
+          :is="lookFile"
+          :format="checkFile ? 'webp' : false"
+          class="post-file w-full h-full aspect-[13/8] object-center select-none object-cover"
+          :alt="blok.file?.alt"
+          :src="setFile"
+          :file="blok.file"
+          :width="checkFile ? '1366' : false"
+          :height="checkFile ? '707' : false"
+          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1240px' : false"
+        />
       </div>
     </div>
-    <div class="post-body w-full rounded"
-      :style="`background-color: ${$binaryControl(blok.background_color, 'color', '#e0e0e0')};`">
+    <div
+      class="post-body w-full rounded"
+      :style="`background-color: ${$binaryControl(blok.background_color, 'color', '#e0e0e0')};`"
+    >
       <div class="post-action flex flex-wrap justify-end pt-5 px-5">
-        <IconComponent arrow :style="`background-color: ${$binaryControl(
-          blok.background_color,
-          'color',
-          '#e0e0e0'
-        )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-          class="post-close rounded cursor-pointer brightness-110" size="p-3 w-10 h-10" @click="$goBack('blog')" />
+        <IconComponent
+          arrow
+          :style="`background-color: ${$binaryControl(
+            blok.background_color,
+            'color',
+            '#e0e0e0'
+          )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+          class="post-close rounded cursor-pointer brightness-110"
+          size="p-3 w-10 h-10"
+          @click="$goBack('blog')"
+        />
       </div>
       <div class="post-article w-full max-w-prose p-5 mx-auto my-0">
-        <h2 :style="`color: ${$binaryControl(blok.text_color, 'color')};`" class="post-intro text-xl sm:text-2xl"
-          v-text="blok.intro" />
+        <h2
+          :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
+          class="post-intro text-xl sm:text-2xl"
+          v-text="blok.intro"
+        />
         <div class="post-info mb-10">
-          <p :style="`color: ${$binaryControl(blok.text_color, 'color')};`" class="post-author text-sm font-semibold">
+          <p
+            :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
+            class="post-author text-sm font-semibold"
+          >
             {{ $languageCase('by', 'de', 'di') }}
             {{ blok.author ? blok.author : $languageCase('Anonymous', 'Anónimo', 'Anonimo') }}
           </p>
-          <p :style="`color: ${$binaryControl(blok.text_color, 'color')};`" class="post-date mt-2.5 text-xs"
-            v-text="changeDate(blok.date)" />
-          <ul v-if="sortedCategories?.length" class="post-categories flex flex-wrap mt-5 -mb-1.5 -mx-1.5">
-            <li v-for="(category, index) in sortedCategories" :key="index"
-              class="post-category self-start m-1.5 p-2 text-center text-xs rounded italic brightness-90" :style="`background-color: ${$binaryControl(
+          <p
+            :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
+            class="post-date mt-2.5 text-xs"
+            v-text="changeDate(blok.date)"
+          />
+          <ul
+            v-if="sortedCategories?.length"
+            class="post-categories flex flex-wrap mt-5 -mb-1.5 -mx-1.5"
+          >
+            <li
+              v-for="(category, index) in sortedCategories"
+              :key="index"
+              class="post-category self-start m-1.5 p-2 text-center text-xs rounded italic brightness-90"
+              :style="`background-color: ${$binaryControl(
                 blok.background_color,
                 'color',
                 '#e0e0e0'
-              )}; color: ${$binaryControl(blok.text_color, 'color')};`">
+              )}; color: ${$binaryControl(blok.text_color, 'color')};`"
+            >
               {{ category }}
             </li>
           </ul>
         </div>
-        <article :class="`post-article markdown block mb-5 ${setAlignText}`"
-          :style="`color: ${$binaryControl(blok.text_color, 'color')};`" v-html="markdownToHtml(blok.long_text)" />
+        <article
+          :class="`post-article markdown block mb-5 ${setAlignText}`"
+          :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
+          v-html="markdownToHtml(blok.long_text)"
+        />
       </div>
     </div>
   </div>

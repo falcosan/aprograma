@@ -1,12 +1,28 @@
 <template>
-  <NuxtImg v-if="imageType === 'svg+xml' || original" class="image"
+  <NuxtImg
+    v-if="imageType === 'svg+xml' || original"
+    class="image"
     :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
-    :type="`image/${imageType}`" draggable="false" :src="src" :width="width" :height="height" />
-  <NuxtImg v-else class="image"
+    :type="`image/${imageType}`"
+    draggable="false"
+    :src="src"
+    :width="width"
+    :height="height"
+  />
+  <NuxtImg
+    v-else
+    class="image"
     :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
-    :type="`image/${imageType}`" draggable="false" :src="src" :width="width" :height="height"
-    :modifiers="file ? { filters: { focal: file.focus ?? 0 } } : undefined" :fit="file?.focus ? undefined : 'in'"
-    format="webp" :sizes="sizes || undefined" />
+    :type="`image/${imageType}`"
+    draggable="false"
+    :src="src"
+    :width="width"
+    :height="height"
+    :modifiers="file ? { filters: { focal: file.focus ?? 0 } } : undefined"
+    :fit="file?.focus ? undefined : 'in'"
+    format="webp"
+    :sizes="sizes || undefined"
+  />
 </template>
 <script>
 export default defineNuxtComponent({
