@@ -1,13 +1,107 @@
 <template>
-  <div :class="`media relative h-full flex flex-col justify-center overflow-hidden rounded ${!blok.remove_space ? (blok.title ? 'px-5 pt-5' : 'p-5') : ''
-    }`">
-    <ModalComponent v-if="blok.modal_mode" :class="[
-      {
-        'h-full': blok.height === 'full'
-      }
-    ]" close-mode>
+  <div
+    :class="`media relative h-full flex flex-col justify-center overflow-hidden rounded ${!blok.remove_space ? (blok.title ? 'px-5 pt-5' : 'p-5') : ''
+    }`"
+  >
+    <ModalComponent
+      v-if="blok.modal_mode"
+      :class="[
+        {
+          'h-full': blok.height === 'full'
+        }
+      ]"
+      close-mode
+    >
       <template #activator="action">
-        <ImageComponent v-if="(blok && $imageValidation(blok.media.filename)) || image" :class="[
+        <ImageComponent
+          v-if="(blok && $imageValidation(blok.media.filename)) || image"
+          :class="[
+            `${getClass}-image`,
+            {
+              'w-full': blok.width === 'full'
+            },
+            blok.height === 'full'
+              ? 'h-full object-cover'
+              : /[a-zA-Z]/.test(blok.height)
+                ? 'object-cover'
+                : 'object-contain',
+            'my-0 mx-auto object-center rounded cursor-pointer select-none'
+          ]"
+          :file="blok.media"
+          :src="blok && blok.media.filename ? blok.media.filename : src"
+          :alt="blok && blok.media.alt ? blok.media.alt : alt"
+          :width="blok?.width ?? width"
+          :height="blok?.height ?? height"
+          :sizes="checkSizes"
+          @click="action.open()"
+        />
+        <video
+          v-else-if="(blok && blok.media.filename) || video"
+          :class="[
+            `${getClass}-video`,
+            {
+              'w-full': blok.width === 'full'
+            },
+            blok.height === 'full'
+              ? 'h-full object-cover'
+              : /[a-zA-Z]/.test(blok.height)
+                ? 'object-cover'
+                : 'object-contain',
+            'my-0 mx-auto object-center rounded cursor-pointer select-none'
+          ]"
+          :width="blok?.width ?? width"
+          :height="blok?.height ?? height"
+          playsinline
+          autoplay
+          muted
+          :loop="blok.loop"
+          @click="action.open()"
+        >
+          <source
+            :src="blok && blok.media.filename ? blok.media.filename : src"
+            :type="`video/${blok && blok.media.filename
+              ? blok.media.filename.toLowerCase().split('.').pop()
+              : src.toLowerCase().split('.').pop()
+            }`"
+          >
+        </video>
+      </template>
+      <template #body>
+        <ImageComponent
+          v-if="(blok && $imageValidation(blok.media.filename)) || image"
+          :class="`${getClass}-image my-0 mx-auto object-contain object-center select-none`"
+          original
+          :file="blok.media"
+          :src="blok && blok.media.filename ? blok.media.filename : src"
+          :alt="blok && blok.media.alt ? blok.media.alt : alt"
+          width="1920"
+          height="1980"
+          sizes="xs:380px sm:514px md:711px lg:804px"
+        />
+        <video
+          v-else-if="(blok && blok.media.filename) || video"
+          :class="`${getClass}-video my-0 mx-auto object-contain object-center select-none`"
+          width="1920"
+          height="auto"
+          playsinline
+          autoplay
+          muted
+          loop
+        >
+          <source
+            :src="blok && blok.media.filename ? blok.media.filename : src"
+            :type="`video/${blok && blok.media.filename
+              ? blok.media.filename.toLowerCase().split('.').pop()
+              : src.toLowerCase().split('.').pop()
+            }`"
+          >
+        </video>
+      </template>
+    </ModalComponent>
+    <template v-else>
+      <ImageComponent
+        v-if="(blok && $imageValidation(blok.media.filename)) || image"
+        :class="[
           `${getClass}-image`,
           {
             'w-full': blok.width === 'full'
@@ -17,12 +111,19 @@
             : /[a-zA-Z]/.test(blok.height)
               ? 'object-cover'
               : 'object-contain',
-          'my-0 mx-auto object-center rounded cursor-pointer select-none'
-        ]" :file="blok.media" :src="blok && blok.media.filename ? blok.media.filename : src"
-          :alt="blok && blok.media.alt ? blok.media.alt : alt" :width="blok?.width ?? width"
-          :height="blok?.height ?? height" :sizes="checkSizes" @click="action.open()" />
-        <video v-else-if="(blok && blok.media.filename) || video" :class="[
-          `${getClass}-video`,
+          'my-0 mx-auto object-center rounded pointer-events-none select-none'
+        ]"
+        :file="blok.media"
+        :src="blok && blok.media.filename ? blok.media.filename : src"
+        :alt="blok && blok.media.alt ? blok.media.alt : alt"
+        :width="blok?.width ?? width"
+        :height="blok?.height ?? height"
+        :sizes="checkSizes"
+      />
+      <video
+        v-else-if="(blok && blok.media.filename) || video"
+        :class="[
+          `${getClass}-image`,
           {
             'w-full': blok.width === 'full'
           },
@@ -31,67 +132,30 @@
             : /[a-zA-Z]/.test(blok.height)
               ? 'object-cover'
               : 'object-contain',
-          'my-0 mx-auto object-center rounded cursor-pointer select-none'
-        ]" :width="blok?.width ?? width" :height="blok?.height ?? height" playsinline autoplay muted
-          :loop="blok.loop" @click="action.open()">
-          <source :src="blok && blok.media.filename ? blok.media.filename : src" :type="`video/${blok && blok.media.filename
-              ? blok.media.filename.toLowerCase().split('.').pop()
-              : src.toLowerCase().split('.').pop()
-            }`" />
-        </video>
-      </template>
-      <template #body>
-        <ImageComponent v-if="(blok && $imageValidation(blok.media.filename)) || image"
-          :class="`${getClass}-image my-0 mx-auto object-contain object-center select-none`" original :file="blok.media"
+          'my-0 mx-auto object-center rounded pointer-events-none select-none'
+        ]"
+        :width="blok?.width ?? width"
+        :height="blok?.height ?? height"
+        playsinline
+        autoplay
+        muted
+        :loop="blok.loop"
+      >
+        <source
           :src="blok && blok.media.filename ? blok.media.filename : src"
-          :alt="blok && blok.media.alt ? blok.media.alt : alt" width="1920" height="1980"
-          sizes="xs:380px sm:514px md:711px lg:804px" />
-        <video v-else-if="(blok && blok.media.filename) || video"
-          :class="`${getClass}-video my-0 mx-auto object-contain object-center select-none`" width="1920" height="auto"
-          playsinline autoplay muted loop>
-          <source :src="blok && blok.media.filename ? blok.media.filename : src" :type="`video/${blok && blok.media.filename
-              ? blok.media.filename.toLowerCase().split('.').pop()
-              : src.toLowerCase().split('.').pop()
-            }`" />
-        </video>
-      </template>
-    </ModalComponent>
-    <template v-else>
-      <ImageComponent v-if="(blok && $imageValidation(blok.media.filename)) || image" :class="[
-        `${getClass}-image`,
-        {
-          'w-full': blok.width === 'full'
-        },
-        blok.height === 'full'
-          ? 'h-full object-cover'
-          : /[a-zA-Z]/.test(blok.height)
-            ? 'object-cover'
-            : 'object-contain',
-        'my-0 mx-auto object-center rounded pointer-events-none select-none'
-      ]" :file="blok.media" :src="blok && blok.media.filename ? blok.media.filename : src"
-        :alt="blok && blok.media.alt ? blok.media.alt : alt" :width="blok?.width ?? width"
-        :height="blok?.height ?? height" :sizes="checkSizes" />
-      <video v-else-if="(blok && blok.media.filename) || video" :class="[
-        `${getClass}-image`,
-        {
-          'w-full': blok.width === 'full'
-        },
-        blok.height === 'full'
-          ? 'h-full object-cover'
-          : /[a-zA-Z]/.test(blok.height)
-            ? 'object-cover'
-            : 'object-contain',
-        'my-0 mx-auto object-center rounded pointer-events-none select-none'
-      ]" :width="blok?.width ?? width" :height="blok?.height ?? height" playsinline autoplay muted :loop="blok.loop">
-        <source :src="blok && blok.media.filename ? blok.media.filename : src" :type="`video/${blok && blok.media.filename
+          :type="`video/${blok && blok.media.filename
             ? blok.media.filename.toLowerCase().split('.').pop()
             : src.toLowerCase().split('.').pop()
-          }`" />
+          }`"
+        >
       </video>
     </template>
-    <p v-if="(blok && blok.title) || title" class="media-title p-5 text-center"
+    <p
+      v-if="(blok && blok.title) || title"
+      class="media-title p-5 text-center"
       :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
-      v-text="blok && blok.title ? blok.title : title" />
+      v-text="blok && blok.title ? blok.title : title"
+    />
   </div>
 </template>
 

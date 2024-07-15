@@ -1,51 +1,109 @@
 <template>
-  <div ref="slider" class="project-slider relative w-full z-10" tabindex="0" @mouseenter="focusSlide"
-    @keydown.right.prevent="next" @keydown.left.prevent="prev">
-    <TransitionGroup tag="ul" enter-from-class="opacity-0" leave-to-class="opacity-0"
-      enter-active-class="transition duration-300" leave-active-class="transition duration-300"
-      class="slider-wrapper relative w-full grid grid-cols-1 grid-rows-2 rounded overflow-hidden transition-opacity">
-      <li v-for="(project, index) in blok" v-show="index === frame.up || index === frame.down" :key="project.uuid"
+  <div
+    ref="slider"
+    class="project-slider relative w-full z-10"
+    tabindex="0"
+    @mouseenter="focusSlide"
+    @keydown.right.prevent="next"
+    @keydown.left.prevent="prev"
+  >
+    <TransitionGroup
+      tag="ul"
+      enter-from-class="opacity-0"
+      leave-to-class="opacity-0"
+      enter-active-class="transition duration-300"
+      leave-active-class="transition duration-300"
+      class="slider-wrapper relative w-full grid grid-cols-1 grid-rows-2 rounded overflow-hidden transition-opacity"
+    >
+      <li
+        v-for="(project, index) in blok"
+        v-show="index === frame.up || index === frame.down"
+        :key="project.uuid"
         :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
-          }`">
-        <RouteComponent :to="{ name: 'portfolio-slug', params: { slug: project.slug } }"
-          class="project-link w-full grid grid-rows-1 grid-cols-2">
-          <div :class="`text-container ${index % 2 == 0 ? 'col-start-1 col-end-1 text-right' : 'col-start-2 col-end-2 text-end'
-            } flex flex-col justify-center row-start-1 row-end-1`" :style="`background-color: ${$binaryControl(
+        }`"
+      >
+        <RouteComponent
+          :to="{ name: 'portfolio-slug', params: { slug: project.slug } }"
+          class="project-link w-full grid grid-rows-1 grid-cols-2"
+        >
+          <div
+            :class="`text-container ${index % 2 == 0 ? 'col-start-1 col-end-1 text-right' : 'col-start-2 col-end-2 text-end'
+            } flex flex-col justify-center row-start-1 row-end-1`"
+            :style="`background-color: ${$binaryControl(
               project.content.background_color,
               'color',
               '#e0e0e0'
-            )};`">
-            <span class="project-text px-10 overflow-hidden text-xl sm:text-2xl"
-              :style="`color: ${$binaryControl(project.content.text_color, 'color')};`">
+            )};`"
+          >
+            <span
+              class="project-text px-10 overflow-hidden text-xl sm:text-2xl"
+              :style="`color: ${$binaryControl(project.content.text_color, 'color')};`"
+            >
               {{ project.content.title }}
             </span>
           </div>
-          <div :class="`image-container flex row-start-1 row-end-1 ${index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
-            }`">
-            <ImageComponent :file="project.content.image"
+          <div
+            :class="`image-container flex row-start-1 row-end-1 ${index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
+            }`"
+          >
+            <ImageComponent
+              :file="project.content.image"
               class="project-image w-full h-full object-cover object-center pointer-events-none select-none"
-              :src="project.content.image.filename" :alt="project.content.image?.alt" width="620" height="320"
-              sizes="lg:620px" />
+              :src="project.content.image.filename"
+              :alt="project.content.image?.alt"
+              width="620"
+              height="320"
+              sizes="lg:620px"
+            />
           </div>
         </RouteComponent>
       </li>
-      <li v-show="frame.down === blok.length && blok.length > 2" :key="`${indexControls}-0`" :class="`restart-control control h-full projects-center col-start-1 col-end-1 cursor-pointer shadow-inner bg-opacity-20 bg-gray-400 ${blok.length % 2 == 0
+      <li
+        v-show="frame.down === blok.length && blok.length > 2"
+        :key="`${indexControls}-0`"
+        :class="`restart-control control h-full projects-center col-start-1 col-end-1 cursor-pointer shadow-inner bg-opacity-20 bg-gray-400 ${blok.length % 2 == 0
           ? 'row-start-1 row-end-1 self-end'
           : 'row-start-2 row-end-2 self-start'
-        }`">
-        <IconComponent class="w-full h-full cursor-pointer dark:invert" restart size="w-14 h-14" @click="next" />
+        }`"
+      >
+        <IconComponent
+          class="w-full h-full cursor-pointer dark:invert"
+          restart
+          size="w-14 h-14"
+          @click="next"
+        />
       </li>
     </TransitionGroup>
-    <TransitionGroup v-if="blok.length > 2" tag="div" enter-active-class="duration-300 in-out"
-      leave-active-class="duration-300 out-in" enter-class="opacity-0" leave-to-class="opacity-0"
-      class="controls w-full absolute top-1/2 text-white">
-      <span :key="`${indexControls}-1`"
-        class="next-control absolute right-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800">
-        <IconComponent next class="next cursor-pointer" size="w-9 h-9 p-3" @click="next" />
+    <TransitionGroup
+      v-if="blok.length > 2"
+      tag="div"
+      enter-active-class="duration-300 in-out"
+      leave-active-class="duration-300 out-in"
+      enter-class="opacity-0"
+      leave-to-class="opacity-0"
+      class="controls w-full absolute top-1/2 text-white"
+    >
+      <span
+        :key="`${indexControls}-1`"
+        class="next-control absolute right-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
+      >
+        <IconComponent
+          next
+          class="next cursor-pointer"
+          size="w-9 h-9 p-3"
+          @click="next"
+        />
       </span>
-      <span :key="`${indexControls}-2`"
-        class="previous-control absolute left-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800">
-        <IconComponent previous class="previous cursor-pointer" size="w-9 h-9 p-3" @click="prev" />
+      <span
+        :key="`${indexControls}-2`"
+        class="previous-control absolute left-3 transform -translate-y-1/2 rounded-full bg-opacity-70 bg-neutral-800"
+      >
+        <IconComponent
+          previous
+          class="previous cursor-pointer"
+          size="w-9 h-9 p-3"
+          @click="prev"
+        />
       </span>
     </TransitionGroup>
   </div>

@@ -14,5 +14,8 @@ watch(
 </script>
 
 <template>
-  <StoryblokComponent :key="about.id" :blok="{ ...about.content, id: about.id }" />
+  <StoryblokComponent
+    :key="about.id"
+    :blok="{ ...about.content, id: about.id }"
+  />
 </template>

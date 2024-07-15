@@ -80,14 +80,6 @@ export default defineNuxtConfig({
     }
   },
 
-  robots: {
-    rules: [
-      { UserAgent: '*' },
-      { Disallow: '' },
-      { Sitemap: `${process.env.NUXT_ENV_DOMAIN}${enums.sitemap}` }
-    ]
-  },
-
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },

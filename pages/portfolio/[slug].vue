@@ -6,5 +6,8 @@ watch(project, val => seoDynamic(val), { immediate: true });
 </script>
 
 <template>
-  <StoryblokComponent :key="project.id" :blok="{ ...project.content, id: project.id }" />
+  <StoryblokComponent
+    :key="project.id"
+    :blok="{ ...project.content, id: project.id }"
+  />
 </template>

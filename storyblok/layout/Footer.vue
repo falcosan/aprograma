@@ -1,47 +1,86 @@
 <template>
-  <footer class="px-5 pt-20 pb-40 rounded-t footer"
-    :style="`background-color:${blok.transparency ? `${backgroundColor}B3` : backgroundColor};`">
+  <footer
+    class="px-5 pt-20 pb-40 rounded-t footer"
+    :style="`background-color:${blok.transparency ? `${backgroundColor}B3` : backgroundColor};`"
+  >
     <div class="grid gap-5 text-center footer-content h-52">
-      <div :class="`icon-container relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
-        }`">
-        <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" enter-active-class="transition duration-300"
-          leave-active-class="transition duration-300">
-          <button v-if="colorModeLoaded" class="grid col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper">
-            <IconComponent eye-bold :class="[
-              'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode.light }
-            ]" size="w-6" tooltip="Light theme" @click="changeColorMode('dark')" />
-            <IconComponent eye :class="[
-              'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode.dark }
-            ]" size="w-6" tooltip="Dark theme" @click="changeColorMode('light')" />
+      <div
+        :class="`icon-container relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
+        }`"
+      >
+        <Transition
+          enter-from-class="opacity-0"
+          leave-to-class="opacity-0"
+          enter-active-class="transition duration-300"
+          leave-active-class="transition duration-300"
+        >
+          <button
+            v-if="colorModeLoaded"
+            class="grid col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper"
+          >
+            <IconComponent
+              eye-bold
+              :class="[
+                'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
+                { 'opacity-0': checkColorMode.light }
+              ]"
+              size="w-6"
+              tooltip="Light theme"
+              @click="changeColorMode('dark')"
+            />
+            <IconComponent
+              eye
+              :class="[
+                'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
+                { 'opacity-0': checkColorMode.dark }
+              ]"
+              size="w-6"
+              tooltip="Dark theme"
+              @click="changeColorMode('light')"
+            />
           </button>
-          <div v-else :class="[
-            'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
-            backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-500'
-          ]" style="transform: rotateX(45deg)" />
+          <div
+            v-else
+            :class="[
+              'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
+              backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-500'
+            ]"
+            style="transform: rotateX(45deg)"
+          />
         </Transition>
       </div>
-      <div :class="`messages-container ${backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
-        }`">
+      <div
+        :class="`messages-container ${backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
+        }`"
+      >
         <span class="text-xs footer-messages">
           {{ blok.text_static ? blok.text_static : '' }}{{ typewriter }}
         </span>
       </div>
-      <div :class="[
-        'footer-info grid gap-y-1.5',
-        { 'text-white': backgroundColor && $themeColor(backgroundColor) }
-      ]">
+      <div
+        :class="[
+          'footer-info grid gap-y-1.5',
+          { 'text-white': backgroundColor && $themeColor(backgroundColor) }
+        ]"
+      >
         <span class="text-sm footer-copyright">
           © 2020 - {{ currentYear }}, <strong>{{ webName }}</strong>
         </span>
       </div>
-      <ul :class="`social-links flex flex-wrap -m-1.5 justify-center items-center ${backgroundColor && $themeColor(backgroundColor) ? 'invert' : ''
-        }`">
+      <ul
+        :class="`social-links flex flex-wrap -m-1.5 justify-center items-center ${backgroundColor && $themeColor(backgroundColor) ? 'invert' : ''
+        }`"
+      >
         <template v-for="iconLink in $contentByName(blok.body, 'Route')">
-          <li v-if="iconLink.title || (iconLink.icon_item && iconLink.body.length)" :key="iconLink._uid"
-            class="link-item m-1.5">
-            <RouteComponent :blok="iconLink" class="h-full transition-all duration-700 social-icon" />
+          <li
+            v-if="iconLink.title || (iconLink.icon_item && iconLink.body.length)"
+            :key="iconLink._uid"
+            class="link-item m-1.5"
+          >
+            <RouteComponent
+              :blok="iconLink"
+              class="h-full transition-all duration-700 social-icon"
+            />
           </li>
         </template>
       </ul>
