@@ -18,12 +18,12 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
-    envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
     public: {
       envProductionDomain: mode.production,
       envXAuth: process.env.NUXT_ENV_X_AUTH,
       envDomain: process.env.NUXT_ENV_DOMAIN,
       envApiVersion: process.env.NUXT_ENV_API_VERSION,
+      envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
       envMode: { production: isProduction, development: isDevelopment },
       envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
     }
