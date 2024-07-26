@@ -73,6 +73,7 @@
   </component>
 </template>
 <script>
+import { Data } from '@/schema/enums';
 import IconComponent from '@/storyblok/global/Icon';
 export default defineNuxtComponent({
   components: { IconComponent },
@@ -129,7 +130,7 @@ export default defineNuxtComponent({
     const activated = computed(() => {
       const targetRoute = props.blok?.path ?? props.to;
       const regex = new RegExp(
-        `/(${Object.values(enums.rss)
+        `/(${Object.values(Data.rss)
           .map(item => {
             if (item instanceof Object) return item.language;
             else return '';

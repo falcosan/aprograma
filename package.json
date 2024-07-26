@@ -32,6 +32,7 @@
     "@nuxtjs/robots": "^4.0.2",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@tailwindcss/typography": "^0.5.13",
+    "@types/rss": "^0.0.32",
     "@vite-pwa/nuxt": "^0.9.1",
     "eslint": "^8.57.0",
     "nuxt": "^3.12.4",

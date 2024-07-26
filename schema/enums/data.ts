@@ -1,9 +1,9 @@
 const name = 'Aprograma';
 const description = `Coding can be defined in many ways, sometimes even stressful. The goal of ${name} is to change this`;
 
-export default {
+export const Data = {
   name,
-  routes: token =>
+  routes: (token: string) =>
     `https://api.storyblok.com/v2/cdn/links?token=${token}&cv=CURRENT_TIMESTAMP&version=published`,
   meta: {
     title: `${name} - A break from stressful coding`,

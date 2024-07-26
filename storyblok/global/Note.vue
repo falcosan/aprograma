@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { Data } from "@/schema/enums";
 import RouteComponent from '@/storyblok/global/Route';
 export default {
   components: {
@@ -40,7 +41,7 @@ export default {
   },
   setup(props) {
     const { markdownToHtml } = useMarkdown();
-    const setEditorPath = computed(() => `${enums.editor.host}?id=${props.blok.id}`);
+    const setEditorPath = computed(() => `${Data.editor.host}?id=${props.blok.id}`);
     return { markdownToHtml, setEditorPath };
   }
 };

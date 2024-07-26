@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import { Data } from "@/schema/enums";
 import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
   components: { RouteComponent },
@@ -122,7 +123,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const { $languageCase } = useNuxtApp();
-    const setFile = computed(() => props.postContent.file?.filename || enums.content.image);
+    const setFile = computed(() => props.postContent.file?.filename || Data.content.image);
     const sortedCategories = computed(() => {
       return props.postContent.categories
         ?.map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])

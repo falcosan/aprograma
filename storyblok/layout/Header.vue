@@ -84,6 +84,7 @@
   </header>
 </template>
 <script>
+import { Data } from "@/schema/enums";
 import LogoComponent from '@/storyblok/global/Logo';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
@@ -108,7 +109,7 @@ export default defineNuxtComponent({
       expanded: false
     });
     const { expanded, timer } = toRefs(state);
-    const webName = enums.name;
+    const webName = Data.name;
     const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
     const backgroundColorMenu = computed(() =>
       $binaryControl(props.blok.background_color_menu, 'color')
