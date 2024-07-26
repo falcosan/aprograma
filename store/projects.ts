@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia';
 
-export const usePostsStore = defineStore('posts', {
+export const useProjectsStore = defineStore('projects', {
   state: () => ({
     items: []
   }),
   getters: {
-    postsGet(state) {
+    projectsGet(state) {
       return state.items;
     }
   },
   actions: {
-    addPosts(posts) {
-      this.items = posts;
+    addProjects(projects: never[]) {
+      this.items = projects;
     }
   }
 });
