@@ -104,6 +104,7 @@
   </div>
 </template>
 <script>
+import { Data } from '@/schema/enums';
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
@@ -119,9 +120,9 @@ export default defineNuxtComponent({
     const { $languageCase } = useNuxtApp();
     const { markdownToHtml } = useMarkdown();
     const setEditorPath = computed(() =>
-      config.public.envApiVersion === 'draft' ? `${enums.editor.host}?id=${props.blok.id}` : null
+      config.public.envApiVersion === 'draft' ? `${Data.editor.host}?id=${props.blok.id}` : null
     );
-    const setFile = computed(() => props.blok.file?.filename || enums.content.image);
+    const setFile = computed(() => props.blok.file?.filename || Data.content.image);
     const lookFile = computed(() => {
       switch (setFile.value.toLowerCase().split('.').pop()) {
         case 'pdf':

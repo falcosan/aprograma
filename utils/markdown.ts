@@ -1,16 +1,14 @@
-import { marked } from 'marked';
+import { marked, type Tokens } from 'marked';
 
-export const markdownToHtml = markdown => {
+export const markdownToHtml = (markdown: string) => {
   const renderer = {
-    paragraph(text) {
+    paragraph(text: Tokens.Paragraph) {
       return `<p>${text}</p>`;
     }
   };
   marked.use({
     renderer,
-    mangle: false,
     pedantic: true,
-    headerIds: false
   });
   return marked.parse(markdown);
 };

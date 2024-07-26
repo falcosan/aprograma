@@ -1,4 +1,6 @@
-interface Story {
+import { Data } from "@/schema/enums";
+
+type Story = {
   description?: string;
   name?: string;
   image?: string;
@@ -30,19 +32,19 @@ export const useSeo = () => {
   };
 
   const seoDynamic = (story: Story) => {
-    const defaultImage = enums.content.image;
+    const defaultImage = Data.content.image;
     const storyImage = story.image || story.content?.file?.filename || story.content?.image?.filename;
     const image = storyImage ? `${storyImage}/m/472x290` : defaultImage;
 
     const meta: Record<string, string>[] = [
-      { property: 'og:site_name', content: enums.name },
+      { property: 'og:site_name', content: Data.name },
       { key: 'og:type', property: 'og:type', content: 'website' },
       { name: 'description', content: story.content?.intro || '' },
       { property: 'og:url', content: `${config.public.envDomain}${routeName}` },
       { property: 'og:title', content: story.content?.title || '' },
       { property: 'og:description', content: story.content?.intro || '' },
       { property: 'og:image', itemprop: 'image', content: image },
-      { name: 'twitter:site', content: enums.meta.og.twitter },
+      { name: 'twitter:site', content: Data.meta.og.twitter },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:url', content: `${config.public.envDomain}${routeName}` },
       { name: 'twitter:title', content: story.content?.title || '' },
@@ -73,27 +75,27 @@ export const useSeo = () => {
   const seoLayout = (story: Story) => {
     const meta = [
       { name: 'google-site-verification', content: config.public.envGoogleSiteVerification },
-      { name: 'description', content: enums.meta.description },
+      { name: 'description', content: Data.meta.description },
       { property: 'og:site_name', content: config.public.envDomain },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: config.public.envDomain },
-      { property: 'og:title', content: enums.meta.title },
-      { property: 'og:description', content: enums.meta.description },
-      { property: 'og:image', itemprop: 'image', content: enums.meta.og.image },
-      { name: 'twitter:site', content: enums.meta.og.twitter },
+      { property: 'og:title', content: Data.meta.title },
+      { property: 'og:description', content: Data.meta.description },
+      { property: 'og:image', itemprop: 'image', content: Data.meta.og.image },
+      { name: 'twitter:site', content: Data.meta.og.twitter },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:url', content: config.public.envDomain },
-      { name: 'twitter:title', content: enums.meta.title },
-      { name: 'twitter:description', content: enums.meta.description },
-      { name: 'twitter:image', content: enums.meta.og.image },
+      { name: 'twitter:title', content: Data.meta.title },
+      { name: 'twitter:description', content: Data.meta.description },
+      { name: 'twitter:image', content: Data.meta.og.image },
       { name: 'monetization', content: config.public.envPaymentPointer },
     ];
 
     if (config.public.envProductionDomain) {
       useHeadSafe({
         htmlAttrs: { lang: story.language || 'en' },
-        title: enums.meta.title,
-        titleTemplate: title => (title !== enums.meta.title ? `${title} - ${enums.name}` : title),
+        title: Data.meta.title,
+        titleTemplate: title => (title !== Data.meta.title ? `${title} - ${Data.name}` : title),
         meta,
         link: [
           { rel: 'canonical', href: config.public.envDomain },

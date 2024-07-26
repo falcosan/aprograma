@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import { Data } from "@/schema/enums";
 import IconComponent from '@/storyblok/global/Icon';
 import RouteComponent from '@/storyblok/global/Route';
 export default defineNuxtComponent({
@@ -112,7 +113,7 @@ export default defineNuxtComponent({
       playEraseText: undefined,
       currentYear: new Date().getFullYear()
     });
-    const webName = enums.name;
+    const webName = Data.name;
     const {
       charIndex,
       typewriter,

@@ -1,5 +1,4 @@
-import enums from './utils/enums';
-import { ENV, Mode } from './schema/enums'
+import { Data, ENV, Mode } from './schema/enums'
 
 export default defineNuxtConfig({
   app: {
@@ -36,7 +35,7 @@ export default defineNuxtConfig({
   },
 
   i18n: {
-    locales: Object.values(enums.rss)
+    locales: Object.values(Data.rss)
       .map(item => {
         if (item instanceof Object) return item.language;
         else return '';
@@ -55,7 +54,7 @@ export default defineNuxtConfig({
   },
 
   pwa: {
-    manifest: enums.manifest,
+    manifest: Data.manifest,
     registerType: 'autoUpdate',
     strategies: 'injectManifest',
     injectManifest: {
@@ -91,7 +90,7 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     ...(!Mode.development && { preset: 'netlify-edge' }),
-    prerender: { ignore: enums.ignore.map(path => `/${path}`) }
+    prerender: { ignore: Data.ignore.map(path => `/${path}`) }
   },
 
   hooks: {
