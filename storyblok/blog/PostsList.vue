@@ -153,7 +153,7 @@ export default defineNuxtComponent({
   async setup(props) {
     const { addPosts } = store.posts();
     const { $languageCase } = useNuxtApp();
-    const { data: posts } = await useFetcher({ slug: 'posts', startsWith: 'blog' });
+    const { data: posts } = await useFetcher('posts', { startsWith: 'blog' });
     const state = reactive({
       searchTerm: '',
       showFilters: false,

@@ -1,7 +1,7 @@
 <script setup>
 const route = useRoute();
 definePageMeta({ layout: 'blank' });
-const { data: note } = await useFetcher({ slug: `note/${route.params.slug}` });
+const { data: note } = await useFetcher(`note/${route.params.slug}`);
 </script>
 
 <template>
