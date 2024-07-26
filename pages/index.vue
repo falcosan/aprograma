@@ -1,5 +1,5 @@
 <script setup>
-const { data: home } = await useFetcher({ slug: 'home' });
+const { data: home } = await useFetcher('home');
 </script>
 
 <template>

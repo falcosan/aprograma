@@ -1,14 +1,5 @@
-import { isProduction, isDevelopment } from 'std-env';
 import enums from './utils/enums';
-
-const mode = {
-  production: isProduction && !/netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify'),
-  development: !!(
-    isDevelopment ||
-    /netlify/gm.test(process.env.NUXT_ENV_DOMAIN || 'netlify') ||
-    process.env.NUXT_ENV_LOCAL_BUILD
-  )
-};
+import { ENV, Mode } from './schema/enums'
 
 export default defineNuxtConfig({
   app: {
@@ -17,16 +8,8 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
-    public: {
-      envProductionDomain: mode.production,
-      envXAuth: process.env.NUXT_ENV_X_AUTH,
-      envDomain: process.env.NUXT_ENV_DOMAIN,
-      envApiVersion: process.env.NUXT_ENV_API_VERSION,
-      envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
-      envMode: { production: isProduction, development: isDevelopment },
-      envGoogleSiteVerification: process.env.NUXT_ENV_GOOGLE_SITE_VERIFICATION
-    }
+    ...ENV.Private,
+    public: { ...ENV.Public },
   },
 
   css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
@@ -94,7 +77,7 @@ export default defineNuxtConfig({
 
   delayHydration: {
     mode: 'mount',
-    debug: mode.development
+    debug: Mode.development
   },
 
   vite: {
@@ -107,7 +90,7 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    ...(!mode.development && { preset: 'netlify-edge' }),
+    ...(!Mode.development && { preset: 'netlify-edge' }),
     prerender: { ignore: enums.ignore.map(path => `/${path}`) }
   },
 
