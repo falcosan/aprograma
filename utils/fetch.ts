@@ -34,7 +34,7 @@ export async function fetchFeed(lang: 'eng' | 'esp' | 'ita'): Promise<string> {
     categories: [Data.rss[lang].category],
   });
 
-  const data = await fetchStoryblok({ language: lang, startsWith: Data.rss.route, lastCache: true });
+  const data = await fetchStoryblok({ language: Data.rss[lang].language, startsWith: Data.rss.route, lastCache: true });
   const filteredStories = data.stories.filter((story: { name: string; }) => story.name.toLowerCase() !== Data.rss.route);
 
   filteredStories.forEach((post: any) => {
