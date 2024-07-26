@@ -10,8 +10,7 @@ export default defineEventHandler(async event => {
     const slug = query.slug ?? '';
     const language = query.lang as ISbStoriesParams['language'];
     const startsWith = query.startsWith as ISbStoriesParams['starts_with'];
-    const version = config.public.envApiVersion as ISbStoriesParams['version'];
-    return await fetchStoryblok(language, startsWith, `cdn/stories/${slug}`, false, version);
+    return await fetchStoryblok({ language, startsWith, query: `cdn/stories/${slug}`, lastCache: false});
   } else {
     return setResponseStatus(event, 204, 'No Content');
   }

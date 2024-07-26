@@ -15,9 +15,9 @@ export default defineNuxtModule({
         if (item instanceof Object) return `/${item.path}`;
         else return '';
       })
-    ].filter(Boolean);
+    ].filter(route => typeof route === 'string')
     const dynamicRoutes = await fetchStories();
-    const routes = [...staticRoutes, ...dynamicRoutes];
+    const routes = [...staticRoutes, ...dynamicRoutes]
     addPrerenderRoutes(routes);
   }
 });
