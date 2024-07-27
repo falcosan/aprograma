@@ -23,8 +23,7 @@ export default defineNuxtConfig({
     '@nuxtjs/robots',
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
-    '@nuxtjs/tailwindcss',
-    'nuxt-delay-hydration'
+    '@nuxtjs/tailwindcss'
   ],
 
   image: {
@@ -38,7 +37,7 @@ export default defineNuxtConfig({
     locales: Object.values(Data.rss)
       .map(item => {
         if (item instanceof Object) return item.language;
-        else return '';
+        return null;
       })
       .filter(Boolean),
     defaultLocale: 'en',
@@ -72,11 +71,6 @@ export default defineNuxtConfig({
     storageKey: 'ap_theme',
     globalName: '__THEME__',
     componentName: 'ThemeScheme'
-  },
-
-  delayHydration: {
-    mode: 'mount',
-    debug: Mode.development
   },
 
   vite: {
