@@ -7,12 +7,13 @@
       <div
         v-if="translateTransition"
         :class="`current-language cursor-pointer ${styleCurrentLanguage}`"
-        @click="$emit('current-lang-action')"
+        @click="currentLangAction"
       >
         <template v-for="selector in blok">
           <span
             v-if="
-              cutLanguage(selector) === locale || (cutLanguage(selector) === 'en' && locale === '')
+              cutLanguage(selector) === locale ||
+              (cutLanguage(selector) === 'en' && locale === '')
             "
             :key="selector._uid"
             class="language-item"
@@ -36,12 +37,11 @@
           "
           :key="language._uid"
           :class="`translate-item cursor-pointer ${styleTranslateItem}`"
-          @click="
-            setLocale(language.language);
-            $emit('translate-list-action');
-          "
+          @click="setLocaleWithTranslateList(language.language)"
         >
-          <span class="translate-language">{{ language.language.toUpperCase() }}</span>
+          <span class="translate-language">{{
+            language.language.toUpperCase()
+          }}</span>
         </li>
       </template>
     </ul>
@@ -76,14 +76,22 @@ export default defineNuxtComponent({
       default: ''
     }
   },
-  setup() {
-    const { locale, setLocale } = useI18n();
-    const cutLanguage = abbr => abbr.language.toLowerCase().substring(0, 2);
+  emits: ['current-lang-action', 'translate-list-action'],
+  setup(_, { emit }) {
+    const { locale, setLocale } = useI18n()
+    const cutLanguage = (abbr) => abbr.language.toLowerCase().substring(0, 2)
+
+    const currentLangAction = () => emit('current-lang-action')
+    const setLocaleWithTranslateList = (language) => {
+      emit('translate-list-action')
+      setLocale(language)
+    }
     return {
       locale,
-      setLocale,
-      cutLanguage
-    };
+      cutLanguage,
+      currentLangAction,
+      setLocaleWithTranslateList
+    }
   }
-});
+})
 </script>

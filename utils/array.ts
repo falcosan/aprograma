@@ -1,8 +1,8 @@
-type FilterFunction<T> = (value: T) => boolean;
-type Filters<T> = Record<string, FilterFunction<T>>;
+type FilterFunction<T> = (value: T) => boolean
+type Filters<T> = Record<string, FilterFunction<T>>
 
 type Item = {
-  [key: string]: unknown;
+  [key: string]: unknown
 }
 
 export const multipleFilters = <T extends Item>(
@@ -10,15 +10,15 @@ export const multipleFilters = <T extends Item>(
   filters: Filters<unknown>,
   field?: string
 ): T[] => {
-  const filterKeys = Object.keys(filters);
+  const filterKeys = Object.keys(filters)
 
-  return array.filter(item => {
-    return filterKeys.some(key => {
-      const filterFn = filters[key];
-      if (typeof filterFn !== 'function') return true;
+  return array.filter((item) => {
+    return filterKeys.some((key) => {
+      const filterFn = filters[key]
+      if (typeof filterFn !== 'function') return true
 
-      const element = field ? (item[field] as Item)?.[key] : item[key];
-      return filterFn(element);
-    });
-  });
-};
+      const element = field ? (item[field] as Item)?.[key] : item[key]
+      return filterFn(element)
+    })
+  })
+}

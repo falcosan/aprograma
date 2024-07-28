@@ -1,5 +1,5 @@
 import { Mode } from './mode'
-import { isProduction, isDevelopment } from 'std-env';
+import { isProduction, isDevelopment } from 'std-env'
 
 const Public = {
   envProductionDomain: Mode.production,
@@ -12,10 +12,10 @@ const Public = {
 }
 
 const Private = {
-  envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN,
+  envAccessToken: process.env.NUXT_ENV_ACCESS_TOKEN
 }
 
 export const ENV = {
   Public,
-  Private,
+  Private
 }

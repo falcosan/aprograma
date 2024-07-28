@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const usePostsStore = defineStore('posts', {
   state: () => ({
@@ -6,12 +6,12 @@ export const usePostsStore = defineStore('posts', {
   }),
   getters: {
     postsGet(state) {
-      return state.items;
+      return state.items
     }
   },
   actions: {
     addPosts(posts: never[]) {
-      this.items = posts;
+      this.items = posts
     }
   }
-});
+})

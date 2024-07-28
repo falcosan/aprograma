@@ -1,10 +1,7 @@
 <template>
   <div class="post p-5">
     <div class="post-head relative w-full mb-5">
-      <h1
-        class="post-title"
-        v-text="blok.title"
-      />
+      <h1 class="post-title" v-text="blok.title" />
       <div
         v-if="setEditorPath"
         class="post-editor flex justify-end flex-auto mb-5"
@@ -36,7 +33,9 @@
           :file="blok.file"
           :width="checkFile ? '1366' : false"
           :height="checkFile ? '707' : false"
-          :sizes="checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1240px' : false"
+          :sizes="
+            checkFile ? 'xs:380px sm:514px md:711px lg:804px xl:1240px' : false
+          "
         />
       </div>
     </div>
@@ -69,7 +68,11 @@
             class="post-author text-sm font-semibold"
           >
             {{ $languageCase('by', 'de', 'di') }}
-            {{ blok.author ? blok.author : $languageCase('Anonymous', 'Anónimo', 'Anonimo') }}
+            {{
+              blok.author
+                ? blok.author
+                : $languageCase('Anonymous', 'Anónimo', 'Anonimo')
+            }}
           </p>
           <p
             :style="`color: ${$binaryControl(blok.text_color, 'color')};`"
@@ -104,9 +107,9 @@
   </div>
 </template>
 <script>
-import { Data } from '@/schema/enums';
-import IconComponent from '@/storyblok/global/Icon';
-import RouteComponent from '@/storyblok/global/Route';
+import { Data } from '@/schema/enums'
+import IconComponent from '@/storyblok/global/Icon'
+import RouteComponent from '@/storyblok/global/Route'
 export default defineNuxtComponent({
   components: { IconComponent, RouteComponent },
   props: {
@@ -116,45 +119,55 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const config = useRuntimeConfig();
-    const { $languageCase } = useNuxtApp();
-    const { markdownToHtml } = useMarkdown();
+    const config = useRuntimeConfig()
+    const { $languageCase } = useNuxtApp()
+    const { markdownToHtml } = useMarkdown()
     const setEditorPath = computed(() =>
-      config.public.envApiVersion === 'draft' ? `${Data.editor.host}?id=${props.blok.id}` : null
-    );
-    const setFile = computed(() => props.blok.file?.filename || Data.content.image);
+      config.public.envApiVersion === 'draft'
+        ? `${Data.editor.host}?id=${props.blok.id}`
+        : null
+    )
+    const setFile = computed(
+      () => props.blok.file?.filename || Data.content.image
+    )
     const lookFile = computed(() => {
       switch (setFile.value.toLowerCase().split('.').pop()) {
         case 'pdf':
-          return 'embed';
+          return 'embed'
         default:
-          return resolveComponent('Image');
+          return resolveComponent('Image')
       }
-    });
+    })
     const sortedCategories = computed(() => {
       return props.blok.categories
-        ?.map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
-        .sort();
-    });
-    const checkFile = computed(() => typeof lookFile.value === 'object' || !setFile.value);
+        ?.map(
+          (category) =>
+            category.toLowerCase().split('; ')[$languageCase(0, 1, 2)]
+        )
+        .sort()
+    })
+    const checkFile = computed(
+      () => typeof lookFile.value === 'object' || !setFile.value
+    )
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
-          return 'text-right';
+          return 'text-right'
         case 'center':
-          return 'text-center';
+          return 'text-center'
         case 'justify':
-          return 'text-justify';
+          return 'text-justify'
         default:
-          return 'text-left';
+          return 'text-left'
       }
-    });
-    const changeDate = date => {
-      const currentDateTime = new Date(date.replace(' ', 'T'));
-      const formattedDate = `${currentDateTime.getDate()} / ${currentDateTime.getMonth() + 1
-        } / ${currentDateTime.getFullYear()}`;
-      return formattedDate.toString();
-    };
+    })
+    const changeDate = (date) => {
+      const currentDateTime = new Date(date.replace(' ', 'T'))
+      const formattedDate = `${currentDateTime.getDate()} / ${
+        currentDateTime.getMonth() + 1
+      } / ${currentDateTime.getFullYear()}`
+      return formattedDate.toString()
+    }
     return {
       setFile,
       lookFile,
@@ -164,9 +177,9 @@ export default defineNuxtComponent({
       setEditorPath,
       markdownToHtml,
       sortedCategories
-    };
+    }
   }
-});
+})
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {

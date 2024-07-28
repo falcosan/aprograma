@@ -5,7 +5,8 @@
   >
     <div class="grid gap-5 text-center footer-content h-52">
       <div
-        :class="`icon-container relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
+        :class="`icon-container relative grid gap-5 grid-flow-col-dense items-end self-baseline justify-center text-md ${
+          backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
         <Transition
@@ -43,14 +44,17 @@
             v-else
             :class="[
               'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
-              backgroundColor && $themeColor(backgroundColor) ? 'bg-white' : 'bg-slate-500'
+              backgroundColor && $themeColor(backgroundColor)
+                ? 'bg-white'
+                : 'bg-slate-500'
             ]"
             style="transform: rotateX(45deg)"
           />
         </Transition>
       </div>
       <div
-        :class="`messages-container ${backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
+        :class="`messages-container ${
+          backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
         <span class="text-xs footer-messages">
@@ -68,12 +72,15 @@
         </span>
       </div>
       <ul
-        :class="`social-links flex flex-wrap -m-1.5 justify-center items-center ${backgroundColor && $themeColor(backgroundColor) ? 'invert' : ''
+        :class="`social-links flex flex-wrap -m-1.5 justify-center items-center ${
+          backgroundColor && $themeColor(backgroundColor) ? 'invert' : ''
         }`"
       >
         <template v-for="iconLink in $contentByName(blok.body, 'Route')">
           <li
-            v-if="iconLink.title || (iconLink.icon_item && iconLink.body.length)"
+            v-if="
+              iconLink.title || (iconLink.icon_item && iconLink.body.length)
+            "
             :key="iconLink._uid"
             class="link-item m-1.5"
           >
@@ -89,9 +96,9 @@
 </template>
 
 <script>
-import { Data } from "@/schema/enums";
-import IconComponent from '@/storyblok/global/Icon';
-import RouteComponent from '@/storyblok/global/Route';
+import { Data } from '@/schema/enums'
+import IconComponent from '@/storyblok/global/Icon'
+import RouteComponent from '@/storyblok/global/Route'
 export default defineNuxtComponent({
   props: {
     blok: {
@@ -101,9 +108,9 @@ export default defineNuxtComponent({
   },
   components: { IconComponent, RouteComponent },
   setup(props) {
-    const { locale } = useI18n();
-    const colorMode = useColorMode();
-    const { $binaryControl, $languageCase, $scrollToSmoothly } = useNuxtApp();
+    const { locale } = useI18n()
+    const colorMode = useColorMode()
+    const { $binaryControl, $languageCase, $scrollToSmoothly } = useNuxtApp()
     const state = reactive({
       charIndex: 0,
       typewriter: '',
@@ -112,8 +119,8 @@ export default defineNuxtComponent({
       playTypeText: undefined,
       playEraseText: undefined,
       currentYear: new Date().getFullYear()
-    });
-    const webName = Data.name;
+    })
+    const webName = Data.name
     const {
       charIndex,
       typewriter,
@@ -122,66 +129,68 @@ export default defineNuxtComponent({
       playEraseText,
       typewriterIndex,
       colorModeLoaded
-    } = toRefs(state);
+    } = toRefs(state)
     const words = computed(() => {
       if (props.blok.text_typewriter.length) {
         const texts = props.blok.text_typewriter[typewriterIndex.value]
           .split('; ')
-          .filter(text => text);
-        return $languageCase(texts[0], texts[1], texts[2]);
-      } else return '';
-    });
-    const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
+          .filter((text) => text)
+        return $languageCase(texts[0], texts[1], texts[2])
+      } else return ''
+    })
+    const backgroundColor = computed(() =>
+      $binaryControl(props.blok.background_color, 'color')
+    )
     const checkColorMode = computed(() => ({
       dark: colorMode?.value === 'dark',
       light: colorMode?.value === 'light'
-    }));
-    const changeColorMode = mode => {
-      colorMode.preference = mode;
-      $scrollToSmoothly(0, 150);
-    };
+    }))
+    const changeColorMode = (mode) => {
+      colorMode.preference = mode
+      $scrollToSmoothly(0, 150)
+    }
     const eraseText = () => {
       if (words.value && charIndex.value) {
-        typewriter.value = words.value.substring(0, charIndex.value - 1);
-        charIndex.value--;
-        playEraseText.value = setTimeout(eraseText, 50);
+        typewriter.value = words.value.substring(0, charIndex.value - 1)
+        charIndex.value--
+        playEraseText.value = setTimeout(eraseText, 50)
       } else {
-        typewriterIndex.value++;
-        playEraseText.value = 0;
+        typewriterIndex.value++
+        playEraseText.value = 0
         if (typewriterIndex.value >= props.blok.text_typewriter.length) {
-          typewriterIndex.value = 0;
+          typewriterIndex.value = 0
         }
-        playTypeText.value = setTimeout(typeText, 50);
+        playTypeText.value = setTimeout(typeText, 50)
       }
-    };
+    }
     const typeText = () => {
       if (words.value && charIndex.value < words.value.length) {
-        typewriter.value += words.value.charAt(charIndex.value);
-        charIndex.value++;
-        playTypeText.value = setTimeout(typeText, 50);
+        typewriter.value += words.value.charAt(charIndex.value)
+        charIndex.value++
+        playTypeText.value = setTimeout(typeText, 50)
       } else {
         if (typewriterIndex.value >= props.blok.text_typewriter.length) {
-          typewriterIndex.value = 0;
+          typewriterIndex.value = 0
         }
-        playTypeText.value = 0;
-        playEraseText.value = setTimeout(eraseText, 1500);
+        playTypeText.value = 0
+        playEraseText.value = setTimeout(eraseText, 1500)
       }
-    };
+    }
     const restartTypewriter = () => {
       if (words.value) {
-        clearTimeout(playTypeText.value);
-        clearTimeout(playEraseText.value);
-        playTypeText.value = 0;
-        playEraseText.value = 0;
-        typewriter.value = '';
-        charIndex.value = 0;
-        typewriterIndex.value = 0;
-        setTimeout(typeText, 400);
+        clearTimeout(playTypeText.value)
+        clearTimeout(playEraseText.value)
+        playTypeText.value = 0
+        playEraseText.value = 0
+        typewriter.value = ''
+        charIndex.value = 0
+        typewriterIndex.value = 0
+        setTimeout(typeText, 400)
       }
-    };
-    typeText();
-    onMounted(() => (colorModeLoaded.value = true));
-    watch(locale, restartTypewriter);
+    }
+    typeText()
+    onMounted(() => (colorModeLoaded.value = true))
+    watch(locale, restartTypewriter)
     return {
       webName,
       colorMode,
@@ -191,7 +200,7 @@ export default defineNuxtComponent({
       colorModeLoaded,
       backgroundColor,
       changeColorMode
-    };
+    }
   }
-});
+})
 </script>

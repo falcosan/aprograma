@@ -1,22 +1,26 @@
 <template>
-  <li
-    v-if="postContent"
-    class="post-teaser w-full overflow-hidden rounded"
-  >
+  <li v-if="postContent" class="post-teaser w-full overflow-hidden rounded">
     <RouteComponent
       :to="{ name: 'blog-slug', params: { slug: postLink } }"
       class="teaser-link h-full"
     >
       <div
-        :class="`teaser-content h-full flex flex-col ${rowContainer || sliderContainer || containerContainer || carouselContainer
-          ? ''
-          : 'lg:flex-row'
+        :class="`teaser-content h-full flex flex-col ${
+          rowContainer ||
+          sliderContainer ||
+          containerContainer ||
+          carouselContainer
+            ? ''
+            : 'lg:flex-row'
         }`"
       >
         <div
           :class="[
             'teaser-file-container w-full',
-            rowContainer || sliderContainer || containerContainer || carouselContainer
+            rowContainer ||
+            sliderContainer ||
+            containerContainer ||
+            carouselContainer
               ? ''
               : 'container-mode lg:w-1/2',
             { 'bg-black': !postContent.file?.filename }
@@ -25,21 +29,31 @@
           <component
             :is="lookFile"
             :file="postContent.file"
-            :class="`teaser-file w-full h-full object-center select-none aspect-video ${rowContainer || sliderContainer || containerContainer || carouselContainer
-              ? ''
-              : 'container-mode md:aspect-[16/10] lg:aspect-[14/4] xl:aspect-[14/3] 2xl:aspect-[11/2]'
+            :class="`teaser-file w-full h-full object-center select-none aspect-video ${
+              rowContainer ||
+              sliderContainer ||
+              containerContainer ||
+              carouselContainer
+                ? ''
+                : 'container-mode md:aspect-[16/10] lg:aspect-[14/4] xl:aspect-[14/3] 2xl:aspect-[11/2]'
             } ${postContent.file?.filename ? 'object-cover' : 'object-contain'}`"
             :alt="postContent.file?.alt"
             :src="setFile"
             :width="checkFile ? '1200' : false"
             :height="checkFile ? '434' : false"
-            :sizes="checkFile ? 'xs:299px sm:380px md:514px lg:620px xl:711px' : false"
+            :sizes="
+              checkFile ? 'xs:299px sm:380px md:514px lg:620px xl:711px' : false
+            "
           />
         </div>
         <div
-          :class="`teaser-text w-full flex flex-col flex-auto justify-between p-5 ${rowContainer || sliderContainer || carouselContainer || containerContainer
-            ? ''
-            : 'lg:w-1/2'
+          :class="`teaser-text w-full flex flex-col flex-auto justify-between p-5 ${
+            rowContainer ||
+            sliderContainer ||
+            carouselContainer ||
+            containerContainer
+              ? ''
+              : 'lg:w-1/2'
           }`"
           :style="`background-color: ${$binaryControl(
             postContent.background_color,
@@ -87,8 +101,8 @@
 </template>
 
 <script>
-import { Data } from "@/schema/enums";
-import RouteComponent from '@/storyblok/global/Route';
+import { Data } from '@/schema/enums'
+import RouteComponent from '@/storyblok/global/Route'
 export default defineNuxtComponent({
   components: { RouteComponent },
   props: {
@@ -122,37 +136,45 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { $languageCase } = useNuxtApp();
-    const setFile = computed(() => props.postContent.file?.filename || Data.content.image);
+    const { $languageCase } = useNuxtApp()
+    const setFile = computed(
+      () => props.postContent.file?.filename || Data.content.image
+    )
     const sortedCategories = computed(() => {
       return props.postContent.categories
-        ?.map(category => category.toLowerCase().split('; ')[$languageCase(0, 1, 2)])
-        .sort();
-    });
+        ?.map(
+          (category) =>
+            category.toLowerCase().split('; ')[$languageCase(0, 1, 2)]
+        )
+        .sort()
+    })
     const lookFile = computed(() => {
       switch (setFile.value.toLowerCase().split('.').pop()) {
         case 'pdf':
-          return 'embed';
+          return 'embed'
         default:
-          return resolveComponent('Image');
+          return resolveComponent('Image')
       }
-    });
-    const checkFile = computed(() => typeof lookFile.value === 'object' || !setFile.value);
-    const changeDate = date => {
-      const currentDateTime = new Date(date.replace(' ', 'T'));
-      const formattedDate = `${currentDateTime.getDate()} / ${currentDateTime.getMonth() + 1
-        } / ${currentDateTime.getFullYear()}`;
-      return formattedDate.toString();
-    };
+    })
+    const checkFile = computed(
+      () => typeof lookFile.value === 'object' || !setFile.value
+    )
+    const changeDate = (date) => {
+      const currentDateTime = new Date(date.replace(' ', 'T'))
+      const formattedDate = `${currentDateTime.getDate()} / ${
+        currentDateTime.getMonth() + 1
+      } / ${currentDateTime.getFullYear()}`
+      return formattedDate.toString()
+    }
     return {
       setFile,
       lookFile,
       checkFile,
       changeDate,
       sortedCategories
-    };
+    }
   }
-});
+})
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {

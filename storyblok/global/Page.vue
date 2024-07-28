@@ -15,10 +15,7 @@
       }}
     </h1>
   </section>
-  <section
-    v-else
-    :class="`${blok.name.toLowerCase()}-page p-5`"
-  >
+  <section v-else :class="`${blok.name.toLowerCase()}-page p-5`">
     <h1
       v-if="blok.title"
       class="page-title block mb-5 break-words"
@@ -30,9 +27,10 @@
         v-for="component in components"
         :key="component._uid"
         :blok="component"
-        :style="`flex: ${component.row_container
-          ? `1 ${(100 - (maxComponents > 1 ? spaceFix : 0)) / $rangeItems(maxComponents, 3)}%`
-          : '100%'
+        :style="`flex: ${
+          component.row_container
+            ? `1 ${(100 - (maxComponents > 1 ? spaceFix : 0)) / $rangeItems(maxComponents, 3)}%`
+            : '100%'
         };`"
         :class="[
           `${component.component.toLowerCase()}-content m-2.5`,
@@ -60,56 +58,65 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { windowWidth } = useScreen();
-    const { $rangeItems, $noscroll } = useNuxtApp();
-    const state = reactive({ spaceFix: 20 });
-    const { spaceFix } = toRefs(state);
-    const rowComponent = computed(() => props.blok.body.filter(item => item.row_container));
+    const { windowWidth } = useScreen()
+    const { $rangeItems, $noscroll } = useNuxtApp()
+    const state = reactive({ spaceFix: 20 })
+    const { spaceFix } = toRefs(state)
+    const rowComponent = computed(() =>
+      props.blok.body.filter((item) => item.row_container)
+    )
     const components = computed(() =>
-      props.blok.body.filter(component =>
+      props.blok.body.filter((component) =>
         component.resolution_show
           ? windowWidth.value >= component.resolution_show.split('; ')[1]
           : component
       )
-    );
+    )
     const maxComponents = computed(() => {
       if (Number(props.blok.column_container)) {
-        if (windowWidth.value >= 1440) return $rangeItems(Number(props.blok.column_container), 3);
+        if (windowWidth.value >= 1440)
+          return $rangeItems(Number(props.blok.column_container), 3)
         else
-          return windowWidth.value >= 768 ? $rangeItems(Number(props.blok.column_container), 2) : 1;
-      } else if (windowWidth.value >= 1440) return $rangeItems(rowComponent.value.length, 3);
-      else return windowWidth.value >= 768 ? $rangeItems(rowComponent.value.length, 2) : 1;
-    });
+          return windowWidth.value >= 768
+            ? $rangeItems(Number(props.blok.column_container), 2)
+            : 1
+      } else if (windowWidth.value >= 1440)
+        return $rangeItems(rowComponent.value.length, 3)
+      else
+        return windowWidth.value >= 768
+          ? $rangeItems(rowComponent.value.length, 2)
+          : 1
+    })
     const setVerticalAlign = computed(() => {
       switch (props.blok.vertical_align) {
         case 'center':
-          return 'self-center';
+          return 'self-center'
         case 'end':
-          return 'self-end';
+          return 'self-end'
         default:
-          return 'self-start';
+          return 'self-start'
       }
-    });
+    })
     const setHorizontalAlign = computed(() => {
       switch (props.blok.horizontal_align) {
         case 'left':
-          return 'flex justify-start';
+          return 'flex justify-start'
         case 'center':
-          return 'flex justify-center';
+          return 'flex justify-center'
         case 'right':
-          return 'flex justify-end';
+          return 'flex justify-end'
         default:
-          return '';
+          return ''
       }
-    });
-    onBeforeMount(() => $noscroll(props.blok.hide));
+    })
+    onBeforeMount(() => $noscroll(props.blok.hide))
     return {
       spaceFix,
       components,
       maxComponents,
       setVerticalAlign,
       setHorizontalAlign
-    };
+    }
   }
-});
+})
 </script>

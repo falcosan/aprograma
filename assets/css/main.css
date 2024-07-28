@@ -1,12 +1,14 @@
 html {
   height: 100%;
 }
+
 body {
   height: 100%;
   overflow-y: scroll;
   touch-action: manipulation;
   background-color: #fff;
 }
+
 h1,
 h2,
 h3,
@@ -16,6 +18,7 @@ h6 {
   margin-bottom: 1.25rem;
   margin-top: 0;
 }
+
 li h1,
 li h2,
 li h3,
@@ -24,81 +27,101 @@ li h5,
 li h6 {
   margin: 0;
 }
+
 h1 {
   font-size: clamp(1.85rem, 1.6rem + 1.5vw, 3rem);
   line-height: 1.25;
 }
+
 h2 {
   font-size: clamp(1.8rem, 1.4rem + 1vw, 3rem);
   line-height: 1.375;
 }
+
 h3 {
   font-size: clamp(1.4rem, 1rem + 0.6vw, 2.2rem);
   line-height: 1.5;
 }
+
 h4 {
   font-size: clamp(1.2rem, 0.8rem + 0.4vw, 1.8rem);
   line-height: 1.625;
 }
+
 h5 {
   font-size: clamp(1rem, 0.6rem + 0.2vw, 1.4rem);
   line-height: 1.7;
   font-weight: 600;
 }
+
 h6 {
   font-size: clamp(0.8rem, 0.4rem + 0.1vw, 1rem);
   line-height: 1.775;
   font-weight: 600;
 }
+
 mark.highlight {
   @apply rounded-sm text-white bg-[#212121];
 }
+
 input {
   @apply w-full block py-2 px-3 focus:outline-none rounded-lg appearance-none leading-normal;
 }
+
 *::placeholder {
   @apply text-sm;
 }
+
 *::-webkit-scrollbar {
   @apply w-0 h-0 bg-transparent;
 }
+
 *::-webkit-scrollbar-thumb {
   @apply bg-transparent;
 }
+
 .page-enter-active,
 .page-leave-active {
   @apply transition-opacity;
 }
+
 .page-leave-to {
   @apply opacity-0;
 }
+
 .page-enter-from {
   @apply opacity-0;
 }
+
 .noscroll {
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
+
 .color-animation {
   background-color: #ffb900 !important;
   animation-name: changeColor;
   animation-duration: 10s;
   animation-iteration-count: infinite;
 }
+
 @keyframes changeColor {
   0% {
     filter: hue-rotate(0deg) saturate(0.3) contrast(0.5);
   }
+
   100% {
     filter: hue-rotate(360deg) saturate(0.3) contrast(0.5);
   }
 }
+
 .markdown {
   word-break: break-word;
   overflow-wrap: anywhere;
   @apply leading-7;
 }
+
 .markdown img,
 .markdown video,
 .markdown figure,
@@ -110,6 +133,7 @@ input {
   font-style: italic;
   color: #eeeeee;
 }
+
 .markdown img,
 .markdown video,
 .markdown figure,
@@ -119,12 +143,15 @@ input {
   border-radius: 0.25rem;
   user-select: none;
 }
+
 .markdown img {
   cursor: pointer;
 }
+
 .markdown iframe {
   @apply aspect-square;
 }
+
 .markdown-modal {
   position: fixed;
   width: 100%;
@@ -140,29 +167,35 @@ input {
   background-color: #c1c1c1e6;
   @apply cursor-close-black dark:cursor-close-white;
 }
+
 .markdown-modal > img {
   height: 100%;
   object-fit: contain;
 }
+
 .markdown a,
 .markdown u {
   text-decoration: underline;
 }
+
 .markdown a:has(mark),
 .markdown u:has(mark) {
   text-decoration-color: #212121;
 }
+
 .markdown a:hover {
   filter: opacity(0.65);
   transition-duration: 100ms;
   transition-property: filter;
   transition-timing-function: ease;
 }
+
 .markdown pre {
   position: relative;
   border-radius: 0.25rem;
   overflow: hidden;
 }
+
 .markdown code {
   padding: 3px;
   font-size: 14px;
@@ -171,6 +204,7 @@ input {
   color: #ae3b3b;
   background-color: #ffffff;
 }
+
 .markdown pre code {
   display: block;
   white-space: pre;
@@ -181,6 +215,7 @@ input {
   color: #abb2bf;
   background-color: #282c34;
 }
+
 .markdown .syntax-code-block .code-language {
   position: absolute;
   width: 100%;
@@ -195,17 +230,21 @@ input {
   transition-property: opacity;
   transition-timing-function: ease;
 }
+
 .markdown .syntax-code-block:hover .code-language {
   opacity: 1;
 }
+
 .markdown blockquote {
   @apply relative pt-10 pb-5 px-6 lg:px-8 rounded bg-[#eeeeee] text-[#212121];
   border-top: 5px solid #c1c1c1;
 }
+
 .markdown blockquote:before {
   content: '“';
   @apply absolute h-7 top-0 right-[calc(50%_-_20px)] pb-2.5 px-2.5 text-5xl rounded-b-full font-serif text-white bg-[#c1c1c1];
 }
+
 .markdown table {
   border-spacing: 0;
   display: block;
@@ -213,19 +252,23 @@ input {
   text-align: left;
   width: 100%;
 }
+
 .markdown td,
 .markdown th {
   border-bottom: 0.1rem solid #e1e1e1;
   padding: 1rem 1.5rem;
 }
+
 .markdown td:first-child,
 .markdown th:first-child {
   padding-left: 0;
 }
+
 .markdown td:last-child,
 .markdown th:last-child {
   padding-right: 0;
 }
+
 .markdown dl dl,
 .markdown dl ol,
 .markdown dl ul,
@@ -237,53 +280,67 @@ input {
 .markdown ul ul {
   padding: 1rem 0 0.75rem 1rem;
 }
+
 .markdown ol {
   list-style-type: decimal;
   list-style-position: inside;
 }
+
 .markdown ul {
   list-style-type: disc;
   list-style-position: inside;
 }
+
 .markdown ol ol {
   list-style-type: upper-alpha;
 }
+
 .markdown ol ol ol {
   list-style-type: lower-alpha;
 }
+
 .markdown ul ul {
   list-style-type: circle;
 }
+
 .markdown ul ul ul {
   list-style-type: square;
 }
+
 .markdown * li > p:first-child {
   display: inline;
 }
+
 .markdown p {
   margin-top: 0;
 }
+
 .markdown p:empty:before {
   content: ' ';
   white-space: pre;
 }
+
 .markdown hr {
   border: 0;
   margin: 2rem auto;
   border-top: 1px solid #c1c1c1;
   max-width: 10rem;
 }
+
 .markdown *:last-child {
   margin: 0 auto;
 }
+
 .markdown figure img {
   margin-bottom: 0;
 }
+
 .markdown dd:not(:last-child),
 .markdown dt:not(:last-child),
 .markdown li:not(:last-child) {
   margin-bottom: 0.25rem;
 }
+
 .markdown p,
 .markdown input,
 .markdown select,

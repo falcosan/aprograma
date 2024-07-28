@@ -1,20 +1,20 @@
 import { type AsyncDataRequestStatus } from '#app'
 
-type FetcherInstance = ComputedRef<string> | Ref<string> | string;
+type FetcherInstance = ComputedRef<string> | Ref<string> | string
 type FetcherResult<T> = {
-  data: T;
-  status: Ref<AsyncDataRequestStatus>;
-  refresh?: () => Promise<void>;
-};
+  data: T
+  status: Ref<AsyncDataRequestStatus>
+  refresh?: () => Promise<void>
+}
 type FetcherOptions = {
-  watcher?: boolean;
-  headers?: HeadersInit;
+  watcher?: boolean
+  headers?: HeadersInit
   startsWith?: string | null
-};
+}
 
 export async function useFetcher<T>(
   route: FetcherInstance,
-  options?: FetcherOptions,
+  options?: FetcherOptions
 ): Promise<FetcherResult<T>> {
   const slug = unref(route)
   const { locale } = useI18n()
@@ -28,7 +28,7 @@ export async function useFetcher<T>(
         ...(options?.startsWith ? { startsWith: options.startsWith } : { slug })
       }
     })
-    
+
     return data.story ?? data.stories
   }
 

@@ -1,9 +1,13 @@
 <template>
   <div class="project grid gap-5 auto-cols-fr p-5">
-    <h1 class="project-title col-start-1 col-end-4 xl:col-end-3 m-0 break-words">
+    <h1
+      class="project-title col-start-1 col-end-4 xl:col-end-3 m-0 break-words"
+    >
       {{ blok.title }}
     </h1>
-    <div class="project-action min-w-0 flex items-end justify-end col-start-3 col-end-4">
+    <div
+      class="project-action min-w-0 flex items-end justify-end col-start-3 col-end-4"
+    >
       <RouteComponent
         v-if="blok.url_project"
         icon-item
@@ -98,7 +102,8 @@
           'color',
           '#e0e0e0'
         )}; color: ${$binaryControl(blok.text_color, 'color')};`"
-        :class="`intro-text markdown block self-start xl:row-start-1 xl:row-end-1 xl:col-start-3 xl:col-end-3 rounded ${setAlignText} ${!blok.remove_space ? 'p-5' : ''
+        :class="`intro-text markdown block self-start xl:row-start-1 xl:row-end-1 xl:col-start-3 xl:col-end-3 rounded ${setAlignText} ${
+          !blok.remove_space ? 'p-5' : ''
         }`"
         v-html="markdownToHtml(blok.intro)"
       />
@@ -113,10 +118,7 @@
         <span class="date-start text-right">
           {{ changeDate(blok.start_date) }}
         </span>
-        <span
-          class="date-to text-center font-medium"
-          v-text="'-'"
-        />
+        <span class="date-to text-center font-medium" v-text="'-'" />
         <span class="date-end text-left">
           {{
             blok.end_date
@@ -131,7 +133,13 @@
       class="project-details grid gap-5 col-start-1 col-end-4 mt-10"
     >
       <h2 class="detail-project block mb-5 text-xl sm:text-2xl">
-        {{ $languageCase('Project details', 'Detalles del proyecto', 'Dettagli del progetto') }}
+        {{
+          $languageCase(
+            'Project details',
+            'Detalles del proyecto',
+            'Dettagli del progetto'
+          )
+        }}
       </h2>
       <StoryblokComponent
         :is="description.component"
@@ -143,10 +151,10 @@
   </div>
 </template>
 <script>
-import IconComponent from '@/storyblok/global/Icon';
-import RouteComponent from '@/storyblok/global/Route';
-import ImageComponent from '@/storyblok/global/Image';
-import ModalComponent from '@/storyblok/global/Modal';
+import IconComponent from '@/storyblok/global/Icon'
+import RouteComponent from '@/storyblok/global/Route'
+import ImageComponent from '@/storyblok/global/Image'
+import ModalComponent from '@/storyblok/global/Modal'
 export default defineNuxtComponent({
   components: { ModalComponent, ImageComponent, RouteComponent, IconComponent },
   props: {
@@ -156,28 +164,29 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { markdownToHtml } = useMarkdown();
+    const { markdownToHtml } = useMarkdown()
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
-          return 'text-right';
+          return 'text-right'
         case 'center':
-          return 'text-center';
+          return 'text-center'
         case 'justify':
-          return 'text-justify';
+          return 'text-justify'
         default:
-          return 'text-left';
+          return 'text-left'
       }
-    });
-    const changeDate = date => {
-      const currentDateTime = new Date(date.replace(' ', 'T'));
-      const formattedDate = `${currentDateTime.getDate()} / ${currentDateTime.getMonth() + 1
-        } / ${currentDateTime.getFullYear()}`;
-      return formattedDate.toString();
-    };
-    return { setAlignText, markdownToHtml, changeDate };
+    })
+    const changeDate = (date) => {
+      const currentDateTime = new Date(date.replace(' ', 'T'))
+      const formattedDate = `${currentDateTime.getDate()} / ${
+        currentDateTime.getMonth() + 1
+      } / ${currentDateTime.getFullYear()}`
+      return formattedDate.toString()
+    }
+    return { setAlignText, markdownToHtml, changeDate }
   }
-});
+})
 </script>
 <style scoped>
 @supports not (aspect-ratio: 1 / 1) {

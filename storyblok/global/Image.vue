@@ -2,7 +2,14 @@
   <NuxtImg
     v-if="imageType === 'svg+xml' || original"
     class="image"
-    :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
+    :alt="
+      alt ||
+      $languageCase(
+        'alternative text',
+        'texto alternativo',
+        'testo alternativo'
+      )
+    "
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"
@@ -12,7 +19,14 @@
   <NuxtImg
     v-else
     class="image"
-    :alt="alt || $languageCase('alternative text', 'texto alternativo', 'testo alternativo')"
+    :alt="
+      alt ||
+      $languageCase(
+        'alternative text',
+        'texto alternativo',
+        'testo alternativo'
+      )
+    "
     :type="`image/${imageType}`"
     draggable="false"
     :src="src"
@@ -29,7 +43,7 @@ export default defineNuxtComponent({
   props: {
     file: {
       type: Object,
-      default: () => { }
+      default: () => {}
     },
     sizes: {
       type: [String, Boolean],
@@ -61,20 +75,20 @@ export default defineNuxtComponent({
       switch (props.src.toLowerCase().split('.').pop()) {
         case 'jpg':
         case 'jpeg':
-          return 'jpeg';
+          return 'jpeg'
         case 'png':
-          return 'png';
+          return 'png'
         case 'svg':
-          return 'svg+xml';
+          return 'svg+xml'
         case 'gif':
-          return 'gif';
+          return 'gif'
         default:
-          return 'webp';
+          return 'webp'
       }
-    });
+    })
     return {
       imageType
-    };
+    }
   }
-});
+})
 </script>
