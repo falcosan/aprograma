@@ -23,7 +23,6 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/eslint',
     '@nuxtjs/device',
-    '@vite-pwa/nuxt',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
     '@nuxtjs/color-mode',
@@ -54,15 +53,6 @@ export default defineNuxtConfig({
 
   device: {
     refreshOnResize: true
-  },
-
-  pwa: {
-    manifest: Data.manifest,
-    registerType: 'autoUpdate',
-    strategies: 'injectManifest',
-    injectManifest: {
-      globPatterns: ['**/*.{jpg,jpeg,png,gif,webp}']
-    }
   },
 
   storyblok: {
