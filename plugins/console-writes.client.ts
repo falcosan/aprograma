@@ -1,11 +1,14 @@
 import { getWilly } from '@/utils/console'
-export default defineNuxtPlugin(({ $i18n }) => {
+import { type BaseFormatProps } from 'vue-i18n'
+
+export default defineNuxtPlugin((app) => {
   const config = useRuntimeConfig()
-  const { locale } = $i18n
+  const i18n = app.$i18n as BaseFormatProps['i18n']
+
   watch(
-    locale,
-    () => {
-      switch (locale.value) {
+    () => i18n,
+    (val) => {
+      switch (val?.locale.value) {
         case 'es':
           return getWilly('Yo soy Willy')
         case 'it':

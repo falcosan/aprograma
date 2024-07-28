@@ -1,6 +1,6 @@
 export default defineNuxtPlugin(() => ({
   provide: {
-    noscroll: (condition) => {
+    noscroll: (condition: boolean) => {
       if (condition) {
         document.body.classList.add('noscroll')
         document.ontouchmove = function (e) {
