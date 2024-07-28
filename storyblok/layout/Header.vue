@@ -12,11 +12,11 @@
       >
         <RouteComponent
           v-if="layout !== 'blank'"
-          set-active="pb-1 border-t-4 border-gray-300"
+          set-active="bg-opacity-40 bg-gray-300"
           icon-item
           :class="[
-            'home-link w-2/12 h-full rounded-bl',
-            $themeColor(backgroundColor) ? 'text-white' : ''
+            'home-link w-2/12 h-full',
+            { 'text-white': $themeColor(backgroundColor) }
           ]"
           :aria-label="webName"
           to="/"
@@ -69,7 +69,7 @@
     </div>
     <nav
       v-if="layout !== 'blank'"
-      class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t shadow-[0_20px_20px_0_#0000000d]"
+      class="navbar-down fixed w-full h-14 md:h-16 flex items-center justify-center bottom-0 z-40 rounded-t shadow-[0_20px_20px_0_#0000000d]"
       :style="`background-color: ${backgroundColor};`"
     >
       <ul
