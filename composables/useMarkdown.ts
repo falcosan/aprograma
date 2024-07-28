@@ -4,29 +4,36 @@ import { markdownToHtml } from '@/utils/markdown'
 
 export const useMarkdown = (init: boolean = true) => {
   const highlightCodeBlocks = () => {
-    ;[...document.querySelectorAll('pre code')].forEach((code: Element) => {
+    ;[...document.querySelectorAll('code')].forEach((code: Element) => {
       if (
         !(code instanceof HTMLElement) ||
         code.classList.contains('syntax-code-block')
-      )
+      ) {
         return
+      }
 
-      const syntax = Array.from(code.classList).find((cls) =>
-        cls.startsWith('language-')
-      )
-      if (syntax) {
-        const content = document.createElement('span')
-        content.classList.add('code-language')
-        code.classList.add('syntax-code-block')
-        content.textContent = syntax.replace('language-', '')
-        const language = hljs
-          .getLanguage(syntax.replace('language-', ''))
-          ?.name?.toLowerCase()
+      const codePerentElement = code.parentElement?.tagName.toLowerCase()
 
-        if (language && hljs.listLanguages().includes(language)) {
-          hljs.highlightElement(code)
+      if (codePerentElement === 'p') {
+        if (!code.textContent?.trim()) code.remove()
+      } else if (codePerentElement === 'pre') {
+        const syntax = Array.from(code.classList).find((cls) =>
+          cls.startsWith('language-')
+        )
+        if (syntax) {
+          const content = document.createElement('span')
+          content.classList.add('code-language')
+          code.classList.add('syntax-code-block')
+          content.textContent = syntax.replace('language-', '')
+          const language = hljs
+            .getLanguage(syntax.replace('language-', ''))
+            ?.name?.toLowerCase()
+
+          if (language && hljs.listLanguages().includes(language)) {
+            hljs.highlightElement(code)
+          }
+          code.insertBefore(content, code.firstChild)
         }
-        code.insertBefore(content, code.firstChild)
       }
     })
   }
@@ -48,8 +55,9 @@ export const useMarkdown = (init: boolean = true) => {
       if (
         !(image instanceof HTMLImageElement) ||
         image.classList.contains('image-clickable')
-      )
+      ) {
         return
+      }
 
       image.classList.add('image-clickable')
       image.addEventListener('click', () => {
@@ -79,7 +87,7 @@ export const useMarkdown = (init: boolean = true) => {
   }
 
   if (init) {
-    onMounted(rules)
+    onBeforeMount(rules)
     onUpdated(rules)
   }
 
