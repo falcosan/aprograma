@@ -32,9 +32,11 @@ export async function useFetcher<T>(
     return data.story ?? data.stories
   }
 
-  const { data, status, refresh } = await useAsyncData<T>(slug, fetchData, {
-    ...(!!options?.watcher && { watch: [locale] })
-  })
+  const { data, status, refresh } = await useAsyncData<T>(
+    `${slug}-${locale.value}`,
+    fetchData,
+    { ...(!!options?.watcher && { watch: [locale] }) }
+  )
 
   return { data: data as FetcherResult<T>['data'], status, refresh }
 }
