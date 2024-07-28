@@ -5,16 +5,11 @@
     :class="[
       'item-link cursor-pointer',
       { 'w-full': sliderMode },
+      { 'bg-opacity-40 bg-gray-300': activated },
+      { 'rounded opacity-60': !iconItem && !blok.icon_item },
       sliderMode || carouselMode || containerMode
         ? 'flex items-center justify-center self-center'
-        : 'block',
-      [
-        {
-          [!iconItem && !blok.icon_item
-            ? 'rounded opacity-60 bg-opacity-40 bg-gray-300'
-            : 'pt-1 border-b-4 border-gray-300']: activated
-        }
-      ]
+        : 'block'
     ]"
     :to="blok.external_link ? undefined : localePath(blok.path)"
     :href="blok.external_link ? blok.path : undefined"
