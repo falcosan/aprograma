@@ -1,6 +1,8 @@
 <template>
   <header class="header flex justify-center">
-    <nav class="navbar-up w-full h-10 fixed flex justify-center top-0 z-40 shadow-sm rounded-b">
+    <nav
+      class="navbar-up w-full h-10 fixed flex justify-center top-0 z-40 shadow-sm rounded-b"
+    >
       <div
         class="navbar-up-flat absolute h-full w-full -z-10"
         :style="`background-color: ${backgroundColor};`"
@@ -42,11 +44,13 @@
             expanded ? '' : 'rounded-br',
             $themeColor(backgroundColor) ? 'text-white' : ''
           ]"
-          :style-current-language="`h-full flex items-center justify-center relative z-10 ${expanded ? '' : 'rounded-br'
+          :style-current-language="`h-full flex items-center justify-center relative z-10 ${
+            expanded ? '' : 'rounded-br'
           }`"
-          :style-translate-list="`rounded-b w-full transition-transform duration-200 ease-out ${expanded
-            ? 'translate-y-0 border-b border-x border-gray-200 border-opacity-20'
-            : '-translate-y-full'
+          :style-translate-list="`rounded-b w-full transition-transform duration-200 ease-out ${
+            expanded
+              ? 'translate-y-0 border-b border-x border-gray-200 border-opacity-20'
+              : '-translate-y-full'
           }`"
           style-translate-item="p-3 text-center"
           :blok="$contentByName(blok.body, 'Translate')"
@@ -54,7 +58,9 @@
           @translate-list-action="toggleExpanded(false)"
           @current-lang-action="expanded = !expanded"
           @mouseenter="$device.isDesktopOrTablet ? expandStill() : undefined"
-          @mouseleave="$device.isDesktopOrTablet ? expandOut() : toggleExpanded(false)"
+          @mouseleave="
+            $device.isDesktopOrTablet ? expandOut() : toggleExpanded(false)
+          "
         />
       </div>
     </nav>
@@ -66,7 +72,9 @@
       class="navbar-down fixed w-full h-16 flex items-center justify-center bottom-0 z-40 rounded-t shadow-[0_20px_20px_0_#0000000d]"
       :style="`background-color: ${backgroundColor};`"
     >
-      <ul class="menu-wrapper wrapper-down w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl grid grid-cols-3">
+      <ul
+        class="menu-wrapper wrapper-down w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl grid grid-cols-3"
+      >
         <li
           v-for="item in $contentByName(blok.body, 'Route')"
           :key="item._uid"
@@ -84,13 +92,18 @@
   </header>
 </template>
 <script>
-import { Data } from "@/schema/enums";
-import LogoComponent from '@/storyblok/global/Logo';
-import IconComponent from '@/storyblok/global/Icon';
-import RouteComponent from '@/storyblok/global/Route';
-import TranslateComponent from '@/storyblok/layout/Translate';
+import { Data } from '@/schema/enums'
+import LogoComponent from '@/storyblok/global/Logo'
+import IconComponent from '@/storyblok/global/Icon'
+import RouteComponent from '@/storyblok/global/Route'
+import TranslateComponent from '@/storyblok/layout/Translate'
 export default defineNuxtComponent({
-  components: { TranslateComponent, LogoComponent, RouteComponent, IconComponent },
+  components: {
+    TranslateComponent,
+    LogoComponent,
+    RouteComponent,
+    IconComponent
+  },
   props: {
     blok: {
       type: Object,
@@ -99,41 +112,47 @@ export default defineNuxtComponent({
     layout: {
       type: String,
       default: 'default',
-      validator: val => /default|blank/.test(val)
+      validator: (val) => /default|blank/.test(val)
     }
   },
   setup(props) {
-    const { $binaryControl } = useNuxtApp();
+    const { $binaryControl } = useNuxtApp()
     const state = reactive({
       timer: 0,
       expanded: false
-    });
-    const { expanded, timer } = toRefs(state);
-    const webName = Data.name;
-    const backgroundColor = computed(() => $binaryControl(props.blok.background_color, 'color'));
+    })
+    const { expanded, timer } = toRefs(state)
+    const webName = Data.name
+    const backgroundColor = computed(() =>
+      $binaryControl(props.blok.background_color, 'color')
+    )
     const backgroundColorMenu = computed(() =>
       $binaryControl(props.blok.background_color_menu, 'color')
-    );
+    )
     const logoColors = computed(() => {
-      const colors = props.blok.logo_colors?.color ?? [];
-      if (colors.length) return colors;
-      else return [props.blok.logo_colors?.color, props.blok.logo_colors?.color].filter(Boolean);
-    });
-    const toggleExpanded = state => (expanded.value = state);
+      const colors = props.blok.logo_colors?.color ?? []
+      if (colors.length) return colors
+      else
+        return [
+          props.blok.logo_colors?.color,
+          props.blok.logo_colors?.color
+        ].filter(Boolean)
+    })
+    const toggleExpanded = (state) => (expanded.value = state)
 
     const expandOut = () => {
       if (expanded.value) {
         timer.value = setTimeout(() => {
-          toggleExpanded(false);
-        }, 700);
+          toggleExpanded(false)
+        }, 700)
       }
-    };
+    }
     const expandStill = () => {
       if (expanded.value) {
-        clearTimeout(timer.value);
-        timer.value = 0;
+        clearTimeout(timer.value)
+        timer.value = 0
       }
-    };
+    }
     return {
       webName,
       expanded,
@@ -143,16 +162,16 @@ export default defineNuxtComponent({
       toggleExpanded,
       backgroundColor,
       backgroundColorMenu
-    };
+    }
   }
-});
+})
 </script>
 <style>
-.header-loader>* {
+.header-loader > * {
   background: #eeeeee !important;
 }
 
-.header-loader-responsive>* {
+.header-loader-responsive > * {
   @apply !top-10 !z-[1] mx-1 rounded-b-3xl;
 }
 </style>

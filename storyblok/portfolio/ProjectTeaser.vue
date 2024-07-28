@@ -33,8 +33,11 @@
           )};`"
           class="title-container w-full flex flex-row items-center p-2.5 xs:p-5"
         >
-          <span class="block overflow-hidden teaser-title whitespace-nowrap text-ellipsis">
-            {{ projectContent.title }}</span>
+          <span
+            class="block overflow-hidden teaser-title whitespace-nowrap text-ellipsis"
+          >
+            {{ projectContent.title }}</span
+          >
         </div>
       </div>
     </RouteComponent>
@@ -42,8 +45,8 @@
 </template>
 
 <script>
-import ImageComponent from '@/storyblok/global/Image';
-import RouteComponent from '@/storyblok/global/Route';
+import ImageComponent from '@/storyblok/global/Image'
+import RouteComponent from '@/storyblok/global/Route'
 export default defineNuxtComponent({
   components: { ImageComponent, RouteComponent },
   props: {
@@ -76,7 +79,7 @@ export default defineNuxtComponent({
       default: 0
     }
   }
-});
+})
 </script>
 <style scoped>
 .project-image {

@@ -16,9 +16,16 @@
           /\.[^/.]+$/,
           ''
         )}-icon mx-auto my-0 fill-current object-contain object-center pointer-events-none`"
-      :style="`width: ${/[a-zA-Z]/g.test(blok.size) ? blok.size : `${blok.size}px`}; height: ${/[a-zA-Z]/g.test(blok.size) ? blok.size : `${blok.size}px`
+      :style="`width: ${/[a-zA-Z]/g.test(blok.size) ? blok.size : `${blok.size}px`}; height: ${
+        /[a-zA-Z]/g.test(blok.size) ? blok.size : `${blok.size}px`
       }; filter: invert(${blok && blok.invert_color ? '1' : '0'})`"
-      :title="(blok.title && !blok.show_title) || tooltip ? (blok ? blok.title : tooltip) : ''"
+      :title="
+        (blok.title && !blok.show_title) || tooltip
+          ? blok
+            ? blok.title
+            : tooltip
+          : ''
+      "
       :src="blok.icon_image.filename"
       :alt="blok.icon_image.alt"
       :height="blok.size"
@@ -56,7 +63,9 @@
       clip-rule="evenodd"
     >
       <title v-if="tooltip">{{ tooltip }}</title>
-      <path d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z" />
+      <path
+        d="M2.117 12l7.527 6.235-.644.765-9-7.521 9-7.479.645.764-7.529 6.236h21.884v1h-21.883z"
+      />
     </svg>
 
     <!--CLOSE-->
@@ -88,7 +97,9 @@
       clip-rule="evenodd"
     >
       <title v-if="tooltip">{{ tooltip }}</title>
-      <path d="M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z" />
+      <path
+        d="M4 .755l14.374 11.245-14.374 11.219.619.781 15.381-12-15.391-12-.609.755z"
+      />
     </svg>
 
     <!--PREVIOUS-->
@@ -103,7 +114,9 @@
       clip-rule="evenodd"
     >
       <title v-if="tooltip">{{ tooltip }}</title>
-      <path d="M20 .755l-14.374 11.245 14.374 11.219-.619.781-15.381-12 15.391-12 .609.755z" />
+      <path
+        d="M20 .755l-14.374 11.245 14.374 11.219-.619.781-15.381-12 15.391-12 .609.755z"
+      />
     </svg>
 
     <!--RESTART-->
@@ -250,14 +263,7 @@
         r="44"
         class="opacity-40"
       />
-      <circle
-        fill="#fff"
-        stroke="#ccc"
-        stroke-width="2"
-        cx="8"
-        cy="54"
-        r="6"
-      >
+      <circle fill="#fff" stroke="#ccc" stroke-width="2" cx="8" cy="54" r="6">
         <animateTransform
           attributeName="transform"
           dur="2s"
@@ -271,16 +277,18 @@
     <span
       v-if="(blok && blok.title && blok.show_title) || title"
       class="icon-title text-center"
-      :style="blok && blok.title && blok.show_title && blok.text_color.color
-        ? `color: ${blok.text_color.color};`
-        : false
+      :style="
+        blok && blok.title && blok.show_title && blok.text_color.color
+          ? `color: ${blok.text_color.color};`
+          : false
       "
-    >{{ blok ? blok.title : title }}</span>
+      >{{ blok ? blok.title : title }}</span
+    >
   </component>
 </template>
 
 <script>
-import ImageComponent from '@/storyblok/global/Image';
+import ImageComponent from '@/storyblok/global/Image'
 export default defineNuxtComponent({
   components: { ImageComponent },
   props: {
@@ -374,13 +382,13 @@ export default defineNuxtComponent({
     }
   },
   setup() {
-    const state = reactive({ open: false });
-    const { open } = toRefs(state);
+    const state = reactive({ open: false })
+    const { open } = toRefs(state)
     return {
       open
-    };
+    }
   }
-});
+})
 </script>
 <style scoped>
 .animate-menu {

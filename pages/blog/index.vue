@@ -1,10 +1,10 @@
 <script setup>
-const { seoStatic } = useSeo();
-const { $languageCase } = useNuxtApp();
-const { data: blog } = await useFetcher('blog');
+const { seoStatic } = useSeo()
+const { $languageCase } = useNuxtApp()
+const { data: blog } = await useFetcher('blog')
 watch(
   blog,
-  val =>
+  (val) =>
     seoStatic({
       name: val.name,
       description: $languageCase(
@@ -14,12 +14,9 @@ watch(
       )
     }),
   { immediate: true }
-);
+)
 </script>
 
 <template>
-  <StoryblokComponent
-    :key="blog.id"
-    :blok="{ ...blog.content, id: blog.id }"
-  />
+  <StoryblokComponent :key="blog.id" :blok="{ ...blog.content, id: blog.id }" />
 </template>

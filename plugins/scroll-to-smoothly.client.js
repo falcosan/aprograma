@@ -1,24 +1,30 @@
 export default defineNuxtPlugin(() => ({
   provide: {
     scrollToSmoothly: (pos, time = 200) => {
-      const currentPos = window.scrollY;
-      let start = null;
-      pos = Number(pos);
-      time = Number(time);
+      const currentPos = window.scrollY
+      let start = null
+      pos = Number(pos)
+      time = Number(time)
       window.requestAnimationFrame(function step(currentTime) {
-        start = !start ? currentTime : start;
-        const progress = currentTime - start;
+        start = !start ? currentTime : start
+        const progress = currentTime - start
         if (currentPos < pos) {
-          window.scrollTo(0, ((pos - currentPos) * progress) / time + currentPos);
+          window.scrollTo(
+            0,
+            ((pos - currentPos) * progress) / time + currentPos
+          )
         } else {
-          window.scrollTo(0, currentPos - ((currentPos - pos) * progress) / time);
+          window.scrollTo(
+            0,
+            currentPos - ((currentPos - pos) * progress) / time
+          )
         }
         if (progress < time) {
-          window.requestAnimationFrame(step);
+          window.requestAnimationFrame(step)
         } else {
-          window.scrollTo(0, pos);
+          window.scrollTo(0, pos)
         }
-      });
+      })
     }
   }
-}));
+}))

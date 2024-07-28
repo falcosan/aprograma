@@ -2,13 +2,17 @@
   <div
     v-if="blok.text"
     :key="blok._uid"
-    :style="`background-color: ${$binaryControl(blok.background_color, 'color')}; color: ${blok.hidden ? 'transparent' : $binaryControl(blok.text_color, 'color')
+    :style="`background-color: ${$binaryControl(blok.background_color, 'color')}; color: ${
+      blok.hidden ? 'transparent' : $binaryControl(blok.text_color, 'color')
     };`"
     :class="[
       'text-container flex flex-col rounded',
       blok.hidden
         ? `absolute w-0 h-0 top-0 -z-50 mx-auto select-none ${setPositionText}`
-        : ['w-full max-w-full h-full', { 'dark:invert': !blok.background_color.color }]
+        : [
+            'w-full max-w-full h-full',
+            { 'dark:invert': !blok.background_color.color }
+          ]
     ]"
   >
     <div
@@ -35,36 +39,36 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { markdownToHtml } = useMarkdown();
+    const { markdownToHtml } = useMarkdown()
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
-          return 'text-right';
+          return 'text-right'
         case 'center':
-          return 'text-center';
+          return 'text-center'
         case 'justify':
-          return 'text-justify';
+          return 'text-justify'
         default:
-          return 'text-left';
+          return 'text-left'
       }
-    });
+    })
     const setPositionText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
-          return 'right-0';
+          return 'right-0'
         case 'center':
-          return 'left-0 right-0';
+          return 'left-0 right-0'
         case 'justify':
-          return 'left-0 right-0';
+          return 'left-0 right-0'
         default:
-          return 'text-left';
+          return 'text-left'
       }
-    });
+    })
     return {
       setAlignText,
       markdownToHtml,
       setPositionText
-    };
+    }
   }
-});
+})
 </script>

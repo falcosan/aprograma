@@ -1,15 +1,18 @@
 <template>
-  <div
-    v-if="sortedProjects.length"
-    class="projects w-full"
-  >
+  <div v-if="sortedProjects.length" class="projects w-full">
     <ProjectSliderComponent
-      v-if="!sliderMode && blok.show_slider && !blok.row_container && sortedProjects.length > 2"
+      v-if="
+        !sliderMode &&
+        blok.show_slider &&
+        !blok.row_container &&
+        sortedProjects.length > 2
+      "
       v-show="windowWidth >= 1024"
       :blok="sortedProjects"
     />
     <ul
-      v-show="sliderMode ||
+      v-show="
+        sliderMode ||
         !blok.show_slider ||
         windowWidth < 1024 ||
         blok.row_container ||
@@ -32,9 +35,9 @@
   </div>
 </template>
 <script>
-import store from '@/store';
-import ProjectSliderComponent from '@/storyblok/portfolio/ProjectSlider';
-import ProjectTeaserComponent from '@/storyblok/portfolio/ProjectTeaser';
+import store from '@/store'
+import ProjectSliderComponent from '@/storyblok/portfolio/ProjectSlider'
+import ProjectTeaserComponent from '@/storyblok/portfolio/ProjectTeaser'
 export default defineNuxtComponent({
   components: { ProjectSliderComponent, ProjectTeaserComponent },
   props: {
@@ -60,31 +63,37 @@ export default defineNuxtComponent({
     }
   },
   async setup(props) {
-    const { windowWidth } = useScreen();
-    const { addProjects } = store.projects();
-    const { data: projects } = await useFetcher('projects', { startsWith: 'portfolio' });
+    const { windowWidth } = useScreen()
+    const { addProjects } = store.projects()
+    const { data: projects } = await useFetcher('projects', {
+      startsWith: 'portfolio'
+    })
     const maxProjects = computed(() => {
       if (props.sliderMode || props.carouselMode || props.containerMode) {
         if (props.containerWidth >= 536) {
-          return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
+          return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big'
         }
         return props.containerWidth >= 354
           ? 'md:grid-cols-fill-medium'
           : props.sliderMode
             ? 'sm:grid-cols-fill-small'
-            : 'sm:grid-cols-fill-small md:grid-cols-fill-medium';
+            : 'sm:grid-cols-fill-small md:grid-cols-fill-medium'
       } else {
-        return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big';
+        return 'md:grid-cols-fill-medium 2xl:grid-cols-fill-big'
       }
-    });
+    })
     const sortedProjects = computed(() => {
-      const data = props.blok.projects;
-      const featuredProjects = projects.value.filter(project => data.includes(project.uuid));
-      featuredProjects.sort((a, b) => data.indexOf(a.uuid) - data.indexOf(b.uuid));
-      return featuredProjects;
-    });
-    watch(projects, val => addProjects(val), { immediate: true });
-    return { windowWidth, maxProjects, sortedProjects };
+      const data = props.blok.projects
+      const featuredProjects = projects.value.filter((project) =>
+        data.includes(project.uuid)
+      )
+      featuredProjects.sort(
+        (a, b) => data.indexOf(a.uuid) - data.indexOf(b.uuid)
+      )
+      return featuredProjects
+    })
+    watch(projects, (val) => addProjects(val), { immediate: true })
+    return { windowWidth, maxProjects, sortedProjects }
   }
-});
+})
 </script>

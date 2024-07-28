@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --fix",
+    "format": "prettier --log-level warn --write .",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -35,7 +36,9 @@
     "@types/rss": "^0.0.32",
     "@vite-pwa/nuxt": "^0.9.1",
     "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
     "nuxt": "^3.12.4",
+    "prettier": "^3.3.3",
     "rss": "^1.2.2",
     "sitemap": "^8.0.0",
     "typescript": "^5.5.4"

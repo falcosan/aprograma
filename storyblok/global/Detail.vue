@@ -2,22 +2,28 @@
   <div class="detail">
     <span
       v-if="blok.title"
-      :class="`detail-title block break-words text-lg ${sliderMode || carouselMode || containerMode
-        ? blok.remove_space
-          ? 'm-5'
-          : 'my-5 ml-10 mr-5'
-        : 'sm:text-xl mb-5'
+      :class="`detail-title block break-words text-lg ${
+        sliderMode || carouselMode || containerMode
+          ? blok.remove_space
+            ? 'm-5'
+            : 'my-5 ml-10 mr-5'
+          : 'sm:text-xl mb-5'
       }`"
     >
       {{ blok.title }}
     </span>
-    <div class="detail-content grid gap-5 md:grid-flow-col auto-cols-fr rounded">
+    <div
+      class="detail-content grid gap-5 md:grid-flow-col auto-cols-fr rounded"
+    >
       <ul
         :class="[
           'image-container grid gap-5 w-full justify-items-center auto-rows-max',
           { 'md:col-start-2 md:col-end-2': blok.invert_direction }
         ]"
-        :style="`grid-template-columns: repeat(${blok.column_container ? $rangeItems(Number(blok.column_container), 3) : blok.media.length
+        :style="`grid-template-columns: repeat(${
+          blok.column_container
+            ? $rangeItems(Number(blok.column_container), 3)
+            : blok.media.length
         }, 1fr)`"
       >
         <li
@@ -68,7 +74,7 @@
                 <source
                   :src="media.filename"
                   :type="`video/${media.filename.toLowerCase().split('.').pop()}`"
-                >
+                />
               </video>
             </template>
             <template #body>
@@ -110,7 +116,7 @@
                 <source
                   :src="media.filename"
                   :type="`video/${media.filename.toLowerCase().split('.').pop()}`"
-                >
+                />
               </video>
             </template>
           </ModalComponent>
@@ -133,12 +139,13 @@
             />
             <video
               v-else
-              :class="`${blok && media.filename
-                ? media.filename
-                : src
-                  .split(/[\\/]/)
-                  .pop()
-                  .replace(/\.[^/.]+$/, '')
+              :class="`${
+                blok && media.filename
+                  ? media.filename
+                  : src
+                      .split(/[\\/]/)
+                      .pop()
+                      .replace(/\.[^/.]+$/, '')
               }-video my-0 mx-auto object-contain object-center rounded pointer-events-none cursor-pointer select-none`"
               width="auto"
               height="auto"
@@ -150,13 +157,14 @@
               <source
                 :src="media.filename"
                 :type="`video/${media.filename.toLowerCase().split('.').pop()}`"
-              >
+              />
             </video>
           </template>
         </li>
       </ul>
       <div
-        :class="`text-container w-full max-w-full flex flex-col self-start rounded ${!blok.remove_space ? 'p-5' : ''
+        :class="`text-container w-full max-w-full flex flex-col self-start rounded ${
+          !blok.remove_space ? 'p-5' : ''
         }`"
         :style="`background-color: ${$binaryControl(
           blok.background_color,
@@ -172,8 +180,8 @@
   </div>
 </template>
 <script>
-import ModalComponent from '@/storyblok/global/Modal';
-import ImageComponent from '@/storyblok/global/Image';
+import ModalComponent from '@/storyblok/global/Modal'
+import ImageComponent from '@/storyblok/global/Image'
 export default defineNuxtComponent({
   components: { ModalComponent, ImageComponent },
   props: {
@@ -195,39 +203,39 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const { markdownToHtml } = useMarkdown();
+    const { markdownToHtml } = useMarkdown()
     const setAlignText = computed(() => {
       switch (props.blok.align_text) {
         case 'right':
-          return 'text-right';
+          return 'text-right'
         case 'center':
-          return 'text-center';
+          return 'text-center'
         case 'justify':
-          return 'text-justify';
+          return 'text-justify'
         default:
-          return 'text-left';
+          return 'text-left'
       }
-    });
-    const imageType = media => {
+    })
+    const imageType = (media) => {
       switch (media.filename.toLowerCase().split('.').pop()) {
         case 'jpg':
         case 'jpeg':
-          return 'jpeg';
+          return 'jpeg'
         case 'png':
-          return 'png';
+          return 'png'
         case 'svg':
-          return 'svg+xml';
+          return 'svg+xml'
         case 'gif':
-          return 'gif';
+          return 'gif'
         default:
-          return 'webp';
+          return 'webp'
       }
-    };
+    }
     return {
       imageType,
       setAlignText,
       markdownToHtml
-    };
+    }
   }
-});
+})
 </script>

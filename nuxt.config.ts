@@ -8,16 +8,20 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     ...ENV.Private,
-    public: { ...ENV.Public },
+    public: { ...ENV.Public }
   },
 
-  css: ['~/assets/css/tailwind.css', '~/assets/css/main.css', '~/assets/css/theme.css'],
+  css: [
+    '~/assets/css/tailwind.css',
+    '~/assets/css/main.css',
+    '~/assets/css/theme.css'
+  ],
 
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
-    "@nuxt/eslint",
+    '@nuxt/eslint',
     '@nuxtjs/device',
     '@vite-pwa/nuxt',
     '@nuxtjs/robots',
@@ -35,11 +39,11 @@ export default defineNuxtConfig({
 
   i18n: {
     locales: Object.values(Data.rss)
-      .map(item => {
-        if (item instanceof Object) return item.language;
-        return null;
+      .map((item) => {
+        if (item instanceof Object) return item.language
+        return ''
       })
-      .filter(Boolean),
+      .filter((item) => typeof item === 'string'),
     defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: true,
@@ -84,12 +88,12 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     ...(!Mode.development && { preset: 'netlify-edge' }),
-    prerender: { ignore: Data.ignore.map(path => `/${path}`) }
+    prerender: { ignore: Data.ignore.map((path) => `/${path}`) }
   },
 
   hooks: {
-    close: nuxt => {
-      if (!nuxt.options._prepare) process.exit();
+    close: (nuxt) => {
+      if (!nuxt.options._prepare) process.exit()
     }
   },
 
@@ -98,4 +102,4 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-03'
-});
+})

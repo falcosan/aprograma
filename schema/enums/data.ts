@@ -1,5 +1,5 @@
-const name = 'Aprograma';
-const description = `Coding can be defined in many ways, sometimes even stressful. The goal of ${name} is to change this`;
+const name = 'Aprograma'
+const description = `Coding can be defined in many ways, sometimes even stressful. The goal of ${name} is to change this`
 
 export const Data = {
   name,
@@ -10,7 +10,8 @@ export const Data = {
     description,
     author: 'Daniele Falchetti - danielefalche@gmail.com',
     og: {
-      image: 'https://a.storyblok.com/f/106240/2786x1530/1c3ed37e59/web.png/m/472x290',
+      image:
+        'https://a.storyblok.com/f/106240/2786x1530/1c3ed37e59/web.png/m/472x290',
       twitter: '@danielefalche'
     }
   },
@@ -18,7 +19,8 @@ export const Data = {
     host: 'https://aprograma-editor.netlify.app/'
   },
   content: {
-    image: 'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png'
+    image:
+      'https://a.storyblok.com/f/106240/4065x1468/5c83c3e7de/noimeageteaser.png'
   },
   manifest: {
     name,
@@ -74,7 +76,8 @@ export const Data = {
     description: "Aprograma's blog RSS",
     name: 'Daniele Falchetti',
     email: 'danielefalche@gmail.com',
-    image: 'https://img2.storyblok.com/1240x0/f/106240/4067x2440/49d9d1a222/noimagedetail.png',
+    image:
+      'https://img2.storyblok.com/1240x0/f/106240/4067x2440/49d9d1a222/noimagedetail.png',
     route: 'blog',
     eng: {
       path: 'feedeng.xml',
@@ -95,4 +98,4 @@ export const Data = {
       language: 'it'
     }
   }
-};
+}

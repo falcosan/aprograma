@@ -1,6 +1,7 @@
 <template>
   <div
-    :class="`media relative h-full flex flex-col justify-center overflow-hidden rounded ${!blok.remove_space ? (blok.title ? 'px-5 pt-5' : 'p-5') : ''
+    :class="`media relative h-full flex flex-col justify-center overflow-hidden rounded ${
+      !blok.remove_space ? (blok.title ? 'px-5 pt-5' : 'p-5') : ''
     }`"
   >
     <ModalComponent
@@ -59,11 +60,12 @@
         >
           <source
             :src="blok && blok.media.filename ? blok.media.filename : src"
-            :type="`video/${blok && blok.media.filename
-              ? blok.media.filename.toLowerCase().split('.').pop()
-              : src.toLowerCase().split('.').pop()
+            :type="`video/${
+              blok && blok.media.filename
+                ? blok.media.filename.toLowerCase().split('.').pop()
+                : src.toLowerCase().split('.').pop()
             }`"
-          >
+          />
         </video>
       </template>
       <template #body>
@@ -90,11 +92,12 @@
         >
           <source
             :src="blok && blok.media.filename ? blok.media.filename : src"
-            :type="`video/${blok && blok.media.filename
-              ? blok.media.filename.toLowerCase().split('.').pop()
-              : src.toLowerCase().split('.').pop()
+            :type="`video/${
+              blok && blok.media.filename
+                ? blok.media.filename.toLowerCase().split('.').pop()
+                : src.toLowerCase().split('.').pop()
             }`"
-          >
+          />
         </video>
       </template>
     </ModalComponent>
@@ -143,11 +146,12 @@
       >
         <source
           :src="blok && blok.media.filename ? blok.media.filename : src"
-          :type="`video/${blok && blok.media.filename
-            ? blok.media.filename.toLowerCase().split('.').pop()
-            : src.toLowerCase().split('.').pop()
+          :type="`video/${
+            blok && blok.media.filename
+              ? blok.media.filename.toLowerCase().split('.').pop()
+              : src.toLowerCase().split('.').pop()
           }`"
-        >
+        />
       </video>
     </template>
     <p
@@ -160,8 +164,8 @@
 </template>
 
 <script>
-import ModalComponent from '@/storyblok/global/Modal';
-import ImageComponent from '@/storyblok/global/Image';
+import ModalComponent from '@/storyblok/global/Modal'
+import ImageComponent from '@/storyblok/global/Image'
 export default defineNuxtComponent({
   components: { ModalComponent, ImageComponent },
   props: {
@@ -210,34 +214,34 @@ export default defineNuxtComponent({
     const checkSizes = computed(() => {
       if (/100%|full|auto/.test(props.blok.width)) {
         if (/100%|full|auto/.test(props.blok.height)) {
-          return 'xs:125vw';
+          return 'xs:125vw'
         } else {
-          return `xs:${Math.round(props.blok.height.replace(/\D/g, '') / 1.19)}vw`;
+          return `xs:${Math.round(props.blok.height.replace(/\D/g, '') / 1.19)}vw`
         }
       } else {
         return `xs:${Math.round(props.blok.width.replace(/\D/g, '') / 1.15)}px sm:${Math.round(
           props.blok.width.replace(/\D/g, '') / 1.12
         )}px md:${Math.round(props.blok.width.replace(/\D/g, '') / 1.09)}px lg:${Math.round(
           props.blok.width.replace(/\D/g, '') / 1.06
-        )}px xl:${Math.round(props.blok.width.replace(/\D/g, '') / 1.03)}px`;
+        )}px xl:${Math.round(props.blok.width.replace(/\D/g, '') / 1.03)}px`
       }
-    });
+    })
     const getClass = computed(() => {
       return props.blok
         ? props.blok.media.filename
-          ?.split(/[\\/]/)
-          .pop()
-          .replace(/\.[^/.]+$/, '')
+            ?.split(/[\\/]/)
+            .pop()
+            .replace(/\.[^/.]+$/, '')
         : props.src
-          ?.split(/[\\/]/)
-          .pop()
-          .replace(/\.[^/.]+$/, '');
-    });
+            ?.split(/[\\/]/)
+            .pop()
+            .replace(/\.[^/.]+$/, '')
+    })
 
     return {
       getClass,
       checkSizes
-    };
+    }
   }
-});
+})
 </script>

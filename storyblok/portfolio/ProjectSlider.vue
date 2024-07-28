@@ -19,7 +19,10 @@
         v-for="(project, index) in blok"
         v-show="index === frame.up || index === frame.down"
         :key="project.uuid"
-        :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${index % 2 === 0 ? 'row-start-1 row-end-1 self-end' : 'row-start-2 row-end-2 self-start'
+        :class="`slide slide-project w-full h-60 xl:h-72 2xl:h-80 flex col-start-1 col-end-1 outline-none ${
+          index % 2 === 0
+            ? 'row-start-1 row-end-1 self-end'
+            : 'row-start-2 row-end-2 self-start'
         }`"
       >
         <RouteComponent
@@ -27,7 +30,10 @@
           class="project-link w-full grid grid-rows-1 grid-cols-2"
         >
           <div
-            :class="`text-container ${index % 2 == 0 ? 'col-start-1 col-end-1 text-right' : 'col-start-2 col-end-2 text-end'
+            :class="`text-container ${
+              index % 2 == 0
+                ? 'col-start-1 col-end-1 text-right'
+                : 'col-start-2 col-end-2 text-end'
             } flex flex-col justify-center row-start-1 row-end-1`"
             :style="`background-color: ${$binaryControl(
               project.content.background_color,
@@ -43,7 +49,8 @@
             </span>
           </div>
           <div
-            :class="`image-container flex row-start-1 row-end-1 ${index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
+            :class="`image-container flex row-start-1 row-end-1 ${
+              index % 2 == 0 ? 'col-start-2 col-end-2' : 'col-start-1 col-end-1'
             }`"
           >
             <ImageComponent
@@ -61,9 +68,10 @@
       <li
         v-show="frame.down === blok.length && blok.length > 2"
         :key="`${indexControls}-0`"
-        :class="`restart-control control h-full projects-center col-start-1 col-end-1 cursor-pointer shadow-inner bg-opacity-20 bg-gray-400 ${blok.length % 2 == 0
-          ? 'row-start-1 row-end-1 self-end'
-          : 'row-start-2 row-end-2 self-start'
+        :class="`restart-control control h-full projects-center col-start-1 col-end-1 cursor-pointer shadow-inner bg-opacity-20 bg-gray-400 ${
+          blok.length % 2 == 0
+            ? 'row-start-1 row-end-1 self-end'
+            : 'row-start-2 row-end-2 self-start'
         }`"
       >
         <IconComponent
@@ -109,9 +117,9 @@
   </div>
 </template>
 <script>
-import IconComponent from '@/storyblok/global/Icon';
-import ImageComponent from '@/storyblok/global/Image';
-import RouteComponent from '@/storyblok/global/Route';
+import IconComponent from '@/storyblok/global/Icon'
+import ImageComponent from '@/storyblok/global/Image'
+import RouteComponent from '@/storyblok/global/Route'
 export default defineNuxtComponent({
   components: { IconComponent, ImageComponent, RouteComponent },
   props: {
@@ -121,7 +129,7 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const slider = ref(null);
+    const slider = ref(null)
     const state = reactive({
       indexControls: 0,
       focusDisable: false,
@@ -133,43 +141,46 @@ export default defineNuxtComponent({
         enter: '',
         leave: ''
       }
-    });
-    const { indexControls, focusDisable, frame, translation } = toRefs(state);
+    })
+    const { indexControls, focusDisable, frame, translation } = toRefs(state)
     const next = () => {
-      if (props.blok.length - 1 > frame.value.up && props.blok.length > frame.value.down) {
-        indexControls.value++;
-        frame.value.up++;
-        frame.value.down++;
+      if (
+        props.blok.length - 1 > frame.value.up &&
+        props.blok.length > frame.value.down
+      ) {
+        indexControls.value++
+        frame.value.up++
+        frame.value.down++
       } else {
-        indexControls.value = 0;
-        frame.value.up = 0;
-        frame.value.down = 1;
+        indexControls.value = 0
+        frame.value.up = 0
+        frame.value.down = 1
       }
-    };
+    }
     const prev = () => {
       if (frame.value.up !== 0 && frame.value.down !== 1) {
-        indexControls.value--;
-        frame.value.up--;
-        frame.value.down--;
+        indexControls.value--
+        frame.value.up--
+        frame.value.down--
       } else {
-        indexControls.value = props.blok.length - 1;
-        frame.value.up = props.blok.length - 1;
-        frame.value.down = props.blok.length;
+        indexControls.value = props.blok.length - 1
+        frame.value.up = props.blok.length - 1
+        frame.value.down = props.blok.length
       }
-    };
+    }
     const resetData = () => {
-      indexControls.value = 0;
-      frame.value.up = 0;
-      frame.value.data = 1;
-      focusDisable.value = true;
-    };
+      indexControls.value = 0
+      frame.value.up = 0
+      frame.value.data = 1
+      focusDisable.value = true
+    }
     const focusSlide = () => {
       if (!focusDisable.value && slider.value) {
-        nextTick(() => slider.value.focus({ preventScroll: true }));
+        nextTick(() => slider.value.focus({ preventScroll: true }))
       }
-    };
-    onBeforeUnmount(resetData);
-    watch(indexControls, focusSlide);
+    }
+    onBeforeUnmount(resetData)
+    watch(indexControls, focusSlide)
     return {
       next,
       prev,
@@ -178,9 +189,9 @@ export default defineNuxtComponent({
       focusSlide,
       translation,
       indexControls
-    };
+    }
   }
-});
+})
 </script>
 <style scoped>
 .project-text {

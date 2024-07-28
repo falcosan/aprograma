@@ -44,14 +44,16 @@
     :is="externalLink ? 'a' : NuxtLink"
     v-else
     :class="[
-      `item-link cursor-pointer ${sliderMode || carouselMode || containerMode
-        ? 'flex items-center justify-center self-center'
-        : 'block'
+      `item-link cursor-pointer ${
+        sliderMode || carouselMode || containerMode
+          ? 'flex items-center justify-center self-center'
+          : 'block'
       }`,
       [
         {
-          [!iconItem ? setActive || 'rounded opacity-60 bg-opacity-40 bg-gray-300' : setActive]:
-            activated
+          [!iconItem
+            ? setActive || 'rounded opacity-60 bg-opacity-40 bg-gray-300'
+            : setActive]: activated
         }
       ]
     ]"
@@ -61,20 +63,16 @@
     :target="externalLink ? '_blank' : undefined"
     :title="title || undefined"
   >
-    <span
-      v-if="title && !iconItem"
-      class="item-text break-words"
-    >{{ title }}</span>
-    <slot
-      v-else-if="slots.icon"
-      name="icon"
-    />
+    <span v-if="title && !iconItem" class="item-text break-words">{{
+      title
+    }}</span>
+    <slot v-else-if="slots.icon" name="icon" />
     <slot />
   </component>
 </template>
 <script>
-import { Data } from '@/schema/enums';
-import IconComponent from '@/storyblok/global/Icon';
+import { Data } from '@/schema/enums'
+import IconComponent from '@/storyblok/global/Icon'
 export default defineNuxtComponent({
   components: { IconComponent },
   props: {
@@ -124,35 +122,35 @@ export default defineNuxtComponent({
     }
   },
   setup(props) {
-    const slots = useSlots();
-    const route = useRoute();
-    const NuxtLink = resolveComponent('NuxtLink');
+    const slots = useSlots()
+    const route = useRoute()
+    const NuxtLink = resolveComponent('NuxtLink')
     const activated = computed(() => {
-      const targetRoute = props.blok?.path ?? props.to;
+      const targetRoute = props.blok?.path ?? props.to
       const regex = new RegExp(
         `/(${Object.values(Data.rss)
-          .map(item => {
-            if (item instanceof Object) return item.language;
-            else return '';
+          .map((item) => {
+            if (item instanceof Object) return item.language
+            else return ''
           })
           .filter(Boolean)
           .join('|')})\\b`
-      );
-      const currentRoute = route.path.replace(regex, '') || '/';
+      )
+      const currentRoute = route.path.replace(regex, '') || '/'
       if (currentRoute === targetRoute) {
         for (const [key, value] of Object.entries(route.query)) {
-          if (!targetRoute.includes(`${key}=${value}`)) return false;
+          if (!targetRoute.includes(`${key}=${value}`)) return false
         }
-        return true;
+        return true
       } else if (currentRoute.startsWith(`${targetRoute}/`)) {
         for (const [key, value] of Object.entries(route.query)) {
-          if (!targetRoute.includes(`${key}=${value}`)) return false;
+          if (!targetRoute.includes(`${key}=${value}`)) return false
         }
-        return true;
+        return true
       }
-      return false;
-    });
-    return { NuxtLink, activated, slots };
+      return false
+    })
+    return { NuxtLink, activated, slots }
   }
-});
+})
 </script>

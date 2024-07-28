@@ -1,0 +1,16 @@
+.nuxt/
+dist/
+node_modules/
+*.config.js
+.env
+.env.*
+yarn.lock
+package-lock.json
+*.log
+*.min.js
+*.min.css
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg

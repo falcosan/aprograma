@@ -8,15 +8,17 @@
     >
       <div
         v-if="blok.show_background_mask"
-        :class="`main-background absolute inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${setWidth} ${!$device.isDesktop ? '' : 'md:rounded-t'
+        :class="`main-background absolute inset-0 mt-20 mx-auto -z-10 overflow-hidden rounded-b ${setWidth} ${
+          !$device.isDesktop ? '' : 'md:rounded-t'
         } ${blok.color_animation ? 'color-animation' : ''}`"
-        :style="`background-color: ${randomBackgroundColorMask
-          ? blok.transparency
-            ? `${randomBackgroundColorMask}b3`
-            : randomBackgroundColorMask
-          : blok.transparency
-            ? '#ffffffb3'
-            : '#ffffff'
+        :style="`background-color: ${
+          randomBackgroundColorMask
+            ? blok.transparency
+              ? `${randomBackgroundColorMask}b3`
+              : randomBackgroundColorMask
+            : blok.transparency
+              ? '#ffffffb3'
+              : '#ffffff'
         };`"
       />
       <div
@@ -25,22 +27,25 @@
           { 'color-animation': blok.color_animation },
           { 'dark:invert dark:contrast-75 bg-white': !randomBackgroundColor }
         ]"
-        :style="randomBackgroundColor ? `background-color: ${randomBackgroundColor};` : undefined"
+        :style="
+          randomBackgroundColor
+            ? `background-color: ${randomBackgroundColor};`
+            : undefined
+        "
       />
       <div
-        :class="`main-content my-0 mx-auto rounded-b ${setWidth} ${!$device.isDesktop ? '' : 'md:rounded-t'
+        :class="`main-content my-0 mx-auto rounded-b ${setWidth} ${
+          !$device.isDesktop ? '' : 'md:rounded-t'
         }`"
       >
         <slot name="main" />
       </div>
     </div>
-    <Transition
-      enter-active-class="duration-100"
-      enter-class="opacity-0"
-    >
+    <Transition enter-active-class="duration-100" enter-class="opacity-0">
       <ImageComponent
         v-if="$imageValidation(blok.background_media.filename)"
-        :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${blok.color_animation ? 'color-animation' : ''
+        :class="`media-image w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
+          blok.color_animation ? 'color-animation' : ''
         }`"
         :src="blok.background_media.filename"
         :file="blok.background_media"
@@ -51,7 +56,8 @@
       />
       <video
         v-else-if="blok.background_media.filename"
-        :class="`media-video w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${blok.color_animation ? 'color-animation' : ''
+        :class="`media-video w-full h-full fixed inset-0 object-cover pointer-events-none ${backgroundPosition} ${backgroundLevel} ${
+          blok.color_animation ? 'color-animation' : ''
         }`"
         playsinline
         autoplay
@@ -61,13 +67,13 @@
         <source
           :src="blok.background_media.filename"
           :type="`video/${blok.background_media.filename.toLowerCase().split('.').pop()}`"
-        >
+        />
       </video>
     </Transition>
   </main>
 </template>
 <script>
-import ImageComponent from '@/storyblok/global/Image';
+import ImageComponent from '@/storyblok/global/Image'
 export default defineNuxtComponent({
   components: { ImageComponent },
   props: {
@@ -78,61 +84,71 @@ export default defineNuxtComponent({
     layout: {
       type: String,
       default: 'default',
-      validator: val => /default|blank/.test(val)
+      validator: (val) => /default|blank/.test(val)
     }
   },
   setup(props) {
-    const { isDesktop } = useDevice();
-    const { windowWidth } = useScreen();
-    const route = useRoute();
-    const state = reactive({ index: { background: 0, mask: 0 } });
-    const { index } = toRefs(state);
+    const { isDesktop } = useDevice()
+    const { windowWidth } = useScreen()
+    const route = useRoute()
+    const state = reactive({ index: { background: 0, mask: 0 } })
+    const { index } = toRefs(state)
     const setWidth = computed(() => {
       return props.layout !== 'blank'
         ? 'max-w-sm xs:max-w-md sm:max-w-lg md:max-w-2xl lg:max-w-3xl xl:max-w-5xl 2xl:max-w-7xl'
-        : '';
-    });
+        : ''
+    })
     const randomBackgroundColor = computed(
-      () => props.blok.background_color.color.split('; ')[index.value.background]
-    );
+      () =>
+        props.blok.background_color.color.split('; ')[index.value.background]
+    )
     const randomBackgroundColorMask = computed(
       () => props.blok.background_color_mask.color.split('; ')[index.value.mask]
-    );
+    )
     const backgroundLevel = computed(() => {
-      if (props.blok.background_index) return 'z-0';
-      else return '-z-20';
-    });
+      if (props.blok.background_index) return 'z-0'
+      else return '-z-20'
+    })
     const backgroundPosition = computed(() => {
       if (!isDesktop || windowWidth.value < 768) {
-        return 'object-center';
+        return 'object-center'
       } else if (props.blok.background_position === 'up') {
-        return 'object-bottom';
+        return 'object-bottom'
       } else if (props.blok.background_position === 'down') {
-        return 'object-top';
+        return 'object-top'
       } else {
-        return 'object-center';
+        return 'object-center'
       }
-    });
+    })
     const setBackgroundColor = () => {
       index.value.background =
-        ~~(Math.random() * (props.blok.background_color.color.split('; ').length - 0)) + 0;
+        ~~(
+          Math.random() *
+          (props.blok.background_color.color.split('; ').length - 0)
+        ) + 0
       index.value.mask =
-        ~~(Math.random() * (props.blok.background_color_mask.color.split('; ').length - 0)) + 0;
-    };
+        ~~(
+          Math.random() *
+          (props.blok.background_color_mask.color.split('; ').length - 0)
+        ) + 0
+    }
     onBeforeMount(() => {
       if (props.blok.body_color.color) {
-        document.body.style.backgroundColor = props.blok.body_color.color;
+        document.body.style.backgroundColor = props.blok.body_color.color
       }
-    });
+    })
     watch(
       () => route.path,
       () => {
-        if (props.blok.background_color.color || props.blok.background_color_mask.color) {
-          setBackgroundColor();
+        if (
+          props.blok.background_color.color ||
+          props.blok.background_color_mask.color
+        ) {
+          setBackgroundColor()
         }
       },
       { immediate: true }
-    );
+    )
     return {
       route,
       setWidth,
@@ -140,7 +156,7 @@ export default defineNuxtComponent({
       backgroundPosition,
       randomBackgroundColor,
       randomBackgroundColorMask
-    };
+    }
   }
-});
+})
 </script>

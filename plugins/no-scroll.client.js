@@ -1,17 +1,17 @@
 export default defineNuxtPlugin(() => ({
   provide: {
-    noscroll: condition => {
+    noscroll: (condition) => {
       if (condition) {
-        document.body.classList.add('noscroll');
+        document.body.classList.add('noscroll')
         document.ontouchmove = function (e) {
-          e.preventDefault();
-        };
+          e.preventDefault()
+        }
       } else {
-        document.body.classList.remove('noscroll');
+        document.body.classList.remove('noscroll')
         document.ontouchmove = function () {
-          return true;
-        };
+          return true
+        }
       }
     }
   }
-}));
+}))

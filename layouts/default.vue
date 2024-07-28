@@ -1,9 +1,9 @@
 <script setup>
-import LogoComponent from '@/storyblok/global/Logo';
-const { locale } = useI18n();
-const { seoLayout } = useSeo();
-const { data: layout } = await useFetcher('layout', { watcher: true });
-watch(locale, val => seoLayout({ language: val }), { immediate: true });
+import LogoComponent from '@/storyblok/global/Logo'
+const { locale } = useI18n()
+const { seoLayout } = useSeo()
+const { data: layout } = await useFetcher('layout', { watcher: true })
+watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
 </script>
 
 <template>
@@ -16,14 +16,19 @@ watch(locale, val => seoLayout({ language: val }), { immediate: true });
       class="rounded max-w-full mx-auto my-0"
       size="50vh"
     />
-    <h1 class="maintenance-text xs:whitespace-nowrap pointer-events-none uppercase italic">
-      {{ $languageCase('under maintenance', 'en mantenimiento', 'in manutenzione') }}
+    <h1
+      class="maintenance-text xs:whitespace-nowrap pointer-events-none uppercase italic"
+    >
+      {{
+        $languageCase(
+          'under maintenance',
+          'en mantenimiento',
+          'in manutenzione'
+        )
+      }}
     </h1>
   </div>
-  <div
-    v-else
-    class="aprograma-theme"
-  >
+  <div v-else class="aprograma-theme">
     <component
       :is="resolveComponent(component.component)"
       v-for="component in layout.content.body"

@@ -1,10 +1,10 @@
 <script setup>
-const { seoStatic } = useSeo();
-const { $languageCase } = useNuxtApp();
-const { data: portfolio } = await useFetcher('portfolio');
+const { seoStatic } = useSeo()
+const { $languageCase } = useNuxtApp()
+const { data: portfolio } = await useFetcher('portfolio')
 watch(
   portfolio,
-  val =>
+  (val) =>
     seoStatic({
       name: val.name,
       description: $languageCase(
@@ -14,7 +14,7 @@ watch(
       )
     }),
   { immediate: true }
-);
+)
 </script>
 
 <template>
