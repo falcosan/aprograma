@@ -559,7 +559,7 @@ export default defineNuxtComponent({
         clearAutoPlay()
       }
     }
-    onMounted(() => {
+    onBeforeMount(() => {
       if (
         (props.blok.slider_mode === 'slider' ||
           props.blok.slider_mode === 'carousel') &&
