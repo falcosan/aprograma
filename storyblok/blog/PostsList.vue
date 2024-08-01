@@ -134,7 +134,6 @@
 </template>
 
 <script>
-import store from '@/store'
 import { highlighter } from '@/utils/string'
 import { multipleFilters } from '@/utils/array'
 import IconComponent from '@/storyblok/global/Icon'
@@ -165,7 +164,7 @@ export default defineNuxtComponent({
     }
   },
   async setup(props) {
-    const { addPosts } = store.posts()
+    const { addPosts } = usePostsStore()
     const { $languageCase } = useNuxtApp()
     const { data: posts } = await useFetcher('posts', { startsWith: 'blog' })
     const state = reactive({

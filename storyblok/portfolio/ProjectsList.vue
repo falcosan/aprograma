@@ -35,7 +35,6 @@
   </div>
 </template>
 <script>
-import store from '@/store'
 import ProjectSliderComponent from '@/storyblok/portfolio/ProjectSlider'
 import ProjectTeaserComponent from '@/storyblok/portfolio/ProjectTeaser'
 export default defineNuxtComponent({
@@ -64,7 +63,7 @@ export default defineNuxtComponent({
   },
   async setup(props) {
     const { windowWidth } = useScreen()
-    const { addProjects } = store.projects()
+    const { addProjects } = useProjectsStore()
     const { data: projects } = await useFetcher('projects', {
       startsWith: 'portfolio'
     })
