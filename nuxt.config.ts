@@ -25,7 +25,6 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
-    '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss'
   ],
 
@@ -57,14 +56,6 @@ export default defineNuxtConfig({
 
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
-  },
-
-  colorMode: {
-    classSuffix: '',
-    hid: 'theme-script',
-    storageKey: 'ap_theme',
-    globalName: '__THEME__',
-    componentName: 'ThemeScheme'
   },
 
   vite: {
