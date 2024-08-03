@@ -9,48 +9,30 @@
           backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
-        <Transition
-          enter-from-class="opacity-0"
-          leave-to-class="opacity-0"
-          enter-active-class="transition duration-300"
-          leave-active-class="transition duration-300"
+        <button
+          class="grid col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper"
         >
-          <button
-            v-if="colorModeLoaded"
-            class="grid col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper"
-          >
-            <IconComponent
-              eye-bold
-              :class="[
-                'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-                { 'opacity-0': checkColorMode.light }
-              ]"
-              size="w-6"
-              tooltip="Light theme"
-              @click="changeColorMode('dark')"
-            />
-            <IconComponent
-              eye
-              :class="[
-                'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-                { 'opacity-0': checkColorMode.dark }
-              ]"
-              size="w-6"
-              tooltip="Dark theme"
-              @click="changeColorMode('light')"
-            />
-          </button>
-          <div
-            v-else
+          <IconComponent
+            eye-bold
             :class="[
-              'icon-loading w-6 h-6 col-start-1 col-end-1 row-start-1 row-end-1 rounded-xl blur-sm',
-              backgroundColor && $themeColor(backgroundColor)
-                ? 'bg-white'
-                : 'bg-slate-500'
+              'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
+              { 'opacity-0': checkColorMode?.light }
             ]"
-            style="transform: rotateX(45deg)"
+            size="w-6"
+            tooltip="Light theme"
+            @click="changeColorMode('dark')"
           />
-        </Transition>
+          <IconComponent
+            eye
+            :class="[
+              'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
+              { 'opacity-0': checkColorMode?.dark }
+            ]"
+            size="w-6"
+            tooltip="Dark theme"
+            @click="changeColorMode('light')"
+          />
+        </button>
       </div>
       <div
         :class="`messages-container ${
@@ -109,13 +91,12 @@ export default defineNuxtComponent({
   components: { IconComponent, RouteComponent },
   setup(props) {
     const { locale } = useI18n()
-    const colorMode = useColorMode()
-    const { $binaryControl, $languageCase, $scrollToSmoothly } = useNuxtApp()
+    const { $mode, $binaryControl, $languageCase, $scrollToSmoothly } =
+      useNuxtApp()
     const state = reactive({
       charIndex: 0,
       typewriter: '',
       typewriterIndex: 0,
-      colorModeLoaded: false,
       playTypeText: undefined,
       playEraseText: undefined,
       currentYear: new Date().getFullYear()
@@ -127,8 +108,7 @@ export default defineNuxtComponent({
       currentYear,
       playTypeText,
       playEraseText,
-      typewriterIndex,
-      colorModeLoaded
+      typewriterIndex
     } = toRefs(state)
     const words = computed(() => {
       if (props.blok.text_typewriter.length) {
@@ -136,17 +116,18 @@ export default defineNuxtComponent({
           .split('; ')
           .filter((text) => text)
         return $languageCase(texts[0], texts[1], texts[2])
-      } else return ''
+      }
+      return ''
     })
     const backgroundColor = computed(() =>
       $binaryControl(props.blok.background_color, 'color')
     )
     const checkColorMode = computed(() => ({
-      dark: colorMode?.value === 'dark',
-      light: colorMode?.value === 'light'
+      dark: $mode.value === 'dark',
+      light: $mode.value === 'light'
     }))
     const changeColorMode = (mode) => {
-      colorMode.preference = mode
+      $mode.value = mode
       $scrollToSmoothly(0, 150)
     }
     const eraseText = () => {
@@ -189,15 +170,12 @@ export default defineNuxtComponent({
       }
     }
     typeText()
-    onMounted(() => (colorModeLoaded.value = true))
     watch(locale, restartTypewriter)
     return {
       webName,
-      colorMode,
       typewriter,
       currentYear,
       checkColorMode,
-      colorModeLoaded,
       backgroundColor,
       changeColorMode
     }
