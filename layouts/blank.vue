@@ -8,7 +8,7 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
 </script>
 
 <template>
-  <div class="aprograma-theme">
+  <Body>
     <HeaderComponent
       :blok="$contentByName(layout.content.body, 'Header')[0]"
       layout="blank"
@@ -21,5 +21,5 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
         <slot />
       </template>
     </MainComponent>
-  </div>
+  </Body>
 </template>
