@@ -2,8 +2,9 @@ import { Data, ENV, Mode } from './schema/enums'
 
 export default defineNuxtConfig({
   app: {
-    rootId: '__ap',
-    rootTag: 'section'
+    rootTag: 'body',
+    teleportTag: 'body',
+    rootId: 'aprograma'
   },
 
   runtimeConfig: {
