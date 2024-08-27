@@ -18,7 +18,7 @@
         {
           'dark:invert':
             !blok.title_color.color &&
-            !parent()?.background_color_component?.color
+            !parent?.background_color_component?.color
         }
       ]"
       :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
@@ -301,7 +301,7 @@ export default defineNuxtComponent({
   components: { IconComponent },
   provide() {
     return {
-      parent: computed(() => this.blok)
+      parent: this.blok
     }
   },
   setup(props) {
@@ -421,7 +421,8 @@ export default defineNuxtComponent({
           return ''
       }
     })
-    const parent = () =>
+    const parent = computed(() => parentInjection())
+    const parentInjection = () =>
       props.sliderMode || props.carouselMode || props.containerMode
         ? inject('parent')
         : undefined
