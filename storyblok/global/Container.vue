@@ -17,7 +17,8 @@
           : 'sm:text-2xl mb-5',
         {
           'dark:invert':
-            !blok.title_color.color && !parent?.background_color_component.color
+            !blok.title_color.color &&
+            !parent()?.background_color_component?.color
         }
       ]"
       :style="`color: ${$binaryControl(blok.title_color, 'color')};`"
@@ -310,10 +311,6 @@ export default defineNuxtComponent({
     const sliderBox = ref(null)
     const sliderSlide = ref(null)
     const carouselSlide = ref(null)
-    const parent =
-      props.sliderMode || props.carouselMode || props.containerMode
-        ? inject('parent')
-        : undefined
     const state = reactive({
       spaceFix: 20,
       fullWidth: 0,
@@ -424,6 +421,10 @@ export default defineNuxtComponent({
           return ''
       }
     })
+    const parent = () =>
+      props.sliderMode || props.carouselMode || props.containerMode
+        ? inject('parent')
+        : undefined
     const previous = (autoFocus = false) => {
       if (props.blok.auto_play) {
         setPrevious()
