@@ -51,10 +51,6 @@ export default defineNuxtConfig({
     }
   },
 
-  device: {
-    refreshOnResize: true
-  },
-
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
