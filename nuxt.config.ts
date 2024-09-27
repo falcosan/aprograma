@@ -53,18 +53,22 @@ export default defineNuxtConfig({
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
 
+  sourcemap: true,
+
   vite: {
     build: {
       chunkSizeWarningLimit: 1000
     }
   },
 
-  sourcemap: true,
-
   nitro: {
     compressPublicAssets: true,
     ...(!Mode.development && { preset: 'netlify-edge' }),
     prerender: { ignore: Data.ignore.map((path) => `/${path}`) }
+  },
+
+  routeRules: {
+    '/**': { isr: 60 }
   },
 
   hooks: {
