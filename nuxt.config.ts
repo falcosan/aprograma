@@ -63,6 +63,7 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+    future: { nativeSWR: true },
     ...(!Mode.development && { preset: 'netlify-edge' }),
     prerender: { ignore: Data.ignore.map((path) => `/${path}`) }
   },
