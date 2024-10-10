@@ -1,5 +1,4 @@
-import { isProduction } from 'std-env'
-import { Data, ENV } from './schema/enums'
+import { Data, ENV, Mode } from './schema/enums'
 
 export default defineNuxtConfig({
   app: {
@@ -65,7 +64,7 @@ export default defineNuxtConfig({
   nitro: {
     compressPublicAssets: true,
     future: { nativeSWR: true },
-    ...(isProduction && { preset: 'netlify' }),
+    ...(!Mode.development && { preset: 'netlify-edge' }),
     prerender: { ignore: Data.ignore.map((path) => `/${path}`) }
   },
 
