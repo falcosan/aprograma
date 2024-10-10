@@ -9,7 +9,7 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
 <template>
   <Body>
     <div
-      v-if="layout.content.maintenance"
+      v-if="layout.content?.maintenance"
       class="maintenance h-screen flex flex-col justify-center p-5"
     >
       <LogoComponent
@@ -29,7 +29,7 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
         }}
       </h1>
     </div>
-    <template v-else>
+    <template v-else-if="layout.content?.body">
       <component
         :is="resolveComponent(component.component)"
         v-for="component in layout.content.body"
