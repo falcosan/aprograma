@@ -1,4 +1,4 @@
-import { type AsyncDataRequestStatus } from '#app'
+import type { AsyncDataRequestStatus } from '#app'
 
 type FetcherInstance = ComputedRef<string> | Ref<string> | string
 type FetcherResult<T> = {
