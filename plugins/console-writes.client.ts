@@ -1,5 +1,5 @@
 import { getWilly } from '@/utils/console'
-import { type BaseFormatProps } from 'vue-i18n'
+import type { BaseFormatProps } from 'vue-i18n'
 
 export default defineNuxtPlugin((app) => {
   const config = useRuntimeConfig()

@@ -1,4 +1,4 @@
-import { type BaseFormatProps } from 'vue-i18n'
+import type { BaseFormatProps } from 'vue-i18n'
 
 export default defineNuxtPlugin((app) => ({
   provide: {
