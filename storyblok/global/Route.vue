@@ -119,6 +119,7 @@ export default defineNuxtComponent({
   setup(props) {
     const slots = useSlots()
     const route = useRoute()
+    const localePath = useLocalePath()
     const NuxtLink = resolveComponent('NuxtLink')
     const activated = computed(() => {
       const targetRoute = props.blok?.path ?? props.to
@@ -145,7 +146,7 @@ export default defineNuxtComponent({
       }
       return false
     })
-    return { NuxtLink, activated, slots }
+    return { NuxtLink, activated, slots, localePath }
   }
 })
 </script>
