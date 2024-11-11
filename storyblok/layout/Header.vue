@@ -8,7 +8,10 @@
         :style="`background-color: ${backgroundColor};`"
       />
       <div
-        class="menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex justify-between"
+        :class="[
+          'menu-wrapper wrapper-up w-full h-full max-w-sm xs:max-w-md sm:max-w-lg md:max-w-xl flex',
+          layout === 'blank' ? 'justify-end' : 'justify-between'
+        ]"
       >
         <RouteComponent
           v-if="layout !== 'blank'"
