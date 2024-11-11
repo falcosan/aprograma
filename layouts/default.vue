@@ -11,7 +11,7 @@ const layout = computed(() =>
 </script>
 
 <template>
-  <div>
+  <Body>
     <div
       v-if="layout.content.maintenance"
       class="maintenance h-screen flex flex-col justify-center p-5"
@@ -48,5 +48,5 @@ const layout = computed(() =>
         </template>
       </component>
     </template>
-  </div>
+  </Body>
 </template>
