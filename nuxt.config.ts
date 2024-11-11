@@ -62,7 +62,12 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    compressPublicAssets: true
+    compressPublicAssets: true,
+    future: { nativeSWR: true }
+  },
+
+  routeRules: {
+    '/**': { isr: 60 }
   },
 
   hooks: {
