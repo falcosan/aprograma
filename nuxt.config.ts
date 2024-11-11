@@ -1,4 +1,4 @@
-import { Data, ENV, Mode } from './schema/enums'
+import { Data, ENV } from './schema/enums'
 
 export default defineNuxtConfig({
   app: {
@@ -63,8 +63,7 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true },
-    ...(!Mode.development && { preset: 'netlify' })
+    future: { nativeSWR: true }
   },
 
   routeRules: {
