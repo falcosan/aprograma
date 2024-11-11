@@ -23,8 +23,7 @@
     "highlight.js": "^11.10.0",
     "marked": "^15.0.0",
     "nuxt": "^3.14.159",
-    "pinia": "^2.2.6",
-    "vue": "latest"
+    "pinia": "^2.2.6"
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.6.1",
