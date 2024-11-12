@@ -1,3 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.processing]
+  skip_processing = true
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -7,19 +14,14 @@
     Content-Security-Policy = "default-src 'self'; img-src 'self' data: https:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https:; frame-ancestors 'none';"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     Referrer-Policy = "no-referrer-when-downgrade"
-    cache-control = "public, max-age=10000, must-revalidate"
+    Cache-Control = "public, max-age=10000, must-revalidate"
 
 [[headers]]
   for = "*.js"
   [headers.values]
-    cache-control = "public, max-age=31536000"
+    Cache-Control = "public, max-age=31536000"
 
 [[headers]]
   for = "*.css"
   [headers.values]
-    cache-control = "public, max-age=31536000"
-
-[[headers]]
-  for = "/manifest.webmanifest"
-  [headers.values]
-    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=31536000"
