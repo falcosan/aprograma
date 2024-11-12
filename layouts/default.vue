@@ -16,7 +16,6 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
     <MainComponent :blok="$contentByName(layout.content.body, 'Main')[0]">
       <slot />
     </MainComponent>
-
     <FooterComponent :blok="$contentByName(layout.content.body, 'Footer')[0]" />
   </Body>
 </template>

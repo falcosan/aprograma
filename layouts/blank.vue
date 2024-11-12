@@ -9,7 +9,10 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
 
 <template>
   <Body>
-    <HeaderComponent :blok="$contentByName(layout.content.body, 'Header')[0]">
+    <HeaderComponent
+      :blok="$contentByName(layout.content.body, 'Header')[0]"
+      layout="blank"
+    >
       <NuxtLoadingIndicator />
     </HeaderComponent>
     <MainComponent
