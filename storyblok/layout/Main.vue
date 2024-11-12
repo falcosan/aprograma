@@ -38,7 +38,7 @@
           !$device.isDesktop ? '' : 'md:rounded-t'
         }`"
       >
-        <slot name="main" />
+        <slot />
       </div>
     </div>
     <Transition enter-active-class="duration-100" enter-class="opacity-0">
