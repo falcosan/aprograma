@@ -41,6 +41,9 @@
     "sitemap": "^8.0.0",
     "typescript": "^5.6.3"
   },
+  "overrides": {
+    "tslib": "2.5.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/falcosan/aprograma.git"
