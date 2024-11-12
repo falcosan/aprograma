@@ -12,20 +12,17 @@ import StoryblokClient, {
 export async function fetchStoryblok({
   startsWith,
   language = 'en',
-  lastCache = false,
   query = 'cdn/stories/'
 }: {
   query?: string
   language?: ISbStoriesParams['language']
   startsWith?: ISbStoriesParams['starts_with']
-  lastCache?: boolean
 }): Promise<ISbResponse['data']> {
   const Storyblok = new StoryblokClient({
     accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
   })
   return await Storyblok.get(query, {
     language,
-    ...(lastCache && { cv: Date.now() }),
     ...(startsWith && { starts_with: startsWith }),
     version: process.env.NUXT_ENV_API_VERSION as ISbStoriesParams['version']
   })
@@ -45,9 +42,8 @@ export async function fetchFeed(lang: 'eng' | 'esp' | 'ita'): Promise<string> {
   })
 
   const data = await fetchStoryblok({
-    language: Data.rss[lang].language,
     startsWith: Data.rss.route,
-    lastCache: true
+    language: Data.rss[lang].language
   })
   const filteredStories = data.stories.filter(
     (story: { name: string }) => story.name.toLowerCase() !== Data.rss.route
