@@ -62,7 +62,7 @@ export async function useFetcher<T>(
     if (!isFromServer) return await requestFromClient(fetchData)
 
     const { data, error, refresh } = await useAsyncData<T>(
-      `${slug}-${locale.value}`,
+      slug.split('?')[0],
       fetchData,
       { ...(!!options?.watcher && { watch: [locale] }) }
     )
