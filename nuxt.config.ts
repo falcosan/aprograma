@@ -76,6 +76,10 @@ export default defineNuxtConfig({
     }
   },
 
+  experimental: {
+    payloadExtraction: false
+  },
+
   devtools: {
     enabled: false
   },
