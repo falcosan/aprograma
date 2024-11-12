@@ -1,10 +1,12 @@
-import type { AsyncDataRequestStatus } from '#app'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import type { NuxtError } from '#app'
+import type { KeysOf, PickFrom } from '#app/composables/asyncData'
 
-type FetcherInstance = ComputedRef<string> | Ref<string> | string
+type FetcherInstance = string | Ref<string> | ComputedRef<string>
 type FetcherResult<T> = {
-  data: T
-  status: Ref<AsyncDataRequestStatus>
-  refresh?: () => Promise<void>
+  data: Ref<PickFrom<T, KeysOf<T>> | null>
+  error: Ref<NuxtError<unknown> | null>
+  refresh: () => Promise<void>
 }
 type FetcherOptions = {
   watcher?: boolean
@@ -18,25 +20,55 @@ export async function useFetcher<T>(
 ): Promise<FetcherResult<T>> {
   const slug = unref(route)
   const { locale } = useI18n()
-  const config = useRuntimeConfig()
+  const nuxtApp = tryUseNuxtApp()
 
   const fetchData = async (): Promise<T> => {
+    const cookie = useRequestHeaders(['cookie'])
+
     const data = await $fetch('/api/storyblok', {
-      headers: { 'x-auth': config.public.envXAuth, ...options?.headers },
       params: {
         lang: locale.value,
         ...(options?.startsWith ? { startsWith: options.startsWith } : { slug })
-      }
+      },
+      headers: { ...cookie, ...(options?.headers ?? {}) }
     })
 
     return data.story ?? data.stories
   }
 
-  const { data, status, refresh } = await useAsyncData<T>(
-    `${slug}-${locale.value}`,
-    fetchData,
-    { ...(!!options?.watcher && { watch: [locale] }) }
-  )
+  const requestFromClient = async (fetcher: () => Promise<T>) => {
+    const state = reactive({
+      data: null as unknown as FetcherResult<T>['data'],
+      error: null as unknown as FetcherResult<T>['error']
+    })
+    const { data, error } = toRefs(state)
 
-  return { data: data as FetcherResult<T>['data'], status, refresh }
+    const refresh = async () => {
+      try {
+        data.value = await fetcher()
+      } catch (err: any) {
+        error.value = err.data ?? err
+      }
+    }
+
+    await refresh()
+
+    return { data, error, refresh }
+  }
+
+  if (nuxtApp) {
+    const isFromServer = !(import.meta.client && !nuxtApp.isHydrating)
+
+    if (!isFromServer) return await requestFromClient(fetchData)
+
+    const { data, error, refresh } = await useAsyncData<T>(
+      `${slug}-${locale.value}`,
+      fetchData,
+      { ...(!!options?.watcher && { watch: [locale] }) }
+    )
+
+    return { data, error, refresh }
+  } else {
+    return await requestFromClient(fetchData)
+  }
 }
