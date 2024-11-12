@@ -12,14 +12,14 @@ watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
     <HeaderComponent
       :blok="$contentByName(layout.content.body, 'Header')[0]"
       layout="blank"
-    />
+    >
+      <NuxtLoadingIndicator />
+    </HeaderComponent>
     <MainComponent
       :blok="$contentByName(layout.content.body, 'Main')[0]"
       layout="blank"
     >
-      <template #main>
-        <slot />
-      </template>
+      <slot />
     </MainComponent>
   </Body>
 </template>

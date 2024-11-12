@@ -68,7 +68,7 @@
       </div>
     </nav>
     <div class="header-loader header-loader-responsive">
-      <slot name="header" />
+      <slot />
     </div>
     <nav
       v-if="layout !== 'blank'"
