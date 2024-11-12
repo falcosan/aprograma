@@ -42,6 +42,7 @@ export default defineNuxtConfig({
       })
       .filter((item) => typeof item === 'string'),
     defaultLocale: 'en',
+    strategy: 'no_prefix',
     detectBrowserLanguage: {
       useCookie: true,
       redirectOn: 'root',
@@ -74,10 +75,6 @@ export default defineNuxtConfig({
     close: (nuxt) => {
       if (!nuxt.options._prepare) process.exit()
     }
-  },
-
-  experimental: {
-    payloadExtraction: false
   },
 
   devtools: {
