@@ -3,7 +3,6 @@ import { isProduction, isDevelopment } from 'std-env'
 
 const Public = {
   envProductionDomain: Mode.production,
-  envXAuth: process.env.NUXT_ENV_X_AUTH,
   envDomain: process.env.NUXT_ENV_DOMAIN,
   envApiVersion: process.env.NUXT_ENV_API_VERSION,
   envPaymentPointer: process.env.NUXT_ENV_PAYMENT_POINTER,
