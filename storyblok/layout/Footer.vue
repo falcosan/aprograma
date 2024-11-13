@@ -16,7 +16,7 @@
             eye-bold
             :class="[
               'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': mode.preference === 'light' }
+              { 'opacity-0': checkColorMode?.light }
             ]"
             size="w-6"
             tooltip="Light theme"
@@ -26,7 +26,7 @@
             eye
             :class="[
               'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': mode.preference === 'dark' }
+              { 'opacity-0': checkColorMode?.dark }
             ]"
             size="w-6"
             tooltip="Dark theme"
@@ -81,8 +81,7 @@ export default defineNuxtComponent({
   },
   components: { IconComponent, RouteComponent },
   setup(props) {
-    const mode = useColorMode()
-    const { $binaryControl, $scrollToSmoothly } = useNuxtApp()
+    const { $mode, $binaryControl, $scrollToSmoothly } = useNuxtApp()
     const state = reactive({
       currentYear: new Date().getFullYear()
     })
@@ -91,15 +90,19 @@ export default defineNuxtComponent({
     const backgroundColor = computed(() =>
       $binaryControl(props.blok.background_color, 'color')
     )
-
-    const changeColorMode = (color) => {
-      mode.preference = color
+    const checkColorMode = computed(() => ({
+      dark: $mode.value === 'dark',
+      light: $mode.value === 'light'
+    }))
+    const changeColorMode = (mode) => {
+      $mode.value = mode
       $scrollToSmoothly(0, 150)
     }
+
     return {
-      mode,
       webName,
       currentYear,
+      checkColorMode,
       backgroundColor,
       changeColorMode
     }
