@@ -6,8 +6,6 @@ export default defineNuxtPlugin(() => {
     default: () => 'light'
   })
 
-  useServerHead({ htmlAttrs: { class: storageMode.value } })
-
   return {
     provide: {
       mode: useColorMode({
