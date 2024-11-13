@@ -16,7 +16,7 @@
             eye-bold
             :class="[
               'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode?.light }
+              { 'opacity-0': checkColorMode.light }
             ]"
             size="w-6"
             tooltip="Light theme"
@@ -26,7 +26,7 @@
             eye
             :class="[
               'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode?.dark }
+              { 'opacity-0': checkColorMode.dark }
             ]"
             size="w-6"
             tooltip="Dark theme"
