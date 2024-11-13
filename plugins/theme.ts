@@ -7,13 +7,12 @@ export default defineNuxtPlugin(() => {
     default: () => 'light'
   })
 
-  useServerHead({ htmlAttrs: { class: storageMode.value } })
-
   return {
     provide: {
       mode: useColorMode({
         storageKey: 'ap_mode_cross_tab',
         initialValue: storageMode.value,
+        initOnMounted: true,
         onChanged: (val, defaultHandler) => {
           storageMode.value = val
           defaultHandler(val)
