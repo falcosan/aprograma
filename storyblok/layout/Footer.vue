@@ -5,7 +5,7 @@
   >
     <div class="grid gap-5 text-center footer-content h-32">
       <div
-        :class="`icon-container relative grid gap-5 text-md ${
+        :class="`icon-container relative flex justify-center items-center text-md ${
           backgroundColor && $themeColor(backgroundColor) ? 'text-white' : ''
         }`"
       >
