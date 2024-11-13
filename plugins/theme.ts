@@ -16,8 +16,6 @@ export default defineNuxtPlugin(() => {
         initialValue: storageMode.value,
         onChanged: (val, defaultHandler) => {
           storageMode.value = val
-          console.log(val)
-
           defaultHandler(val)
         }
       })
