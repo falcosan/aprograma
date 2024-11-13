@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
+    '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss'
   ],
 
@@ -49,6 +50,15 @@ export default defineNuxtConfig({
 
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
+  },
+
+  colorMode: {
+    classSuffix: '',
+    storage: 'cookie',
+    preference: 'light',
+    hid: 'ap_color_mode',
+    storageKey: 'ap-color-mode',
+    globalName: '__AP_COLOR_MODE__'
   },
 
   sourcemap: true,
