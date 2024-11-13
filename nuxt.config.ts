@@ -70,12 +70,6 @@ export default defineNuxtConfig({
     '/**': { isr: 60 }
   },
 
-  hooks: {
-    close: (nuxt) => {
-      if (!nuxt.options._prepare) process.exit()
-    }
-  },
-
   devtools: {
     enabled: false
   },
