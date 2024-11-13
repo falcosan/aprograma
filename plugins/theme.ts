@@ -12,8 +12,9 @@ export default defineNuxtPlugin(() => {
   return {
     provide: {
       mode: useColorMode({
-        storageKey: 'ap_mode_cross_tab',
+        initOnMounted: true,
         initialValue: storageMode.value,
+        storageKey: `${storageModeKey}_cross_tabs`,
         onChanged: (val, defaultHandler) => {
           storageMode.value = val
           defaultHandler(val)
