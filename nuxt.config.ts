@@ -53,26 +53,5 @@ export default defineNuxtConfig({
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
 
-  sourcemap: true,
-
-  vite: {
-    build: {
-      chunkSizeWarningLimit: 1000
-    }
-  },
-
-  nitro: {
-    compressPublicAssets: true,
-    future: { nativeSWR: true }
-  },
-
-  routeRules: {
-    '/**': { isr: 60 }
-  },
-
-  devtools: {
-    enabled: false
-  },
-
-  compatibilityDate: '2024-07-03'
+  compatibilityDate: '2024-11-04'
 })
