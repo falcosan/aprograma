@@ -10,28 +10,9 @@
         }`"
       >
         <button
-          class="grid col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper"
+          class="col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper"
         >
-          <IconComponent
-            eye-bold
-            :class="[
-              'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode?.light }
-            ]"
-            size="w-6"
-            tooltip="Light theme"
-            @click="changeColorMode('dark')"
-          />
-          <IconComponent
-            eye
-            :class="[
-              'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode?.dark }
-            ]"
-            size="w-6"
-            tooltip="Dark theme"
-            @click="changeColorMode('light')"
-          />
+          <IconComponent eye-bold size="w-6" @click="changeColorMode" />
         </button>
       </div>
       <div
@@ -90,19 +71,14 @@ export default defineNuxtComponent({
     const backgroundColor = computed(() =>
       $binaryControl(props.blok.background_color, 'color')
     )
-    const checkColorMode = computed(() => ({
-      dark: $mode.value === 'dark',
-      light: $mode.value === 'light'
-    }))
-    const changeColorMode = (mode) => {
-      $mode.value = mode
+    const changeColorMode = () => {
+      $mode.value = $mode.value === 'light' ? 'dark' : 'light'
       $scrollToSmoothly(0, 150)
     }
 
     return {
       webName,
       currentYear,
-      checkColorMode,
       backgroundColor,
       changeColorMode
     }
