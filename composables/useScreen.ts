@@ -1,4 +1,9 @@
-import type { MaybeComputedElementRef, MaybeElement } from '@vueuse/core'
+import {
+  useWindowSize,
+  useElementSize,
+  type MaybeComputedElementRef,
+  type MaybeElement
+} from '@vueuse/core'
 
 export const useScreen = () => {
   const { width: windowWidth } = useWindowSize()

@@ -18,13 +18,13 @@ export default defineNuxtConfig({
 
   modules: [
     '@pinia/nuxt',
-    '@vueuse/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxt/eslint',
     '@nuxtjs/device',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
+    '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss'
   ],
 
@@ -50,6 +50,16 @@ export default defineNuxtConfig({
 
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
+  },
+
+  colorMode: {
+    classSuffix: '',
+    classPrefix: '',
+    storage: 'cookie',
+    hid: 'ap_color_mode',
+    storageKey: 'ap-color-mode',
+    componentName: 'ColorScheme',
+    globalName: '__AP_COLOR_MODE__'
   },
 
   sourcemap: true,
