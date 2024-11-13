@@ -18,6 +18,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@pinia/nuxt',
+    '@vueuse/nuxt',
     '@nuxt/image',
     '@nuxtjs/i18n',
     '@nuxt/eslint',
