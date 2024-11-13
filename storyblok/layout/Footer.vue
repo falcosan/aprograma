@@ -16,7 +16,7 @@
             eye-bold
             :class="[
               'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode?.light }
+              { 'opacity-0': mode.preference === 'light' }
             ]"
             size="w-6"
             tooltip="Light theme"
@@ -26,7 +26,7 @@
             eye
             :class="[
               'col-start-1 col-end-1 row-start-1 row-end-1 cursor-pointer transition-opacity',
-              { 'opacity-0': checkColorMode?.dark }
+              { 'opacity-0': mode.preference === 'dark' }
             ]"
             size="w-6"
             tooltip="Dark theme"
@@ -91,18 +91,15 @@ export default defineNuxtComponent({
     const backgroundColor = computed(() =>
       $binaryControl(props.blok.background_color, 'color')
     )
-    const checkColorMode = computed(() => ({
-      dark: mode.preference === 'dark',
-      light: mode.preference === 'light'
-    }))
+
     const changeColorMode = (color) => {
       mode.preference = color
       $scrollToSmoothly(0, 150)
     }
     return {
+      mode,
       webName,
       currentYear,
-      checkColorMode,
       backgroundColor,
       changeColorMode
     }
