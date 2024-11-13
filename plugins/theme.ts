@@ -15,8 +15,8 @@ export default defineNuxtPlugin(() => {
         initialValue: storageMode.value,
         storageKey: `${storageModeKey}_cross_tabs`,
         onChanged: (val, defaultHandler) => {
-          storageMode.value = val
           defaultHandler(val)
+          if (storageMode.value !== val) storageMode.value = val
         }
       })
     }
