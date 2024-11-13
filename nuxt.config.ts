@@ -54,11 +54,10 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
-    classPrefix: '',
     storage: 'cookie',
+    preference: 'light',
     hid: 'ap_color_mode',
     storageKey: 'ap-color-mode',
-    componentName: 'ColorScheme',
     globalName: '__AP_COLOR_MODE__'
   },
 
