@@ -10,6 +10,7 @@
         }`"
       >
         <button
+          :key="$mode"
           class="grid col-start-1 col-end-1 row-start-1 row-end-1 icon-wrapper"
         >
           <IconComponent
