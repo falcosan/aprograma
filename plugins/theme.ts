@@ -4,7 +4,7 @@ export default defineNuxtPlugin(() => {
   const storageModeKey = 'ap_mode'
   const storageMode = useCookie(storageModeKey, {
     sameSite: 'lax',
-    default: () => useCookie(storageModeKey).value as string
+    default: () => 'light'
   })
 
   useServerHead({ htmlAttrs: { class: storageMode.value } })
@@ -16,6 +16,8 @@ export default defineNuxtPlugin(() => {
         initialValue: storageMode.value,
         onChanged: (val, defaultHandler) => {
           storageMode.value = val
+          console.log(val)
+
           defaultHandler(val)
         }
       })
