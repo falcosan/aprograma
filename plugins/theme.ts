@@ -1,9 +1,10 @@
 import { useColorMode } from '@vueuse/core'
 
 export default defineNuxtPlugin(() => {
-  const storageMode = useCookie('ap_mode', {
+  const storageModeKey = 'ap_mode'
+  const storageMode = useCookie(storageModeKey, {
     sameSite: 'lax',
-    default: () => 'light'
+    default: () => useCookie(storageModeKey).value as string
   })
 
   useServerHead({ htmlAttrs: { class: storageMode.value } })
