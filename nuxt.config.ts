@@ -61,7 +61,8 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true }
+    future: { nativeSWR: true },
+    prerender: { ignore: Data.ignore.map((path) => `/${path}`) }
   },
 
   routeRules: {
@@ -69,6 +70,10 @@ export default defineNuxtConfig({
   },
 
   devtools: {
+    enabled: false
+  },
+
+  telemetry: {
     enabled: false
   },
 
