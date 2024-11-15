@@ -43,9 +43,7 @@ export default defineNuxtConfig({
       .filter((item) => typeof item === 'string'),
     defaultLocale: 'en',
     detectBrowserLanguage: {
-      useCookie: true,
-      redirectOn: 'root',
-      cookieKey: 'ap_language'
+      useCookie: false
     }
   },
 
@@ -71,10 +69,6 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: false
-  },
-
-  telemetry: {
     enabled: false
   },
 
