@@ -72,5 +72,9 @@ export default defineNuxtConfig({
     enabled: false
   },
 
+  telemetry: {
+    enabled: false
+  },
+
   compatibilityDate: '2024-11-15'
 })
