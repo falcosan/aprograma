@@ -43,7 +43,9 @@ export default defineNuxtConfig({
       .filter((item) => typeof item === 'string'),
     defaultLocale: 'en',
     detectBrowserLanguage: {
-      useCookie: false
+      useCookie: true,
+      redirectOn: 'root',
+      cookieKey: 'ap_language'
     }
   },
 
@@ -61,8 +63,7 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true },
-    prerender: { ignore: Data.ignore.map((path) => `/${path}`) }
+    future: { nativeSWR: true }
   },
 
   routeRules: {
