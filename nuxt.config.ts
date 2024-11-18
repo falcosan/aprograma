@@ -43,7 +43,9 @@ export default defineNuxtConfig({
       .filter((item) => typeof item === 'string'),
     defaultLocale: 'en',
     detectBrowserLanguage: {
-      useCookie: false
+      useCookie: true,
+      redirectOn: 'root',
+      cookieKey: 'ap_language'
     }
   },
 
