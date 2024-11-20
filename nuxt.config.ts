@@ -43,7 +43,7 @@ export default defineNuxtConfig({
       .filter((item) => typeof item === 'string'),
     defaultLocale: 'en',
     detectBrowserLanguage: {
-      useCookie: false,
+      useCookie: true,
       redirectOn: 'root',
       cookieKey: 'ap_language'
     }
@@ -65,8 +65,8 @@ export default defineNuxtConfig({
     compressPublicAssets: true,
     future: { nativeSWR: true },
     prerender: {
-      interval: 100,
-      concurrency: 250
+      interval: 500,
+      concurrency: 500
     }
   },
 
@@ -82,5 +82,5 @@ export default defineNuxtConfig({
     enabled: false
   },
 
-  compatibilityDate: '2024-11-19'
+  compatibilityDate: '2024-11-20'
 })
