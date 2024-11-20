@@ -44,8 +44,6 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: false
-      // redirectOn: 'root',
-      // cookieKey: 'ap_language'
     }
   },
 
@@ -63,7 +61,11 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true }
+    future: { nativeSWR: true },
+    prerender: {
+      interval: 500,
+      concurrency: 500
+    }
   },
 
   routeRules: {
@@ -78,5 +80,5 @@ export default defineNuxtConfig({
     enabled: false
   },
 
-  compatibilityDate: '2024-11-19'
+  compatibilityDate: '2024-11-20'
 })

@@ -80,11 +80,10 @@ export default defineNuxtComponent({
   setup(_, { emit }) {
     const { locale, setLocale } = useI18n()
     const cutLanguage = (abbr) => abbr.language.toLowerCase().substring(0, 2)
-
     const currentLangAction = () => emit('current-lang-action')
     const setLocaleWithTranslateList = (language) => {
       emit('translate-list-action')
-      setLocale(language)
+      setLocale(language).then(reloadNuxtApp)
     }
     return {
       locale,
