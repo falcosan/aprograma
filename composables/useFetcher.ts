@@ -1,11 +1,4 @@
-import type { AsyncDataRequestStatus } from '#app'
-
-type FetcherInstance = ComputedRef<string> | Ref<string> | string
-type FetcherResult<T> = {
-  data: T
-  status: Ref<AsyncDataRequestStatus>
-  refresh?: () => Promise<void>
-}
+type FetcherResult<T> = { data: T }
 type FetcherOptions = {
   watcher?: boolean
   headers?: HeadersInit
@@ -13,7 +6,7 @@ type FetcherOptions = {
 }
 
 export async function useFetcher<T>(
-  route: FetcherInstance,
+  route: ComputedRef<string> | Ref<string> | string,
   options?: FetcherOptions
 ): Promise<FetcherResult<T>> {
   const slug = unref(route)
@@ -30,11 +23,7 @@ export async function useFetcher<T>(
     return data.story ?? data.stories
   }
 
-  const { data, status, refresh } = await useAsyncData<T>(
-    `${slug}-${locale.value}`,
-    fetchData,
-    { ...(!!options?.watcher && { watch: [locale] }) }
-  )
+  const { data } = await useAsyncData<T>(`${slug}-${locale.value}`, fetchData)
 
-  return { data: data as FetcherResult<T>['data'], status, refresh }
+  return { data: data as FetcherResult<T>['data'] }
 }
