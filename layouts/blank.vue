@@ -3,12 +3,12 @@ import MainComponent from '@/storyblok/layout/Main'
 import HeaderComponent from '@/storyblok/layout/Header'
 const { locale } = useI18n()
 const { seoLayout } = useSeo()
-const { data: layout } = await useFetcher('layout', { watcher: true })
+const { data: layout, status } = await useFetcher('layout', { watcher: true })
 watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
 </script>
 
 <template>
-  <Body>
+  <Body v-if="status === 'success'">
     <HeaderComponent
       :blok="$contentByName(layout.content.body, 'Header')[0]"
       layout="blank"
