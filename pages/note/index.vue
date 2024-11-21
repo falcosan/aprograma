@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import RouteComponent from '@/storyblok/global/Route'
 
 definePageMeta({ layout: 'blank' })
