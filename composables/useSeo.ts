@@ -23,7 +23,7 @@ export const useSeo = () => {
   const seoStatic = (story: Story) => {
     const meta = [{ name: 'description', content: story.description || '' }]
     if (config.public.envProductionDomain) {
-      useServerHeadSafe({
+      useHeadSafe({
         title: story.name || '',
         meta,
         link: [
@@ -72,7 +72,7 @@ export const useSeo = () => {
     }
 
     if (config.public.envProductionDomain) {
-      useServerHeadSafe({
+      useHeadSafe({
         title: story.content?.title || '',
         meta,
         link: [
@@ -105,7 +105,7 @@ export const useSeo = () => {
     ]
 
     if (config.public.envProductionDomain) {
-      useServerHeadSafe({
+      useHeadSafe({
         htmlAttrs: { lang: story.language || 'en' },
         title: Data.meta.title,
         titleTemplate: (title) =>
