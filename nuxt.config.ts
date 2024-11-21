@@ -48,7 +48,7 @@ export default defineNuxtConfig({
   },
 
   storyblok: {
-    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
+    accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
 
   sourcemap: true,
