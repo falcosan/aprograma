@@ -3,8 +3,8 @@ import MainComponent from '@/storyblok/layout/Main'
 import HeaderComponent from '@/storyblok/layout/Header'
 const { locale } = useI18n()
 const { seoLayout } = useSeo()
-const { data: layout } = await useFetcher('layout', { watcher: true })
-watch(locale, (val) => seoLayout({ language: val }), { immediate: true })
+const { data: layout } = await useFetcher('layout')
+seoLayout({ language: locale.value })
 </script>
 
 <template>
