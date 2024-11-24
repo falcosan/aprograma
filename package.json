@@ -19,9 +19,9 @@
   "dependencies": {
     "@pinia/nuxt": "^0.7.0",
     "@storyblok/nuxt": "^6.2.0",
-    "@vueuse/core": "^11.2.0",
+    "@vueuse/core": "^11.3.0",
     "highlight.js": "^11.10.0",
-    "marked": "^15.0.1",
+    "marked": "^15.0.2",
     "nuxt": "^3.14.1592",
     "pinia": "^2.2.6",
     "vue": "^3.5.13",
@@ -32,7 +32,7 @@
     "@nuxt/image": "^1.8.1",
     "@nuxtjs/device": "^3.2.4",
     "@nuxtjs/i18n": "^9.1.0",
-    "@nuxtjs/robots": "^4.1.11",
+    "@nuxtjs/robots": "^5.0.0",
     "@nuxtjs/tailwindcss": "^6.12.2",
     "@tailwindcss/typography": "^0.5.15",
     "@types/rss": "^0.0.32",
@@ -41,7 +41,7 @@
     "prettier": "^3.3.3",
     "rss": "^1.2.2",
     "sitemap": "^8.0.0",
-    "typescript": "^5.6.3"
+    "typescript": "^5.7.2"
   },
   "repository": {
     "type": "git",
