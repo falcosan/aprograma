@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.7.0",
-    "@storyblok/nuxt": "6.0.13",
+    "@storyblok/nuxt": "^6.2.0",
     "@vueuse/core": "^11.3.0",
     "highlight.js": "^11.10.0",
     "marked": "^15.0.2",
