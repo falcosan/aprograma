@@ -46,7 +46,7 @@ export default defineNuxtConfig({
       useCookie: false
     },
     experimental: {
-      localeDetector: 'localeDetector.ts'
+      localeDetector: './localeDetector.ts'
     }
   },
 
