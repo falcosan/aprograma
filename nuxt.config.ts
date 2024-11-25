@@ -44,12 +44,8 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: false
-    },
-    experimental: {
-      localeDetector: './localeDetector.ts'
     }
   },
-
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
