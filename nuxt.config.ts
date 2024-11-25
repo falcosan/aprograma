@@ -44,6 +44,9 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     detectBrowserLanguage: {
       useCookie: false
+    },
+    experimental: {
+      localeDetector: 'localeDetector.ts'
     }
   },
 
