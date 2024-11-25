@@ -46,7 +46,6 @@ export default defineNuxtConfig({
       useCookie: false
     }
   },
-
   storyblok: {
     accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
