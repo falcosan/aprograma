@@ -61,11 +61,7 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true },
-    prerender: {
-      interval: 500,
-      concurrency: 500
-    }
+    future: { nativeSWR: true }
   },
 
   routeRules: {
