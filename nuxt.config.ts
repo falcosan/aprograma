@@ -60,7 +60,10 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true }
+    future: { nativeSWR: true },
+    prerender: {
+      crawlLinks: true
+    }
   },
 
   routeRules: {
