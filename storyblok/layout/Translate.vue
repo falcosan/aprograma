@@ -83,7 +83,7 @@ export default defineNuxtComponent({
     const currentLangAction = () => emit('current-lang-action')
     const setLocaleWithTranslateList = (language) => {
       emit('translate-list-action')
-      setLocale(language).then(reloadNuxtApp)
+      setLocale(language)
     }
     return {
       locale,
