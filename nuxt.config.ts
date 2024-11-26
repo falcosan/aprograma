@@ -28,10 +28,7 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     locales: ['en', 'es', 'it'],
     detectBrowserLanguage: {
-      useCookie: true,
-      redirectOn: 'root',
-      fallbackLocale: 'en',
-      cookieKey: 'ap_language'
+      useCookie: false
     }
   },
   storyblok: { accessToken: process.env.NUXT_ENV_DUMMY_TOKEN },
