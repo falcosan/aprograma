@@ -47,7 +47,7 @@ export default defineNuxtConfig({
     }
   },
   storyblok: {
-    accessToken: 'kiosco_antonio'
+    accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
 
   sourcemap: true,
@@ -78,5 +78,5 @@ export default defineNuxtConfig({
     enabled: false
   },
 
-  compatibilityDate: '2024-11-21'
+  compatibilityDate: '2024-11-26'
 })
