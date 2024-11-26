@@ -1,5 +1,5 @@
-import type { ISbStoriesParams } from 'storyblok-js-client'
 import { fetchStoryblok } from '@/utils/fetch'
+import type { ISbStoriesParams } from 'storyblok-js-client'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
