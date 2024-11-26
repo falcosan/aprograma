@@ -47,7 +47,7 @@ export default defineNuxtConfig({
     }
   },
   storyblok: {
-    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
+    accessToken: process.env.NUXT_ENV_DUMMY_TOKEN
   },
 
   sourcemap: true,
@@ -60,7 +60,10 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
-    future: { nativeSWR: true }
+    future: { nativeSWR: true },
+    prerender: {
+      crawlLinks: true
+    }
   },
 
   routeRules: {
@@ -75,5 +78,5 @@ export default defineNuxtConfig({
     enabled: false
   },
 
-  compatibilityDate: '2024-11-21'
+  compatibilityDate: '2024-11-26'
 })
