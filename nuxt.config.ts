@@ -47,7 +47,7 @@ export default defineNuxtConfig({
     }
   },
   storyblok: {
-    accessToken: process.env.NUXT_ENV_ACCESS_TOKEN
+    accessToken: 'kiosco_antonio'
   },
 
   sourcemap: true,
