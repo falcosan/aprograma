@@ -4,13 +4,7 @@ import HeaderComponent from '@/storyblok/layout/Header'
 import FooterComponent from '@/storyblok/layout/Footer'
 const { locale } = useI18n()
 const { seoLayout } = useSeo()
-const config = useRuntimeConfig()
-
-const layout = await useAsyncStoryblok('layout', {
-  language: locale.value,
-  version: config.public.envApiVersion
-})
-
+const { data: layout } = await useFetcher('layout', { watcher: true })
 seoLayout({ language: locale.value })
 </script>
 
