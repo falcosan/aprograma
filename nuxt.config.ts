@@ -5,9 +5,9 @@ export default defineNuxtConfig({
   runtimeConfig: { ...ENV.Private, public: { ...ENV.Public } },
 
   css: [
+    '~/assets/css/tailwind.css',
     '~/assets/css/main.css',
-    '~/assets/css/theme.css',
-    '~/assets/css/tailwind.css'
+    '~/assets/css/theme.css'
   ],
 
   modules: [
