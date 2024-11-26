@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     defaultLocale: 'en',
     locales: ['en', 'es', 'it'],
     detectBrowserLanguage: {
-      useCookie: false,
+      useCookie: true,
       redirectOn: 'root',
       cookieKey: 'ap_language'
     }
