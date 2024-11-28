@@ -17,13 +17,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.7.0",
+    "@nuxtjs/critters": "^0.8.0",
+    "@pinia/nuxt": "^0.8.0",
     "@storyblok/nuxt": "^6.2.0",
     "@vueuse/core": "^12.0.0",
     "highlight.js": "^11.10.0",
     "marked": "^15.0.2",
     "nuxt": "^3.14.1592",
-    "pinia": "^2.2.7",
+    "pinia": "^2.2.8",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
