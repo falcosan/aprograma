@@ -18,7 +18,6 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
-    '@nuxtjs/critters',
     '@nuxtjs/tailwindcss'
   ],
   image: {
@@ -31,7 +30,6 @@ export default defineNuxtConfig({
     detectBrowserLanguage: { useCookie: false }
   },
   storyblok: { accessToken: process.env.NUXT_ENV_DUMMY_TOKEN },
-  critters: { config: { preload: 'swap' } },
 
   sourcemap: true,
   vite: { build: { chunkSizeWarningLimit: 1000 } },

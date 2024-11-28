@@ -17,7 +17,6 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/critters": "^0.8.0",
     "@pinia/nuxt": "^0.8.0",
     "@storyblok/nuxt": "^6.2.0",
     "@vueuse/core": "^12.0.0",
