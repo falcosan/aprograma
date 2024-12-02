@@ -32,8 +32,10 @@ export default defineNuxtConfig({
   storyblok: { accessToken: process.env.NUXT_ENV_DUMMY_TOKEN },
 
   sourcemap: true,
+  nitro: { compressPublicAssets: true },
   vite: { build: { chunkSizeWarningLimit: 1000 } },
-  nitro: { compressPublicAssets: true, prerender: { crawlLinks: true } },
+
+  experimental: { sharedPrerenderData: true },
 
   devtools: { enabled: false },
   telemetry: { enabled: false },
