@@ -4,7 +4,7 @@ import HeaderComponent from '@/storyblok/layout/Header'
 import FooterComponent from '@/storyblok/layout/Footer'
 const { locale } = useI18n()
 const { seoLayout } = useSeo()
-const { data: layout } = await useFetcher('layout', { watcher: true })
+const { data: layout } = await useFetcher('layout')
 seoLayout({ language: locale.value })
 </script>
 
