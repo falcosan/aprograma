@@ -62,7 +62,8 @@ export default defineNuxtComponent({
   },
   components: { IconComponent, RouteComponent },
   setup(props) {
-    const { $mode, $binaryControl, $scrollToSmoothly } = useNuxtApp()
+    const colorMode = useColorMode()
+    const { $binaryControl, $scrollToSmoothly } = useNuxtApp()
     const state = reactive({
       currentYear: new Date().getFullYear()
     })
@@ -72,7 +73,7 @@ export default defineNuxtComponent({
       $binaryControl(props.blok.background_color, 'color')
     )
     const changeColorMode = () => {
-      $mode.value = $mode.value === 'light' ? 'dark' : 'light'
+      colorMode.preference = colorMode.preference === 'light' ? 'dark' : 'light'
       $scrollToSmoothly(0, 150)
     }
 

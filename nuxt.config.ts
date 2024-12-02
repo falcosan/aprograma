@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     '@nuxtjs/device',
     '@nuxtjs/robots',
     '@storyblok/nuxt',
+    '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss'
   ],
   image: {
@@ -30,6 +31,12 @@ export default defineNuxtConfig({
     detectBrowserLanguage: { useCookie: false }
   },
   storyblok: { accessToken: process.env.NUXT_ENV_DUMMY_TOKEN },
+  colorMode: {
+    classSuffix: '',
+    storageKey: 'ap_mode',
+    storage: 'localStorage',
+    hid: 'ap-color-mode-script'
+  },
 
   sourcemap: true,
   vite: { build: { chunkSizeWarningLimit: 1000 } },
