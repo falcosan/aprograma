@@ -23,7 +23,7 @@ export async function useFetcher<T>(
     return data.story ?? data.stories
   }
 
-  const { data } = await useAsyncData<T>(`${slug}-${locale.value}`, fetchData, {
+  const { data } = await useAsyncData<T>(slug, fetchData, {
     ...(!!options?.watcher && { watch: [locale] })
   })
 
