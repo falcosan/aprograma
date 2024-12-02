@@ -35,7 +35,7 @@ export default defineNuxtConfig({
   nitro: { compressPublicAssets: true },
   vite: { build: { chunkSizeWarningLimit: 1000 } },
 
-  experimental: { sharedPrerenderData: true },
+  experimental: { sharedPrerenderData: true, payloadExtraction: false },
 
   devtools: { enabled: false },
   telemetry: { enabled: false },
