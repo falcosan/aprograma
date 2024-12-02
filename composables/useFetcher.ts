@@ -1,5 +1,6 @@
 type FetcherResult<T> = { data: T }
 type FetcherOptions = {
+  watcher?: boolean
   headers?: HeadersInit
   startsWith?: string | null
 }
@@ -23,7 +24,7 @@ export async function useFetcher<T>(
   }
 
   const { data } = await useAsyncData<T>(`${slug}-${locale.value}`, fetchData, {
-    watch: [locale]
+    ...(!!options?.watcher && { watch: [locale] })
   })
 
   return { data: data as FetcherResult<T>['data'] }
