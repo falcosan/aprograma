@@ -40,11 +40,9 @@ export default defineNuxtConfig({
 
   sourcemap: true,
   vite: { build: { chunkSizeWarningLimit: 1000 } },
-  nitro: { compressPublicAssets: true, prerender: { crawlLinks: true } },
-
-  experimental: { sharedPrerenderData: true },
+  nitro: { compressPublicAssets: true, preset: 'netlify-edge'},
 
   devtools: { enabled: false },
   telemetry: { enabled: false },
-  compatibilityDate: '2024-11-26'
+  compatibilityDate: '2024-12-08'
 })
