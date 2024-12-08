@@ -39,12 +39,11 @@ export default defineNuxtConfig({
   },
 
   sourcemap: true,
+  routeRules: { '/**': { isr: 3600 } },
   vite: { build: { chunkSizeWarningLimit: 1000 } },
   nitro: { compressPublicAssets: true, prerender: { crawlLinks: true } },
 
-  experimental: { sharedPrerenderData: true },
-
   devtools: { enabled: false },
   telemetry: { enabled: false },
-  compatibilityDate: '2024-11-26'
+  compatibilityDate: '2024-12-08'
 })
