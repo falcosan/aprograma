@@ -39,7 +39,7 @@ export default defineNuxtConfig({
   },
 
   sourcemap: true,
-  routeRules: { '/**': { isr: true } },
+  routeRules: { '/**': { swr: true } },
   vite: { build: { chunkSizeWarningLimit: 1000 } },
   nitro: { compressPublicAssets: true, prerender: { crawlLinks: true } },
 
