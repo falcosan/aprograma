@@ -39,8 +39,9 @@ export default defineNuxtConfig({
   },
 
   sourcemap: true,
+  routeRules: { '/**': { isr: true } },
   vite: { build: { chunkSizeWarningLimit: 1000 } },
-  nitro: { compressPublicAssets: true, preset: 'netlify-edge'},
+  nitro: { preset: 'netlify-edge', compressPublicAssets: true },
 
   devtools: { enabled: false },
   telemetry: { enabled: false },
