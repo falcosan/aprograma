@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     '~/assets/css/theme.css'
   ],
 
+  features: { inlineStyles: false },
+
   modules: [
     '@pinia/nuxt',
     '@nuxt/image',
