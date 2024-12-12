@@ -40,7 +40,6 @@ export default defineNuxtConfig({
     hid: 'ap-color-mode-script'
   },
 
-  sourcemap: true,
   routeRules: { '/**': { isr: true } },
   vite: { build: { chunkSizeWarningLimit: 1000 } },
   nitro: { compressPublicAssets: true, prerender: { crawlLinks: true } },
