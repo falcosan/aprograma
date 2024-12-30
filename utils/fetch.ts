@@ -75,36 +75,41 @@ export async function fetchSitemap(): Promise<string> {
   const stream = new SitemapStream({ hostname: process.env.NUXT_ENV_DOMAIN })
   const data = await fetchStoryblok({ language: 'en', query: 'cdn/links' })
 
-  const urls = Object.values(data.links ?? {})
-    .map((link: any) =>
-      link.is_folder || link.is_startpage || !link.slug.includes('/')
-        ? false
-        : link.path?.substring(0, link.path.lastIndexOf('/'))
-    )
-    .filter(
-      (link): link is string =>
-        !!link && !new RegExp(Data.ignore.join('|')).test(link.split('/')[0])
-    )
+  const urls = Object.values(data.links ?? {}).reduce(
+    (acc: any[], link: any) => {
+      if (
+        link.slug &&
+        !link.is_startpage &&
+        !new RegExp([...Data.ignore, ...Data.exclude].join('|')).test(
+          link.slug.split('/')[0]
+        )
+      ) {
+        let priority = 0.3
+        if (/blog/.test(link.slug)) {
+          priority = 0.7
+        } else if (/portfolio/.test(link.slug)) {
+          priority = 0.5
+        }
+        acc.push({ priority, url: link.slug, changefreq: 'monthly' })
+      }
+      return acc
+    },
+    []
+  )
 
-  const links = urls.map((url) => ({
-    url,
-    changefreq: 'monthly',
-    priority: /blog/.test(url) ? 0.7 : /portfolio/.test(url) ? 0.5 : 0.3
-  }))
-
-  return streamToPromise(Readable.from(links).pipe(stream)).then((data) =>
+  return streamToPromise(Readable.from(urls).pipe(stream)).then((data) =>
     data.toString()
   )
 }
 
 export async function fetchStories(): Promise<string[]> {
   const routes: string[] = []
-  const exclude = ['home', 'layout']
-  const res = await fetch(Data.routes(process.env.NUXT_ENV_ACCESS_TOKEN!))
-  const data = await res.json()
+  const data = (await $fetch(
+    Data.routes(process.env.NUXT_ENV_ACCESS_TOKEN!)
+  )) as Record<string, object>
 
   Object.values(data.links ?? {}).forEach((link: any) => {
-    if (link && !exclude.includes(link.slug) && !link.is_startpage) {
+    if (link && !Data.exclude.includes(link.slug) && !link.is_startpage) {
       routes.push(`/${link.slug}`)
     }
   })
