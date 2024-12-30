@@ -72,6 +72,7 @@ export const Data = {
   },
   sitemap: 'sitemap.xml',
   ignore: ['note'],
+  exclude: ['home', 'layout'],
   rss: {
     description: "Aprograma's blog RSS",
     name: 'Daniele Falchetti',
