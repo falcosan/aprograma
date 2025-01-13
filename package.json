@@ -34,7 +34,7 @@
     "@nuxtjs/device": "^3.2.4",
     "@nuxtjs/i18n": "^9.1.1",
     "@nuxtjs/robots": "^5.1.0",
-    "@nuxtjs/tailwindcss": "^6.12.2",
+    "@nuxtjs/tailwindcss": "^6.13.0",
     "@tailwindcss/typography": "^0.5.16",
     "@types/rss": "^0.0.32",
     "eslint": "^9.18.0",
