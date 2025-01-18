@@ -22,15 +22,13 @@ export const useSeo = () => {
 
   const seoStatic = (story: Story) => {
     const meta = [{ name: 'description', content: story.description || '' }]
-    if (config.public.envProductionDomain) {
-      useHeadSafe({
-        title: story.name || '',
-        meta,
-        link: [
-          { rel: 'canonical', href: `${config.public.envDomain}${routeName}` }
-        ]
-      })
-    }
+    useHeadSafe({
+      title: story.name || '',
+      meta,
+      link: [
+        { rel: 'canonical', href: `${config.public.envDomain}${routeName}` }
+      ]
+    })
   }
 
   const seoDynamic = (story: Story) => {
@@ -71,15 +69,13 @@ export const useSeo = () => {
       })
     }
 
-    if (config.public.envProductionDomain) {
-      useHeadSafe({
-        title: story.content?.title || '',
-        meta,
-        link: [
-          { rel: 'canonical', href: `${config.public.envDomain}${routeName}` }
-        ]
-      })
-    }
+    useHeadSafe({
+      title: story.content?.title || '',
+      meta,
+      link: [
+        { rel: 'canonical', href: `${config.public.envDomain}${routeName}` }
+      ]
+    })
   }
 
   const seoLayout = (story: Story) => {
@@ -104,19 +100,17 @@ export const useSeo = () => {
       { name: 'monetization', content: config.public.envPaymentPointer }
     ]
 
-    if (config.public.envProductionDomain) {
-      useHeadSafe({
-        htmlAttrs: { lang: story.language || 'en' },
-        title: Data.meta.title,
-        titleTemplate: (title) =>
-          title !== Data.meta.title ? `${title} - ${Data.name}` : title,
-        meta,
-        link: [
-          { rel: 'canonical', href: config.public.envDomain },
-          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-        ]
-      })
-    }
+    useHeadSafe({
+      htmlAttrs: { lang: story.language || 'en' },
+      title: Data.meta.title,
+      titleTemplate: (title) =>
+        title !== Data.meta.title ? `${title} - ${Data.name}` : title,
+      meta,
+      link: [
+        { rel: 'canonical', href: config.public.envDomain },
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ]
+    })
   }
 
   return { seoStatic, seoDynamic, seoLayout }
